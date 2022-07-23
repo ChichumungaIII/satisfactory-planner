@@ -22,7 +22,7 @@ class RationalMValue(
 
     /** This [RationalMValue] with its component parts reduced. */
     private val norm by lazy {
-        if (m.norm() == m && v.norm() == v) this
+        if (m.norm() === m && v.norm() === v) this
         else RationalMValue(m.norm(), v.norm())
     }
 
@@ -50,7 +50,7 @@ class RationalMValue(
 
     operator fun times(other: RationalMValue): RationalMValue {
         check(m == Rational.ZERO || other.m == Rational.ZERO) {
-            "Cannot multiply [$this * $other]: at least one must have a zero `M` part."
+            "Cannot multiply [($this) * ($other)]: at least one must have a zero `M` part."
         }
         return RationalMValue(
             m * other.v + other.m * v,
@@ -58,10 +58,9 @@ class RationalMValue(
         )
     }
 
-    operator fun div(other: RationalMValue) {
+    operator fun div(other: RationalMValue) =
         if (other.m == Rational.ZERO) RationalMValue(m / other.v, v / other.v)
         else RationalMValue(Rational.ZERO, m / other.m)
-    }
 
     override operator fun compareTo(other: RationalMValue) =
         compareBy<RationalMValue> { it.m }.thenBy { it.v }.compare(this, other)
