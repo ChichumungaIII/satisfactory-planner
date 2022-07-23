@@ -12,7 +12,7 @@ import kotlin.math.abs
 class Rational private constructor(
     private val n: Long,
     private val d: Long,
-) {
+) : Number(), Comparable<Rational> {
     companion object {
         val ZERO = create(0)
         val ONE = create(1)
@@ -42,13 +42,13 @@ class Rational private constructor(
     }
 
     /** @property norm The reduced form of this Rational number. */
-    private val norm: Rational by lazy {
+    private val norm by lazy {
         val gcd = gcd(n, d)
         if (gcd == 1L) this else Rational(n / gcd, d / gcd)
     }
 
     /**
-     * Returns this Rational number in reduced form.
+     * Returns this [Rational] number in reduced form.
      *
      * If the number is already reduced, returns this Rational number.
      */
@@ -81,7 +81,7 @@ class Rational private constructor(
             other.n * d
         )
 
-    operator fun compareTo(other: Rational) =
+    override operator fun compareTo(other: Rational) =
         (n * other.d).compareTo(other.n * d)
 
     /** Returns true if [other] is a [Rational] number numerically equal to this. */
@@ -91,4 +91,14 @@ class Rational private constructor(
     override fun hashCode() = (norm.n * 31 + norm.d).toInt()
 
     override fun toString() = if (d == 1L) "$n" else "$n/$d"
+
+    override fun toDouble() = n.toDouble() / d
+    override fun toFloat() = toDouble().toFloat()
+
+    override fun toLong() = n / d
+    override fun toInt() = toLong().toInt()
+    override fun toShort() = toLong().toShort()
+    override fun toByte() = toLong().toByte()
+
+    override fun toChar() = toInt().toChar()
 }
