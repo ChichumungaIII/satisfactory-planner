@@ -14,6 +14,9 @@ class Rational private constructor(
     private val d: Long,
 ) {
     companion object {
+        val ZERO = create(0)
+        val ONE = create(1)
+
         /**
          * Creates a new [Rational] number, n / d.
          *
