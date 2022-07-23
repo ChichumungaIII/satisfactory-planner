@@ -36,7 +36,7 @@ class RationalTest {
     }
 
     @Test
-    fun unaryMinus_returnsNegatedValue() {
+    fun unaryMinus_returnsNegation() {
         val value = Rational.create(1, 2)
         assertEquals(Rational.create(-1, 2), -value)
     }
