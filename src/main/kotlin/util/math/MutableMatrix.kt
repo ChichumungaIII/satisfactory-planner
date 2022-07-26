@@ -38,11 +38,14 @@ class MutableMatrix<T> private constructor(
     /* Cell manipulation */
 
     fun get(row: Int, column: Int) = cells[row][column]
-    fun set(row: Int, column: Int, value: T) {
-        cells[row][column] = value
+    fun set(row: Int, column: Int, value: T) = update(row, column) { value }
+    fun update(row: Int, column: Int, transform: (T) -> T) {
+        cells[row][column] = transform(cells[row][column])
     }
 
     /* Matrix manipulation */
+
+    fun row(row: Int) = cells[row]
 
     fun addRow(row: Int, initial: T) = addRow(row) { initial }
     fun addRow(row: Int, filler: (column: Int) -> T) {
@@ -51,6 +54,8 @@ class MutableMatrix<T> private constructor(
             cells[row].add(filler(column))
         }
     }
+
+    fun column(column: Int) = cells.map { it[column] }
 
     fun addColumn(column: Int, initial: T) = addColumn(column) { initial }
     fun addColumn(column: Int, filler: (row: Int) -> T) {

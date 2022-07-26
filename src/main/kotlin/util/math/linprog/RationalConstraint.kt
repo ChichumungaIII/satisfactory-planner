@@ -21,8 +21,6 @@ class RationalConstraint<T> private constructor(
 
     class Builder<T> {
         private val expression = RationalExpression.Builder<T>()
-        private var comparison: Comparison? = null
-        private var result: Rational? = null
 
         /** Sets [terms] in this constraint's [RationalExpression]. */
         fun set(vararg terms: Pair<T, Rational>): Builder<T> {
@@ -36,26 +34,12 @@ class RationalConstraint<T> private constructor(
             return this
         }
 
-        fun atLeast(result: Rational) {
-            comparison = Comparison.AT_LEAST
-            this.result = result
-        }
-
-        fun atMost(result: Rational) {
-            comparison = Comparison.AT_MOST
-            this.result = result
-        }
-
-        fun equalTo(result: Rational) {
-            comparison = Comparison.EQUAL_TO
-            this.result = result
-        }
+        fun atLeast(result: Rational) = build(Comparison.AT_LEAST, result)
+        fun atMost(result: Rational) = build(Comparison.AT_MOST, result)
+        fun equalTo(result: Rational) = build(Comparison.EQUAL_TO, result)
 
         /** Builds the [RationalConstraint]. */
-        fun build() = RationalConstraint(
-            expression.build(),
-            checkNotNull(comparison) { "Comparison cannot be null." },
-            checkNotNull(result) { "Result cannot be null." }
-        )
+        private fun build(comparison: Comparison, result: Rational) =
+            RationalConstraint(expression.build(), comparison, result)
     }
 }

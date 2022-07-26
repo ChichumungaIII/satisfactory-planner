@@ -17,7 +17,7 @@ class RationalMValue(
     companion object {
         val ZERO = RationalMValue(Rational.ZERO, Rational.ZERO)
         val ONE = RationalMValue(Rational.ZERO, Rational.ONE)
-        val ONE_M = RationalMValue(Rational.ONE, Rational.ZERO)
+        val M = RationalMValue(Rational.ONE, Rational.ZERO)
     }
 
     /** This [RationalMValue] with its component parts reduced. */
@@ -32,6 +32,16 @@ class RationalMValue(
      * If the parts are already reduced, returns this RationalMValue.
      */
     fun norm() = norm
+
+    /**
+     * Returns the "normal" part of this [RationalMValue].
+     *
+     * @throws IllegalStateException if this [RationalMValue] does not have a zero "M" part.
+     */
+    fun toRational(): Rational {
+        check(m == Rational.ZERO) { "[$this] cannot be converted to Rational." }
+        return v
+    }
 
     operator fun unaryPlus() = this
     operator fun unaryMinus() = RationalMValue(-m, -v)
