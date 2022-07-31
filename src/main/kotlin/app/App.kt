@@ -1,5 +1,6 @@
 package app
 
+import app.themes.ThemeModule
 import csstype.px
 import mui.lab.TabContext
 import mui.lab.TabPanel
@@ -16,53 +17,55 @@ import react.Props
 import react.ReactNode
 import react.useState
 
-external interface AppProps: Props
+external interface AppProps : Props
 
 val App = FC<AppProps> { _ ->
     var tab by useState("0")
 
-    AppBar {
-        Typography {
-            variant = TypographyVariant.h1
-            +"Satisfactory Planner"
-        }
-    }
-
-    TabContext {
-        value = tab
-
-        Box {
-            sx {
-                marginTop = 112.px
-            }
-
-            Tabs {
-                variant = TabsVariant.fullWidth
-                value = tab
-                onChange = { _, next -> tab = next as String }
-
-                Tab {
-                    value = "0"
-
-                    label = ReactNode("Production Plans")
-                }
-                Tab {
-                    value = "1"
-
-                    label = ReactNode("Factories")
-                }
+    ThemeModule {
+        AppBar {
+            Typography {
+                variant = TypographyVariant.h1
+                +"Satisfactory Planner"
             }
         }
 
-        TabPanel {
-            value = "0"
+        TabContext {
+            value = tab
 
-            ProductionPlans {}
-        }
-        TabPanel {
-            value = "1"
+            Box {
+                sx {
+                    marginTop = 58.px
+                }
 
-            Factories {}
+                Tabs {
+                    variant = TabsVariant.fullWidth
+                    value = tab
+                    onChange = { _, next -> tab = next as String }
+
+                    Tab {
+                        value = "0"
+
+                        label = ReactNode("Production Plans")
+                    }
+                    Tab {
+                        value = "1"
+
+                        label = ReactNode("Factories")
+                    }
+                }
+            }
+
+            TabPanel {
+                value = "0"
+
+                ProductionPlans {}
+            }
+            TabPanel {
+                value = "1"
+
+                Factories {}
+            }
         }
     }
 }
