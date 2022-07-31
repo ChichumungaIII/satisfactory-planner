@@ -1,9 +1,10 @@
 package app
 
-import app.themes.ThemeModule
 import react.FC
 import react.Props
+import react.create
 import react.createElement
+import react.router.Navigate
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
@@ -16,12 +17,16 @@ val Routing = FC<Props> {
                 element = createElement(App)
 
                 Route {
+                    path = ""
+                    element = Navigate.create { to = "/production" }
+                }
+                Route {
                     path = "production"
-                    element = createElement(ProductionPlans)
+                    element = ProductionPlans.create()
                 }
                 Route {
                     path = "factories"
-                    element = createElement(Factories)
+                    element = Factories.create()
                 }
             }
         }
