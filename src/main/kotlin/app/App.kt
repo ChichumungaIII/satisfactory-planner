@@ -1,5 +1,6 @@
 package app
 
+import app.themes.ThemeModule
 import csstype.Display
 import csstype.FlexDirection
 import csstype.Padding
@@ -31,69 +32,71 @@ val App = FC<Props> {
 
     var isOpen by useState(false)
 
-    AppBar {
-        sx {
-            zIndex = integer(1300)
+    ThemeModule {
+        AppBar {
+            sx {
+                zIndex = integer(1300)
 
-            display = Display.flex
-            flexDirection = FlexDirection.row
+                display = Display.flex
+                flexDirection = FlexDirection.row
 
-            padding = Padding(8.px, 16.px)
-        }
-
-        IconButton {
-            if (isOpen) {
-                MenuOpen { sx { color = rgb(255, 255, 255) } }
-            } else {
-                Menu { sx { color = rgb(255, 255, 255) } }
+                padding = Padding(8.px, 16.px)
             }
-            onClick = { isOpen = !isOpen }
+
+            IconButton {
+                if (isOpen) {
+                    MenuOpen { sx { color = rgb(255, 255, 255) } }
+                } else {
+                    Menu { sx { color = rgb(255, 255, 255) } }
+                }
+                onClick = { isOpen = !isOpen }
+            }
+
+            Typography {
+                variant = TypographyVariant.h1
+                +"Satisfactory Planner"
+            }
         }
 
-        Typography {
-            variant = TypographyVariant.h1
-            +"Satisfactory Planner"
-        }
-    }
+        Drawer {
+            open = isOpen
 
-    Drawer {
-        open = isOpen
+            Box {
+                sx {
+                    marginTop = TOOLBAR_HEIGHT
+                }
+                MenuList {
+                    MenuItem {
+                        onClick = {
+                            navigate("/production")
+                            isOpen = false
+                        }
+
+                        ListItemText {
+                            +"Production Plans"
+                        }
+                    }
+
+                    MenuItem {
+                        onClick = {
+                            navigate("/factories")
+                            isOpen = false
+                        }
+
+                        ListItemText {
+                            +"Factories"
+                        }
+                    }
+                }
+            }
+        }
 
         Box {
             sx {
                 marginTop = TOOLBAR_HEIGHT
             }
-            MenuList {
-                MenuItem {
-                    onClick = {
-                        navigate("/production")
-                        isOpen = false
-                    }
 
-                    ListItemText {
-                        +"Production Plans"
-                    }
-                }
-
-                MenuItem {
-                    onClick = {
-                        navigate("/factories")
-                        isOpen = false
-                    }
-
-                    ListItemText {
-                        +"Factories"
-                    }
-                }
-            }
+            Outlet {}
         }
-    }
-
-    Box {
-        sx {
-            marginTop = TOOLBAR_HEIGHT
-        }
-
-        Outlet {}
     }
 }
