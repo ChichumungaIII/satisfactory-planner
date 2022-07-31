@@ -1,4 +1,4 @@
-package app
+package app.factory
 
 import mui.material.Typography
 import mui.material.styles.TypographyVariant

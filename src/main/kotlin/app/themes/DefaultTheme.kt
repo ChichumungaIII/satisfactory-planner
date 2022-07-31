@@ -11,7 +11,7 @@ val DefaultTheme = createTheme(
                 fontWeight = 400
             }
             h2 = jso {
-                fontSize = 24
+                fontSize = 30
             }
         }
     })
