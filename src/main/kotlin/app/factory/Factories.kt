@@ -1,16 +1,13 @@
 package app.factory
 
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
+import app.Header
 import react.FC
 import react.Props
 
 external interface FactoriesProps : Props
 
 val Factories = FC<FactoriesProps> { _ ->
-    Typography {
-        variant = TypographyVariant.h2
-
-        +"Factories"
+    Header {
+        title = "Factories"
     }
 }
