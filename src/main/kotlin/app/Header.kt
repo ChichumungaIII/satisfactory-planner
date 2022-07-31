@@ -50,7 +50,9 @@ val Header = FC<HeaderProps> { props ->
         this.close = { isOpen = false }
     }
 
-    HeaderSpacer {}
+    HeaderSpacer {
+        this.isOpen = isOpen
 
-    +props.children
+        +props.children
+    }
 }

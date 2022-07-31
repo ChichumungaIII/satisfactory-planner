@@ -1,6 +1,7 @@
 package app
 
 import mui.material.Drawer
+import mui.material.DrawerVariant
 import mui.material.ListItemText
 import mui.material.MenuItem
 import mui.material.MenuList
@@ -18,6 +19,7 @@ val NavMenu = FC<NavMenuProps> { props ->
 
     Drawer {
         open = props.isOpen
+        variant = DrawerVariant.persistent
 
         HeaderSpacer {}
         MenuList {
