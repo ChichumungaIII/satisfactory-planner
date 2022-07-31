@@ -3,15 +3,21 @@ package app.plan
 import app.Header
 import app.PlansContext
 import app.model.Plan
+import csstype.Display
+import csstype.FlexDirection
+import csstype.px
+import mui.icons.material.Add
 import mui.lab.TabContext
 import mui.lab.TabPanel
 import mui.material.Box
 import mui.material.Tab
 import mui.material.Tabs
 import mui.material.TabsVariant
+import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
+import react.create
 import react.useContext
 import react.useState
 
@@ -42,13 +48,22 @@ val ProductionPlans = FC<ProductionPlansProps> {
                     }
 
                     Tab {
+                        sx {
+                            flexDirection = FlexDirection.row
+                        }
+
                         value = "new"
                         onClick = {
                             val plan = Plan()
                             plans = plans + plan
                             selected = "${plan.id()}"
                         }
-                        label = ReactNode("New Plan")
+                        label = Box.create {
+                            sx { display = Display.contents }
+
+                            Add { sx { marginTop = (-2).px } }
+                            +"New Plan"
+                        }
                     }
                 }
             }
