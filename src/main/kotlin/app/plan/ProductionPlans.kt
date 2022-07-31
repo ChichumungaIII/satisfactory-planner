@@ -5,6 +5,7 @@ import app.PlansContext
 import app.model.Plan
 import csstype.Display
 import csstype.FlexDirection
+import csstype.Padding
 import csstype.px
 import mui.icons.material.Add
 import mui.lab.TabContext
@@ -70,10 +71,12 @@ val ProductionPlans = FC<ProductionPlansProps> {
 
             plans.forEach { plan ->
                 TabPanel {
+                    sx { padding = Padding(0.px, 0.px) }
                     value = "${plan.id()}"
-                    +plan.title()
-                    +" "
-                    +plan.id().toString()
+
+                    ProductionPlan {
+                        this.plan = plan
+                    }
                 }
             }
         }
