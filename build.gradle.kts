@@ -23,6 +23,7 @@ dependencies {
     implementation(kotlinw("mui-icons"))
     implementation(kotlinw("react"))
     implementation(kotlinw("react-dom"))
+    implementation(kotlinw("react-router-dom"))
 }
 
 kotlin {

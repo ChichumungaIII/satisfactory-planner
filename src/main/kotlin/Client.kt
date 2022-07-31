@@ -1,4 +1,4 @@
-import app.App
+import app.AppModule
 import kotlinx.browser.document
 import react.create
 import react.dom.client.createRoot
@@ -6,5 +6,5 @@ import react.dom.client.createRoot
 fun main() {
     val container = document.createElement("div")
     document.body!!.appendChild(container)
-    createRoot(container).render(App.create())
+    createRoot(container).render(AppModule.create())
 }
