@@ -1,6 +1,6 @@
 package app.plan
 
-import app.model.Plan
+import app.model.PlanModel
 import csstype.FlexDirection
 import csstype.Padding
 import csstype.px
@@ -17,16 +17,16 @@ import react.create
 import react.createContext
 import react.useState
 
-val PlanContext = createContext<StateInstance<Plan>>()
+val PlanModelContext = createContext<StateInstance<PlanModel>>()
 
-external interface ProductionPlanProps : Props {
-    var plan: Plan
+external interface PlanProps : Props {
+    var plan: PlanModel
 }
 
-val ProductionPlan = FC<ProductionPlanProps> { props ->
+val Plan = FC<PlanProps> { props ->
     val plan = useState(props.plan)
 
-    PlanContext(plan) {
+    PlanModelContext(plan) {
         Accordion {
             disableGutters = true
 

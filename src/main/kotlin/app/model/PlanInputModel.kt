@@ -1,8 +1,9 @@
 package app.model
 
+import app.model.game.u5.Item
 import util.math.Rational
 
-data class PlanInput(
+data class PlanInputModel(
     private val item: Item = Item.IRON_ORE,
     private val maximum: Rational = Rational.ZERO,
     private val minimum: Rational?,

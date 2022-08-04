@@ -1,6 +1,6 @@
 package app
 
-import app.model.Plan
+import app.model.PlanModel
 import app.themes.ThemeModule
 import react.FC
 import react.Props
@@ -9,10 +9,10 @@ import react.createContext
 import react.router.Outlet
 import react.useState
 
-val PlansContext = createContext<StateInstance<List<Plan>>>()
+val PlansContext = createContext<StateInstance<List<PlanModel>>>()
 
 val App = FC<Props> {
-    val plans = useState(listOf<Plan>())
+    val plans = useState(listOf<PlanModel>())
 
     ThemeModule {
         PlansContext(plans) {

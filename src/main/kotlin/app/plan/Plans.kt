@@ -2,7 +2,7 @@ package app.plan
 
 import app.Header
 import app.PlansContext
-import app.model.Plan
+import app.model.PlanModel
 import csstype.Display
 import csstype.FlexDirection
 import csstype.Padding
@@ -22,9 +22,9 @@ import react.create
 import react.useContext
 import react.useState
 
-external interface ProductionPlansProps : Props
+external interface PlansProps : Props
 
-val ProductionPlans = FC<ProductionPlansProps> {
+val Plans = FC<PlansProps> {
     var plans by useContext(PlansContext)
 
     var selected by useState("new")
@@ -55,7 +55,7 @@ val ProductionPlans = FC<ProductionPlansProps> {
 
                         value = "new"
                         onClick = {
-                            val plan = Plan()
+                            val plan = PlanModel()
                             plans = plans + plan
                             selected = "${plan.id()}"
                         }
@@ -74,7 +74,7 @@ val ProductionPlans = FC<ProductionPlansProps> {
                     sx { padding = Padding(0.px, 0.px) }
                     value = "${plan.id()}"
 
-                    ProductionPlan {
+                    Plan {
                         this.plan = plan
                     }
                 }

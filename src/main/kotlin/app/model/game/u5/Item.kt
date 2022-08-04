@@ -1,4 +1,4 @@
-package app.model
+package app.model.game.u5
 
 enum class Item(
     private val displayName: String,
