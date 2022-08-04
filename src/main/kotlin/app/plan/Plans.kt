@@ -74,9 +74,7 @@ val Plans = FC<PlansProps>("Plans") {
                     sx { padding = Padding(0.px, 0.px) }
                     value = "${plan.id()}"
 
-                    Plan {
-                        this.plan = plan
-                    }
+                    Plan { this.plan = plan }
                 }
             }
         }
