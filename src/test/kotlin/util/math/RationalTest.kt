@@ -3,10 +3,36 @@ package util.math
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 class RationalTest {
+    @Test
+    fun parse_matchesRationalNumber() {
+        assertEquals(Rational.create(-7, 4), Rational.parse(" -7 / 4 "))
+    }
+
+    @Test
+    fun parse_matchesWholeNumber() {
+        assertEquals(Rational.create(5), Rational.parse("5"))
+    }
+
+    @Test
+    fun parse_matchesDecimalNumber() {
+        assertEquals(Rational.create(-7, 4), Rational.parse("-1.75"))
+    }
+
+    @Test
+    fun parse_handlesLeadingZeros() {
+        assertEquals(Rational.create(101, 100), Rational.parse("01.01"))
+    }
+
+    @Test
+    fun parse_returnsNullOtherwise() {
+        assertNull(Rational.parse("Unknown"))
+    }
+
     @Test
     fun create_normalizesSign() {
         assertEquals(Rational.create(-2, 3), Rational.create(2, -3))
