@@ -14,7 +14,7 @@ external interface NavMenuProps : Props {
     var close: () -> Unit
 }
 
-val NavMenu = FC<NavMenuProps> { props ->
+val NavMenu = FC<NavMenuProps>("NavMenu") { props ->
     val navigate = useNavigate()
 
     Drawer {

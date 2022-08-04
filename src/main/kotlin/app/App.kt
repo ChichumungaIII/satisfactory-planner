@@ -11,7 +11,7 @@ import react.useState
 
 val PlansContext = createContext<StateInstance<List<PlanModel>>>()
 
-val App = FC<Props> {
+val App = FC<Props>("App") {
     val plans = useState(listOf<PlanModel>())
 
     ThemeModule {

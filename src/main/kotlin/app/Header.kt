@@ -21,7 +21,7 @@ external interface HeaderProps : PropsWithChildren {
     var title: String
 }
 
-val Header = FC<HeaderProps> { props ->
+val Header = FC<HeaderProps>("Header") { props ->
     var isOpen by useState(false)
 
     AppBar {

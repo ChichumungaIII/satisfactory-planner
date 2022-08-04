@@ -13,7 +13,7 @@ typealias ThemeState = StateInstance<Theme>
 
 val ThemeContext = createContext<ThemeState>()
 
-val ThemeModule = FC<PropsWithChildren> { props ->
+val ThemeModule = FC<PropsWithChildren>("ThemeModule") { props ->
     val state = useState(DefaultTheme)
     val (theme) = state
 

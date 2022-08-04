@@ -11,7 +11,7 @@ import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
 
-val Routing = FC<Props> {
+val Routing = FC<Props>("Routing") {
     BrowserRouter {
         Routes {
             Route {

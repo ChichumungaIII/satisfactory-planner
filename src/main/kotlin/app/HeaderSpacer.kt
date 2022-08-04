@@ -13,7 +13,7 @@ external interface HeaderSpacerProps : PropsWithChildren {
     var isOpen: Boolean
 }
 
-val HeaderSpacer = FC<HeaderSpacerProps> { props ->
+val HeaderSpacer = FC<HeaderSpacerProps>("HeaderSpacer") { props ->
     val theme by useContext(ThemeContext)
 
     Box {

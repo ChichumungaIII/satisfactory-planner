@@ -6,7 +6,7 @@ import react.Props
 
 external interface FactoriesProps : Props
 
-val Factories = FC<FactoriesProps> { _ ->
+val Factories = FC<FactoriesProps>("Factories") { _ ->
     Header {
         title = "Factories"
     }

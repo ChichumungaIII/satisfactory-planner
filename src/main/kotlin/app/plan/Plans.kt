@@ -24,7 +24,7 @@ import react.useState
 
 external interface PlansProps : Props
 
-val Plans = FC<PlansProps> {
+val Plans = FC<PlansProps>("Plans") {
     var plans by useContext(PlansContext)
 
     var selected by useState("new")

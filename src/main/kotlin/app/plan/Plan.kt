@@ -23,7 +23,7 @@ external interface PlanProps : Props {
     var plan: PlanModel
 }
 
-val Plan = FC<PlanProps> { props ->
+val Plan = FC<PlanProps>("Plan") { props ->
     val plan = useState(props.plan)
 
     PlanModelContext(plan) {
