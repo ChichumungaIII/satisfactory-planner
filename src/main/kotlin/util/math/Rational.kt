@@ -17,6 +17,28 @@ class Rational private constructor(
         val ZERO = create(0)
         val ONE = create(1)
 
+        private val RATIONAL_OR_DECIMAL = Regex("""(-)?(\d+)(\s*/\s*(\d+)|\.(\d+))?""")
+
+        /**
+         * Parses [text] as a Rational number.
+         *
+         * [text] may be either a rational number (e.g. "-7 / 4"), or a decimal (e.g. "-1.75").
+         */
+        fun parse(text: String): Rational? {
+            val match = RATIONAL_OR_DECIMAL.matchEntire(text.trim()) ?: return null
+            val sign = if (match.groupValues[1].isEmpty()) ONE else -ONE
+            val principal = match.groupValues[2].toLong().toRational()
+            val denominator = match.groupValues[4].takeIf { it.isNotEmpty() }?.toLong()?.toRational() ?: ONE
+            val decimal = match.groupValues[5].takeIf { it.isNotEmpty() }?.asDecimal() ?: ZERO
+            return sign * (principal / denominator + decimal).norm()
+        }
+
+        private fun String.asDecimal(): Rational {
+            var decimal = toLong().toRational()
+            for (i in indices) decimal /= 10.toRational()
+            return decimal
+        }
+
         /**
          * Creates a new [Rational] number, n / d.
          *
