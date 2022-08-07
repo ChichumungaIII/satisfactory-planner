@@ -27,40 +27,38 @@ val Plans = FC<PlansProps>("Plans") {
 
     TabContext {
         value = selected
-        Box {
-            Tabs {
-                variant = TabsVariant.scrollable
+        Tabs {
+            variant = TabsVariant.scrollable
 
-                value = selected
-                onChange = { _, next -> selected = next as String }
+            value = selected
+            onChange = { _, next -> selected = next as String }
 
-                plans.forEach { plan ->
-                    Tab {
-                        sx { width = 192.px }
-                        wrapped = true
+            plans.forEach { plan ->
+                Tab {
+                    sx { width = 192.px }
+                    wrapped = true
 
-                        value = "${plan.id()}"
-                        label = ReactNode(plan.title())
-                    }
+                    value = "${plan.id()}"
+                    label = ReactNode(plan.title())
+                }
+            }
+
+            Tab {
+                sx {
+                    flexDirection = FlexDirection.row
                 }
 
-                Tab {
-                    sx {
-                        flexDirection = FlexDirection.row
-                    }
+                value = "new"
+                onClick = {
+                    val plan = PlanModel()
+                    plans = plans + plan
+                    selected = "${plan.id()}"
+                }
+                label = Box.create {
+                    sx { display = Display.contents }
 
-                    value = "new"
-                    onClick = {
-                        val plan = PlanModel()
-                        plans = plans + plan
-                        selected = "${plan.id()}"
-                    }
-                    label = Box.create {
-                        sx { display = Display.contents }
-
-                        Add { sx { marginTop = (-2).px } }
-                        +"New Plan"
-                    }
+                    Add { sx { marginTop = (-2).px } }
+                    +"New Plan"
                 }
             }
         }

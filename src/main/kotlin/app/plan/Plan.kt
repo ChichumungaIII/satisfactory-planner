@@ -13,7 +13,6 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.create
-import react.useState
 
 external interface PlanProps : Props {
     var plan: PlanModel
@@ -21,12 +20,10 @@ external interface PlanProps : Props {
 }
 
 val Plan = FC<PlanProps>("Plan") { props ->
-    val plan by useState(props.plan)
-
     PlanHeader {
-        title = plan.title()
+        title = props.plan.title()
         setTitle = { newTitle ->
-            props.setPlan(plan.copy(title = newTitle))
+            props.setPlan(props.plan.copy(title = newTitle))
         }
     }
 
