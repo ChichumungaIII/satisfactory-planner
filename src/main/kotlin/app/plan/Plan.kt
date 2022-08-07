@@ -2,6 +2,7 @@ package app.plan
 
 import app.model.PlanInputModel
 import app.model.PlanModel
+import app.util.PropsDelegate
 import csstype.FlexDirection
 import csstype.Padding
 import csstype.px
@@ -28,10 +29,12 @@ external interface PlanProps : Props {
 }
 
 val Plan = FC<PlanProps>("Plan") { props ->
+    var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
+
     PlanHeader {
-        title = props.plan.title()
+        title = plan.title()
         setTitle = { newTitle ->
-            props.setPlan(props.plan.setTitle(newTitle))
+            plan = plan.setTitle(newTitle)
         }
 
         onDelete = { props.onDelete() }
@@ -42,7 +45,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
         Summary { title = "Inputs" }
         AccordionDetails {
-            props.plan.inputs().forEach { planInput ->
+            plan.inputs().forEach { planInput ->
                 Box { +planInput.item().displayName() }
             }
 
@@ -52,7 +55,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
                 Add { fontSize = SvgIconSize.medium }
 
                 onClick = {
-                    props.setPlan(props.plan.addInput(PlanInputModel()))
+                    plan = plan.addInput(PlanInputModel())
                 }
             }
         }
