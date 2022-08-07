@@ -16,8 +16,11 @@ import mui.material.DialogActions
 import mui.material.DialogContent
 import mui.material.DialogContentText
 import mui.material.DialogTitle
+import mui.material.Fab
+import mui.material.FabColor
 import mui.material.IconButton
 import mui.material.IconButtonColor
+import mui.material.Size
 import mui.material.SvgIconSize
 import mui.material.TextField
 import mui.material.Typography
@@ -54,6 +57,7 @@ val PlanHeader = FC<PlanHeaderProps>("PlanHeader") { props ->
 
         IconButton {
             color = IconButtonColor.default
+            size = Size.medium
             Edit { fontSize = SvgIconSize.inherit }
 
             onClick = { edit = true }
@@ -61,9 +65,10 @@ val PlanHeader = FC<PlanHeaderProps>("PlanHeader") { props ->
 
         Box { sx { flex = Flex(number(1.0), number(0.0)) } }
 
-        IconButton {
-            color = IconButtonColor.warning
-            Delete { fontSize = SvgIconSize.inherit }
+        Fab {
+            color = FabColor.warning
+            size = Size.medium
+            Delete { fontSize = SvgIconSize.medium }
 
             onClick = { delete = true }
         }

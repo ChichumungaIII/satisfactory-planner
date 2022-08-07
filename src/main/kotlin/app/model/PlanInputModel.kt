@@ -6,7 +6,7 @@ import util.math.Rational
 data class PlanInputModel(
     private val item: Item = Item.IRON_ORE,
     private val maximum: Rational = Rational.ZERO,
-    private val minimum: Rational?,
+    private val minimum: Rational? = null,
 ) {
     fun item() = item
     fun maximum() = maximum
