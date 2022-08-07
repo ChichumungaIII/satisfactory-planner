@@ -43,6 +43,9 @@ val Plans = FC<PlansProps>("Plans") {
 
                     plans.forEach { plan ->
                         Tab {
+                            sx { width = 192.px }
+                            wrapped = true
+
                             value = "${plan.id()}"
                             label = ReactNode(plan.title())
                         }
