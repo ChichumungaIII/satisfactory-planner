@@ -17,6 +17,7 @@ import react.useState
 
 external interface PlanProps : Props {
     var plan: PlanModel
+    var setPlan: (PlanModel) -> Unit
 }
 
 val Plan = FC<PlanProps>("Plan") { props ->
@@ -24,7 +25,9 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
     PlanHeader {
         title = plan.title()
-        setTitle = { newTitle -> }
+        setTitle = { newTitle ->
+            props.setPlan(plan.copy(title = newTitle))
+        }
     }
 
     Accordion {

@@ -72,12 +72,17 @@ val Plans = FC<PlansProps>("Plans") {
                 }
             }
 
-            plans.forEach { plan ->
+            plans.withIndex().forEach { (i, plan) ->
                 TabPanel {
                     sx { padding = Padding(0.px, 0.px) }
                     value = "${plan.id()}"
 
-                    Plan { this.plan = plan }
+                    Plan {
+                        this.plan = plan
+                        setPlan = { newPlan ->
+                            plans = plans.subList(0, i) + newPlan + plans.subList(i + 1, plans.size)
+                        }
+                    }
                 }
             }
         }
