@@ -14,16 +14,15 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
-import react.PropsWithChildren
-import react.useState
+import react.Props
 
-external interface HeaderProps : PropsWithChildren {
+external interface HeaderProps : Props {
     var title: String
+    var isOpen: Boolean
+    var toggle: () -> Unit
 }
 
 val Header = FC<HeaderProps>("Header") { props ->
-    var isOpen by useState(false)
-
     AppBar {
         sx {
             padding = Padding(12.px, 12.px)
@@ -34,8 +33,8 @@ val Header = FC<HeaderProps>("Header") { props ->
         }
 
         IconButton {
-            (if (isOpen) MenuOpen else Menu) { sx { color = Colors.white } }
-            onClick = { isOpen = !isOpen }
+            (if (props.isOpen) MenuOpen else Menu) { sx { color = Colors.white } }
+            onClick = { props.toggle() }
         }
 
         Typography {
@@ -43,16 +42,5 @@ val Header = FC<HeaderProps>("Header") { props ->
             variant = TypographyVariant.h1
             +props.title
         }
-    }
-
-    NavMenu {
-        this.isOpen = isOpen
-        this.close = { isOpen = false }
-    }
-
-    HeaderSpacer {
-        this.isOpen = isOpen
-
-        +props.children
     }
 }
