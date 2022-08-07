@@ -17,6 +17,7 @@ import react.create
 external interface PlanProps : Props {
     var plan: PlanModel
     var setPlan: (PlanModel) -> Unit
+    var onDelete: () -> Unit
 }
 
 val Plan = FC<PlanProps>("Plan") { props ->
@@ -25,6 +26,8 @@ val Plan = FC<PlanProps>("Plan") { props ->
         setTitle = { newTitle ->
             props.setPlan(props.plan.copy(title = newTitle))
         }
+
+        onDelete = { props.onDelete() }
     }
 
     Accordion {

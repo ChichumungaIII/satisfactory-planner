@@ -19,11 +19,13 @@ import react.ReactNode
 import react.create
 import react.useState
 
+const val NEW_PLAN_ID = "new"
+
 external interface PlansProps : Props
 
 val Plans = FC<PlansProps>("Plans") {
     var plans by useState(listOf<PlanModel>())
-    var selected by useState("new")
+    var selected by useState(NEW_PLAN_ID)
 
     TabContext {
         value = selected
@@ -48,7 +50,7 @@ val Plans = FC<PlansProps>("Plans") {
                     flexDirection = FlexDirection.row
                 }
 
-                value = "new"
+                value = NEW_PLAN_ID
                 onClick = {
                     val plan = PlanModel()
                     plans = plans + plan
@@ -70,8 +72,12 @@ val Plans = FC<PlansProps>("Plans") {
 
                 Plan {
                     this.plan = plan
-                    setPlan = { newPlan ->
+                    this.setPlan = { newPlan ->
                         plans = plans.subList(0, i) + newPlan + plans.subList(i + 1, plans.size)
+                    }
+                    this.onDelete = {
+                        plans = plans.subList(0, i) + plans.subList(i + 1, plans.size)
+                        selected = NEW_PLAN_ID
                     }
                 }
             }

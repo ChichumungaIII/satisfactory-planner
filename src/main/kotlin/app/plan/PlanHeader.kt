@@ -14,6 +14,7 @@ import mui.material.ButtonVariant
 import mui.material.Dialog
 import mui.material.DialogActions
 import mui.material.DialogContent
+import mui.material.DialogContentText
 import mui.material.DialogTitle
 import mui.material.IconButton
 import mui.material.IconButtonColor
@@ -30,10 +31,12 @@ import react.useState
 external interface PlanHeaderProps : Props {
     var title: String
     var setTitle: (String) -> Unit
+    var onDelete: () -> Unit
 }
 
 val PlanHeader = FC<PlanHeaderProps>("PlanHeader") { props ->
     var edit by useState(false)
+    var delete by useState(false)
 
     Box {
         sx {
@@ -61,6 +64,8 @@ val PlanHeader = FC<PlanHeaderProps>("PlanHeader") { props ->
         IconButton {
             color = IconButtonColor.warning
             Delete { fontSize = SvgIconSize.inherit }
+
+            onClick = { delete = true }
         }
     }
 
@@ -94,6 +99,33 @@ val PlanHeader = FC<PlanHeaderProps>("PlanHeader") { props ->
                 }
 
                 +"Save"
+            }
+        }
+    }
+
+    Dialog {
+        open = delete
+
+        DialogTitle { +"Delete Plan" }
+        DialogContent {
+            DialogContentText {
+                +"Are you sure you want to delete \"${props.title}\"?"
+            }
+        }
+        DialogActions {
+            Button {
+                variant = ButtonVariant.outlined
+                onClick = { delete = false }
+
+                +"Cancel"
+            }
+            Button {
+                variant = ButtonVariant.contained
+                onClick = {
+                    props.onDelete()
+                }
+
+                +"Delete"
             }
         }
     }
