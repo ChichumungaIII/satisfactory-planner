@@ -1,7 +1,6 @@
 package app.plan
 
 import app.Header
-import app.PlansContext
 import app.model.PlanModel
 import csstype.Display
 import csstype.FlexDirection
@@ -19,14 +18,12 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
-import react.useContext
 import react.useState
 
 external interface PlansProps : Props
 
 val Plans = FC<PlansProps>("Plans") {
-    var plans by useContext(PlansContext)
-
+    var plans by useState(listOf<PlanModel>())
     var selected by useState("new")
 
     Header {
