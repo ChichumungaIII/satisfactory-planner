@@ -2,18 +2,19 @@ package app.common
 
 import app.model.game.u5.Item
 import app.util.PropsDelegate
+import csstype.Padding
 import csstype.px
 import kotlinx.js.jso
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
 import mui.material.TextField
-import mui.system.PropsWithSx
 import mui.system.sx
 import react.FC
+import react.Props
 import react.ReactNode
 import react.create
 
-external interface ItemAutocompleteProps : PropsWithSx {
+external interface ItemAutocompleteProps : Props {
     var item: Item
     var setItem: (Item) -> Unit
 }
@@ -25,7 +26,10 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
 
     @Suppress("UPPER_BOUND_VIOLATED")
     Autocomplete<AutocompleteProps<ItemAutocompleteOption>> {
-        sx { width = 256.px }
+        sx {
+            width = 256.px
+            padding = Padding(0.px, 12.px)
+        }
 
         disablePortal = true
         renderInput = { params ->

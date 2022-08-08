@@ -34,6 +34,8 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
         }
 
         IconButton {
+            sx { height = 56.px }
+
             color = IconButtonColor.default
             size = Size.large
             Close { fontSize = SvgIconSize.inherit }
@@ -42,10 +44,15 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
         }
 
         ItemAutocomplete {
-            sx { margin = Margin(0.px, 12.px) }
-
             item = input.item()
             setItem = { next -> input = input.setItem(next) }
+        }
+
+        PlanInputTarget {
+            sx { display = Display.contents }
+
+            target = input.target()
+            setTarget = { next -> input = input.setTarget(next) }
         }
     }
 }
