@@ -2,6 +2,7 @@ package app.plan
 
 import app.model.PlanInputModel
 import app.model.PlanModel
+import app.model.PlanProductModel
 import app.util.PropsDelegate
 import csstype.FlexDirection
 import csstype.Margin
@@ -51,12 +52,8 @@ val Plan = FC<PlanProps>("Plan") { props ->
                     isFirst = i == 0
 
                     input = planInput
-                    setInput = { nextInput ->
-                        plan = plan.setInput(i, nextInput)
-                    }
-                    onDelete = {
-                        plan = plan.removeInput(i)
-                    }
+                    setInput = { next -> plan = plan.setInput(i, next) }
+                    onDelete = { plan = plan.removeInput(i) }
                 }
             }
 
@@ -83,7 +80,35 @@ val Plan = FC<PlanProps>("Plan") { props ->
         disableGutters = true
 
         Summary { title = "Products" }
-        AccordionDetails {}
+        AccordionDetails {
+            plan.products().withIndex().forEach { (i, planProduct) ->
+                PlanProduct {
+                    isFirst = i == 0
+
+                    product = planProduct
+                    setProduct = { next -> plan = plan.setProduct(i, next) }
+                    onDelete = { plan = plan.removeProduct(i) }
+                }
+            }
+
+            Box {
+                sx {
+                    margin = if (plan.inputs().isEmpty())
+                        Margin(0.px, 0.px, 12.px)
+                    else Margin(12.px, 0.px)
+                }
+
+                Fab {
+                    color = FabColor.primary
+                    size = Size.large
+                    Add { fontSize = SvgIconSize.medium }
+
+                    onClick = {
+                        plan = plan.addProduct(PlanProductModel())
+                    }
+                }
+            }
+        }
     }
 }
 
