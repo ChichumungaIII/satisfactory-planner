@@ -7,13 +7,13 @@ import kotlinx.js.jso
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
 import mui.material.TextField
+import mui.system.PropsWithSx
 import mui.system.sx
 import react.FC
-import react.Props
 import react.ReactNode
 import react.create
 
-external interface ItemAutocompleteProps : Props {
+external interface ItemAutocompleteProps : PropsWithSx {
     var item: Item
     var setItem: (Item) -> Unit
 }

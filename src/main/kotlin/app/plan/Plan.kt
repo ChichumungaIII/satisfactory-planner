@@ -4,6 +4,7 @@ import app.model.PlanInputModel
 import app.model.PlanModel
 import app.util.PropsDelegate
 import csstype.FlexDirection
+import csstype.Margin
 import csstype.Padding
 import csstype.px
 import mui.icons.material.Add
@@ -11,6 +12,7 @@ import mui.icons.material.ExpandMore
 import mui.material.Accordion
 import mui.material.AccordionDetails
 import mui.material.AccordionSummary
+import mui.material.Box
 import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
@@ -46,20 +48,33 @@ val Plan = FC<PlanProps>("Plan") { props ->
         AccordionDetails {
             plan.inputs().withIndex().forEach { (i, planInput) ->
                 PlanInput {
+                    isFirst = i == 0
+
                     input = planInput
                     setInput = { nextInput ->
                         plan = plan.setInput(i, nextInput)
                     }
+                    onDelete = {
+                        plan = plan.removeInput(i)
+                    }
                 }
             }
 
-            Fab {
-                color = FabColor.primary
-                size = Size.medium
-                Add { fontSize = SvgIconSize.medium }
+            Box {
+                sx {
+                    margin = if (plan.inputs().isEmpty())
+                        Margin(0.px, 0.px, 12.px)
+                    else Margin(12.px, 0.px)
+                }
 
-                onClick = {
-                    plan = plan.addInput(PlanInputModel())
+                Fab {
+                    color = FabColor.primary
+                    size = Size.large
+                    Add { fontSize = SvgIconSize.medium }
+
+                    onClick = {
+                        plan = plan.addInput(PlanInputModel())
+                    }
                 }
             }
         }

@@ -19,4 +19,7 @@ data class PlanModel(
 
     fun setInput(i: Int, input: PlanInputModel) =
         copy(inputs = inputs.subList(0, i) + input + inputs.subList(i + 1, inputs.size))
+
+    fun removeInput(i: Int) =
+        copy(inputs = inputs.subList(0, i) + inputs.subList(i + 1, inputs.size))
 }
