@@ -11,7 +11,6 @@ import mui.icons.material.ExpandMore
 import mui.material.Accordion
 import mui.material.AccordionDetails
 import mui.material.AccordionSummary
-import mui.material.Box
 import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
@@ -45,8 +44,13 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
         Summary { title = "Inputs" }
         AccordionDetails {
-            plan.inputs().forEach { planInput ->
-                Box { +planInput.item().displayName() }
+            plan.inputs().withIndex().forEach { (i, planInput) ->
+                PlanInput {
+                    input = planInput
+                    setInput = { nextInput ->
+                        plan = plan.setInput(i, nextInput)
+                    }
+                }
             }
 
             Fab {

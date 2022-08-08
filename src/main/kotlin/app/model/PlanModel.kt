@@ -11,8 +11,8 @@ data class PlanModel(
     fun id() = id
     fun inputs() = inputs
 
-    fun setTitle(newTitle: String) =
-        copy(title = newTitle)
+    fun setTitle(title: String) =
+        copy(title = title)
 
     fun addInput(input: PlanInputModel) =
         copy(inputs = inputs + input)

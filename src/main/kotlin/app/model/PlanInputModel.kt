@@ -11,4 +11,7 @@ data class PlanInputModel(
     fun item() = item
     fun maximum() = maximum
     fun minimum() = minimum
+
+    fun setItem(item: Item) =
+        copy(item = item)
 }
