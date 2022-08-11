@@ -1,5 +1,7 @@
 package app.model
 
+import app.model.game.u5.Recipe
+import util.math.q
 import kotlin.random.Random
 
 data class PlanModel(
@@ -7,7 +9,7 @@ data class PlanModel(
     private val id: Int = Random.Default.nextInt(),
     private val inputs: List<PlanInputModel> = listOf(),
     private val products: List<PlanProductModel> = listOf(),
-    private val outcome: PlanOutcomeModel,
+    private val outcome: PlanOutcomeModel? = null,
 ) {
     fun title() = title
     fun id() = id
@@ -38,4 +40,16 @@ data class PlanModel(
 
     fun setOutcome(outcome: PlanOutcomeModel) =
         copy(outcome = outcome)
+
+    fun optimize(): PlanModel {
+        return copy(
+            outcome = PlanOutcomeModel(
+                mapOf(
+                    Recipe.IRON_INGOT to 4.q,
+                    Recipe.IRON_PLATE to 8.q,
+                    Recipe.ROTOR to 5.q / 3.q,
+                )
+            )
+        )
+    }
 }

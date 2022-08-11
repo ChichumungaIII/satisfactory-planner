@@ -14,10 +14,18 @@ import mui.material.Accordion
 import mui.material.AccordionDetails
 import mui.material.AccordionSummary
 import mui.material.Box
+import mui.material.Button
+import mui.material.ButtonVariant
 import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
 import mui.material.SvgIconSize
+import mui.material.Table
+import mui.material.TableBody
+import mui.material.TableCell
+import mui.material.TableContainer
+import mui.material.TableHead
+import mui.material.TableRow
 import mui.material.Typography
 import mui.system.sx
 import react.FC
@@ -76,6 +84,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
             }
         }
     }
+
     Accordion {
         disableGutters = true
 
@@ -107,6 +116,48 @@ val Plan = FC<PlanProps>("Plan") { props ->
                         plan = plan.addProduct(PlanProductModel())
                     }
                 }
+            }
+        }
+    }
+
+    Accordion {
+        disableGutters = true
+        defaultExpanded = false
+
+        Summary { title = "Outcome" }
+        AccordionDetails {
+            Button {
+                variant = ButtonVariant.contained
+                onClick = { plan = plan.optimize() }
+
+                if (plan.outcome() == null) {
+                    +"Calculate"
+                } else {
+                    +"Recalculate"
+                }
+            }
+
+            when (val outcome = plan.outcome()) {
+                null -> {}
+                else ->
+                    TableContainer {
+                        Table {
+                            TableHead {
+                                TableRow {
+                                    TableCell { +"Recipe" }
+                                    TableCell { +"Rate" }
+                                }
+                            }
+                            TableBody {
+                                outcome.recipes().forEach { (recipe, rate) ->
+                                    TableRow {
+                                        TableCell { +recipe.name }
+                                        TableCell { +"$rate | (${rate.toDouble()})" }
+                                    }
+                                }
+                            }
+                        }
+                    }
             }
         }
     }
