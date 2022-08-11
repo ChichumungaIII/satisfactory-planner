@@ -7,11 +7,13 @@ data class PlanModel(
     private val id: Int = Random.Default.nextInt(),
     private val inputs: List<PlanInputModel> = listOf(),
     private val products: List<PlanProductModel> = listOf(),
+    private val outcome: PlanOutcomeModel,
 ) {
     fun title() = title
     fun id() = id
     fun inputs() = inputs
     fun products() = products
+    fun outcome() = outcome
 
     fun setTitle(title: String) =
         copy(title = title)
@@ -33,4 +35,7 @@ data class PlanModel(
 
     fun removeProduct(i: Int) =
         copy(products = products.subList(0, i) + products.subList(i + 1, products.size))
+
+    fun setOutcome(outcome: PlanOutcomeModel) =
+        copy(outcome = outcome)
 }
