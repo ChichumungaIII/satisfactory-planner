@@ -3,8 +3,6 @@ package app.model.game.u5
 enum class Item(
     private val displayName: String,
 ) {
-    COPPER_INGOT("Copper Ingot"),
-    COPPER_ORE("Copper Ore"),
     IRON_INGOT("Iron Ingot"),
     IRON_ORE("Iron Ore"),
     IRON_PLATE("Iron Plate"),
