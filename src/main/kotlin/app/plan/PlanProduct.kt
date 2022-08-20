@@ -47,5 +47,12 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             item = product.item()
             setItem = { next -> product = product.setItem(next) }
         }
+
+        val maximum = product.maximum()
+        if (maximum != null) {
+            Box {
+                +"Maximum: $maximum | (${maximum.toDouble()})"
+            }
+        }
     }
 }
