@@ -38,11 +38,19 @@ enum class Recipe(
     ),
     ;
 
+    fun time() = time
+    fun inputs() = inputs
+    fun products() = products
+
+    fun components() = products() + inputs().map { -it }
+
     data class Component(
         private val item: Item,
         private val quantity: Rational
     ) {
         fun item() = item
         fun quantity() = quantity
+
+        operator fun unaryMinus(): Component = copy(quantity = -quantity)
     }
 }
