@@ -79,6 +79,12 @@ fun <T> maximize(
             .minBy { it.value }
             .index
 
+        // Ensure coefficients are always positive.
+        matrix.column(matrix.columns() - 1).withIndex()
+            .take(matrix.rows() - 1)
+            .filter { (_, coefficient) -> coefficient < RationalMValue.ZERO }
+            .forEach { (row, _) -> matrix.update(row, matrix.columns() - 1) { -it } }
+
         // The ideal row minimizes (right-hand side) / (positive coefficient) in that column.
         val row = matrix.column(column).withIndex()
             .take(matrix.rows() - 1)
