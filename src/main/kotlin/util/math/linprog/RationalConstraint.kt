@@ -8,6 +8,24 @@ class RationalConstraint<T> private constructor(
     val comparison: Comparison,
     val result: Rational,
 ) {
+    companion object {
+        fun <T> atLeast(expression: RationalExpression<T>, result: Rational) =
+            RationalConstraint(expression, Comparison.AT_LEAST, result)
+
+        fun <T> atMost(expression: RationalExpression<T>, result: Rational) =
+            RationalConstraint(expression, Comparison.AT_MOST, result)
+
+        fun <T> equalTo(expression: RationalExpression<T>, result: Rational) =
+            RationalConstraint(expression, Comparison.EQUAL_TO, result)
+    }
+
+    override fun toString() =
+        expression.toString() + when (comparison) {
+            Comparison.AT_LEAST -> "<="
+            Comparison.AT_MOST -> ">="
+            Comparison.EQUAL_TO -> "="
+        } + result
+
     enum class Comparison {
         /** Expression must be at least the result; i.e. >= */
         AT_LEAST,
