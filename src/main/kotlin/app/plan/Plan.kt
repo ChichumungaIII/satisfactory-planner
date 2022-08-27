@@ -31,6 +31,7 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.create
+import util.math.q
 
 external interface PlanProps : Props {
     var plan: PlanModel
@@ -42,10 +43,8 @@ val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
     PlanHeader {
-        title = plan.title()
-        setTitle = { newTitle ->
-            plan = plan.setTitle(newTitle)
-        }
+        title = plan.title
+        setTitle = { next -> plan = plan.copy(title = next) }
 
         onDelete = { props.onDelete() }
     }
@@ -55,7 +54,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
         Summary { title = "Inputs" }
         AccordionDetails {
-            plan.inputs().withIndex().forEach { (i, planInput) ->
+            plan.inputs.withIndex().forEach { (i, planInput) ->
                 PlanInput {
                     isFirst = i == 0
 
@@ -67,8 +66,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
             Box {
                 sx {
-                    margin = if (plan.inputs().isEmpty())
-                        Margin(0.px, 0.px, 12.px)
+                    margin = if (plan.inputs.isEmpty()) Margin(0.px, 0.px, 12.px)
                     else Margin(12.px, 0.px)
                 }
 
@@ -90,7 +88,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
         Summary { title = "Products" }
         AccordionDetails {
-            plan.products().withIndex().forEach { (i, planProduct) ->
+            plan.products.withIndex().forEach { (i, planProduct) ->
                 PlanProduct {
                     isFirst = i == 0
 
@@ -102,8 +100,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
             Box {
                 sx {
-                    margin = if (plan.inputs().isEmpty())
-                        Margin(0.px, 0.px, 12.px)
+                    margin = if (plan.products.isEmpty()) Margin(0.px, 0.px, 12.px)
                     else Margin(12.px, 0.px)
                 }
 
@@ -130,34 +127,39 @@ val Plan = FC<PlanProps>("Plan") { props ->
                 variant = ButtonVariant.contained
                 onClick = { plan = plan.optimize() }
 
-                if (plan.outcome() == null) {
+                if (plan.outcome == null) {
                     +"Calculate"
                 } else {
                     +"Recalculate"
                 }
             }
 
-            when (val outcome = plan.outcome()) {
+            when (val outcome = plan.outcome) {
                 null -> {}
-                else ->
-                    TableContainer {
-                        Table {
-                            TableHead {
-                                TableRow {
-                                    TableCell { +"Recipe" }
-                                    TableCell { +"Rate" }
-                                }
-                            }
-                            TableBody {
-                                outcome.recipes().forEach { (recipe, rate) ->
-                                    TableRow {
-                                        TableCell { +recipe.name }
-                                        TableCell { +"$rate | (${rate.toDouble()})" }
-                                    }
-                                }
+                else -> TableContainer {
+                    Table {
+                        TableHead {
+                            TableRow {
+                                TableCell { +"Recipe" }
+                                TableCell { +"Rate" }
+                                TableCell { +" Exact" }
                             }
                         }
+                        TableBody {
+                            outcome.recipes.filter { (_, rate) -> rate > 0.q }
+                                .forEach { (recipe, rate) ->
+                                    TableRow {
+                                        TableCell { +recipe.name }
+                                        TableCell {
+                                            val percent = (rate * 100.q).toDouble()
+                                            +"${percent.asDynamic().toFixed(4)}%"
+                                        }
+                                        TableCell { +"$rate" }
+                                    }
+                                }
+                        }
                     }
+                }
             }
         }
     }

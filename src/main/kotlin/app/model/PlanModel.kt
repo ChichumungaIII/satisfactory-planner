@@ -10,21 +10,17 @@ import util.math.q
 import kotlin.random.Random
 
 data class PlanModel(
-    private val title: String = "Production Plan",
-    private val id: Int = Random.Default.nextInt(),
-    private val inputs: List<PlanInputModel> = listOf(),
-    private val products: List<PlanProductModel> = listOf(),
-    private val outcome: PlanOutcomeModel? = null,
+    /** The title of this Plan. Set by user input. */
+    val title: String = "Production Plan",
+    /** A random ID assigned to this Plan, for React tracking. */
+    val id: Int = Random.Default.nextInt(),
+    /** The inputs provided to this Plan. */
+    val inputs: List<PlanInputModel> = listOf(),
+    /** The products produced by this Plan. */
+    val products: List<PlanProductModel> = listOf(),
+    /** The calculated outcome of this plan. */
+    val outcome: PlanOutcomeModel? = null,
 ) {
-    fun title() = title
-    fun id() = id
-    fun inputs() = inputs
-    fun products() = products
-    fun outcome() = outcome
-
-    fun setTitle(title: String) =
-        copy(title = title)
-
     fun addInput(input: PlanInputModel) =
         copy(inputs = inputs + input)
 
@@ -44,35 +40,36 @@ data class PlanModel(
         copy(products = products.subList(0, i) + products.subList(i + 1, products.size))
 
     fun optimize(): PlanModel {
-        if (inputs().isEmpty() || products().isEmpty()) {
+        if (inputs.isEmpty() || products.isEmpty()) {
             return copy(outcome = null)
         }
 
         // TODO: Replace with a plan and phase-specific recipe set
         val expressions = consider(*Recipe.values())
-        check(expressions.keys.containsAll(products().map { it.item() }))
+        check(expressions.keys.containsAll(products.map { it.item }))
 
-        val provisions = inputs().groupingBy { it.item() }.fold(0.q) { total, input -> total + input.target() }
-        val requirements = products().groupingBy { it.item() }.fold(0.q) { total, product -> total + product.target() }
+        val provisions =
+            inputs.groupingBy { it.item }.fold(0.q) { total, input -> total + input.provision }
+        val requirements = products.groupingBy { it.item }
+            .fold(0.q) { total, product -> total + product.requirement }
 
-        val objective = expressions[products[0].item()]!!
+        val objective = expressions[products[0].item]!!
         val constraints = expressions.map { (item, expression) ->
-            toConstraint(expression, requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q })
-        } + products().drop(1).map { it.item() }.map { item ->
+            toConstraint(
+                expression,
+                requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q })
+        } + products.drop(1).map { it.item }.map { item ->
             RationalConstraint.equalTo(expressions[item]!! - objective, 0.q)
         }
 
         val solution = maximize(objective, *constraints.toTypedArray())
 
-        val products = products().map { product ->
-            val maximum = expressions[product.item()]!!(solution)
-            product.copy(
-                target = maximum,
-                maximum = maximum,
-            )
+        val nextProducts = products.map { product ->
+            val target = expressions[product.item]!!(solution).norm()
+            product.copy(target = target)
         }
-        val outcome = PlanOutcomeModel(solution)
-        return copy(products = products, outcome = outcome)
+        val nextOutcome = PlanOutcomeModel(solution)
+        return copy(products = nextProducts, outcome = nextOutcome)
     }
 
     private fun consider(vararg recipes: Recipe): Map<Item, RationalExpression<Recipe>> {

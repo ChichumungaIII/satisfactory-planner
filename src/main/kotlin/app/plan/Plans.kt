@@ -40,8 +40,8 @@ val Plans = FC<PlansProps>("Plans") {
                     sx { width = 192.px }
                     wrapped = true
 
-                    value = "${plan.id()}"
-                    label = ReactNode(plan.title())
+                    value = "${plan.id}"
+                    label = ReactNode(plan.title)
                 }
             }
 
@@ -54,7 +54,7 @@ val Plans = FC<PlansProps>("Plans") {
                 onClick = {
                     val plan = PlanModel()
                     plans = plans + plan
-                    selected = "${plan.id()}"
+                    selected = "${plan.id}"
                 }
                 label = Box.create {
                     sx { display = Display.contents }
@@ -68,7 +68,7 @@ val Plans = FC<PlansProps>("Plans") {
         plans.withIndex().forEach { (i, plan) ->
             TabPanel {
                 sx { padding = Padding(0.px, 0.px) }
-                value = "${plan.id()}"
+                value = "${plan.id}"
 
                 Plan {
                     this.plan = plan

@@ -44,15 +44,15 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
         }
 
         ItemAutocomplete {
-            item = input.item()
-            setItem = { next -> input = input.setItem(next) }
+            item = input.item
+            setItem = { next -> input = input.copy(item = next) }
         }
 
         PlanInputTarget {
             sx { display = Display.contents }
 
-            target = input.target()
-            setTarget = { next -> input = input.setTarget(next) }
+            target = input.provision
+            setTarget = { next -> input = input.copy(provision = next) }
         }
     }
 }

@@ -44,14 +44,14 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
         }
 
         ItemAutocomplete {
-            item = product.item()
-            setItem = { next -> product = product.setItem(next) }
+            item = product.item
+            setItem = { next -> product = product.copy(item = next) }
         }
 
-        val maximum = product.maximum()
-        if (maximum != null) {
+        val target = product.target
+        if (target != null) {
             Box {
-                +"Maximum: $maximum | (${maximum.toDouble()})"
+                +"Target: ${target.toDouble().asDynamic().toFixed(4)} | ($target)"
             }
         }
     }
