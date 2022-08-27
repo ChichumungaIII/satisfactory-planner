@@ -9,6 +9,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.dom.onChange
+import react.useState
 import util.math.Rational
 
 external interface RationalInputProps : Props {
@@ -25,7 +26,9 @@ external interface RationalInputProps : Props {
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
-    var text by PropsDelegate(props.text ?: props.value?.toString() ?: "") { next -> props.setText?.invoke(next) }
+    var managedText by PropsDelegate(props.text) { next -> next?.let { props.setText?.invoke(it) } }
+    var stateText by useState(props.value?.toString() ?: "")
+
     var error by PropsDelegate(props.error ?: false) { next -> props.setError?.invoke(next) }
     var errorMessage by PropsDelegate(props.errorMessage ?: "") { next -> props.setErrorMessage?.invoke(next) }
 
@@ -38,10 +41,14 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
         this.error = error
         if (error) helperText = ReactNode(errorMessage)
 
-        value = text
+        value = managedText ?: stateText
         onChange = { event ->
             val nextText = event.target.asDynamic().value as String
-            text = nextText
+            if (managedText == null) {
+                stateText = nextText
+            } else {
+                managedText = nextText
+            }
 
             val next = Rational.parse(nextText)
             props.setValue(next)

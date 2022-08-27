@@ -48,11 +48,13 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             setItem = { next -> input = input.copy(item = next) }
         }
 
-        PlanInputTarget {
+        PlanInputProvisionInput {
             sx { display = Display.contents }
 
-            target = input.provision
-            setTarget = { next -> input = input.copy(provision = next) }
+            provision = input.provision
+            setProvision = { next -> input = input.copy(provision = next) }
+
+            minimum = input.minimum
         }
     }
 }
