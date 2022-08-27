@@ -1,5 +1,6 @@
 package app.common
 
+import app.util.PropsDelegate
 import csstype.px
 import mui.material.FormControlVariant
 import mui.material.TextField
@@ -8,17 +9,25 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.dom.onChange
-import react.useState
 import util.math.Rational
 
 external interface RationalInputProps : Props {
     var value: Rational?
     var setValue: (Rational?) -> Unit
+
+    var text: String?
+    var setText: ((String) -> Unit)?
+
+    var error: Boolean?
+    var setError: ((Boolean) -> Unit)?
+    var errorMessage: String?
+    var setErrorMessage: ((String) -> Unit)?
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
-    var text by useState(props.value?.toString() ?: "")
-    var error by useState(false)
+    var text by PropsDelegate(props.text ?: props.value?.toString() ?: "") { next -> props.setText?.invoke(next) }
+    var error by PropsDelegate(props.error ?: false) { next -> props.setError?.invoke(next) }
+    var errorMessage by PropsDelegate(props.errorMessage ?: "") { next -> props.setErrorMessage?.invoke(next) }
 
     TextField {
         sx {
@@ -27,7 +36,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
 
         variant = FormControlVariant.outlined
         this.error = error
-        if (error) helperText = ReactNode("Value must be a rational ")
+        if (error) helperText = ReactNode(errorMessage)
 
         value = text
         onChange = { event ->
@@ -37,7 +46,12 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
             val next = Rational.parse(nextText)
             props.setValue(next)
 
-            error = nextText.isNotEmpty() && next == null
+            if (nextText.isEmpty()) {
+                error = false
+            } else if (next == null) {
+                error = true
+                errorMessage = "Value must be rational."
+            }
         }
     }
 }

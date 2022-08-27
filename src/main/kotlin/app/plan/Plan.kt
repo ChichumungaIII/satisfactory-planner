@@ -51,6 +51,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
     Accordion {
         disableGutters = true
+        defaultExpanded = true
 
         Summary { title = "Inputs" }
         AccordionDetails {
@@ -85,6 +86,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
     Accordion {
         disableGutters = true
+        defaultExpanded = true
 
         Summary { title = "Products" }
         AccordionDetails {
