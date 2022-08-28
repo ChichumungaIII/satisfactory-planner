@@ -7,7 +7,6 @@ import mui.material.Box
 import mui.system.PropsWithSx
 import react.FC
 import react.ReactNode
-import react.useState
 import util.math.Rational
 
 external interface PlanProductRequirementInputProps : PropsWithSx {
@@ -20,20 +19,12 @@ external interface PlanProductRequirementInputProps : PropsWithSx {
 val PlanProductRequirementInput = FC<PlanProductRequirementInputProps>("PlanProductRequirementInput") { props ->
     var requirement by PropsDelegate(props.requirement) { next -> props.setRequirement(next) }
 
-    var error by useState(false)
-    var errorMessage by useState("")
-
     Box {
         RationalInput {
             label = ReactNode("Minimum desired")
 
             value = requirement
             setValue = { next -> next?.let { requirement = it } }
-
-            this.error = error
-            setError = { next -> error = next }
-            this.errorMessage = errorMessage
-            setErrorMessage = { next -> errorMessage = next }
 
             validators = listOf { value ->
                 val maximum = props.maximum

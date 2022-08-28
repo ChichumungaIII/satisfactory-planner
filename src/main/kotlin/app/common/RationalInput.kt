@@ -21,11 +21,6 @@ external interface RationalInputProps : Props {
     var text: String?
     var setText: ((String) -> Unit)?
 
-    var error: Boolean?
-    var setError: ((Boolean) -> Unit)?
-    var errorMessage: String?
-    var setErrorMessage: ((String) -> Unit)?
-
     var validators: List<(Rational) -> RationalValidation>
 }
 
@@ -33,8 +28,8 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
     var managedText by PropsDelegate(props.text) { next -> next?.let { props.setText?.invoke(it) } }
     var stateText by useState(props.value?.toString() ?: "")
 
-    var error by PropsDelegate(props.error ?: false) { next -> props.setError?.invoke(next) }
-    var errorMessage by PropsDelegate(props.errorMessage ?: "") { next -> props.setErrorMessage?.invoke(next) }
+    var error by useState(false)
+    var errorMessage by useState<String?>(null)
 
     TextField {
         sx {
@@ -45,7 +40,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
         props.label?.let { label = it }
 
         this.error = error
-        if (error) helperText = ReactNode(errorMessage)
+        if (error) errorMessage?.let { helperText = ReactNode(it) }
 
         value = managedText ?: stateText
         onChange = { event ->
@@ -70,7 +65,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
                     error = false
                 } else {
                     error = true
-                    errorMessage = validation.message ?: ""
+                    errorMessage = validation.message
                 }
             }
         }
