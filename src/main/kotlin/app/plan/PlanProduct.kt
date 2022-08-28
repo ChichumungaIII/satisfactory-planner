@@ -60,7 +60,14 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
         val target = product.target
         if (target != null) {
             Box {
-                +"Target: ${target.toDouble().asDynamic().toFixed(4)} | ($target)"
+                +"Produced: ${target.toDecimal(4)} | ($target)"
+            }
+        }
+
+        val maximum = product.maximum
+        if (maximum != null) {
+            Box {
+                +"Maximum: ${maximum.toDecimal(4)} ($maximum)"
             }
         }
     }

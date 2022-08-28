@@ -6,6 +6,7 @@ import util.math.Rational
 import util.math.RationalExpression
 import util.math.linprog.RationalConstraint
 import util.math.linprog.maximize
+import util.math.linprog.minimize
 import util.math.q
 import kotlin.random.Random
 
@@ -53,25 +54,66 @@ data class PlanModel(
         val requirements = products.groupingBy { it.item }
             .fold(0.q) { total, product -> total + product.requirement }
 
-        val objective = expressions[products[0].item]!!
-        val constraints = expressions.map { (item, expression) ->
+        /* PRIMARY PLAN */
+
+        val primaryObjective = expressions[products[0].item]!!
+        val primaryConstraints = expressions.map { (item, expression) ->
             val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
             RationalConstraint.atLeast(expression, result)
         } + products.drop(1).map { it.item }.map { item ->
             RationalConstraint.equalTo(
-                expressions[item]!! - objective,
+                expressions[item]!! - primaryObjective,
                 requirements[item]!! - requirements[products[0].item]!!
             )
         }
+        val nextOutcome = PlanOutcomeModel(maximize(primaryObjective, *primaryConstraints.toTypedArray()))
 
-        val solution = maximize(objective, *constraints.toTypedArray())
+        /* MINIMUMS FOR INPUTS */
 
-        val nextProducts = products.map { product ->
-            val target = expressions[product.item]!!(solution).norm()
-            product.copy(target = target)
+        val inputMinimums = mutableMapOf<Item, Rational>()
+        inputs.map { it.item }.forEach { supplied ->
+            val objective = -expressions[supplied]!!
+            val constraints = expressions.map { (item, expression) ->
+                val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
+                RationalConstraint.atLeast(expression, result)
+            }
+
+            val solution = minimize(objective, *constraints.toTypedArray())
+            inputMinimums[supplied] = objective(solution)
         }
-        val nextOutcome = PlanOutcomeModel(solution)
-        return copy(products = nextProducts, outcome = nextOutcome)
+
+        /* MAXIMUMS FOR PRODUCTS */
+
+        val productMaximums = mutableMapOf<Item, Rational>()
+        products.map { it.item }.forEach { produced ->
+            val objective = expressions[produced]!!
+            val constraints = expressions.map { (item, expression) ->
+                val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
+                RationalConstraint.atLeast(expression, result)
+            }
+            val solution = maximize(objective, *constraints.toTypedArray())
+            productMaximums[produced] = objective(solution)
+        }
+
+        /* FINAL COMPILATION */
+
+        val nextInputs = inputs.map { input ->
+            input.copy(
+                target = -expressions[input.item]!!(nextOutcome.recipes).norm(),
+                minimum = maxOf(inputMinimums[input.item]!!.norm(), 0.q),
+            )
+        }
+        val nextProducts = products.map { product ->
+            product.copy(
+                target = expressions[product.item]!!(nextOutcome.recipes).norm(),
+                maximum = productMaximums[product.item]!!.norm()
+            )
+        }
+        return copy(
+            inputs = nextInputs,
+            products = nextProducts,
+            outcome = nextOutcome,
+        )
     }
 
     private fun consider(vararg recipes: Recipe): Map<Item, RationalExpression<Recipe>> {
@@ -84,8 +126,4 @@ data class PlanModel(
         }
         return expressions.mapValues { (_, expression) -> expression.build() }
     }
-
-    private fun toConstraint(expression: RationalExpression<Recipe>, result: Rational) =
-        if (result < 0.q) RationalConstraint.atMost(-expression, -result)
-        else RationalConstraint.atLeast(expression, result)
 }

@@ -56,5 +56,19 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
 
             minimum = input.minimum
         }
+
+        val target = input.target
+        if (target != null) {
+            Box {
+                +"Consumed: ${target.toDecimal(4)} | ($target)"
+            }
+        }
+
+        val minimum = input.minimum
+        if (minimum != null) {
+            Box {
+                +"Required: ${minimum.toDecimal(4)} ($minimum)"
+            }
+        }
     }
 }

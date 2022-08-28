@@ -240,4 +240,35 @@ class RationalSimplexTest {
         assertEquals(24.q, plates.expression(solution))
         assertEquals(24.q, rods.expression(solution))
     }
+
+    @Test
+    fun minimize_unconstrained() {
+        val ingots = RationalConstraint.Builder<String>().set(
+            "PLATE" to (-30).q,
+            "INGOT" to 30.q,
+            "ROD" to (-15).q
+        ).atLeast(0.q)
+        val ore = RationalConstraint.Builder<String>().set(
+            "INGOT" to 30.q
+        ).atMost(60.q)
+        val plates = RationalConstraint.Builder<String>().set(
+            "PLATE" to 20.q
+        ).atLeast(0.q)
+        val rods = RationalConstraint.Builder<String>().set(
+            "ROD" to 15.q
+        ).atLeast(0.q)
+
+        val objective = ore.expression
+
+        val solution = minimize(objective, ingots, ore, plates, rods)
+
+        assertEquals(
+            mapOf(
+                "PLATE" to 0.q,
+                "INGOT" to 0.q,
+                "ROD" to 0.q,
+            ),
+            solution,
+        )
+    }
 }
