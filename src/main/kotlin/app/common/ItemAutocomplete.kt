@@ -2,7 +2,7 @@ package app.common
 
 import app.model.game.u5.Item
 import app.util.PropsDelegate
-import csstype.Padding
+import csstype.Margin
 import csstype.px
 import kotlinx.js.jso
 import mui.material.Autocomplete
@@ -28,7 +28,7 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
     Autocomplete<AutocompleteProps<ItemAutocompleteOption>> {
         sx {
             width = 256.px
-            padding = Padding(0.px, 12.px)
+            margin = Margin(0.px, 6.px)
         }
 
         disablePortal = true

@@ -1,6 +1,7 @@
 package app.common
 
 import app.util.PropsDelegate
+import csstype.Margin
 import csstype.px
 import mui.material.FormControlVariant
 import mui.material.TextField
@@ -33,7 +34,8 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
 
     TextField {
         sx {
-            if (!error) marginBottom = (22.91).px
+            width = 256.px
+            margin = Margin(0.px, 6.px, if (error) 0.px else (22.91).px, 6.px)
         }
 
         variant = FormControlVariant.outlined
