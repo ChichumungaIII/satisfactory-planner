@@ -3,6 +3,7 @@ package app.plan
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
+import app.model.game.u5.Item
 import app.util.PropsDelegate
 import csstype.Color
 import csstype.FlexDirection
@@ -43,6 +44,11 @@ external interface PlanProps : Props {
 val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
+    val nextItem = Item.values()
+        .filterNot { item -> plan.inputs.any { input -> item == input.item } }
+        .filterNot { item -> plan.products.any { product -> item == product.item } }
+        .firstOrNull()
+
     PlanHeader {
         title = plan.title
         setTitle = { next -> plan = plan.copy(title = next) }
@@ -65,16 +71,18 @@ val Plan = FC<PlanProps>("Plan") { props ->
                 }
             }
 
-            Box {
-                sx { margin = Margin(12.px, 0.px) }
+            nextItem?.let { item ->
+                Box {
+                    sx { margin = Margin(12.px, 0.px) }
 
-                Fab {
-                    color = FabColor.primary
-                    size = Size.large
-                    Add { fontSize = SvgIconSize.medium }
+                    Fab {
+                        color = FabColor.primary
+                        size = Size.large
+                        Add { fontSize = SvgIconSize.medium }
 
-                    onClick = {
-                        plan = plan.addInput(PlanInputModel())
+                        onClick = {
+                            plan = plan.addInput(PlanInputModel(item))
+                        }
                     }
                 }
             }
@@ -96,16 +104,18 @@ val Plan = FC<PlanProps>("Plan") { props ->
                 }
             }
 
-            Box {
-                sx { margin = Margin(12.px, 0.px) }
+            nextItem?.let { item ->
+                Box {
+                    sx { margin = Margin(12.px, 0.px) }
 
-                Fab {
-                    color = FabColor.primary
-                    size = Size.large
-                    Add { fontSize = SvgIconSize.medium }
+                    Fab {
+                        color = FabColor.primary
+                        size = Size.large
+                        Add { fontSize = SvgIconSize.medium }
 
-                    onClick = {
-                        plan = plan.addProduct(PlanProductModel())
+                        onClick = {
+                            plan = plan.addProduct(PlanProductModel(item))
+                        }
                     }
                 }
             }
@@ -141,17 +151,16 @@ val Plan = FC<PlanProps>("Plan") { props ->
                             }
                         }
                         TableBody {
-                            outcome.recipes.filter { (_, rate) -> rate > 0.q }
-                                .forEach { (recipe, rate) ->
-                                    TableRow {
-                                        TableCell { +recipe.name }
-                                        TableCell {
-                                            val percent = (rate * 100.q).toDouble()
-                                            +"${percent.asDynamic().toFixed(4)}%"
-                                        }
-                                        TableCell { +"$rate" }
+                            outcome.recipes.filter { (_, rate) -> rate > 0.q }.forEach { (recipe, rate) ->
+                                TableRow {
+                                    TableCell { +recipe.name }
+                                    TableCell {
+                                        val percent = (rate * 100.q).toDouble()
+                                        +"${percent.asDynamic().toFixed(4)}%"
                                     }
+                                    TableCell { +"$rate" }
                                 }
+                            }
                         }
                     }
                 }

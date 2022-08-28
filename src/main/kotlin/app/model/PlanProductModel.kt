@@ -6,7 +6,7 @@ import util.math.q
 
 data class PlanProductModel(
     /** The item being produced. */
-    val item: Item = Item.IRON_ORE,
+    val item: Item,
     /**
      * The minimum amount of `item` that will be produced by this plan. Establishing a plan outcome
      * will fail if this minimum cannot be met. Set by user input.

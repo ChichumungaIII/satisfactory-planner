@@ -5,7 +5,7 @@ import util.math.Rational
 
 data class PlanInputModel(
     /** The item being provided. */
-    val item: Item = Item.IRON_ORE,
+    val item: Item,
     /** The most of `item` that can be supplied as part of this plan. Set by user input. */
     val provision: Rational = Rational.ZERO,
     /**
