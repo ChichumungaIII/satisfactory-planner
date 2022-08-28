@@ -21,8 +21,6 @@ import react.ReactNode
 import react.useState
 
 external interface PlanProductProps : Props {
-    var isFirst: Boolean
-
     var product: PlanProductModel
     var setProduct: (PlanProductModel) -> Unit
     var onDelete: () -> Unit
@@ -36,7 +34,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
     Box {
         sx {
             display = Display.flex
-            margin = if (props.isFirst) Margin(0.px, 0.px, 12.px) else Margin(12.px, 0.px)
+            margin = Margin(12.px, 0.px)
         }
 
         IconButton {
@@ -80,7 +78,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             label = ReactNode("Maximum desired")
 
             value = product.limit
-            setValue = { next -> next?.let { product = product.copy(limit = it) } }
+            setValue = { next -> product = product.copy(limit = next) }
 
             validators = listOf({ value ->
                 val maximum = product.maximum

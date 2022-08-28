@@ -21,8 +21,6 @@ import react.ReactNode
 import react.useState
 
 external interface PlanInputProps : Props {
-    var isFirst: Boolean
-
     var input: PlanInputModel
     var setInput: (PlanInputModel) -> Unit
     var onDelete: () -> Unit
@@ -36,7 +34,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
     Box {
         sx {
             display = Display.flex
-            margin = if (props.isFirst) Margin(0.px, 0.px, 12.px) else Margin(12.px, 0.px)
+            margin = Margin(12.px, 0.px)
         }
 
         IconButton {

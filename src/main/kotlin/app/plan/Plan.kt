@@ -58,8 +58,6 @@ val Plan = FC<PlanProps>("Plan") { props ->
         AccordionDetails {
             plan.inputs.withIndex().forEach { (i, planInput) ->
                 PlanInput {
-                    isFirst = i == 0
-
                     input = planInput
                     setInput = { next -> plan = plan.setInput(i, next) }
                     onDelete = { plan = plan.removeInput(i) }
@@ -67,10 +65,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
             }
 
             Box {
-                sx {
-                    margin = if (plan.inputs.isEmpty()) Margin(0.px, 0.px, 12.px)
-                    else Margin(12.px, 0.px)
-                }
+                sx { margin = Margin(12.px, 0.px) }
 
                 Fab {
                     color = FabColor.primary
@@ -93,8 +88,6 @@ val Plan = FC<PlanProps>("Plan") { props ->
         AccordionDetails {
             plan.products.withIndex().forEach { (i, planProduct) ->
                 PlanProduct {
-                    isFirst = i == 0
-
                     product = planProduct
                     setProduct = { next -> plan = plan.setProduct(i, next) }
                     onDelete = { plan = plan.removeProduct(i) }
@@ -102,10 +95,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
             }
 
             Box {
-                sx {
-                    margin = if (plan.products.isEmpty()) Margin(0.px, 0.px, 12.px)
-                    else Margin(12.px, 0.px)
-                }
+                sx { margin = Margin(12.px, 0.px) }
 
                 Fab {
                     color = FabColor.primary
