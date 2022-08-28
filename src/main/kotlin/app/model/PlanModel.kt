@@ -47,6 +47,7 @@ data class PlanModel(
 
         // TODO: Replace with a plan and phase-specific recipe set
         val expressions = consider(*Recipe.values())
+        check(expressions.keys.containsAll(inputs.map { it.item }))
         check(expressions.keys.containsAll(products.map { it.item }))
 
         val provisions =
@@ -65,6 +66,8 @@ data class PlanModel(
                 expressions[item]!! - primaryObjective,
                 requirements[item]!! - requirements[products[0].item]!!
             )
+        } + products.associate { it.item to it.limit }.filterValues { it != null }.map { (item, limit) ->
+            RationalConstraint.atMost(expressions[item]!!, limit!!)
         }
         val nextOutcome = PlanOutcomeModel(maximize(primaryObjective, *primaryConstraints.toTypedArray()))
 

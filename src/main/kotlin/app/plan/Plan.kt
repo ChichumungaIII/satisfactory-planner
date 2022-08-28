@@ -4,6 +4,7 @@ import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
+import csstype.Color
 import csstype.FlexDirection
 import csstype.Margin
 import csstype.Padding
@@ -121,7 +122,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
     Accordion {
         disableGutters = true
-        defaultExpanded = false
+        defaultExpanded = true
 
         Summary { title = "Outcome" }
         AccordionDetails {
@@ -173,7 +174,10 @@ external interface SummaryProps : Props {
 
 val Summary = FC<SummaryProps> { props ->
     AccordionSummary {
-        sx { flexDirection = FlexDirection.rowReverse }
+        sx {
+            flexDirection = FlexDirection.rowReverse
+            backgroundColor = Color("#f4f4f4")
+        }
 
         expandIcon = ExpandMore.create()
         Typography {
