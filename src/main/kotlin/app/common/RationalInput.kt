@@ -25,6 +25,8 @@ external interface RationalInputProps : Props {
     var setError: ((Boolean) -> Unit)?
     var errorMessage: String?
     var setErrorMessage: ((String) -> Unit)?
+
+    var validators: List<(Rational) -> RationalValidation>
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
@@ -62,7 +64,27 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
             } else if (next == null) {
                 error = true
                 errorMessage = "Value must be rational."
+            } else {
+                val validation = props.validators.map { it(next) }.firstOrNull { it.error }
+                if (validation == null) {
+                    error = false
+                } else {
+                    error = true
+                    errorMessage = validation.message ?: ""
+                }
             }
         }
+    }
+}
+
+data class RationalValidation(
+    val error: Boolean,
+    val message: String?
+) {
+    companion object {
+        private val PASS = RationalValidation(false, null)
+
+        fun pass() = PASS
+        fun fail(message: String) = RationalValidation(true, message)
     }
 }

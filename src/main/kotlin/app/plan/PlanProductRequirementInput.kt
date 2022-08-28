@@ -1,6 +1,7 @@
 package app.plan
 
 import app.common.RationalInput
+import app.common.RationalValidation
 import app.util.PropsDelegate
 import mui.material.Box
 import mui.system.PropsWithSx
@@ -22,35 +23,23 @@ val PlanProductRequirementInput = FC<PlanProductRequirementInputProps>("PlanProd
     var error by useState(false)
     var errorMessage by useState("")
 
-    val checkError = { value: Rational ->
-        val maximum = props.maximum
-        if (maximum == null || value <= maximum) {
-            error = false
-        } else {
-            error = true
-            errorMessage = "Maximum yield is ${maximum.toDecimal(4)} (${maximum})"
-        }
-    }
-
     Box {
         RationalInput {
             label = ReactNode("Minimum desired")
 
             value = requirement
-            setValue = { next ->
-                next?.let {
-                    requirement = it
-                    checkError(it)
-                }
-            }
+            setValue = { next -> next?.let { requirement = it } }
 
             this.error = error
-            setError = { next ->
-                error = next
-                if (!next) checkError(requirement)
-            }
+            setError = { next -> error = next }
             this.errorMessage = errorMessage
             setErrorMessage = { next -> errorMessage = next }
+
+            validators = listOf { value ->
+                val maximum = props.maximum
+                if (maximum == null || value <= maximum) RationalValidation.pass()
+                else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package app.plan
 
 import app.common.RationalInput
+import app.common.RationalValidation
 import app.util.PropsDelegate
 import mui.material.Box
 import mui.system.PropsWithSx
@@ -22,35 +23,23 @@ val PlanInputProvisionInput = FC<PlanInputTargetProps>("PlanInputTarget") { prop
     var error by useState(false)
     var errorMessage by useState("")
 
-    val checkError = { value: Rational ->
-        val minimum = props.minimum
-        if (minimum == null || value >= minimum) {
-            error = false
-        } else {
-            error = true
-            errorMessage = "Input must be at least ${minimum.toDecimal(4)} ($minimum)"
-        }
-    }
-
     Box {
         RationalInput {
             label = ReactNode("Amount available")
 
             value = provision
-            setValue = { next ->
-                next?.let {
-                    provision = it
-                    checkError(it)
-                }
-            }
+            setValue = { next -> next?.let { provision = it } }
 
             this.error = error
-            setError = { next ->
-                error = next
-                if (!next) checkError(provision)
-            }
+            setError = { next -> error = next }
             this.errorMessage = errorMessage
             setErrorMessage = { next -> errorMessage = next }
+
+            validators = listOf { value ->
+                val minimum = props.minimum
+                if (minimum == null || value >= minimum) RationalValidation.pass()
+                else RationalValidation.fail("Input must be at least ${minimum.toDecimal(4)}($minimum)")
+            }
         }
     }
 }
