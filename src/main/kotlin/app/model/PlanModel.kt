@@ -55,11 +55,13 @@ data class PlanModel(
 
         val objective = expressions[products[0].item]!!
         val constraints = expressions.map { (item, expression) ->
-            toConstraint(
-                expression,
-                requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q })
+            val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
+            RationalConstraint.atLeast(expression, result)
         } + products.drop(1).map { it.item }.map { item ->
-            RationalConstraint.equalTo(expressions[item]!! - objective, 0.q)
+            RationalConstraint.equalTo(
+                expressions[item]!! - objective,
+                requirements[item]!! - requirements[products[0].item]!!
+            )
         }
 
         val solution = maximize(objective, *constraints.toTypedArray())
@@ -77,7 +79,7 @@ data class PlanModel(
         for (recipe in recipes) {
             for (component in recipe.components()) {
                 expressions.getOrPut(component.item()) { RationalExpression.Builder() }
-                    .set(recipe, component.quantity() * 60.q / recipe.time())
+                    .set(recipe, (component.quantity() * 60.q / recipe.time()).norm())
             }
         }
         return expressions.mapValues { (_, expression) -> expression.build() }

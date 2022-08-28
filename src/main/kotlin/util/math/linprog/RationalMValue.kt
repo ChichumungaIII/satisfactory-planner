@@ -1,6 +1,7 @@
 package util.math.linprog
 
 import util.math.Rational
+import util.math.q
 
 /**
  * A RationalMValue is a helper type for the linear programming simplex algorithm representing a number of the form
@@ -81,5 +82,11 @@ class RationalMValue(
 
     override fun hashCode() = norm.m.hashCode() * 31 + norm.v.hashCode()
 
-    override fun toString() = "$m * M + $v"
+    override fun toString() = when (m) {
+        0.q -> "$v"
+        else ->
+            if (v == 0.q) "$m * M"
+            else if (v > 0.q) "$m * M + $v"
+            else "$m * M - ${-v}"
+    }
 }

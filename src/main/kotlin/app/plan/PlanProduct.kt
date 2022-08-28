@@ -48,6 +48,15 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             setItem = { next -> product = product.copy(item = next) }
         }
 
+        PlanProductRequirementInput {
+            sx { display = Display.contents }
+
+            requirement = product.requirement
+            setRequirement = { next -> product = product.copy(requirement = next) }
+
+            maximum = product.maximum
+        }
+
         val target = product.target
         if (target != null) {
             Box {

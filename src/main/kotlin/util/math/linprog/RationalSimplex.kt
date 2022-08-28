@@ -4,6 +4,7 @@ import util.math.MutableMatrix
 import util.math.Rational
 import util.math.RationalExpression
 import util.math.linprog.RationalConstraint.Comparison
+import util.math.q
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
 fun <T> minimize(objective: RationalExpression<T>, vararg constraints: RationalConstraint<T>) =
@@ -21,8 +22,10 @@ fun <T> minimize(objective: RationalExpression<T>, vararg constraints: RationalC
  */
 fun <T> maximize(
     objective: RationalExpression<T>,
-    vararg constraints: RationalConstraint<T>,
+    vararg rawConstraints: RationalConstraint<T>,
 ): Map<T, Rational> {
+    val constraints = rawConstraints.map { it.normalize() }
+
     // Terms are the variables in the expressions. Each one can be manipulated to maximize the objective function, and
     // each one needs a corresponding output value in the resulting map.
     val terms = (objective.terms() + constraints.flatMap { it.expression.terms() }.toSet()).toList()
@@ -56,12 +59,14 @@ fun <T> maximize(
     }
 
     // Introduce artificial variables, which move our basic solution into the feasible region.
+    val artificialColumns = mutableListOf<Int>()
     for ((row, constraint) in constraints.withIndex()) {
         if (constraint.comparison == Comparison.AT_LEAST || constraint.comparison == Comparison.EQUAL_TO) {
             val column = matrix.columns() - 1
             matrix.addColumn(column, RationalMValue.ZERO)
             matrix.set(row, column, RationalMValue.ONE)
             matrix.set(matrix.rows() - 1, column, RationalMValue.M)
+            artificialColumns.add(column)
 
             // Pivot on the new artificial variable to bring the basic solution into the feasible region. This is safe
             // to do prior to completing matrix setup because at this stage, pivoting on artificial variables cannot
@@ -96,6 +101,18 @@ fun <T> maximize(
         matrix.pivot(row, column)
     }
 
+    // If an artificial variable is nonzero in the solution, the solution is infeasible.
+    val artificialInfeasible = artificialColumns.any { column ->
+        matrix.column(column).withIndex()
+            .filterNot { it.value == RationalMValue.ZERO }
+            .map { (row, cell) -> matrix.get(row, matrix.columns() - 1) / cell }
+            .singleOrNull()
+            ?.takeUnless { it == RationalMValue.ZERO } != null
+    }
+    if (artificialInfeasible) {
+        throw InfeasibleSolutionException("An artificial variable had a value greater than zero.")
+    }
+
     // Extract the solution from the matrix. Terms are in the solution with a nonzero value if their corresponding
     // column is all zeros except for a single row, in which case their value is (right-hand side) / (that coefficient).
     return terms.withIndex().associate { (column, term) ->
@@ -106,6 +123,20 @@ fun <T> maximize(
             ?.toRational()
             ?: Rational.ZERO)
     }
+}
+
+class InfeasibleSolutionException(message: String) : Exception(message)
+
+private fun <T> RationalConstraint<T>.normalize() = when (comparison) {
+    Comparison.AT_LEAST ->
+        if (result > 0.q) this
+        else RationalConstraint.atMost(-expression, -result)
+    Comparison.AT_MOST ->
+        if (result >= 0.q) this
+        else RationalConstraint.atLeast(-expression, -result)
+    Comparison.EQUAL_TO ->
+        if (result >= 0.q) this
+        else RationalConstraint.equalTo(-expression, -result)
 }
 
 private fun MutableMatrix<RationalMValue>.pivot(pivotRow: Int, pivotColumn: Int) {
@@ -125,3 +156,16 @@ private fun MutableMatrix<RationalMValue>.pivot(pivotRow: Int, pivotColumn: Int)
         }
     }
 }
+
+private fun <T> MutableMatrix<T>.debug() {
+    val cells = mutableListOf<MutableList<String>>()
+    for (row in 0 until rows()) {
+        cells.add(mutableListOf())
+        row(row).forEach { value -> cells[row].add(value.toString()) }
+    }
+    val debug = cells.joinToString("\n") { row ->
+        row.joinToString(" | ") { it.padStart(12, ' ') }
+    }
+    println(".\n\n$debug\n")
+}
+

@@ -19,12 +19,18 @@ class RationalConstraint<T> private constructor(
             RationalConstraint(expression, Comparison.EQUAL_TO, result)
     }
 
+    fun test(solution: Map<T, Rational>) = when (comparison) {
+        Comparison.AT_LEAST -> expression(solution) >= result
+        Comparison.AT_MOST -> expression(solution) <= result
+        Comparison.EQUAL_TO -> expression(solution) == result
+    }
+
     override fun toString() =
-        expression.toString() + when (comparison) {
-            Comparison.AT_LEAST -> "<="
-            Comparison.AT_MOST -> ">="
+        "$expression " + when (comparison) {
+            Comparison.AT_LEAST -> ">="
+            Comparison.AT_MOST -> "<="
             Comparison.EQUAL_TO -> "="
-        } + result
+        } + " $result"
 
     enum class Comparison {
         /** Expression must be at least the result; i.e. >= */
