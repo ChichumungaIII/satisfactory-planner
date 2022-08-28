@@ -58,6 +58,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
         AccordionDetails {
             plan.inputs.withIndex().forEach { (i, planInput) ->
                 PlanInput {
+                    this.plan = plan
                     input = planInput
                     setInput = { next -> plan = plan.setInput(i, next) }
                     onDelete = { plan = plan.removeInput(i) }
@@ -88,6 +89,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
         AccordionDetails {
             plan.products.withIndex().forEach { (i, planProduct) ->
                 PlanProduct {
+                    this.plan = plan
                     product = planProduct
                     setProduct = { next -> plan = plan.setProduct(i, next) }
                     onDelete = { plan = plan.removeProduct(i) }

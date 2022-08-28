@@ -4,6 +4,7 @@ import app.common.ItemAutocomplete
 import app.common.RationalInput
 import app.common.RationalValidation
 import app.model.PlanInputModel
+import app.model.PlanModel
 import app.util.PropsDelegate
 import csstype.Display
 import csstype.Margin
@@ -21,6 +22,7 @@ import react.ReactNode
 import react.useState
 
 external interface PlanInputProps : Props {
+    var plan: PlanModel
     var input: PlanInputModel
     var setInput: (PlanInputModel) -> Unit
     var onDelete: () -> Unit
@@ -50,6 +52,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
         ItemAutocomplete {
             item = input.item
             setItem = { next -> input = input.copy(item = next) }
+            restricted = props.plan.inputs.map { it.item } + props.plan.products.map { it.item }
         }
 
         RationalInput {

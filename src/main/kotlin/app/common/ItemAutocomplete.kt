@@ -17,15 +17,13 @@ import react.create
 external interface ItemAutocompleteProps : Props {
     var item: Item
     var setItem: (Item) -> Unit
+    var restricted: Collection<Item>?
 }
 
 val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
-    val items = Item.values()
-
     var item by PropsDelegate(props.item) { next -> props.setItem(next) }
 
-    @Suppress("UPPER_BOUND_VIOLATED")
-    Autocomplete<AutocompleteProps<ItemAutocompleteOption>> {
+    @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<ItemAutocompleteOption>> {
         sx {
             width = 256.px
             margin = Margin(0.px, 6.px)
@@ -39,7 +37,8 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
             }
         }
 
-        options = items.map { ItemAutocompleteOption(it) }.toTypedArray()
+        val available = Item.values().filterNot { props.restricted?.contains(it) ?: false }
+        options = (listOf(item) + available).distinct().map { ItemAutocompleteOption(it) }.toTypedArray()
 
         autoComplete = true
         autoHighlight = true
