@@ -60,7 +60,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             validators = listOf { value ->
                 val minimum = input.minimum
                 if (minimum == null || value >= minimum) RationalValidation.pass()
-                else RationalValidation.fail("Input must be at least ${minimum.toDecimal(4)}($minimum)")
+                else RationalValidation.fail("Plan requires at least ${minimum.toDecimal(4)} ($minimum)")
             }
         }
 

@@ -52,16 +52,36 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
         }
 
         RationalInput {
-            label = ReactNode("Minimum desired")
+            label = ReactNode("Minimum required")
 
             value = product.requirement
             setValue = { next -> next?.let { product = product.copy(requirement = it) } }
 
-            validators = listOf { value ->
+            validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
                 else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
-            }
+            }, { value ->
+                val limit = product.limit
+                if (limit == null || value <= limit) RationalValidation.pass()
+                else RationalValidation.fail("Requirement cannot exceed limit.")
+            })
+        }
+
+        RationalInput {
+            label = ReactNode("Maximum desired")
+
+            value = product.limit
+            setValue = { next -> next?.let { product = product.copy(limit = it) } }
+
+            validators = listOf({ value ->
+                val maximum = product.maximum
+                if (maximum == null || value <= maximum) RationalValidation.pass()
+                else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
+            }, { value ->
+                if (value >= product.requirement) RationalValidation.pass()
+                else RationalValidation.fail("Limit must exceed requirement.")
+            })
         }
 
         val target = product.target
