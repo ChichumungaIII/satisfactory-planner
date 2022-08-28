@@ -13,6 +13,8 @@ import react.useState
 import util.math.Rational
 
 external interface RationalInputProps : Props {
+    var label: ReactNode?
+
     var value: Rational?
     var setValue: (Rational?) -> Unit
 
@@ -38,6 +40,8 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
         }
 
         variant = FormControlVariant.outlined
+        props.label?.let { label = it }
+
         this.error = error
         if (error) helperText = ReactNode(errorMessage)
 

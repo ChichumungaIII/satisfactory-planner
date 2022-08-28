@@ -5,6 +5,7 @@ import app.util.PropsDelegate
 import mui.material.Box
 import mui.system.PropsWithSx
 import react.FC
+import react.ReactNode
 import react.useState
 import util.math.Rational
 
@@ -33,6 +34,8 @@ val PlanInputProvisionInput = FC<PlanInputTargetProps>("PlanInputTarget") { prop
 
     Box {
         RationalInput {
+            label = ReactNode("Amount available")
+
             value = provision
             setValue = { next ->
                 next?.let {

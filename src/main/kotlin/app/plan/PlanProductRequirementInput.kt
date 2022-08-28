@@ -5,6 +5,7 @@ import app.util.PropsDelegate
 import mui.material.Box
 import mui.system.PropsWithSx
 import react.FC
+import react.ReactNode
 import react.useState
 import util.math.Rational
 
@@ -33,6 +34,8 @@ val PlanProductRequirementInput = FC<PlanProductRequirementInputProps>("PlanProd
 
     Box {
         RationalInput {
+            label = ReactNode("Minimum desired")
+
             value = requirement
             setValue = { next ->
                 next?.let {
