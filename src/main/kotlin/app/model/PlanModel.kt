@@ -2,6 +2,7 @@ package app.model
 
 import app.model.game.u5.Item
 import app.model.game.u5.Recipe
+import util.math.Rational
 import util.math.RationalExpression
 import util.math.linprog.RationalConstraint
 import util.math.linprog.maximize
@@ -47,52 +48,72 @@ data class PlanModel(
 
         val provisions = inputs.associate { it.item to it.provision }
         val requirements = products.associate { it.item to it.requirement }
+        val limits = products.filterNot { it.limit == null }.associate { it.item to it.limit!! }
 
-        val constraints = expressions.map { (item, expression) ->
-            val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
-            RationalConstraint.atLeast(expression, result)
-        }
+        val planConstraints =
+            expressions.map { (item, expression) ->
+                val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
+                RationalConstraint.atLeast(expression, result)
+            }
 
         /* PRIMARY PLAN */
 
-        val primaryObjective = expressions[products[0].item]!!
-        val primaryConstraints = constraints + products.drop(1).map { it.item }.map { item ->
-            RationalConstraint.equalTo(
-                expressions[item]!! - primaryObjective, requirements[item]!! - requirements[products[0].item]!!
-            )
-        } + products.associate { it.item to it.limit }.filterValues { it != null }.map { (item, limit) ->
-            RationalConstraint.atMost(expressions[item]!!, limit!!)
-        }
-        val nextOutcome = PlanOutcomeModel(maximize(primaryObjective, *primaryConstraints.toTypedArray()))
+        val unlimited = products.filter { it.limit == null }.map { it.item }
+        val unrealized = products.filterNot { it.limit == null }.mapTo(mutableSetOf()) { it.item }
+        val realized = mutableSetOf<Item>()
+
+        var solution: Map<Recipe, Rational>
+        do {
+            val principal = (unlimited + unrealized).first()
+            val objective = expressions[principal]!!
+
+            val limitConstraints =
+                unrealized.map { item -> RationalConstraint.atMost(expressions[item]!!, limits[item]!!) }
+            val realizedConstraints =
+                realized.map { item -> RationalConstraint.equalTo(expressions[item]!!, limits[item]!!) }
+            val balanceConstraints = (unlimited + unrealized).filterNot { it == principal }.map { item ->
+                RationalConstraint.equalTo(
+                    expressions[item]!! - objective,
+                    requirements[item]!! - requirements[principal]!!
+                )
+            }
+
+            val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
+            solution = maximize(objective, *constraints.toTypedArray())
+
+            val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
+            unrealized -= newlyRealized
+            realized += newlyRealized
+        } while (newlyRealized.isNotEmpty())
 
         /* MINIMUMS FOR INPUTS */
 
         val inputMinimums = inputs.map { it.item }
-            .associateWith { item -> (-expressions[item]!!).let { it(minimize(it, *constraints.toTypedArray())) } }
+            .associateWith { item -> (-expressions[item]!!).let { it(minimize(it, *planConstraints.toTypedArray())) } }
 
         /* MAXIMUMS FOR PRODUCTS */
 
         val productMaximums = products.map { it.item }
-            .associateWith { item -> (expressions[item]!!).let { it(maximize(it, *constraints.toTypedArray())) } }
+            .associateWith { item -> (expressions[item]!!).let { it(maximize(it, *planConstraints.toTypedArray())) } }
 
         /* FINAL COMPILATION */
 
         val nextInputs = inputs.map { input ->
             input.copy(
-                target = -expressions[input.item]!!(nextOutcome.recipes).norm(),
+                target = -expressions[input.item]!!(solution).norm(),
                 minimum = maxOf(inputMinimums[input.item]!!.norm(), 0.q),
             )
         }
         val nextProducts = products.map { product ->
             product.copy(
-                target = expressions[product.item]!!(nextOutcome.recipes).norm(),
+                target = expressions[product.item]!!(solution).norm(),
                 maximum = productMaximums[product.item]!!.norm()
             )
         }
         return copy(
             inputs = nextInputs,
             products = nextProducts,
-            outcome = nextOutcome,
+            outcome = PlanOutcomeModel(solution),
         )
     }
 
