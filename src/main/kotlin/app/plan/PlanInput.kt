@@ -47,6 +47,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             size = Size.large
             Close { fontSize = SvgIconSize.inherit }
 
+            autoFocus = true
             onClick = { props.onDelete() }
         }
 

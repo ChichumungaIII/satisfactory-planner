@@ -47,6 +47,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             size = Size.large
             Close { fontSize = SvgIconSize.inherit }
 
+            autoFocus = true
             onClick = { props.onDelete() }
         }
 
