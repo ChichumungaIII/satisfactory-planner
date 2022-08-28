@@ -18,6 +18,7 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
+import react.useState
 
 external interface PlanProductProps : Props {
     var isFirst: Boolean
@@ -29,6 +30,8 @@ external interface PlanProductProps : Props {
 
 val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
     var product by PropsDelegate(props.product) { next -> props.setProduct(next) }
+
+    var text by useState(product.requirement.toString())
 
     Box {
         sx {
@@ -57,6 +60,9 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             value = product.requirement
             setValue = { next -> next?.let { product = product.copy(requirement = it) } }
 
+            this.text = text
+            setText = { next -> text = next }
+
             validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
@@ -66,6 +72,8 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
                 if (limit == null || value <= limit) RationalValidation.pass()
                 else RationalValidation.fail("Requirement cannot exceed limit.")
             })
+
+            onBlur = { if (text.isEmpty()) text = product.requirement.toString() }
         }
 
         RationalInput {

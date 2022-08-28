@@ -18,6 +18,7 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
+import react.useState
 
 external interface PlanInputProps : Props {
     var isFirst: Boolean
@@ -29,6 +30,8 @@ external interface PlanInputProps : Props {
 
 val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
     var input by PropsDelegate(props.input) { next -> props.setInput(next) }
+
+    var text by useState(input.provision.toString())
 
     Box {
         sx {
@@ -57,11 +60,16 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             value = input.provision
             setValue = { next -> next?.let { input = input.copy(provision = it) } }
 
+            this.text = text
+            setText = { next -> text = next }
+
             validators = listOf { value ->
                 val minimum = input.minimum
                 if (minimum == null || value >= minimum) RationalValidation.pass()
                 else RationalValidation.fail("Plan requires at least ${minimum.toDecimal(4)} ($minimum)")
             }
+
+            onBlur = { if (text.isEmpty()) text = input.provision.toString() }
         }
 
         val target = input.target

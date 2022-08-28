@@ -23,6 +23,7 @@ external interface RationalInputProps : Props {
     var setText: ((String) -> Unit)?
 
     var validators: List<(Rational) -> RationalValidation>
+    var onBlur: (() -> Unit)?
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
@@ -71,6 +72,8 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
                 }
             }
         }
+
+        onBlur = { _ -> props.onBlur?.invoke() }
     }
 }
 
