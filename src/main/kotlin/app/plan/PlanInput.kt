@@ -20,6 +20,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.useState
+import util.math.q
 
 external interface PlanInputProps : Props {
     var plan: PlanModel
@@ -70,7 +71,12 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
                 else RationalValidation.fail("Plan requires at least ${minimum.toDecimal(4)} ($minimum)")
             }
 
-            onBlur = { if (text.isEmpty()) text = input.provision.toString() }
+            onBlur = {
+                if (text.isEmpty()) {
+                    input = input.copy(provision = 0.q)
+                    text = "0"
+                }
+            }
         }
 
         val target = input.target

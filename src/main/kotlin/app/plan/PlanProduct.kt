@@ -20,6 +20,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.useState
+import util.math.q
 
 external interface PlanProductProps : Props {
     var plan: PlanModel
@@ -74,7 +75,12 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
                 else RationalValidation.fail("Requirement cannot exceed limit.")
             })
 
-            onBlur = { if (text.isEmpty()) text = product.requirement.toString() }
+            onBlur = {
+                if (text.isEmpty()) {
+                    product = product.copy(requirement = 0.q)
+                    text = "0"
+                }
+            }
         }
 
         RationalInput {
