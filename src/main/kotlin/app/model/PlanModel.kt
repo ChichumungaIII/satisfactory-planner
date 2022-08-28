@@ -4,6 +4,7 @@ import app.model.game.u5.Item
 import app.model.game.u5.Recipe
 import util.math.Rational
 import util.math.RationalExpression
+import util.math.linprog.InfeasibleSolutionException
 import util.math.linprog.RationalConstraint
 import util.math.linprog.maximize
 import util.math.linprog.minimize
@@ -78,8 +79,14 @@ data class PlanModel(
                 )
             }
 
-            val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
-            solution = maximize(objective, *constraints.toTypedArray())
+            try {
+                val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
+                solution = maximize(objective, *constraints.toTypedArray())
+            } catch (e: InfeasibleSolutionException) {
+                val nextInputs = inputs.map { input -> input.copy(target = null, minimum = null) }
+                val nextProducts = products.map { product -> product.copy(target = null, maximum = null) }
+                return copy(inputs = nextInputs, products = nextProducts, outcome = PlanOutcomeModel())
+            }
 
             val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
             unrealized -= newlyRealized

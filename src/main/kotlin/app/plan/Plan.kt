@@ -44,10 +44,8 @@ external interface PlanProps : Props {
 val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
-    val nextItem = Item.values()
-        .filterNot { item -> plan.inputs.any { input -> item == input.item } }
-        .filterNot { item -> plan.products.any { product -> item == product.item } }
-        .firstOrNull()
+    val nextItem = Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
+        .filterNot { item -> plan.products.any { product -> item == product.item } }.firstOrNull()
 
     PlanHeader {
         title = plan.title
@@ -128,37 +126,53 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
         Summary { title = "Outcome" }
         AccordionDetails {
-            Button {
-                variant = ButtonVariant.contained
-                onClick = { plan = plan.optimize() }
+            Box {
+                sx { margin = Margin(12.px, 0.px) }
 
-                if (plan.outcome == null) {
-                    +"Calculate"
-                } else {
-                    +"Recalculate"
+                Button {
+                    variant = ButtonVariant.contained
+                    onClick = { plan = plan.optimize() }
+
+                    if (plan.outcome == null) {
+                        +"Calculate"
+                    } else {
+                        +"Recalculate"
+                    }
                 }
             }
 
-            when (val outcome = plan.outcome) {
-                null -> {}
-                else -> TableContainer {
-                    Table {
-                        TableHead {
-                            TableRow {
-                                TableCell { +"Recipe" }
-                                TableCell { +"Rate" }
-                                TableCell { +" Exact" }
-                            }
-                        }
-                        TableBody {
-                            outcome.recipes.filter { (_, rate) -> rate > 0.q }.forEach { (recipe, rate) ->
+            val outcome = plan.outcome
+            if (outcome != null) {
+                val recipes = outcome.recipes
+                if (recipes == null) {
+                    Box {
+                        sx { margin = Margin(12.px, 0.px) }
+
+                        +"""
+                            It's not possible to produce the required product amounts from the available inputs. Please
+                            reduce the minimum requirements or provide additional supplies.
+                        """.trimIndent()
+                    }
+                } else {
+                    TableContainer {
+                        Table {
+                            TableHead {
                                 TableRow {
-                                    TableCell { +recipe.name }
-                                    TableCell {
-                                        val percent = (rate * 100.q).toDouble()
-                                        +"${percent.asDynamic().toFixed(4)}%"
+                                    TableCell { +"Recipe" }
+                                    TableCell { +"Rate" }
+                                    TableCell { +" Exact" }
+                                }
+                            }
+                            TableBody {
+                                recipes.filter { (_, rate) -> rate > 0.q }.forEach { (recipe, rate) ->
+                                    TableRow {
+                                        TableCell { +recipe.name }
+                                        TableCell {
+                                            val percent = (rate * 100.q).toDouble()
+                                            +"${percent.asDynamic().toFixed(4)}%"
+                                        }
+                                        TableCell { +"$rate" }
                                     }
-                                    TableCell { +"$rate" }
                                 }
                             }
                         }
