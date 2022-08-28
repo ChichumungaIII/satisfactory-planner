@@ -1,6 +1,8 @@
 package app.plan
 
 import app.common.ItemAutocomplete
+import app.common.RationalInput
+import app.common.RationalValidation
 import app.model.PlanInputModel
 import app.util.PropsDelegate
 import csstype.Display
@@ -15,6 +17,7 @@ import mui.material.SvgIconSize
 import mui.system.sx
 import react.FC
 import react.Props
+import react.ReactNode
 
 external interface PlanInputProps : Props {
     var isFirst: Boolean
@@ -48,13 +51,17 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             setItem = { next -> input = input.copy(item = next) }
         }
 
-        PlanInputProvisionInput {
-            sx { display = Display.contents }
+        RationalInput {
+            label = ReactNode("Amount available")
 
-            provision = input.provision
-            setProvision = { next -> input = input.copy(provision = next) }
+            value = input.provision
+            setValue = { next -> next?.let { input = input.copy(provision = it) } }
 
-            minimum = input.minimum
+            validators = listOf { value ->
+                val minimum = input.minimum
+                if (minimum == null || value >= minimum) RationalValidation.pass()
+                else RationalValidation.fail("Input must be at least ${minimum.toDecimal(4)}($minimum)")
+            }
         }
 
         val target = input.target

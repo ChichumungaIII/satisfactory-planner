@@ -1,6 +1,8 @@
 package app.plan
 
 import app.common.ItemAutocomplete
+import app.common.RationalInput
+import app.common.RationalValidation
 import app.model.PlanProductModel
 import app.util.PropsDelegate
 import csstype.Display
@@ -15,6 +17,7 @@ import mui.material.SvgIconSize
 import mui.system.sx
 import react.FC
 import react.Props
+import react.ReactNode
 
 external interface PlanProductProps : Props {
     var isFirst: Boolean
@@ -48,13 +51,17 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             setItem = { next -> product = product.copy(item = next) }
         }
 
-        PlanProductRequirementInput {
-            sx { display = Display.contents }
+        RationalInput {
+            label = ReactNode("Minimum desired")
 
-            requirement = product.requirement
-            setRequirement = { next -> product = product.copy(requirement = next) }
+            value = product.requirement
+            setValue = { next -> next?.let { product = product.copy(requirement = it) } }
 
-            maximum = product.maximum
+            validators = listOf { value ->
+                val maximum = product.maximum
+                if (maximum == null || value <= maximum) RationalValidation.pass()
+                else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
+            }
         }
 
         val target = product.target
