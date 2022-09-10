@@ -8,6 +8,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
 kotlin {
@@ -17,6 +18,16 @@ kotlin {
             commonWebpackConfig {
                 cssSupport.enabled = true
             }
+        }
+    }
+
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+        withJava()
+        testRuns["test"].executionTask.configure {
+            useJUnit()
         }
     }
 
@@ -44,5 +55,28 @@ kotlin {
             }
         }
         val jsTest by getting
+
+        val jvmMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-server-netty:2.0.1")
+                implementation("io.ktor:ktor-server-html-builder-jvm:2.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
+            }
+        }
+        val jvmTest by getting
     }
+}
+
+application {
+    mainClass.set("com.chichumunga.satisfactory.ServerKt")
+}
+
+tasks.named<Copy>("jvmProcessResources") {
+    val jsBrowserDistribution = tasks.named("jsBrowserDistribution")
+    from(jsBrowserDistribution)
+}
+
+tasks.named<JavaExec>("run") {
+    dependsOn(tasks.named<Jar>("jvmJar"))
+    classpath(tasks.named<Jar>("jvmJar"))
 }
