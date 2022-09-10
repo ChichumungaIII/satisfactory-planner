@@ -1,5 +1,6 @@
 plugins {
-    kotlin("js") version "1.7.10"
+    kotlin("multiplatform") version "1.7.10"
+    application
 }
 
 group = "me.chris"
@@ -7,23 +8,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-}
-
-fun kotlinw(target: String): String =
-    "org.jetbrains.kotlin-wrappers:kotlin-$target"
-
-dependencies {
-    testImplementation(kotlin("test"))
-
-    // Helps to ensure consistency between other Kotlin wrappers
-    implementation(enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.359")))
-
-    implementation(kotlinw("emotion"))
-    implementation(kotlinw("mui"))
-    implementation(kotlinw("mui-icons"))
-    implementation(kotlinw("react"))
-    implementation(kotlinw("react-dom"))
-    implementation(kotlinw("react-router-dom"))
 }
 
 kotlin {
@@ -34,5 +18,31 @@ kotlin {
                 cssSupport.enabled = true
             }
         }
+    }
+
+    sourceSets {
+        val commonMain by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+
+        val jsMain by getting {
+            fun kotlinw(target: String): String =
+                "org.jetbrains.kotlin-wrappers:kotlin-$target"
+
+            dependencies {
+                implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.359")))
+
+                implementation(kotlinw("emotion"))
+                implementation(kotlinw("mui"))
+                implementation(kotlinw("mui-icons"))
+                implementation(kotlinw("react"))
+                implementation(kotlinw("react-dom"))
+                implementation(kotlinw("react-router-dom"))
+            }
+        }
+        val jsTest by getting
     }
 }
