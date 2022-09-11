@@ -12,7 +12,7 @@ import kotlin.math.abs
 class Rational private constructor(
     private val n: Long,
     private val d: Long,
-) : Number(), Comparable<Rational> {
+) : Number(), Numeric<Rational> {
     companion object {
         val ZERO = create(0)
         val ONE = create(1)
@@ -76,28 +76,27 @@ class Rational private constructor(
      */
     fun norm() = norm
 
-    operator fun unaryPlus() = this
-    operator fun unaryMinus() = Rational(-n, d)
+    override operator fun unaryMinus() = Rational(-n, d)
 
-    operator fun plus(other: Rational) =
+    override operator fun plus(other: Rational) =
         Rational(
             n * other.d + other.n * d,
             d * other.d
         )
 
-    operator fun minus(other: Rational) =
+    override operator fun minus(other: Rational) =
         Rational(
             n * other.d - other.n * d,
             d * other.d
         )
 
-    operator fun times(other: Rational) =
+    override operator fun times(other: Rational) =
         Rational(
             n * other.n,
             d * other.d
         )
 
-    operator fun div(other: Rational) =
+    override operator fun div(other: Rational) =
         create(
             n * other.d,
             other.n * d
