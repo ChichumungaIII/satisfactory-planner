@@ -11,12 +11,12 @@ fun <T> minimize(objective: RationalExpression<T>, vararg constraints: RationalC
     maximize(-objective, *constraints)
 
 /**
- * Implementation of the Big-M simplex method to optimize [objective] given a set of [constraints].
+ * Implementation of the Big-M simplex method to optimize [objective] given a set of [rawConstraints].
  *
  * See https://brilliant.org/wiki/linear-programming/ for greater details on how the algorithm works.
  *
  * @param objective The expression to maximize.
- * @param constraints Restrictions that the solution cannot violate.
+ * @param rawConstraints Restrictions that the solution cannot violate.
  * @return A Map containing the values to which each term in the objective and constraints should be set in order to
  *         maximize the objective function.
  */

@@ -114,7 +114,7 @@ class Rational private constructor(
 
     override fun toString() = if (d == 1L) "$n" else "$n/$d"
 
-    fun toDecimal(places: Int): String = toDouble().asDynamic().toFixed(places) as String
+    fun toDecimal(places: Int): String = toDouble().toString()
 
     override fun toDouble() = n.toDouble() / d
     override fun toFloat() = toDouble().toFloat()

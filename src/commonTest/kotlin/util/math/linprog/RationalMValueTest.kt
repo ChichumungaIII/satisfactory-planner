@@ -67,7 +67,7 @@ class RationalMValueTest {
                     RationalMValue(Rational.ONE, Rational.ZERO)
         }
         assertEquals(
-            "Cannot multiply [(1 * M + 0) * (1 * M + 0)]: at least one must have a zero `M` part.",
+            "Cannot multiply [(1 * M) * (1 * M)]: at least one must have a zero `M` part.",
             expected.message
         )
     }
