@@ -76,6 +76,11 @@ class Rational private constructor(
      */
     fun norm() = norm
 
+    override fun factory() = object : Numeric.Factory<Rational> {
+        override fun zilch() = ZERO
+        override fun unit() = ONE
+    }
+
     override operator fun unaryMinus() = Rational(-n, d)
 
     override operator fun plus(other: Rational) =

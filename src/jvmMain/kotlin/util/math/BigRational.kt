@@ -23,6 +23,11 @@ class BigRational constructor(
         else BigRational(n / gcd, d / gcd)
     }
 
+    override fun factory() = object : Numeric.Factory<BigRational> {
+        override fun zilch() = create(ZERO)
+        override fun unit() = create(ONE)
+    }
+
     override operator fun unaryMinus() = BigRational(-n, d)
 
     override operator fun plus(other: BigRational) = BigRational(n * other.d + other.n * d, d * other.d)
