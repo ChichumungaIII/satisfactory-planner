@@ -1,5 +1,6 @@
 package com.chichumunga.satisfactory.util.math
 
+import util.math.Numeric
 import java.math.BigInteger
 import java.math.BigInteger.ONE
 import java.math.BigInteger.ZERO
@@ -7,7 +8,7 @@ import java.math.BigInteger.ZERO
 class BigRational constructor(
     private val n: BigInteger,
     private val d: BigInteger,
-) : Comparable<BigRational> {
+) : Numeric<BigRational> {
     init {
         check(d > ZERO) { "Rational number [$this] requires a positive denominator." }
     }
@@ -22,13 +23,12 @@ class BigRational constructor(
         else BigRational(n / gcd, d / gcd)
     }
 
-    operator fun unaryPlus() = this
-    operator fun unaryMinus() = BigRational(-n, d)
+    override operator fun unaryMinus() = BigRational(-n, d)
 
-    operator fun plus(other: BigRational) = BigRational(n * other.d + other.n * d, d * other.d)
-    operator fun minus(other: BigRational) = BigRational(n * other.d - other.n * d, d * other.d)
-    operator fun times(other: BigRational) = BigRational(n * other.n, d * other.d)
-    operator fun div(other: BigRational) = create(n * other.d, d * other.n)
+    override operator fun plus(other: BigRational) = BigRational(n * other.d + other.n * d, d * other.d)
+    override operator fun minus(other: BigRational) = BigRational(n * other.d - other.n * d, d * other.d)
+    override operator fun times(other: BigRational) = BigRational(n * other.n, d * other.d)
+    override operator fun div(other: BigRational) = create(n * other.d, d * other.n)
 
     override operator fun compareTo(other: BigRational) = (n * other.d).compareTo(other.n * d)
 
