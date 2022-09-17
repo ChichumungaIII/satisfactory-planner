@@ -17,6 +17,11 @@ class Rational private constructor(
         val ZERO = create(0)
         val ONE = create(1)
 
+        val FACTORY = object : Numeric.Factory<Rational> {
+            override fun zilch() = ZERO
+            override fun unit() = ONE
+        }
+
         private val RATIONAL_OR_DECIMAL = Regex("""(-)?(\d+)(\s*/\s*(\d+)|\.(\d+))?""")
 
         /**
@@ -76,10 +81,7 @@ class Rational private constructor(
      */
     fun norm() = norm
 
-    override fun factory() = object : Numeric.Factory<Rational> {
-        override fun zilch() = ZERO
-        override fun unit() = ONE
-    }
+    override fun factory() = FACTORY
 
     override operator fun unaryMinus() = Rational(-n, d)
 

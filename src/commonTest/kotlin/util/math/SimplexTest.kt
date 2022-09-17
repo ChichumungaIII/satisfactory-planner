@@ -15,7 +15,7 @@ class SimplexTest {
 
         val objective = (40.q / 100.q) * "c" + (45.q / 100.q) * "w"
 
-        val solution = minimize(objective, listOf(c1, c2, c3), 0.q.factory())
+        val solution = minimize(objective, listOf(c1, c2, c3), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -33,7 +33,7 @@ class SimplexTest {
 
         val objective = 7.q * "x" + 5.q * "y"
 
-        val solution = maximize(objective, listOf(c1, c2), 0.q.factory())
+        val solution = maximize(objective, listOf(c1, c2), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -52,7 +52,7 @@ class SimplexTest {
 
         val objective = 12.q * "x" + 3.q * "y" + 10.q * "z"
 
-        val solution = minimize(objective, listOf(c1, c2, c3), 0.q.factory())
+        val solution = minimize(objective, listOf(c1, c2, c3), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -71,7 +71,7 @@ class SimplexTest {
 
         val objective = 1.q * "x" + (-10).q * "y"
 
-        val solution = minimize(objective, listOf(c1, c2, c3), 0.q.factory())
+        val solution = minimize(objective, listOf(c1, c2, c3), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -91,7 +91,7 @@ class SimplexTest {
 
         val objective = 12.q * "md" + 9.q * "ml" + 12.q * "pd"
 
-        val solution = minimize(objective, listOf(c1, c2, c3, c4), 0.q.factory())
+        val solution = minimize(objective, listOf(c1, c2, c3, c4), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -118,7 +118,7 @@ class SimplexTest {
                 maximize(
                     objective,
                     listOf(ingots, ore, plates, rods, couple),
-                    0.q.factory()
+                    Rational.FACTORY
                 )
             }
         assertContains(failure.message!!, "artificial variable had a value greater than zero")
@@ -134,7 +134,7 @@ class SimplexTest {
 
         val objective = plates.expression
 
-        val solution = maximize(objective, listOf(ingots, ore, plates, rods, couple), 0.q.factory())
+        val solution = maximize(objective, listOf(ingots, ore, plates, rods, couple), Rational.FACTORY)
 
         assertEquals(
             mapOf(
@@ -157,7 +157,7 @@ class SimplexTest {
 
         val objective = ore.expression
 
-        val solution = minimize(-objective, listOf(ingots, ore, plates, rods), 0.q.factory())
+        val solution = minimize(-objective, listOf(ingots, ore, plates, rods), Rational.FACTORY)
 
         assertEquals(
             mapOf(

@@ -14,6 +14,11 @@ class BigRational constructor(
     }
 
     companion object {
+        val FACTORY = object : Numeric.Factory<BigRational> {
+            override fun zilch() = create(ZERO)
+            override fun unit() = create(ONE)
+        }
+
         fun create(n: BigInteger, d: BigInteger = ONE) = if (d < ZERO) BigRational(-n, -d) else BigRational(n, d)
     }
 
@@ -23,10 +28,7 @@ class BigRational constructor(
         else BigRational(n / gcd, d / gcd)
     }
 
-    override fun factory() = object : Numeric.Factory<BigRational> {
-        override fun zilch() = create(ZERO)
-        override fun unit() = create(ONE)
-    }
+    override fun factory() = FACTORY
 
     override operator fun unaryMinus() = BigRational(-n, d)
 
