@@ -1,0 +1,24 @@
+package util.math
+
+import util.math.Expression.Companion.times
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class BigSimplexTest {
+    @Test
+    fun profile_largeOptimization() {
+        val count = 400;
+
+        var objective = 1.q * "x1"
+        var constraints = mutableListOf(Constraint.atMost(1.q * "x1", 1.q))
+        for (i in 2..count) {
+            val expression = 1.q * "x$i"
+            objective += expression
+            constraints.add(Constraint.atMost(expression, i.q))
+        }
+
+        val solution = maximize(objective, constraints, Rational.FACTORY)
+
+        assertEquals(((count * count + count) / 2).q, objective(solution))
+    }
+}
