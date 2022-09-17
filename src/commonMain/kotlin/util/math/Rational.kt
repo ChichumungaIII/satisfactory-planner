@@ -87,25 +87,25 @@ class Rational private constructor(
         Rational(
             n * other.d + other.n * d,
             d * other.d
-        )
+        ).norm()
 
     override operator fun minus(other: Rational) =
         Rational(
             n * other.d - other.n * d,
             d * other.d
-        )
+        ).norm()
 
     override operator fun times(other: Rational) =
         Rational(
             n * other.n,
             d * other.d
-        )
+        ).norm()
 
     override operator fun div(other: Rational) =
         create(
             n * other.d,
             other.n * d
-        )
+        ).norm()
 
     override operator fun compareTo(other: Rational) =
         (n * other.d).compareTo(other.n * d)
