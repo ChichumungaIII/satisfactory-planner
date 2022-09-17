@@ -6,6 +6,7 @@ import app.common.RationalValidation
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
+import app.util.math.toFixed
 import csstype.Display
 import csstype.Margin
 import csstype.px
@@ -69,7 +70,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
-                else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
+                else RationalValidation.fail("Maximum yield is ${maximum.toFixed(4)} (${maximum})")
             }, { value ->
                 val limit = product.limit
                 if (limit == null || value <= limit) RationalValidation.pass()
@@ -93,7 +94,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
-                else RationalValidation.fail("Maximum yield is ${maximum.toDecimal(4)} (${maximum})")
+                else RationalValidation.fail("Maximum yield is ${maximum.toFixed(4)} (${maximum})")
             }, { value ->
                 if (value >= product.requirement) RationalValidation.pass()
                 else RationalValidation.fail("Limit must exceed requirement.")
@@ -103,14 +104,14 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
         val target = product.target
         if (target != null) {
             Box {
-                +"Produced: ${target.toDecimal(4)} | ($target)"
+                +"Produced: ${target.toFixed(4)} | ($target)"
             }
         }
 
         val maximum = product.maximum
         if (maximum != null) {
             Box {
-                +"Maximum: ${maximum.toDecimal(4)} ($maximum)"
+                +"Maximum: ${maximum.toFixed(4)} ($maximum)"
             }
         }
     }

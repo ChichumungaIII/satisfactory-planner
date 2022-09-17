@@ -6,6 +6,7 @@ import app.common.RationalValidation
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.util.PropsDelegate
+import app.util.math.toFixed
 import csstype.Display
 import csstype.Margin
 import csstype.px
@@ -69,7 +70,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             validators = listOf { value ->
                 val minimum = input.minimum
                 if (minimum == null || value >= minimum) RationalValidation.pass()
-                else RationalValidation.fail("Plan requires at least ${minimum.toDecimal(4)} ($minimum)")
+                else RationalValidation.fail("Plan requires at least ${minimum.toFixed(4)} ($minimum)")
             }
 
             onBlur = {
@@ -83,14 +84,14 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
         val target = input.target
         if (target != null) {
             Box {
-                +"Consumed: ${target.toDecimal(4)} | ($target)"
+                +"Consumed: ${target.toFixed(4)} | ($target)"
             }
         }
 
         val minimum = input.minimum
         if (minimum != null) {
             Box {
-                +"Required: ${minimum.toDecimal(4)} ($minimum)"
+                +"Required: ${minimum.toFixed(4)} ($minimum)"
             }
         }
     }
