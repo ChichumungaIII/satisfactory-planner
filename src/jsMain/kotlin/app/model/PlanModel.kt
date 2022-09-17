@@ -2,12 +2,13 @@ package app.model
 
 import app.model.game.u5.Item
 import app.model.game.u5.Recipe
+import util.math.Constraint
+import util.math.Expression
+import util.math.Expression.Companion.times
+import util.math.InfeasibleSolutionException
 import util.math.Rational
-import util.math.RationalExpression
-import util.math.linprog.InfeasibleSolutionException
-import util.math.linprog.RationalConstraint
-import util.math.linprog.maximize
-import util.math.linprog.minimize
+import util.math.maximize
+import util.math.minimize
 import util.math.q
 import kotlin.random.Random
 
@@ -43,7 +44,7 @@ data class PlanModel(
         }
 
         // TODO: Replace with a plan and phase-specific recipe set
-        val expressions = consider(*Recipe.values())
+        val expressions = consider(Recipe.values())
         check(expressions.keys.containsAll(inputs.map { it.item }))
         check(expressions.keys.containsAll(products.map { it.item }))
 
@@ -54,7 +55,7 @@ data class PlanModel(
         val planConstraints =
             expressions.map { (item, expression) ->
                 val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
-                RationalConstraint.atLeast(expression, result)
+                Constraint.atLeast(expression, result)
             }
 
         /* PRIMARY PLAN */
@@ -69,11 +70,11 @@ data class PlanModel(
             val objective = expressions[principal]!!
 
             val limitConstraints =
-                unrealized.map { item -> RationalConstraint.atMost(expressions[item]!!, limits[item]!!) }
+                unrealized.map { item -> Constraint.atMost(expressions[item]!!, limits[item]!!) }
             val realizedConstraints =
-                realized.map { item -> RationalConstraint.equalTo(expressions[item]!!, limits[item]!!) }
+                realized.map { item -> Constraint.equalTo(expressions[item]!!, limits[item]!!) }
             val balanceConstraints = (unlimited + unrealized).filterNot { it == principal }.map { item ->
-                RationalConstraint.equalTo(
+                Constraint.equalTo(
                     expressions[item]!! - objective,
                     requirements[item]!! - requirements[principal]!!
                 )
@@ -81,7 +82,7 @@ data class PlanModel(
 
             try {
                 val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
-                solution = maximize(objective, *constraints.toTypedArray())
+                solution = maximize(objective, constraints, Rational.FACTORY)
             } catch (e: InfeasibleSolutionException) {
                 val nextInputs = inputs.map { input -> input.copy(target = null, minimum = null) }
                 val nextProducts = products.map { product -> product.copy(target = null, maximum = null) }
@@ -96,12 +97,16 @@ data class PlanModel(
         /* MINIMUMS FOR INPUTS */
 
         val inputMinimums = inputs.map { it.item }
-            .associateWith { item -> (-expressions[item]!!).let { it(minimize(it, *planConstraints.toTypedArray())) } }
+            .associateWith { item ->
+                (-expressions[item]!!).let {
+                    it(minimize(it, planConstraints, Rational.FACTORY))
+                }
+            }
 
         /* MAXIMUMS FOR PRODUCTS */
 
         val productMaximums = products.map { it.item }
-            .associateWith { item -> (expressions[item]!!).let { it(maximize(it, *planConstraints.toTypedArray())) } }
+            .associateWith { item -> (expressions[item]!!).let { it(maximize(it, planConstraints, Rational.FACTORY)) } }
 
         /* FINAL COMPILATION */
 
@@ -124,14 +129,15 @@ data class PlanModel(
         )
     }
 
-    private fun consider(vararg recipes: Recipe): Map<Item, RationalExpression<Recipe>> {
-        val expressions = mutableMapOf<Item, RationalExpression.Builder<Recipe>>()
+    private fun consider(recipes: Array<Recipe>): Map<Item, Expression<Recipe, Rational>> {
+        val expressions = mutableMapOf<Item, Expression<Recipe, Rational>>()
         for (recipe in recipes) {
             for (component in recipe.components()) {
-                expressions.getOrPut(component.item()) { RationalExpression.Builder() }
-                    .set(recipe, (component.quantity() * 60.q / recipe.time()).norm())
+                val item = component.item()
+                val expression = (component.quantity() * 60.q / recipe.time()) * recipe
+                expressions[item] = expressions[item]?.let { it + expression } ?: expression
             }
         }
-        return expressions.mapValues { (_, expression) -> expression.build() }
+        return expressions
     }
 }
