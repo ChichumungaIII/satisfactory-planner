@@ -1,5 +1,6 @@
 package app.plan
 
+import app.api.OptimizeRequest
 import app.data.u5.Item
 import app.model.PlanInputModel
 import app.model.PlanModel
@@ -10,6 +11,9 @@ import csstype.FlexDirection
 import csstype.Margin
 import csstype.Padding
 import csstype.px
+import kotlinx.browser.window
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import mui.icons.material.Add
 import mui.icons.material.ExpandMore
 import mui.material.Accordion
@@ -30,6 +34,7 @@ import mui.material.TableHead
 import mui.material.TableRow
 import mui.material.Typography
 import mui.system.sx
+import org.w3c.fetch.RequestInit
 import react.FC
 import react.Props
 import react.create
@@ -131,7 +136,13 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                 Button {
                     variant = ButtonVariant.contained
-                    onClick = { plan = plan.optimize() }
+                    onClick = {
+                        plan = plan.optimize()
+
+                        val request = OptimizeRequest(setOf(), listOf(), listOf())
+                        val init = RequestInit(method = "POST", body = Json.encodeToString(request))
+                        window.fetch("/v1/optimize", init)
+                    }
 
                     if (plan.outcome == null) {
                         +"Calculate"

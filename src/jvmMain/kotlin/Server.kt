@@ -9,6 +9,7 @@ fun main() {
         routing {
             indexRoute()
             staticRoute()
+            optimizeRoute()
         }
     }.start(wait = true)
 }
