@@ -1,5 +1,6 @@
 package util.math
 
+import kotlinx.serialization.Serializable
 import kotlin.math.abs
 
 /**
@@ -9,6 +10,7 @@ import kotlin.math.abs
  * @property d The denominator of the Rational number, which must be positive.
  * @constructor
  */
+@Serializable
 class Rational private constructor(
     private val n: Long,
     private val d: Long,
@@ -68,18 +70,16 @@ class Rational private constructor(
         check(d > 0) { "Rational number [$this] requires a positive denominator." }
     }
 
-    /** @property norm The reduced form of this Rational number. */
-    private val norm by lazy {
-        val gcd = gcd(n, d)
-        if (gcd == 1L) this else Rational(n / gcd, d / gcd)
-    }
+    private val gcd by lazy { gcd(n, d) }
+    private val normN by lazy { n / gcd }
+    private val normD by lazy { d / gcd }
 
     /**
      * Returns this [Rational] number in reduced form.
      *
      * If the number is already reduced, returns this Rational number.
      */
-    fun norm() = norm
+    fun norm() = Rational(normN, normD)
 
     override fun factory() = FACTORY
 
@@ -114,9 +114,9 @@ class Rational private constructor(
 
     /** Returns true if [other] is a [Rational] number numerically equal to this. */
     override fun equals(other: Any?) =
-        other is Rational && this.norm.n == other.norm.n && this.norm.d == other.norm.d
+        other is Rational && this.normN == other.normN && this.normD == other.normD
 
-    override fun hashCode() = (norm.n * 31 + norm.d).toInt()
+    override fun hashCode() = (normN * 31 + normD).toInt()
 
     override fun toString() = if (d == 1L) "$n" else "$n/$d"
 
