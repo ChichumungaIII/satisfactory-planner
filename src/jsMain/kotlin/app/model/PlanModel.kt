@@ -1,7 +1,7 @@
 package app.model
 
-import app.model.game.u5.Item
-import app.model.game.u5.Recipe
+import app.data.u5.Item
+import app.data.u5.Recipe
 import util.math.Constraint
 import util.math.Expression
 import util.math.Expression.Companion.times
@@ -132,9 +132,14 @@ data class PlanModel(
     private fun consider(recipes: Array<Recipe>): Map<Item, Expression<Recipe, Rational>> {
         val expressions = mutableMapOf<Item, Expression<Recipe, Rational>>()
         for (recipe in recipes) {
-            for (component in recipe.components()) {
-                val item = component.item()
-                val expression = (component.quantity() * 60.q / recipe.time()) * recipe
+            for (component in recipe.products) {
+                val item = component.item
+                val expression = (component.quantity * 60.q / recipe.time) * recipe
+                expressions[item] = expressions[item]?.let { it + expression } ?: expression
+            }
+            for (component in recipe.inputs) {
+                val item = component.item
+                val expression = -(component.quantity * 60.q / recipe.time) * recipe
                 expressions[item] = expressions[item]?.let { it + expression } ?: expression
             }
         }

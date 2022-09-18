@@ -1,7 +1,7 @@
-package app.model.game.u5
+package app.data.u5
 
 enum class Item(
-    private val displayName: String,
+    val displayName: String,
 ) {
     IRON_INGOT("Iron Ingot"),
     IRON_ORE("Iron Ore"),
@@ -10,6 +10,4 @@ enum class Item(
     ROTOR("Rotor"),
     SCREW("Screw"),
     ;
-
-    fun displayName() = displayName
 }

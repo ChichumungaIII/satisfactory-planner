@@ -1,12 +1,12 @@
-package app.model.game.u5
+package app.data.u5
 
 import util.math.Rational
 import util.math.q
 
 enum class Recipe(
-    private val time: Rational,
-    private val inputs: List<Component>,
-    private val products: List<Component>,
+    val time: Rational,
+    val inputs: List<Component>,
+    val products: List<Component>,
 ) {
     IRON_INGOT(
         2.q,
@@ -38,19 +38,8 @@ enum class Recipe(
     ),
     ;
 
-    fun time() = time
-    fun inputs() = inputs
-    fun products() = products
-
-    fun components() = products() + inputs().map { -it }
-
     data class Component(
-        private val item: Item,
-        private val quantity: Rational
-    ) {
-        fun item() = item
-        fun quantity() = quantity
-
-        operator fun unaryMinus(): Component = copy(quantity = -quantity)
-    }
+        val item: Item,
+        val quantity: Rational,
+    )
 }

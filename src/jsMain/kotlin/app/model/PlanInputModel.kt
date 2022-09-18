@@ -1,6 +1,6 @@
 package app.model
 
-import app.model.game.u5.Item
+import app.data.u5.Item
 import util.math.Rational
 
 data class PlanInputModel(

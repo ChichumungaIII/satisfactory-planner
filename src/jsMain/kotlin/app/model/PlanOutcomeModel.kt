@@ -1,6 +1,6 @@
 package app.model
 
-import app.model.game.u5.Recipe
+import app.data.u5.Recipe
 import util.math.Rational
 
 data class PlanOutcomeModel(

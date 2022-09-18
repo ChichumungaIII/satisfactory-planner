@@ -1,6 +1,6 @@
 package app.common
 
-import app.model.game.u5.Item
+import app.data.u5.Item
 import app.util.PropsDelegate
 import csstype.Margin
 import csstype.px
@@ -59,6 +59,6 @@ private external interface ItemAutocompleteOption {
 }
 
 private fun ItemAutocompleteOption(item: Item): ItemAutocompleteOption = jso {
-    label = item.displayName()
+    label = item.displayName
     data = item
 }

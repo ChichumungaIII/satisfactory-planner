@@ -1,9 +1,9 @@
 package app.plan
 
+import app.data.u5.Item
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
-import app.model.game.u5.Item
 import app.util.PropsDelegate
 import csstype.Color
 import csstype.FlexDirection
