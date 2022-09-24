@@ -1,5 +1,6 @@
 package util.math
 
+import kotlinx.coroutines.runBlocking
 import util.math.Expression.Companion.times
 import kotlin.test.Test
 import kotlin.test.assertContains
@@ -8,7 +9,7 @@ import kotlin.test.assertFailsWith
 
 class SimplexTest {
     @Test
-    fun minimize_brilliant_intro() {
+    fun minimize_brilliant_intro() = runBlocking {
         val c1 = Constraint.atLeast((1.q / 10.q) * "c" + (15.q / 100.q) * "w", (65.q / 100.q))
         val c2 = Constraint.atLeast((75.q / 100.q) * "c" + (7.q / 10.q) * "w", 4.q)
         val c3 = Constraint.atMost(1.q * "c" + 1.q * "w", 7.q)
@@ -27,7 +28,7 @@ class SimplexTest {
     }
 
     @Test
-    fun maximize_brilliant_simple() {
+    fun maximize_brilliant_simple() = runBlocking {
         val c1 = Constraint.atMost(2.q * "x" + 3.q * "y", 90.q)
         val c2 = Constraint.atMost(3.q * "x" + 2.q * "y", 120.q)
 
@@ -45,7 +46,7 @@ class SimplexTest {
     }
 
     @Test
-    fun minimize_brilliant_simple() {
+    fun minimize_brilliant_simple() = runBlocking {
         val c1 = Constraint.atLeast(4.q * "x" + 3.q * "y" + 5.q * "z", 65.q)
         val c2 = Constraint.atLeast(1.q * "x" + 3.q * "y" + 2.q * "z", 38.q)
         val c3 = Constraint.atLeast(2.q * "x" + 3.q * "y" + 4.q * "z", 52.q)
@@ -64,7 +65,7 @@ class SimplexTest {
     }
 
     @Test
-    fun minimize_brilliant_bigM() {
+    fun minimize_brilliant_bigM() = runBlocking {
         val c1 = Constraint.atMost((-1).q * "x" + 5.q * "y", 25.q)
         val c2 = Constraint.atMost(6.q * "x" + 5.q * "y", 60.q)
         val c3 = Constraint.atLeast(1.q * "x" + 1.q * "y", 2.q)
@@ -83,7 +84,7 @@ class SimplexTest {
     }
 
     @Test
-    fun minimize_brilliant_bigM_example() {
+    fun minimize_brilliant_bigM_example() = runBlocking {
         val c1 = Constraint.atMost(1.q * "md" + 1.q * "pd", 40.q)
         val c2 = Constraint.atMost(1.q * "ml", 40.q)
         val c3 = Constraint.atLeast(1.q * "pd", 20.q)
@@ -104,7 +105,7 @@ class SimplexTest {
     }
 
     @Test
-    fun maximize_infeasible() {
+    fun maximize_infeasible() = runBlocking {
         val ingots = Constraint.atLeast((-30).q * "PLATE" + 30.q * "INGOT" + (-15).q * "ROD", 0.q)
         val ore = Constraint.atLeast((-30).q * "INGOT", (-60).q)
         val plates = Constraint.atLeast(20.q * "PLATE", 30.q)
@@ -125,7 +126,7 @@ class SimplexTest {
     }
 
     @Test
-    fun maximize_toLimit() {
+    fun maximize_toLimit() = runBlocking {
         val ingots = Constraint.atLeast((-30).q * "PLATE" + 30.q * "INGOT" + (-15).q * "ROD", 0.q)
         val ore = Constraint.atLeast((-30).q * "INGOT", (-60).q)
         val plates = Constraint.atLeast(20.q * "PLATE", 24.q)
@@ -149,7 +150,7 @@ class SimplexTest {
     }
 
     @Test
-    fun minimize_unconstrained() {
+    fun minimize_unconstrained() = runBlocking {
         val ingots = Constraint.atLeast((-30).q * "PLATE" + 30.q * "INGOT" + (-15).q * "ROD", 0.q)
         val ore = Constraint.atLeast((-30).q * "INGOT", (-60).q)
         val plates = Constraint.atLeast(20.q * "PLATE", 0.q)

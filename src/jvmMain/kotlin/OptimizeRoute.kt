@@ -9,6 +9,7 @@ import io.ktor.server.request.receiveText
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -30,10 +31,10 @@ fun Routing.optimizeRoute() {
     }
 }
 
-private fun optimize(request: OptimizeRequest): OptimizeResponse {
+private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     val (recipes, inputs, products) = request
 
-    if (inputs.isEmpty() || products.isEmpty()) return EMPTY
+    if (inputs.isEmpty() || products.isEmpty()) return@coroutineScope EMPTY
 
     val expressions = consider(recipes)
     check(expressions.keys.containsAll(inputs.map { it.item }))
@@ -75,7 +76,7 @@ private fun optimize(request: OptimizeRequest): OptimizeResponse {
             val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
             solution = maximize(objective, constraints, Rational.FACTORY)
         } catch (e: InfeasibleSolutionException) {
-            return EMPTY
+            return@coroutineScope EMPTY
         }
 
         val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
@@ -99,7 +100,7 @@ private fun optimize(request: OptimizeRequest): OptimizeResponse {
 
     /* FINAL COMPILATION */
 
-    return OptimizeResponse(solution, inputMinimums, productMaximums)
+    return@coroutineScope OptimizeResponse(solution, inputMinimums, productMaximums)
 }
 
 private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, Rational>> {

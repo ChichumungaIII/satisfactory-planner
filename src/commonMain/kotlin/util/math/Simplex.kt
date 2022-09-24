@@ -1,9 +1,12 @@
 package util.math
 
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import util.math.Constraint.Comparison
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
-fun <V, N : Numeric<N>> minimize(
+suspend fun <V, N : Numeric<N>> minimize(
     objective: Expression<V, N>,
     constraints: List<Constraint<V, N>>,
     numbers: Numeric.Factory<N>,
@@ -19,11 +22,11 @@ fun <V, N : Numeric<N>> minimize(
  * @return A Map containing the values to which each term in the objective and constraints should be set in order to
  *         maximize the objective function.
  */
-fun <V, N : Numeric<N>> maximize(
+suspend fun <V, N : Numeric<N>> maximize(
     objective: Expression<V, N>,
     rawConstraints: List<Constraint<V, N>>,
     numbers: Numeric.Factory<N>,
-): Map<V, N> {
+) = coroutineScope {
     val constraints = rawConstraints.map { it.normalize(numbers) }
 
     // Terms are the variables in the expressions. Each one can be manipulated to maximize the objective function, and
@@ -108,7 +111,7 @@ fun <V, N : Numeric<N>> maximize(
 
     // Extract the solution from the matrix. Terms are in the solution with a nonzero value if their corresponding
     // column is all zeros except for a single row, in which case their value is (right-hand side) / (that coefficient).
-    return terms.withIndex().associate { (column, term) ->
+    return@coroutineScope terms.withIndex().associate { (column, term) ->
         term to (matrix.column(column).withIndex().filterNot { it.value == MValue.zilch(numbers) }
             .map { (row, cell) -> matrix.get(row, matrix.columns() - 1) / cell }.singleOrNull()?.toNumeric()
             ?: numbers.zilch())
@@ -126,22 +129,26 @@ private fun <V, N : Numeric<N>> Constraint<V, N>.normalize(numbers: Numeric.Fact
     else Constraint.equalTo(-expression, -result)
 }
 
-private fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: Int, pivotColumn: Int) {
-    for (row in 0 until rows()) {
-        if (row == pivotRow) {
-            // This isn't necessary, but I find it tidy to normalize the rows of variables in the solution.
-            val divisor = get(row, pivotColumn)
-            for (column in 0 until columns()) {
-                update(row, column) { (it / divisor) }
-            }
-        } else {
-            // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
-            val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
-            for (column in 0 until columns()) {
-                update(row, column) { (it - scalar * get(pivotRow, column)) }
-            }
-        }
+private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: Int, pivotColumn: Int) = coroutineScope {
+    // This isn't necessary, but I find it tidy to normalize the rows of variables in the solution.
+    val divisor = get(pivotRow, pivotColumn)
+    for (column in 0 until columns()) {
+        update(pivotRow, column) { (it / divisor) }
     }
+
+    val jobs = mutableListOf<Job>()
+    (0 until rows()).filterNot { it == pivotRow }.chunked(rows() / 16 + 1).forEach { chunk ->
+        jobs.add(launch {
+            for (row in chunk) {
+                // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
+                val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
+                for (column in 0 until columns()) {
+                    update(row, column) { (it - scalar * get(pivotRow, column)) }
+                }
+            }
+        })
+    }
+    jobs.forEach { it.join() }
 }
 
 private fun <T> MutableMatrix<T>.debug() {
