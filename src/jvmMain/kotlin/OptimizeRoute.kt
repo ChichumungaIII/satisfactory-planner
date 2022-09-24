@@ -82,7 +82,7 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
         val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
         unrealized -= newlyRealized
         realized += newlyRealized
-    } while (newlyRealized.isNotEmpty())
+    } while (newlyRealized.isNotEmpty() && unrealized.isNotEmpty())
 
     /* MINIMUMS FOR INPUTS */
 

@@ -141,7 +141,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
                             val request = OptimizeRequest(
                                 Recipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
-                                plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.maximum) })
+                                plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
                             val response = optimize(request)
 
                             plan = plan.update(response)
