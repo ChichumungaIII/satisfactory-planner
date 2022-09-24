@@ -4,6 +4,7 @@ import app.api.OptimizeRequest
 import app.api.client.optimize
 import app.appScope
 import app.data.u5.Item
+import app.data.u5.Recipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
@@ -136,12 +137,14 @@ val Plan = FC<PlanProps>("Plan") { props ->
                 Button {
                     variant = ButtonVariant.contained
                     onClick = {
-                        plan = plan.optimize()
-
-                        val request = OptimizeRequest(setOf(), listOf(), listOf())
                         appScope.launch {
+                            val request = OptimizeRequest(
+                                Recipe.values().toSet(),
+                                plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
+                                plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.maximum) })
                             val response = optimize(request)
-                            println(response)
+
+                            plan = plan.update(response)
                         }
                     }
 
