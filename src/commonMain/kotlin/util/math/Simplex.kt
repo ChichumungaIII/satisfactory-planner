@@ -1,8 +1,6 @@
 package util.math
 
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import util.math.Constraint.Comparison
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
@@ -136,19 +134,13 @@ private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: In
         update(pivotRow, column) { (it / divisor) }
     }
 
-    val jobs = mutableListOf<Job>()
-    (0 until rows()).filterNot { it == pivotRow }.chunked(rows() / 16 + 1).forEach { chunk ->
-        jobs.add(launch {
-            for (row in chunk) {
-                // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
-                val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
-                for (column in 0 until columns()) {
-                    update(row, column) { (it - scalar * get(pivotRow, column)) }
-                }
-            }
-        })
+    (0 until rows()).filterNot { it == pivotRow }.forEach { row ->
+        // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
+        val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
+        for (column in 0 until columns()) {
+            update(row, column) { (it - scalar * get(pivotRow, column)) }
+        }
     }
-    jobs.forEach { it.join() }
 }
 
 private fun <T> MutableMatrix<T>.debug() {

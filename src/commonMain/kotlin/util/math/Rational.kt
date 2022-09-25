@@ -12,8 +12,8 @@ import kotlin.math.abs
  */
 @Serializable
 class Rational private constructor(
-    private val n: Long,
-    private val d: Long,
+    val n: Long,
+    val d: Long,
 ) : Number(), Numeric<Rational> {
     companion object {
         val ZERO = create(0)

@@ -1,6 +1,7 @@
 package com.chichumunga.satisfactory.util.math
 
 import util.math.Numeric
+import util.math.Rational
 import java.math.BigInteger
 import java.math.BigInteger.ONE
 import java.math.BigInteger.ZERO
@@ -32,19 +33,22 @@ class BigRational constructor(
 
     override operator fun unaryMinus() = BigRational(-n, d)
 
-    override operator fun plus(other: BigRational) = BigRational(n * other.d + other.n * d, d * other.d)
-    override operator fun minus(other: BigRational) = BigRational(n * other.d - other.n * d, d * other.d)
-    override operator fun times(other: BigRational) = BigRational(n * other.n, d * other.d)
-    override operator fun div(other: BigRational) = create(n * other.d, d * other.n)
+    override operator fun plus(other: BigRational) = BigRational(n * other.d + other.n * d, d * other.d).norm
+    override operator fun minus(other: BigRational) = BigRational(n * other.d - other.n * d, d * other.d).norm
+    override operator fun times(other: BigRational) = BigRational(n * other.n, d * other.d).norm
+    override operator fun div(other: BigRational) = create(n * other.d, d * other.n).norm
 
     override operator fun compareTo(other: BigRational) = (n * other.d).compareTo(other.n * d)
 
     override fun equals(other: Any?) = other is BigRational && norm.n == other.n && norm.d == other.d
     override fun hashCode() = norm.n.toInt() * 31 + norm.d.toInt()
 
+    fun toRational() = Rational.create(norm.n.longValueExact(), norm.d.longValueExact())
+
     override fun toString() = if (d == ONE) "$n" else "$n/$d"
 }
 
+inline val Rational.br get() = BigRational.create(n.bi, d.bi)
 inline val BigInteger.br get() = BigRational.create(this)
 inline val Long.br get() = bi.br
 inline val Int.br get() = bi.br

@@ -4,6 +4,8 @@ import app.api.OptimizeRequest
 import app.api.OptimizeResponse
 import app.data.u5.Item
 import app.data.u5.Recipe
+import com.chichumunga.satisfactory.util.math.BigRational
+import com.chichumunga.satisfactory.util.math.br
 import io.ktor.server.application.call
 import io.ktor.server.request.receiveText
 import io.ktor.server.response.respondText
@@ -17,7 +19,6 @@ import util.math.Constraint
 import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.InfeasibleSolutionException
-import util.math.Rational
 import util.math.maximize
 import util.math.minimize
 import util.math.q
@@ -40,13 +41,13 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     check(expressions.keys.containsAll(inputs.map { it.item }))
     check(expressions.keys.containsAll(products.map { it.item }))
 
-    val provisions = inputs.associate { it.item to it.quantity }
-    val requirements = products.associate { it.item to it.minimum }
-    val limits = products.filterNot { it.maximum == null }.associate { it.item to it.maximum!! }
+    val provisions = inputs.associate { it.item to it.quantity.br }
+    val requirements = products.associate { it.item to it.minimum.br }
+    val limits = products.filterNot { it.maximum == null }.associate { it.item to it.maximum!!.br }
 
     val planConstraints =
         expressions.map { (item, expression) ->
-            val result = requirements.getOrElse(item) { 0.q } - provisions.getOrElse(item) { 0.q }
+            val result = requirements.getOrElse(item) { 0.br } - provisions.getOrElse(item) { 0.br }
             Constraint.atLeast(expression, result)
         }
 
@@ -56,7 +57,7 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     val unrealized = products.filterNot { it.maximum == null }.mapTo(mutableSetOf()) { it.item }
     val realized = mutableSetOf<Item>()
 
-    var solution: Map<Recipe, Rational>
+    var solution: Map<Recipe, BigRational>
     do {
         val principal = (unlimited + unrealized).first()
         val objective = expressions[principal]!!
@@ -74,7 +75,7 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
         try {
             val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
-            solution = maximize(objective, constraints, Rational.FACTORY)
+            solution = maximize(objective, constraints, BigRational.FACTORY)
         } catch (e: InfeasibleSolutionException) {
             return@coroutineScope EMPTY
         }
@@ -82,38 +83,45 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
         val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
         unrealized -= newlyRealized
         realized += newlyRealized
-    } while (newlyRealized.isNotEmpty() && unrealized.isNotEmpty())
+    } while (newlyRealized.isNotEmpty() && (unrealized.isNotEmpty() || unlimited.isNotEmpty()))
 
     /* MINIMUMS FOR INPUTS */
 
     val inputMinimums = inputs.map { it.item }
         .associateWith { item ->
             (-expressions[item]!!).let {
-                it(minimize(it, planConstraints, Rational.FACTORY))
+                it(minimize(it, planConstraints, BigRational.FACTORY))
             }
         }
 
     /* MAXIMUMS FOR PRODUCTS */
 
     val productMaximums = products.map { it.item }
-        .associateWith { item -> (expressions[item]!!).let { it(maximize(it, planConstraints, Rational.FACTORY)) } }
+        .associateWith { item ->
+            (expressions[item]!!).let {
+                it(maximize(it, planConstraints, BigRational.FACTORY))
+            }
+        }
 
     /* FINAL COMPILATION */
 
-    return@coroutineScope OptimizeResponse(solution, inputMinimums, productMaximums)
+    return@coroutineScope OptimizeResponse(
+        solution.mapValues { (_, x) -> x.toRational() },
+        inputMinimums.mapValues { (_, x) -> x.toRational() },
+        productMaximums.mapValues { (_, x) -> x.toRational() })
 }
 
-private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, Rational>> {
-    val expressions = mutableMapOf<Item, Expression<Recipe, Rational>>()
+private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, BigRational>> {
+    val expressions = mutableMapOf<Item, Expression<Recipe, BigRational>>()
     for (recipe in recipes) {
         for (component in recipe.products) {
             val item = component.item
-            val expression = (component.quantity * 60.q / recipe.time) * recipe
+            val expression = (component.quantity * 60.q / recipe.time).br * recipe
             expressions[item] = expressions[item]?.let { it + expression } ?: expression
         }
         for (component in recipe.inputs) {
             val item = component.item
-            val expression = -(component.quantity * 60.q / recipe.time) * recipe
+            val expression = -(component.quantity * 60.q / recipe.time).br * recipe
             expressions[item] = expressions[item]?.let { it + expression } ?: expression
         }
     }
