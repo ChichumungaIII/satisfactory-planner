@@ -23,6 +23,7 @@ import react.ReactNode
 import react.create
 import react.useEffect
 import react.useState
+import kotlin.math.min
 
 const val NEW_PLAN_ID = "new"
 
@@ -87,8 +88,9 @@ val Plans = FC<PlansProps>("Plans") {
                         plans = plans.subList(0, i) + newPlan + plans.subList(i + 1, plans.size)
                     }
                     this.onDelete = {
-                        plans = plans.subList(0, i) + plans.subList(i + 1, plans.size)
-                        selected = NEW_PLAN_ID
+                        val next = plans.subList(0, i) + plans.subList(i + 1, plans.size)
+                        plans = next
+                        selected = if (next.isNotEmpty()) "${next[min(i, next.size - 1)].id}" else NEW_PLAN_ID
                     }
                 }
             }
