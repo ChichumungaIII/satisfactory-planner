@@ -136,14 +136,18 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                 Button {
                     variant = ButtonVariant.contained
+                    disabled = plan.loading
+
                     onClick = {
+                        plan = plan.setLoading(true)
+
                         appScope.launch {
                             val request = OptimizeRequest(
                                 Recipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
                                 plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
-                            val response = optimize(request)
 
+                            val response = optimize(request)
                             plan = plan.update(response)
                         }
                     }

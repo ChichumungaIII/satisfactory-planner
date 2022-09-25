@@ -16,6 +16,8 @@ data class PlanModel(
     val title: String = "Production Plan",
     /** A random ID assigned to this Plan, for React tracking. */
     val id: Int = Random.Default.nextInt(),
+    /** True when a new plan is being computed. */
+    val loading: Boolean = false,
     /** The inputs provided to this Plan. */
     val inputs: List<PlanInputModel> = listOf(),
     /** The products produced by this Plan. */
@@ -23,6 +25,8 @@ data class PlanModel(
     /** The calculated outcome of this plan. */
     val outcome: PlanOutcomeModel? = null,
 ) {
+    fun setLoading(loading: Boolean) = copy(loading = loading)
+
     fun addInput(input: PlanInputModel) = copy(inputs = inputs + input)
 
     fun setInput(i: Int, input: PlanInputModel) =
@@ -41,6 +45,7 @@ data class PlanModel(
         val (outcome, minimums, maximums) = result
         val expressions = consider(outcome.keys)
         return copy(
+            loading = false,
             inputs = inputs.map {
                 it.copy(
                     target = -expressions[it.item]!!(outcome).norm(),
