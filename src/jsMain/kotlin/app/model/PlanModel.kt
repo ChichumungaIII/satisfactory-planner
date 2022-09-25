@@ -4,6 +4,7 @@ import app.api.OptimizeResponse
 import app.data.u5.Item
 import app.data.u5.Recipe
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.Rational
@@ -17,7 +18,7 @@ data class PlanModel(
     /** A random ID assigned to this Plan, for React tracking. */
     val id: Int = Random.Default.nextInt(),
     /** True when a new plan is being computed. */
-    val loading: Boolean = false,
+    @Transient val loading: Boolean = false,
     /** The inputs provided to this Plan. */
     val inputs: List<PlanInputModel> = listOf(),
     /** The products produced by this Plan. */
