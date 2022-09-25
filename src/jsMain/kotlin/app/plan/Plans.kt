@@ -5,6 +5,10 @@ import csstype.Display
 import csstype.FlexDirection
 import csstype.Padding
 import csstype.px
+import kotlinx.browser.window
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import mui.icons.material.Add
 import mui.lab.TabContext
 import mui.lab.TabPanel
@@ -17,15 +21,22 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import react.useEffect
 import react.useState
 
 const val NEW_PLAN_ID = "new"
 
 external interface PlansProps : Props
 
+val PLANS_STORAGE = "com.chichumunga.satisfactory::plans"
+fun save(plans: List<PlanModel>) = window.localStorage.setItem(PLANS_STORAGE, Json.encodeToString(plans))
+fun load(): List<PlanModel>? = window.localStorage.getItem(PLANS_STORAGE)?.let { Json.decodeFromString(it) }
+
 val Plans = FC<PlansProps>("Plans") {
-    var plans by useState(listOf<PlanModel>())
-    var selected by useState(NEW_PLAN_ID)
+    var plans by useState(load() ?: listOf())
+    var selected by useState(if (plans.isEmpty()) NEW_PLAN_ID else "${plans[0].id}")
+
+    useEffect { save(plans) }
 
     TabContext {
         value = selected

@@ -1,9 +1,11 @@
 package app.model
 
 import app.data.u5.Item
+import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
 
+@Serializable
 data class PlanProductModel(
     /** The item being produced. */
     val item: Item,

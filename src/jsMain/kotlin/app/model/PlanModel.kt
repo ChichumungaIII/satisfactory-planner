@@ -3,12 +3,14 @@ package app.model
 import app.api.OptimizeResponse
 import app.data.u5.Item
 import app.data.u5.Recipe
+import kotlinx.serialization.Serializable
 import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.Rational
 import util.math.q
 import kotlin.random.Random
 
+@Serializable
 data class PlanModel(
     /** The title of this Plan. Set by user input. */
     val title: String = "Production Plan",
