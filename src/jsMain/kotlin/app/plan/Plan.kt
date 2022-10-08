@@ -3,8 +3,8 @@ package app.plan
 import app.api.OptimizeRequest
 import app.api.client.optimize
 import app.appScope
-import app.data.u5.Item
-import app.data.u5.Recipe
+import app.data.u5.U5Item
+import app.data.u5.U5Recipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
@@ -49,7 +49,7 @@ external interface PlanProps : Props {
 val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
-    val nextItem = Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
+    val nextItem = U5Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
         .filterNot { item -> plan.products.any { product -> item == product.item } }.firstOrNull()
 
     PlanHeader {
@@ -143,7 +143,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                         appScope.launch {
                             val request = OptimizeRequest(
-                                Recipe.values().toSet(),
+                                U5Recipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
                                 plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
 

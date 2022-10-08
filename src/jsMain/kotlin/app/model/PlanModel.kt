@@ -1,8 +1,8 @@
 package app.model
 
 import app.api.OptimizeResponse
-import app.data.u5.Item
-import app.data.u5.Recipe
+import app.data.u5.U5Item
+import app.data.u5.U5Recipe
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import util.math.Expression
@@ -63,8 +63,8 @@ data class PlanModel(
         )
     }
 
-    private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, Rational>> {
-        val expressions = mutableMapOf<Item, Expression<Recipe, Rational>>()
+    private fun consider(recipes: Iterable<U5Recipe>): Map<U5Item, Expression<U5Recipe, Rational>> {
+        val expressions = mutableMapOf<U5Item, Expression<U5Recipe, Rational>>()
         for (recipe in recipes) {
             for (component in recipe.products) {
                 val item = component.item

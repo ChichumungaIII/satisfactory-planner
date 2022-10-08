@@ -1,6 +1,6 @@
 package app.data.u5
 
-enum class Item(
+enum class U5Item(
     val displayName: String,
 ) {
     ADAPTIVE_CONTROL_UNIT("Adaptive Control Unit"),

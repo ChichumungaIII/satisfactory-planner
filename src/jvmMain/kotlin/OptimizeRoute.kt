@@ -2,8 +2,8 @@ package com.chichumunga.satisfactory
 
 import app.api.OptimizeRequest
 import app.api.OptimizeResponse
-import app.data.u5.Item
-import app.data.u5.Recipe
+import app.data.u5.U5Item
+import app.data.u5.U5Recipe
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.server.application.call
@@ -55,9 +55,9 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
     val unlimited = products.filter { it.maximum == null }.map { it.item }
     val unrealized = products.filterNot { it.maximum == null }.mapTo(mutableSetOf()) { it.item }
-    val realized = mutableSetOf<Item>()
+    val realized = mutableSetOf<U5Item>()
 
-    var solution: Map<Recipe, BigRational>
+    var solution: Map<U5Recipe, BigRational>
     do {
         val principal = (unlimited + unrealized).first()
         val objective = expressions[principal]!!
@@ -111,8 +111,8 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
         productMaximums.mapValues { (_, x) -> x.toRational() })
 }
 
-private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, BigRational>> {
-    val expressions = mutableMapOf<Item, Expression<Recipe, BigRational>>()
+private fun consider(recipes: Iterable<U5Recipe>): Map<U5Item, Expression<U5Recipe, BigRational>> {
+    val expressions = mutableMapOf<U5Item, Expression<U5Recipe, BigRational>>()
     for (recipe in recipes) {
         for (component in recipe.products) {
             val item = component.item

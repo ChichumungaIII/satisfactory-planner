@@ -1,6 +1,6 @@
 package app.model
 
-import app.data.u5.Item
+import app.data.u5.U5Item
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -8,7 +8,7 @@ import util.math.q
 @Serializable
 data class PlanProductModel(
     /** The item being produced. */
-    val item: Item,
+    val item: U5Item,
     /**
      * The minimum amount of `item` that will be produced by this plan. Establishing a plan outcome
      * will fail if this minimum cannot be met. Set by user input.
