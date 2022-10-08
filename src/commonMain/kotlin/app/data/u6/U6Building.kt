@@ -40,4 +40,22 @@ enum class U6Building(
             U6Item.CABLE to 8.q,
         ),
     ),
+    MINER_MK_1(
+        U6Milestone.HUB_UPGRADE_5,
+        "Miner Mk. 1",
+        cost = mapOf(
+            U6Item.PORTABLE_MINER to 1.q,
+            U6Item.IRON_PLATE to 10.q,
+            U6Item.CONCRETE to 10.q,
+        ),
+    ),
+    BIOMASS_BURNER(
+        U6Milestone.HUB_UPGRADE_6,
+        "Biomass Burner",
+        cost = mapOf(
+            U6Item.IRON_PLATE to 15.q,
+            U6Item.IRON_ROD to 15.q,
+            U6Item.WIRE to 25.q,
+        ),
+    ),
 }

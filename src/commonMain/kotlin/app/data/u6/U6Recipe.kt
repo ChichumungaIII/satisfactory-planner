@@ -136,4 +136,27 @@ enum class U6Recipe(
         ),
         buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
     ),
+
+    /* Onboarding -- HUB Upgrade 6 */
+
+    BIOMASS_WOOD(
+        U6Milestone.HUB_UPGRADE_6,
+        "Biomass (Wood)",
+        time = 4.q,
+        components = mapOf(
+            U6Item.WOOD to -(4.q),
+            U6Item.BIOMASS to 20.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    BIOMASS_LEAVES(
+        U6Milestone.HUB_UPGRADE_6,
+        "Biomass (Leaves)",
+        time = 5.q,
+        components = mapOf(
+            U6Item.LEAVES to -(10.q),
+            U6Item.BIOMASS to 5.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
 }
