@@ -2,8 +2,8 @@ package com.chichumunga.satisfactory
 
 import app.api.OptimizeRequest
 import app.api.OptimizeResponse
-import app.data.u5.U5Item
-import app.data.u5.U5Recipe
+import app.data.u6.U6Item
+import app.data.u6.U6Recipe
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.server.application.call
@@ -55,9 +55,9 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
     val unlimited = products.filter { it.maximum == null }.map { it.item }
     val unrealized = products.filterNot { it.maximum == null }.mapTo(mutableSetOf()) { it.item }
-    val realized = mutableSetOf<U5Item>()
+    val realized = mutableSetOf<U6Item>()
 
-    var solution: Map<U5Recipe, BigRational>
+    var solution: Map<U6Recipe, BigRational>
     do {
         val principal = (unlimited + unrealized).first()
         val objective = expressions[principal]!!
@@ -111,17 +111,11 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
         productMaximums.mapValues { (_, x) -> x.toRational() })
 }
 
-private fun consider(recipes: Iterable<U5Recipe>): Map<U5Item, Expression<U5Recipe, BigRational>> {
-    val expressions = mutableMapOf<U5Item, Expression<U5Recipe, BigRational>>()
-    for (recipe in recipes) {
-        for (component in recipe.products) {
-            val item = component.item
-            val expression = (component.quantity * 60.q / recipe.time).br * recipe
-            expressions[item] = expressions[item]?.let { it + expression } ?: expression
-        }
-        for (component in recipe.inputs) {
-            val item = component.item
-            val expression = -(component.quantity * 60.q / recipe.time).br * recipe
+private fun consider(recipes: Iterable<U6Recipe>): Map<U6Item, Expression<U6Recipe, BigRational>> {
+    val expressions = mutableMapOf<U6Item, Expression<U6Recipe, BigRational>>()
+    recipes.forEach { recipe ->
+        recipe.components.forEach { (item, quantity) ->
+            val expression = (quantity * 60.q / recipe.time).br * recipe
             expressions[item] = expressions[item]?.let { it + expression } ?: expression
         }
     }

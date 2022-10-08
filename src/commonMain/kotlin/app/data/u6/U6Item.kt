@@ -108,10 +108,7 @@ enum class U6Item(
         U6Milestone.HUB_UPGRADE_3,
         "Reinforced Iron Plate",
     ),
-
     ;
-
-    val tier = milestone.tier
 
     enum class Type(
         val displayName: String,

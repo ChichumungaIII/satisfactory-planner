@@ -1,6 +1,6 @@
 package app.common
 
-import app.data.u5.U5Item
+import app.data.u6.U6Item
 import app.util.PropsDelegate
 import csstype.Margin
 import csstype.px
@@ -15,9 +15,9 @@ import react.ReactNode
 import react.create
 
 external interface ItemAutocompleteProps : Props {
-    var item: U5Item
-    var setItem: (U5Item) -> Unit
-    var restricted: Collection<U5Item>?
+    var item: U6Item
+    var setItem: (U6Item) -> Unit
+    var restricted: Collection<U6Item>?
 }
 
 val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
@@ -37,7 +37,7 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
             }
         }
 
-        val available = U5Item.values().filterNot { props.restricted?.contains(it) ?: false }
+        val available = U6Item.values().filterNot { props.restricted?.contains(it) ?: false }
         options = (listOf(item) + available).distinct().map { ItemAutocompleteOption(it) }.toTypedArray()
 
         autoComplete = true
@@ -55,10 +55,10 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
 
 private external interface ItemAutocompleteOption {
     var label: String
-    var data: U5Item
+    var data: U6Item
 }
 
-private fun ItemAutocompleteOption(item: U5Item): ItemAutocompleteOption = jso {
+private fun ItemAutocompleteOption(item: U6Item): ItemAutocompleteOption = jso {
     label = item.displayName
     data = item
 }

@@ -3,8 +3,8 @@ package app.plan
 import app.api.OptimizeRequest
 import app.api.client.optimize
 import app.appScope
-import app.data.u5.U5Item
-import app.data.u5.U5Recipe
+import app.data.u6.U6Item
+import app.data.u6.U6Recipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
@@ -49,7 +49,7 @@ external interface PlanProps : Props {
 val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
-    val nextItem = U5Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
+    val nextItem = U6Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
         .filterNot { item -> plan.products.any { product -> item == product.item } }.firstOrNull()
 
     PlanHeader {
@@ -143,7 +143,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                         appScope.launch {
                             val request = OptimizeRequest(
-                                U5Recipe.values().toSet(),
+                                U6Recipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
                                 plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
 
@@ -183,16 +183,17 @@ val Plan = FC<PlanProps>("Plan") { props ->
                                 }
                             }
                             TableBody {
-                                recipes.filter { (_, rate) -> rate > 0.q }.forEach { (recipe, rate) ->
-                                    TableRow {
-                                        TableCell { +recipe.name }
-                                        TableCell {
-                                            val percent = (rate * 100.q).toDouble()
-                                            +"${percent.asDynamic().toFixed(4)}%"
+                                U6Recipe.values().map { it to (recipes[it] ?: 0.q) }.filter { (_, rate) -> rate > 0.q }
+                                    .forEach { (recipe, rate) ->
+                                        TableRow {
+                                            TableCell { +recipe.name }
+                                            TableCell {
+                                                val percent = (rate * 100.q).toDouble()
+                                                +"${percent.asDynamic().toFixed(4)}%"
+                                            }
+                                            TableCell { +"$rate" }
                                         }
-                                        TableCell { +"$rate" }
                                     }
-                                }
                             }
                         }
                     }

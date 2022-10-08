@@ -40,7 +40,4 @@ enum class U6Building(
             U6Item.CABLE to 8.q,
         ),
     ),
-    ;
-
-    val tier = milestone.tier
 }

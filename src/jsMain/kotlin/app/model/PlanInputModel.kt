@@ -1,13 +1,13 @@
 package app.model
 
-import app.data.u5.U5Item
+import app.data.u6.U6Item
 import kotlinx.serialization.Serializable
 import util.math.Rational
 
 @Serializable
 data class PlanInputModel(
     /** The item being provided. */
-    val item: U5Item,
+    val item: U6Item,
     /** The most of `item` that can be supplied as part of this plan. Set by user input. */
     val provision: Rational = Rational.ZERO,
     /**

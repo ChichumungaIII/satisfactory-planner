@@ -48,10 +48,11 @@ enum class U6Recipe(
         "Xeno-Zapper",
         time = 40.q,
         components = mapOf(
-            U6Item.IRON_ROD to 10.q,
-            U6Item.REINFORCED_IRON_PLATE to 2.q,
-            U6Item.CABLE to 15.q,
-            U6Item.WIRE to 50.q,
+            U6Item.IRON_ROD to -(10.q),
+            U6Item.REINFORCED_IRON_PLATE to -(2.q),
+            U6Item.CABLE to -(15.q),
+            U6Item.WIRE to -(50.q),
+            U6Item.XENO_ZAPPER to 1.q,
         ),
         buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
     ),
@@ -63,8 +64,9 @@ enum class U6Recipe(
         "Portable Miner",
         time = 40.q,
         components = mapOf(
-            U6Item.IRON_PLATE to 2.q,
-            U6Item.IRON_ROD to 4.q,
+            U6Item.IRON_PLATE to -(2.q),
+            U6Item.IRON_ROD to -(4.q),
+            U6Item.PORTABLE_MINER to 1.q,
         ), buildings = listOf(U6Building.EQUIPMENT_WORKSHOP)
     ),
 
@@ -134,8 +136,4 @@ enum class U6Recipe(
         ),
         buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
     ),
-
-    ;
-
-    val tier = milestone.tier
 }
