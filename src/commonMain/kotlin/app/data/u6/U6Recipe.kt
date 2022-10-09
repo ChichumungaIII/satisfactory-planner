@@ -257,4 +257,109 @@ enum class U6Recipe(
         ),
         buildings = listOf(U6Building.COAL_GENERATOR),
     ),
+
+    /* Research - Alien Organisms */
+
+    HOG_PROTEIN(
+        U6Milestone.FIELD_RESEARCH,
+        "Hog Protein",
+        time = 3.q,
+        components = mapOf(
+            U6Item.HOG_REMAINS to -(1.q),
+            U6Item.ALIEN_PROTEIN to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    HATCHER_PROTEIN(
+        U6Milestone.FIELD_RESEARCH,
+        "Hatcher Protein",
+        time = 3.q,
+        components = mapOf(
+            U6Item.HATCHER_REMAINS to -(1.q),
+            U6Item.ALIEN_PROTEIN to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    SPITTER_PROTEIN(
+        U6Milestone.FIELD_RESEARCH,
+        "Spitter Protein",
+        time = 3.q,
+        components = mapOf(
+            U6Item.SPITTER_REMAINS to -(1.q),
+            U6Item.ALIEN_PROTEIN to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    STINGER_PROTEIN(
+        U6Milestone.FIELD_RESEARCH,
+        "Stinger Protein",
+        time = 3.q,
+        components = mapOf(
+            U6Item.STINGER_REMAINS to -(1.q),
+            U6Item.ALIEN_PROTEIN to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+
+    ORGANIC_DATA_CAPSULE(
+        U6Milestone.FIELD_RESEARCH,
+        "Organic Data Capsule",
+        time = 6.q,
+        components = mapOf(
+            U6Item.ALIEN_PROTEIN to -(1.q),
+            U6Item.ORGANIC_DATA_CAPSULE to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+
+    /* Research - Caterium */
+
+    CATERIUM_INGOT(
+        U6Milestone.FIELD_RESEARCH,
+        "Caterium Ingot",
+        time = 4.q,
+        components = mapOf(
+            U6Item.CATERIUM_ORE to -(3.q),
+            U6Item.CATERIUM_INGOT to 1.q,
+        ),
+        buildings = listOf(U6Building.SMELTER, U6Building.CRAFT_BENCH),
+    ),
+
+    /* Research - Quartz */
+
+    BLADE_RUNNERS(
+        U6Milestone.FIELD_RESEARCH,
+        "Blade Runners",
+        time = 60.q,
+        components = mapOf(
+            U6Item.SILICA to -(20.q),
+            U6Item.MODULAR_FRAME to -(3.q),
+            U6Item.ROTOR to -(3.q),
+            U6Item.BLADE_RUNNERS to 1.q,
+        ),
+        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+    ),
+
+    /* Research - Power Slugs */
+
+    POWER_SHARD_1(
+        U6Milestone.FIELD_RESEARCH,
+        "Power Shard (1)",
+        time = 8.q,
+        components = mapOf(
+            U6Item.BLUE_POWER_SLUG to -(1.q),
+            U6Item.POWER_SHARD to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    POWER_SHARD_2(
+        U6Milestone.FIELD_RESEARCH,
+        "Power Shard (2)",
+        time = 12.q,
+        components = mapOf(
+            U6Item.YELLOW_POWER_SLUG to -(1.q),
+            U6Item.POWER_SHARD to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    )
 }

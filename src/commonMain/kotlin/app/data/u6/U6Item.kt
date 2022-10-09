@@ -28,6 +28,12 @@ enum class U6Item(
         "Flower Petals",
         energy = 100.q,
     ),
+    HATCHER_REMAINS(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Hog Remains",
+        energy = 250.q,
+    ),
     HOG_REMAINS(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
@@ -45,11 +51,28 @@ enum class U6Item(
         U6Milestone.GAME_START,
         "Paleberry",
     ),
+    SPITTER_REMAINS(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Hog Remains",
+        energy = 250.q,
+    ),
+    STINGER_REMAINS(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Hog Remains",
+        energy = 250.q,
+    ),
     WOOD(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
         "Wood",
         energy = 100.q,
+    ),
+    YELLOW_POWER_SLUG(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Yellow Power Slug",
     ),
 
     /* Tier 0 -- Game Start */
@@ -219,10 +242,15 @@ enum class U6Item(
     /* Other -- TO BE CLASSIFIED */
     // TODO: Classify these when the appropriate tier is unlocked
 
-    CATERIUM(
+    CATERIUM_ORE(
         Type.RESOURCE,
         U6Milestone.GAME_START,
         "Caterium",
+    ),
+    CATERIUM_INGOT(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Caterium Ingot",
     ),
     QUARTZ(
         Type.RESOURCE,
@@ -248,11 +276,27 @@ enum class U6Item(
             U6Research.SPITTER_RESEARCH,
         ),
     ),
+    BLADE_RUNNERS(
+        Type.EQUIPMENT,
+        U6Milestone.FIELD_RESEARCH,
+        "Blade Runners",
+    ),
+    ORGANIC_DATA_CAPSULE(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Organic Data Capsule",
+        research = setOf(U6Research.BIO_ORGANIC_PROPERTIES),
+    ),
     POWER_SHARD(
         Type.PART,
         U6Milestone.FIELD_RESEARCH,
         "Power Shard",
         research = setOf(U6Research.BLUE_POWER_SLUGS),
+    ),
+    SILICA(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Silica",
     ),
 
     ;
