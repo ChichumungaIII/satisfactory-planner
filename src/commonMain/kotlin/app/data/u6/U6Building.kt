@@ -7,6 +7,7 @@ enum class U6Building(
     val milestone: U6Milestone,
     val displayName: String,
     val cost: Map<U6Item, Rational>,
+    val power: Rational = 0.q,
 ) {
     CRAFT_BENCH(
         U6Milestone.GAME_START,
@@ -56,6 +57,44 @@ enum class U6Building(
             U6Item.IRON_PLATE to 15.q,
             U6Item.IRON_ROD to 15.q,
             U6Item.WIRE to 25.q,
+        ),
+        power = 30.q,
+    ),
+    ASSEMBLER(
+        U6Milestone.PART_ASSEMBLY,
+        "Assembler",
+        cost = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to 8.q,
+            U6Item.ROTOR to 4.q,
+            U6Item.CABLE to 10.q,
+        ),
+    ),
+    AWESOME_SINK(
+        U6Milestone.RESOURCE_SINK_BONUS_PROGRAM,
+        "AWESOME Sink",
+        cost = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to 15.q,
+            U6Item.CABLE to 30.q,
+            U6Item.CONCRETE to 45.q,
+        ),
+    ),
+    COAL_GENERATOR(
+        U6Milestone.COAL_POWER,
+        "Coal Generator",
+        cost = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to 20.q,
+            U6Item.ROTOR to 10.q,
+            U6Item.CABLE to 30.q,
+        ),
+        power = 75.q,
+    ),
+    WATER_EXTRACTOR(
+        U6Milestone.COAL_POWER,
+        "Water Extractor",
+        cost = mapOf(
+            U6Item.COPPER_SHEET to 20.q,
+            U6Item.REINFORCED_IRON_PLATE to 10.q,
+            U6Item.ROTOR to 10.q,
         ),
     ),
 }

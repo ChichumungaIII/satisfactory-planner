@@ -159,4 +159,102 @@ enum class U6Recipe(
         ),
         buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
     ),
+
+    /* Tier 2 -- Part Assembly */
+
+    COPPER_SHEET(
+        U6Milestone.PART_ASSEMBLY,
+        "Copper Sheet",
+        time = 6.q,
+        components = mapOf(
+            U6Item.COPPER_INGOT to -(2.q),
+            U6Item.COPPER_SHEET to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    ROTOR(
+        U6Milestone.PART_ASSEMBLY,
+        "Rotor",
+        time = 15.q,
+        components = mapOf(
+            U6Item.IRON_ROD to -(5.q),
+            U6Item.SCREW to -(25.q),
+            U6Item.ROTOR to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+    MODULAR_FRAME(
+        U6Milestone.PART_ASSEMBLY,
+        "Modular Frame",
+        time = 60.q,
+        components = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to -(3.q),
+            U6Item.IRON_ROD to -(12.q),
+            U6Item.MODULAR_FRAME to 2.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+    SMART_PLATING(
+        U6Milestone.PART_ASSEMBLY,
+        "Smart Plating",
+        time = 30.q,
+        components = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to -(1.q),
+            U6Item.ROTOR to -(1.q),
+            U6Item.SMART_PLATING to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER),
+    ),
+
+    /* Tier 2 -- Obstacle Clearing */
+
+    SOLID_BIOFUEL(
+        U6Milestone.OBSTACLE_CLEARING,
+        "Solid Biofuel",
+        time = 4.q,
+        components = mapOf(
+            U6Item.BIOMASS to -(8.q),
+            U6Item.SOLID_BIOFUEL to 4.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    CHAINSAW(
+        U6Milestone.OBSTACLE_CLEARING,
+        "Chainsaw",
+        time = 60.q,
+        components = mapOf(
+            U6Item.REINFORCED_IRON_PLATE to -(5.q),
+            U6Item.IRON_ROD to -(25.q),
+            U6Item.SCREW to -(160.q),
+            U6Item.CABLE to -(15.q),
+            U6Item.CHAINSAW to 1.q,
+        ),
+        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+    ),
+
+    /* Tier 2 -- Resource Sink Bonus Program */
+
+    COLOR_CARTRIDGE(
+        U6Milestone.RESOURCE_SINK_BONUS_PROGRAM,
+        "Color Cartridge",
+        time = 6.q,
+        components = mapOf(
+            U6Item.FLOWER_PETALS to -(5.q),
+            U6Item.COLOR_CARTRIDGE to 10.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+
+    /* Tier 3 -- Coal Power */
+
+    BURN_COAL(
+        U6Milestone.COAL_POWER,
+        "Burn Coal",
+        time = U6Item.COAL.energy / U6Building.COAL_GENERATOR.power,
+        components = mapOf(
+            U6Item.COAL to -(1.q),
+            U6Item.WATER to -((45.q / 60.q) * (U6Item.COAL.energy / U6Building.COAL_GENERATOR.power)),
+        ),
+        buildings = listOf(U6Building.COAL_GENERATOR),
+    ),
 }

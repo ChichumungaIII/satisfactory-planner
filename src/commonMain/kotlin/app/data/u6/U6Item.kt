@@ -7,6 +7,7 @@ enum class U6Item(
     val type: Type,
     val milestone: U6Milestone,
     val displayName: String,
+    val research: Set<U6Research> = setOf(),
     val energy: Rational = 0.q,
 ) {
     /* Environment */
@@ -15,6 +16,11 @@ enum class U6Item(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
         "Beryl Nut",
+    ),
+    BLUE_POWER_SLUG(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Blue Power Slug",
     ),
     FLOWER_PETALS(
         Type.ENVIRONMENT,
@@ -46,7 +52,7 @@ enum class U6Item(
         energy = 100.q,
     ),
 
-    /* Onboarding - Game Start */
+    /* Tier 0 -- Game Start */
 
     IRON_ORE(
         Type.RESOURCE,
@@ -76,7 +82,7 @@ enum class U6Item(
         "Xeno-Zapper"
     ),
 
-    /* Onboarding - HUB Upgrade 1 */
+    /* Tier 0 - HUB Upgrade 1 */
 
     PORTABLE_MINER(
         Type.EQUIPMENT,
@@ -84,7 +90,7 @@ enum class U6Item(
         "Portable Miner",
     ),
 
-    /* Onboarding - HUB Upgrade 2 */
+    /* Tier 0 -- HUB Upgrade 2 */
 
     COPPER_ORE(
         Type.RESOURCE,
@@ -108,7 +114,7 @@ enum class U6Item(
         "Cable",
     ),
 
-    /* Onboarding - HUB Upgrade 3 */
+    /* Tier 0 -- HUB Upgrade 3 */
 
     LIMESTONE(
         Type.RESOURCE,
@@ -132,12 +138,121 @@ enum class U6Item(
         "Reinforced Iron Plate",
     ),
 
-    /* Onboarding - HUB Upgrade 6 */
+    /* Tier 0 -- HUB Upgrade 6 */
 
     BIOMASS(
         Type.PART,
         U6Milestone.HUB_UPGRADE_6,
         "Biomass",
+        energy = 180.q,
+    ),
+
+    /* Tier 1 -- Field Research */
+
+    BEACON(
+        Type.EQUIPMENT,
+        U6Milestone.FIELD_RESEARCH,
+        "Beacon",
+    ),
+
+    /* Tier 2 -- Part Assembly */
+
+    COPPER_SHEET(
+        Type.PART,
+        U6Milestone.PART_ASSEMBLY,
+        "Copper Sheet",
+    ),
+    ROTOR(
+        Type.PART,
+        U6Milestone.PART_ASSEMBLY,
+        "Rotor",
+    ),
+    MODULAR_FRAME(
+        Type.PART,
+        U6Milestone.PART_ASSEMBLY,
+        "Modular Frame",
+    ),
+    SMART_PLATING(
+        Type.PART,
+        U6Milestone.PART_ASSEMBLY,
+        "Smart Plating",
+    ),
+
+    /* Tier 2 -- Obstacle Clearing */
+
+    SOLID_BIOFUEL(
+        Type.PART,
+        U6Milestone.OBSTACLE_CLEARING,
+        "Solid Biofuel",
+        energy = 450.q,
+    ),
+
+    CHAINSAW(
+        Type.EQUIPMENT,
+        U6Milestone.OBSTACLE_CLEARING,
+        "Chainsaw",
+    ),
+
+    /* Tier 2 -- Resource Sink Bonus Program */
+
+    COLOR_CARTRIDGE(
+        Type.PART,
+        U6Milestone.RESOURCE_SINK_BONUS_PROGRAM,
+        "Color Cartridge",
+        energy = 900.q,
+    ),
+
+    /* Tier 3 -- Coal Power */
+
+    COAL(
+        Type.RESOURCE,
+        U6Milestone.COAL_POWER,
+        "Coal",
+        energy = 300.q,
+    ),
+    WATER(
+        Type.RESOURCE,
+        U6Milestone.COAL_POWER,
+        "Water",
+    ),
+
+    /* Other -- TO BE CLASSIFIED */
+    // TODO: Classify these when the appropriate tier is unlocked
+
+    CATERIUM(
+        Type.RESOURCE,
+        U6Milestone.GAME_START,
+        "Caterium",
+    ),
+    QUARTZ(
+        Type.RESOURCE,
+        U6Milestone.GAME_START,
+        "Quartz",
+    ),
+    SULFUR(
+        Type.RESOURCE,
+        U6Milestone.GAME_START,
+        "Sulfur",
+    ),
+
+    /* Research */
+
+    ALIEN_PROTEIN(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Alien Protein",
+        research = setOf(
+            U6Research.HOG_RESEARCH,
+            U6Research.HATCHER_RESEARCH,
+            U6Research.STINGER_RESEARCH,
+            U6Research.SPITTER_RESEARCH,
+        ),
+    ),
+    POWER_SHARD(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Power Shard",
+        research = setOf(U6Research.BLUE_POWER_SLUGS),
     ),
 
     ;
