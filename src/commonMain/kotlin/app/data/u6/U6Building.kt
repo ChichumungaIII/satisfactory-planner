@@ -97,4 +97,9 @@ enum class U6Building(
             U6Item.ROTOR to 10.q,
         ),
     ),
+    FOUNDRY(
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Foundry",
+        cost = mapOf(), // TODO
+    ),
 }

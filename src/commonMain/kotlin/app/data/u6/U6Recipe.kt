@@ -258,7 +258,129 @@ enum class U6Recipe(
         buildings = listOf(U6Building.COAL_GENERATOR),
     ),
 
-    /* Research - Alien Organisms */
+    /* Tier 3 -- Basic Steel Production */
+
+    STEEL_INGOT(
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Ingot",
+        time = 4.q,
+        components = mapOf(
+            U6Item.IRON_ORE to -(3.q),
+            U6Item.COAL to -(3.q),
+            U6Item.STEEL_INGOT to 3.q,
+        ),
+        buildings = listOf(U6Building.FOUNDRY, U6Building.CRAFT_BENCH),
+    ),
+    STEEL_BEAM(
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Beam",
+        time = 4.q,
+        components = mapOf(
+            U6Item.STEEL_INGOT to -(4.q),
+            U6Item.STEEL_BEAM to 1.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    STEEL_PIPE(
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Pipe",
+        time = 6.q,
+        components = mapOf(
+            U6Item.STEEL_INGOT to -(3.q),
+            U6Item.STEEL_PIPE to 2.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    VERSATILE_FRAMEWORK(
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Versatile Framework",
+        time = 24.q,
+        components = mapOf(
+            U6Item.MODULAR_FRAME to -(1.q),
+            U6Item.STEEL_BEAM to -(12.q),
+            U6Item.VERSATILE_FRAMEWORK to 2.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER),
+    ),
+
+    /* Tier 4 -- Advanced Steel Production */
+
+    ENCASED_INDUSTRIAL_BEAM(
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Encased Industrial Beam",
+        time = 10.q,
+        components = mapOf(
+            U6Item.STEEL_BEAM to -(4.q),
+            U6Item.CONCRETE to -(5.q),
+            U6Item.ENCASED_INDUSTRIAL_BEAM to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+    STATOR(
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Stator",
+        time = 12.q,
+        components = mapOf(
+            U6Item.STEEL_PIPE to -(3.q),
+            U6Item.WIRE to -(8.q),
+            U6Item.STATOR to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+    MOTOR(
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Motor",
+        time = 12.q,
+        components = mapOf(
+            U6Item.ROTOR to -(2.q),
+            U6Item.STATOR to -(2.q),
+            U6Item.MOTOR to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+    AUTOMATED_WIRING(
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Automated Wiring",
+        time = 24.q,
+        components = mapOf(
+            U6Item.STATOR to -(1.q),
+            U6Item.CABLE to -(20.q),
+            U6Item.AUTOMATED_WIRING to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER),
+    ),
+    HEAVY_MODULAR_FRAME(
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Heavy Modular Frame",
+        time = 30.q,
+        components = mapOf(
+            U6Item.MODULAR_FRAME to -(5.q),
+            U6Item.STEEL_PIPE to -(15.q),
+            U6Item.ENCASED_INDUSTRIAL_BEAM to -(5.q),
+            U6Item.SCREW to -(100.q),
+            U6Item.HEAVY_MODULAR_FRAME to 1.q,
+        ),
+        // TODO: Unlock
+        buildings = listOf(/* U6Building.MANUFACTURER, */U6Building.CRAFT_BENCH),
+    ),
+
+    /* Tier 4 -- Improved Melee Combat */
+
+    XENO_BASHER(
+        U6Milestone.IMPROVED_MELEE_COMBAT,
+        "Xeno-Basher",
+        time = 80.q,
+        components = mapOf(
+            U6Item.MODULAR_FRAME to -(5.q),
+            U6Item.XENO_ZAPPER to -(2.q),
+            U6Item.CABLE to -(25.q),
+            U6Item.WIRE to -(500.q),
+            U6Item.XENO_BASHER to 1.q,
+        ),
+        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+    ),
+
+    /* Research -- Alien Organisms */
 
     HOG_PROTEIN(
         U6Milestone.FIELD_RESEARCH,
@@ -312,7 +434,7 @@ enum class U6Recipe(
         buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
     ),
 
-    /* Research - Caterium */
+    /* Research -- Caterium */
 
     CATERIUM_INGOT(
         U6Milestone.FIELD_RESEARCH,
@@ -324,8 +446,41 @@ enum class U6Recipe(
         ),
         buildings = listOf(U6Building.SMELTER, U6Building.CRAFT_BENCH),
     ),
+    QUICKWIRE(
+        U6Milestone.FIELD_RESEARCH,
+        "Quickwire",
+        time = 5.q,
+        components = mapOf(
+            U6Item.CATERIUM_INGOT to -(1.q),
+            U6Item.QUICKWIRE to 5.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+    AI_LIMITER(
+        U6Milestone.FIELD_RESEARCH,
+        "AI Limiter",
+        time = 12.q,
+        components = mapOf(
+            U6Item.COPPER_SHEET to -(5.q),
+            U6Item.QUICKWIRE to -(20.q),
+            U6Item.AI_LIMITER to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
 
-    /* Research - Quartz */
+    ZIPLINE(
+        U6Milestone.FIELD_RESEARCH,
+        "Zipline",
+        time = 40.q,
+        components = mapOf(
+            U6Item.XENO_ZAPPER to -(1.q),
+            U6Item.QUICKWIRE to -(30.q),
+            U6Item.IRON_ROD to -(3.q),
+            U6Item.CABLE to -(15.q),
+            U6Item.ZIPLINE to 1.q,
+        ),
+        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+    ),
 
     BLADE_RUNNERS(
         U6Milestone.FIELD_RESEARCH,
@@ -340,7 +495,20 @@ enum class U6Recipe(
         buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
     ),
 
-    /* Research - Power Slugs */
+    /* Research -- Mycelia */
+
+    BIOMASS_MYCELIA(
+        U6Milestone.FIELD_RESEARCH,
+        "Biomass (Mycelia)",
+        time = 4.q,
+        components = mapOf(
+            U6Item.MYCELIA to -(1.q),
+            U6Item.BIOMASS to 10.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
+
+    /* Research -- Power Slugs */
 
     POWER_SHARD_1(
         U6Milestone.FIELD_RESEARCH,
@@ -361,5 +529,15 @@ enum class U6Recipe(
             U6Item.POWER_SHARD to 1.q,
         ),
         buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
-    )
+    ),
+    POWER_SHARD_5(
+        U6Milestone.FIELD_RESEARCH,
+        "Power Shard (5)",
+        time = 24.q,
+        components = mapOf(
+            U6Item.PURPLE_POWER_SLUG to -(1.q),
+            U6Item.POWER_SHARD to 5.q,
+        ),
+        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+    ),
 }

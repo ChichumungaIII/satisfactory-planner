@@ -183,9 +183,42 @@ enum class U6Milestone(
 
     /* Tier 4 */
 
-    // TODO: Fill these in
-    // ADVANCED_STEEL_PRODUCTION(),
-    // IMPROVED_MELEE_COMBAT(),
-    // HYPERTUBES(),
-    // LOGISTICS_MK_3(),
+    ADVANCED_STEEL_PRODUCTION(
+        U6Tier.TIER_4,
+        "Advanced Steel Production",
+        cost = mapOf(
+            U6Item.STEEL_PIPE to 200.q,
+            U6Item.ROTOR to 200.q,
+            U6Item.WIRE to 1500.q,
+            U6Item.CONCRETE to 300.q,
+        ),
+    ),
+    IMPROVED_MELEE_COMBAT(
+        U6Tier.TIER_4,
+        "Improved Melee Combat",
+        cost = mapOf(
+            U6Item.ROTOR to 25.q,
+            U6Item.REINFORCED_IRON_PLATE to 50.q,
+            U6Item.WIRE to 1500.q,
+            U6Item.CABLE to 200.q,
+        ),
+    ),
+    HYPERTUBES(
+        U6Tier.TIER_4,
+        "Hypertubes",
+        cost = mapOf(
+            U6Item.COPPER_SHEET to 300.q,
+            U6Item.STEEL_PIPE to 300.q,
+            U6Item.ENCASED_INDUSTRIAL_BEAM to 50.q,
+        ),
+    ),
+    LOGISTICS_MK_3(
+        U6Tier.TIER_4,
+        "Logistics Mk. 3",
+        cost = mapOf(
+            U6Item.STEEL_BEAM to 200.q,
+            U6Item.STEEL_PIPE to 100.q,
+            U6Item.CONCRETE to 500.q,
+        ),
+    ),
 }

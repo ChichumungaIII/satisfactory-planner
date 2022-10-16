@@ -46,10 +46,21 @@ enum class U6Item(
         "Leaves",
         energy = 15.q,
     ),
+    MYCELIA(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Mycelia",
+        energy = 20.q,
+    ),
     PALEBERRY(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
         "Paleberry",
+    ),
+    PURPLE_POWER_SLUG(
+        Type.ENVIRONMENT,
+        U6Milestone.GAME_START,
+        "Purple Power Slug",
     ),
     SPITTER_REMAINS(
         Type.ENVIRONMENT,
@@ -239,24 +250,101 @@ enum class U6Item(
         "Water",
     ),
 
+    /* Tier 3 -- Basic Steel Production */
+
+    STEEL_INGOT(
+        Type.PART,
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Ingot",
+    ),
+    STEEL_BEAM(
+        Type.PART,
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Beam",
+    ),
+    STEEL_PIPE(
+        Type.PART,
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Steel Pipe",
+    ),
+    VERSATILE_FRAMEWORK(
+        Type.PART,
+        U6Milestone.BASIC_STEEL_PRODUCTION,
+        "Versatile Framework",
+    ),
+
+    /* Tier 4 -- Advanced Steel Production */
+
+    ENCASED_INDUSTRIAL_BEAM(
+        Type.PART,
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Encased Industrial Beam",
+    ),
+    STATOR(
+        Type.PART,
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Stator",
+    ),
+    MOTOR(
+        Type.PART,
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Motor",
+    ),
+    AUTOMATED_WIRING(
+        Type.PART,
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Automated Wiring",
+    ),
+    HEAVY_MODULAR_FRAME(
+        Type.PART,
+        U6Milestone.ADVANCED_STEEL_PRODUCTION,
+        "Heavy Modular Frame",
+    ),
+
+    /* Tier 4 -- Improved Melee Combat */
+
+    XENO_BASHER(
+        Type.EQUIPMENT,
+        U6Milestone.IMPROVED_MELEE_COMBAT,
+        "Xeno-Basher",
+    ),
+
     /* Other -- TO BE CLASSIFIED */
     // TODO: Classify these when the appropriate tier is unlocked
 
     CATERIUM_ORE(
         Type.RESOURCE,
         U6Milestone.GAME_START,
-        "Caterium",
+        "Caterium Ore",
     ),
     CATERIUM_INGOT(
         Type.PART,
         U6Milestone.FIELD_RESEARCH,
         "Caterium Ingot",
     ),
+    QUICKWIRE(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "Quickwire",
+    ),
+    AI_LIMITER(
+        Type.PART,
+        U6Milestone.FIELD_RESEARCH,
+        "AI Limiter",
+    ),
+
+    ZIPLINE(
+        Type.EQUIPMENT,
+        U6Milestone.FIELD_RESEARCH,
+        "Zipline",
+    ),
+
     QUARTZ(
         Type.RESOURCE,
         U6Milestone.GAME_START,
         "Quartz",
     ),
+
     SULFUR(
         Type.RESOURCE,
         U6Milestone.GAME_START,
