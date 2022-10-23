@@ -31,7 +31,7 @@ enum class U6Item(
     HATCHER_REMAINS(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
-        "Hog Remains",
+        "Hatcher Remains",
         energy = 250.q,
     ),
     HOG_REMAINS(
@@ -65,13 +65,13 @@ enum class U6Item(
     SPITTER_REMAINS(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
-        "Hog Remains",
+        "Spitter Remains",
         energy = 250.q,
     ),
     STINGER_REMAINS(
         Type.ENVIRONMENT,
         U6Milestone.GAME_START,
-        "Hog Remains",
+        "Stinger Remains",
         energy = 250.q,
     ),
     WOOD(

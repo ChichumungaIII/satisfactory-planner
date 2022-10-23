@@ -55,7 +55,6 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
         ItemAutocomplete {
             item = product.item
             setItem = { next -> product = product.copy(item = next) }
-            restricted = props.plan.inputs.map { it.item } + props.plan.products.map { it.item }
         }
 
         RationalInput {

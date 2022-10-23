@@ -17,7 +17,6 @@ import react.create
 external interface ItemAutocompleteProps : Props {
     var item: U6Item
     var setItem: (U6Item) -> Unit
-    var restricted: Collection<U6Item>?
 }
 
 val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
@@ -37,8 +36,7 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
             }
         }
 
-        val available = U6Item.values().filterNot { props.restricted?.contains(it) ?: false }
-        options = (listOf(item) + available).distinct().map { ItemAutocompleteOption(it) }.toTypedArray()
+        options = (listOf(item) + U6Item.values()).distinct().map { ItemAutocompleteOption(it) }.toTypedArray()
 
         autoComplete = true
         autoHighlight = true
