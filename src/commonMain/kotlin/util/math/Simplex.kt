@@ -1,6 +1,8 @@
 package util.math
 
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import util.math.Constraint.Comparison
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
@@ -24,7 +26,7 @@ suspend fun <V, N : Numeric<N>> maximize(
     objective: Expression<V, N>,
     rawConstraints: List<Constraint<V, N>>,
     numbers: Numeric.Factory<N>,
-) = coroutineScope {
+): Map<V, N> {
     val constraints = rawConstraints.map { it.normalize(numbers) }
 
     // Terms are the variables in the expressions. Each one can be manipulated to maximize the objective function, and
@@ -109,7 +111,7 @@ suspend fun <V, N : Numeric<N>> maximize(
 
     // Extract the solution from the matrix. Terms are in the solution with a nonzero value if their corresponding
     // column is all zeros except for a single row, in which case their value is (right-hand side) / (that coefficient).
-    return@coroutineScope terms.withIndex().associate { (column, term) ->
+    return terms.withIndex().associate { (column, term) ->
         term to (matrix.column(column).withIndex().filterNot { it.value == MValue.zilch(numbers) }
             .map { (row, cell) -> matrix.get(row, matrix.columns() - 1) / cell }.singleOrNull()?.toNumeric()
             ?: numbers.zilch())
@@ -134,13 +136,15 @@ private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: In
         update(pivotRow, column) { (it / divisor) }
     }
 
-    (0 until rows()).filterNot { it == pivotRow }.forEach { row ->
-        // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
-        val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
-        for (column in 0 until columns()) {
-            update(row, column) { (it - scalar * get(pivotRow, column)) }
+    (0 until rows()).filterNot { it == pivotRow }.map { row ->
+        launch {
+            // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
+            val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
+            for (column in 0 until columns()) {
+                update(row, column) { (it - scalar * get(pivotRow, column)) }
+            }
         }
-    }
+    }.joinAll()
 }
 
 private fun <T> MutableMatrix<T>.debug() {

@@ -20,7 +20,7 @@ class BigSimplexTest {
             constraints.add(Constraint.atMost(expression, i.q))
         }
 
-        val solution = async(newFixedThreadPoolContext(12, "MyPool")) {
+        val solution = async(newFixedThreadPoolContext(8, "MyPool")) {
             maximize(objective, constraints, Rational.FACTORY)
         }.await()
 

@@ -11,7 +11,10 @@ import io.ktor.server.request.receiveText
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -27,8 +30,10 @@ private val EMPTY = OptimizeResponse(mapOf(), mapOf(), mapOf())
 
 fun Routing.optimizeRoute() {
     post("/v1/optimize") {
-        val request = Json.decodeFromString<OptimizeRequest>(call.receiveText())
-        call.respondText { Json.encodeToString(optimize(request)) }
+        launch(newFixedThreadPoolContext(8, "OptimizeContext")) {
+            val request = Json.decodeFromString<OptimizeRequest>(call.receiveText())
+            call.respondText { Json.encodeToString(optimize(request)) }
+        }.join()
     }
 }
 
@@ -89,8 +94,10 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
     val inputMinimums = inputs.map { it.item }
         .associateWith { item ->
-            (-expressions[item]!!).let {
-                it(minimize(it, planConstraints, BigRational.FACTORY))
+            async {
+                (-expressions[item]!!).let {
+                    it(minimize(it, planConstraints, BigRational.FACTORY))
+                }
             }
         }
 
@@ -98,17 +105,19 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
     val productMaximums = products.map { it.item }
         .associateWith { item ->
-            (expressions[item]!!).let {
-                it(maximize(it, planConstraints, BigRational.FACTORY))
+            async {
+                (expressions[item]!!).let {
+                    it(maximize(it, planConstraints, BigRational.FACTORY))
+                }
             }
         }
 
     /* FINAL COMPILATION */
 
-    return@coroutineScope OptimizeResponse(
+    OptimizeResponse(
         solution.mapValues { (_, x) -> x.toRational() },
-        inputMinimums.mapValues { (_, x) -> x.toRational() },
-        productMaximums.mapValues { (_, x) -> x.toRational() })
+        inputMinimums.mapValues { (_, x) -> x.await().toRational() },
+        productMaximums.mapValues { (_, x) -> x.await().toRational() })
 }
 
 private fun consider(recipes: Iterable<U6Recipe>): Map<U6Item, Expression<U6Recipe, BigRational>> {
