@@ -27,6 +27,7 @@ fun Routing.indexRoute() {
                     }
                 }
                 body {
+                    link { rel = "stylesheet"; href = "/static/satisfactory-planner.css" }
                     script { src = "/static/satisfactory-planner.js" }
                 }
             }

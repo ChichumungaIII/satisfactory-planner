@@ -86,3 +86,13 @@ tasks.named<JavaExec>("run") {
     dependsOn(tasks.named<Jar>("jvmJar"))
     classpath(tasks.named<Jar>("jvmJar"))
 }
+
+task("compileScss") {
+    doLast {
+        exec {
+            val root = """src\jsMain\kotlin\app\main.scss"""
+            val resource = """build\processedResources\jvm\main\satisfactory-planner.css"""
+            commandLine("cmd", "/c", "sass", root, resource)
+        }
+    }
+}
