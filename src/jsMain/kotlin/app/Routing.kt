@@ -1,11 +1,11 @@
 package app
 
-import app.factory.FactoriesRoute
-import app.plan.PlansRoute
+import app.common.layout.RootComponent
+import app.factory.FactoriesComponent
+import app.plan.Plans
 import react.FC
 import react.Props
 import react.create
-import react.createElement
 import react.router.Navigate
 import react.router.Route
 import react.router.Routes
@@ -16,7 +16,7 @@ val Routing = FC<Props>("Routing") {
         Routes {
             Route {
                 path = "/"
-                element = createElement(App)
+                element = App.create()
 
                 Route {
                     path = ""
@@ -24,11 +24,17 @@ val Routing = FC<Props>("Routing") {
                 }
                 Route {
                     path = "production"
-                    element = PlansRoute.create()
+                    element = RootComponent.create {
+                        title = "Production Plans"
+                        Plans {}
+                    }
                 }
                 Route {
                     path = "factories"
-                    element = FactoriesRoute.create()
+                    element = RootComponent.create {
+                        title = "Factories"
+                        FactoriesComponent {}
+                    }
                 }
             }
         }
