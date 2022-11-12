@@ -29,7 +29,7 @@ const val NEW_PLAN_ID = "new"
 
 external interface PlansProps : Props
 
-val PLANS_STORAGE = "com.chichumunga.satisfactory::plans"
+const val PLANS_STORAGE = "com.chichumunga.satisfactory::plans"
 fun save(plans: List<PlanModel>) = window.localStorage.setItem(PLANS_STORAGE, Json.encodeToString(plans))
 fun load(): List<PlanModel>? = window.localStorage.getItem(PLANS_STORAGE)?.let { Json.decodeFromString(it) }
 

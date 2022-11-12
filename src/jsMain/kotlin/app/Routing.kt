@@ -1,6 +1,6 @@
 package app
 
-import app.factory.Factories
+import app.factory.FactoriesRoute
 import app.plan.PlansRoute
 import react.FC
 import react.Props
@@ -28,7 +28,7 @@ val Routing = FC<Props>("Routing") {
                 }
                 Route {
                     path = "factories"
-                    element = Factories.create()
+                    element = FactoriesRoute.create()
                 }
             }
         }

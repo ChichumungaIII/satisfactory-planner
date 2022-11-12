@@ -1,14 +1,15 @@
 package app.factory
 
 import app.Header
+import app.HeaderSpacer
 import app.NavMenu
 import react.FC
 import react.Props
 import react.useState
 
-external interface FactoriesProps : Props
+external interface FactoriesRouteProps : Props
 
-val Factories = FC<FactoriesProps>("Factories") { _ ->
+val FactoriesRoute = FC<FactoriesRouteProps>("FactoriesRoute") { _ ->
     var isOpen by useState(false)
 
     Header {
@@ -20,5 +21,10 @@ val Factories = FC<FactoriesProps>("Factories") { _ ->
     NavMenu {
         this.isOpen = isOpen
         this.close = { isOpen = false }
+    }
+
+    HeaderSpacer {
+        this.isOpen = isOpen
+        FactoriesComponent {}
     }
 }
