@@ -7,14 +7,14 @@ import util.math.q
 
 @Serializable
 class FactoryUnitArray(
-    val unit: FactoryUnit,
-    val count: Int,
+    val unit: FactoryUnit? = null,
+    val count: Int = 1,
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>
-        get() = unit.outcome.map { (item, result) -> item to result * count.q }.toMap()
+        get() = unit?.outcome?.map { (item, result) -> item to result * count.q }?.toMap() ?: mapOf()
 
     override val generation: Double
-        get() = unit.generation * count
+        get() = (unit?.generation ?: 0.0) * count
     override val consumption: Double
-        get() = unit.consumption * count
+        get() = (unit?.consumption ?: 0.0) * count
 }

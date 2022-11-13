@@ -91,7 +91,7 @@ task("compileScss") {
     doLast {
         exec {
             val root = """src\jsMain\kotlin\app\main.scss"""
-            val resource = """build\processedResources\jvm\main\satisfactory-planner.css"""
+            val resource = """build\distributions\satisfactory-planner.css"""
             commandLine("cmd", "/c", "sass", root, resource)
         }
     }

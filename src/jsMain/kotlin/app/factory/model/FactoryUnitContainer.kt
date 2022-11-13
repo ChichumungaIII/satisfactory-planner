@@ -6,7 +6,7 @@ import util.math.Rational
 import util.math.q
 
 @Serializable
-class FactoryUnitContainer(
+data class FactoryUnitContainer(
     val units: List<FactoryUnit> = listOf(),
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>
@@ -19,4 +19,6 @@ class FactoryUnitContainer(
         get() = units.map { it.generation }.sum()
     override val consumption: Double
         get() = units.map { it.consumption }.sum()
+
+    fun addUnit(unit: FactoryUnit) = copy(units = units + unit)
 }
