@@ -3,6 +3,7 @@ package app.plan
 import app.api.OptimizeRequest
 import app.api.client.optimize
 import app.appScope
+import app.common.layout.titlebar.TitleBar
 import app.data.u6.U6Item
 import app.data.u6.U6Recipe
 import app.model.PlanInputModel
@@ -52,10 +53,12 @@ val Plan = FC<PlanProps>("Plan") { props ->
     val nextItem = U6Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
         .filterNot { item -> plan.products.any { product -> item == product.item } }.firstOrNull()
 
-    PlanHeader {
-        title = plan.title
-        setTitle = { next -> plan = plan.copy(title = next) }
+    TitleBar {
+        editDescription = "Edit Plan Title"
+        deleteDescription = "Delete Plan"
 
+        title = plan.title
+        setTitle = { plan = plan.copy(title = it) }
         onDelete = { props.onDelete() }
     }
 

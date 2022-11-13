@@ -16,8 +16,6 @@ import mui.material.Box
 import mui.material.Tab
 import mui.material.Tabs
 import mui.material.TabsVariant
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
 import react.Props
@@ -25,6 +23,7 @@ import react.ReactNode
 import react.create
 import react.useEffect
 import react.useState
+import kotlin.math.min
 
 external interface FactoriesComponentProps : Props
 
@@ -81,9 +80,14 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { pro
                 sx { padding = Padding(0.px, 0.px) }
                 value = "${factory.id}"
 
-                Typography {
-                    variant = TypographyVariant.h2
-                    +factory.title
+                FactoryComponent {
+                    model = factory
+                    setModel = { next -> factories = factories.toMutableList().also { it[i] = next } }
+                    onDelete = {
+                        val next = factories.toMutableList().apply { removeAt(i) };
+                        factories = next
+                        selected = if (next.isNotEmpty()) "${next[min(i, next.size - 1)].id}" else NEW_FACTORY_ID
+                    }
                 }
             }
         }
