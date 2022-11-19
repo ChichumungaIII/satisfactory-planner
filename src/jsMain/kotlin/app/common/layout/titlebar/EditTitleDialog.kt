@@ -29,7 +29,7 @@ val EditTitleDialog = FC<EditTitleDialogProps>("EditTitleDialog") { props ->
     var edit by useState(title)
 
     Dialog {
-        open = props.active
+        open = active
 
         DialogTitle { +props.description }
         DialogContent {

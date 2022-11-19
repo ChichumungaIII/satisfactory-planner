@@ -1,7 +1,8 @@
 package app.factory.selectunit
 
-import app.factory.model.Constructor
+import app.data.u6.U6Building
 import app.factory.model.FactoryUnit
+import app.factory.model.ProductionBuilding
 import csstype.ClassName
 import mui.material.Menu
 import mui.material.MenuItem
@@ -32,10 +33,11 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
 
         MenuItem {
             +"Constructor"
-            onClick = { props.onSelect(Constructor()) }
+            onClick = { props.onSelect(ProductionBuilding(U6Building.CONSTRUCTOR)) }
         }
         MenuItem {
             +"Assembler"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.ASSEMBLER)) }
         }
     }
 }

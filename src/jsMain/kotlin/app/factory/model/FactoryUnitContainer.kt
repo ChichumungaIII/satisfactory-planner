@@ -21,4 +21,5 @@ data class FactoryUnitContainer(
         get() = units.map { it.consumption }.sum()
 
     fun addUnit(unit: FactoryUnit) = copy(units = units + unit)
+    fun setUnit(i: Int, unit: FactoryUnit) = copy(units = units.toMutableList().also { it[i] = unit }.toList())
 }

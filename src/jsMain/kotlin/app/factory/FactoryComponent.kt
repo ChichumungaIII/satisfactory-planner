@@ -3,6 +3,7 @@ package app.factory
 import app.common.layout.titlebar.TitleBar
 import app.factory.model.Factory
 import app.factory.selectunit.SelectUnitSpeedDial
+import app.factory.unit.factoryUnit
 import app.util.PropsDelegate
 import csstype.ClassName
 import mui.material.Box
@@ -33,7 +34,9 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
 
         container.units.forEachIndexed { i, unit ->
             Box {
-                +"$i. ${unit::class}"
+                className = ClassName("factory__aspect")
+
+                factoryUnit(unit) { container = container.setUnit(i, unit) }
             }
         }
 

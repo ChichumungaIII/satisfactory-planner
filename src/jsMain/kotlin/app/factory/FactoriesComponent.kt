@@ -33,7 +33,7 @@ const val FACTORIES_STORAGE = "com.chichumunga.satisfactory::factories"
 fun save(plans: List<Factory>) = window.localStorage.setItem(FACTORIES_STORAGE, Json.encodeToString(plans))
 fun load(): List<Factory>? = window.localStorage.getItem(FACTORIES_STORAGE)?.let { Json.decodeFromString(it) }
 
-val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { props ->
+val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
     var factories by useState(load() ?: listOf())
     var selected by useState(if (factories.isEmpty()) NEW_FACTORY_ID else "${factories[0].id}")
 
