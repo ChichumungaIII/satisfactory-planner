@@ -1,14 +1,20 @@
 package app.factory.unit
 
+import app.common.input.RecipeAutocomplete
 import app.data.u6.U6Building
 import app.factory.model.ProductionBuilding
 import app.util.PropsDelegate
 import csstype.ClassName
-import mui.material.Box
+import mui.icons.material.ExpandMore
+import mui.material.Accordion
+import mui.material.AccordionDetails
+import mui.material.AccordionSummary
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
+import react.create
+import react.useState
 
 external interface ProductionBuildingComponentProps : Props {
     var production: ProductionBuilding
@@ -17,15 +23,33 @@ external interface ProductionBuildingComponentProps : Props {
 
 val ProductionBuildingComponent = FC<ProductionBuildingComponentProps>("ProductionBuildingComponent") { props ->
     var production by PropsDelegate(props.production) { props.setProduction(it) }
+    var open by useState(true)
 
-    Box {
+    Accordion {
         className = ClassName("production-building production-building--${production.building.className}")
+        disableGutters = true
 
-        Typography {
-            className = ClassName("production-building__title")
-            variant = TypographyVariant.body1
+        expanded = open
+        onChange = { _, next -> open = next }
 
-            +production.building.displayName
+        AccordionSummary {
+            expandIcon = ExpandMore.create {}
+
+            Typography {
+                className = ClassName("production-building__title")
+                variant = TypographyVariant.body1
+
+                +production.building.displayName
+            }
+        }
+
+        AccordionDetails {
+            RecipeAutocomplete {
+                recipe = production.recipe
+                setRecipe = { production = production.copy(recipe = it) }
+
+                building = production.building
+            }
         }
     }
 }

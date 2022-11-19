@@ -84,7 +84,7 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ -
                     model = factory
                     setModel = { next -> factories = factories.toMutableList().also { it[i] = next } }
                     onDelete = {
-                        val next = factories.toMutableList().apply { removeAt(i) };
+                        val next = factories.toMutableList().apply { removeAt(i) }
                         factories = next
                         selected = if (next.isNotEmpty()) "${next[min(i, next.size - 1)].id}" else NEW_FACTORY_ID
                     }

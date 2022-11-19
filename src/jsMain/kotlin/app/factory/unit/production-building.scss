@@ -1,17 +1,16 @@
 .production-building {
-  padding: 12px 0 12px 12px;
+  &.production-building {
+    border-radius: 12px;
+  }
 
   &__title {
-    color: #fff;
     font-size: 20px;
     font-weight: 400;
   }
 
   &--constructor {
-    background-color: #c56a32;
   }
 
   &--assembler {
-    background-color: #1a3aa9;
   }
 }

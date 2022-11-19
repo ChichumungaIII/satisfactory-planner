@@ -1,5 +1,6 @@
 package app.common.input
 
+import app.data.u6.U6Building
 import app.data.u6.U6Recipe
 import app.util.PropsDelegate
 import csstype.Margin
@@ -17,10 +18,12 @@ import react.create
 external interface RecipeAutocompleteProps : Props {
     var recipe: U6Recipe?
     var setRecipe: (U6Recipe?) -> Unit
+
+    var building: U6Building
 }
 
 val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { props ->
-    var recipe by PropsDelegate(props.recipe) { next -> props.setRecipe(next) }
+    var recipe by PropsDelegate(props.recipe) { props.setRecipe(it) }
 
     @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<RecipeAutocompleteOption>> {
         sx {
@@ -37,7 +40,8 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
         }
 
         options = (listOf(recipe) + U6Recipe.values()).distinct()
-            .map { recipe?.let { RecipeAutocompleteOption(it) } ?: NOT_SELECTED }.toTypedArray()
+            .filter { it?.buildings?.contains(props.building) ?: true }
+            .map { it?.let { RecipeAutocompleteOption(it) } ?: NOT_SELECTED }.toTypedArray()
 
         autoComplete = true
         autoHighlight = true

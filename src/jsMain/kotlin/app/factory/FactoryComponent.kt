@@ -17,7 +17,7 @@ external interface FactoryComponentProps : Props {
 }
 
 val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
-    var factory by PropsDelegate(props.model) { next -> props.setModel(next) }
+    var factory by PropsDelegate(props.model) { props.setModel(it) }
     var container by PropsDelegate(factory.container) { factory = factory.copy(container = it) }
 
     TitleBar {
@@ -36,7 +36,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
             Box {
                 className = ClassName("factory__aspect")
 
-                factoryUnit(unit) { container = container.setUnit(i, unit) }
+                factoryUnit(unit) { container = container.setUnit(i, it) }
             }
         }
 
