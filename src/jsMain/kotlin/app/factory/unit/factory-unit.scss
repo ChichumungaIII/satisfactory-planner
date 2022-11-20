@@ -1,0 +1,10 @@
+.factory-unit {
+  &.MuiAccordion-rounded {
+    border-radius: 12px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}

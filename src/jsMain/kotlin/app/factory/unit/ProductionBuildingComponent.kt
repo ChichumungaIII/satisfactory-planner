@@ -34,7 +34,11 @@ val ProductionBuildingComponent = FC<ProductionBuildingComponentProps>("Producti
     var open by useState(true)
 
     Accordion {
-        className = ClassName("production-building production-building--${production.building.className}")
+        className = ClassName(
+            """factory-unit
+                | production-building
+                | production-building--${production.building.className}""".trimMargin()
+        )
         disableGutters = true
 
         expanded = open
@@ -44,7 +48,7 @@ val ProductionBuildingComponent = FC<ProductionBuildingComponentProps>("Producti
             expandIcon = ExpandMore.create {}
 
             Typography {
-                className = ClassName("production-building__title")
+                className = ClassName("factory-unit__title")
                 variant = TypographyVariant.body1
 
                 +production.building.displayName

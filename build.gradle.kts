@@ -96,3 +96,7 @@ task("compileScss") {
         }
     }
 }
+
+task("runWithCss") {
+    dependsOn("compileScss", "run")
+}

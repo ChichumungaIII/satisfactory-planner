@@ -34,7 +34,7 @@ val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { 
         open = active
         className = ClassName("select-unit-speed-dial")
         ariaLabel = "Select New Factory Component"
-        direction = SpeedDialDirection.down
+        direction = SpeedDialDirection.right
         icon = SpeedDialIcon.create()
 
         onOpen = { _, reason ->

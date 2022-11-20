@@ -7,6 +7,7 @@ import util.math.q
 
 @Serializable
 data class FactoryUnitContainer(
+    val title: String = "New Container",
     val units: List<FactoryUnit> = listOf(),
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>

@@ -26,7 +26,11 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
         anchorEl = props.parent?.let { anchor -> { anchor } }
         anchorOrigin = object : PopoverOrigin {
             override var vertical = "top"
-            override var horizontal = "right"
+            override var horizontal = "left"
+        }
+        transformOrigin = object : PopoverOrigin {
+            override var vertical = "bottom"
+            override var horizontal = "left"
         }
 
         onClose = { props.onClose() }
