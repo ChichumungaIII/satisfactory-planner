@@ -6,7 +6,8 @@ import util.math.Rational
 import util.math.q
 
 @Serializable
-class FactoryUnitArray(
+data class FactoryUnitArray(
+    var title: String = "Array",
     val unit: FactoryUnit? = null,
     val count: Int = 1,
 ) : FactoryUnit {

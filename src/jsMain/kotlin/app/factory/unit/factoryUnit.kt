@@ -4,7 +4,6 @@ import app.factory.model.FactoryUnit
 import app.factory.model.FactoryUnitArray
 import app.factory.model.FactoryUnitContainer
 import app.factory.model.ProductionBuilding
-import mui.material.Box
 import react.ChildrenBuilder
 
 fun ChildrenBuilder.factoryUnit(unit: FactoryUnit, setUnit: (FactoryUnit) -> Unit) {
@@ -19,6 +18,9 @@ fun ChildrenBuilder.factoryUnit(unit: FactoryUnit, setUnit: (FactoryUnit) -> Uni
             setContainer = { setUnit(it) }
         }
 
-        is FactoryUnitArray -> Box { +"Array" }
+        is FactoryUnitArray -> ArrayComponent {
+            array = unit
+            setArray = { setUnit(it) }
+        }
     }
 }
