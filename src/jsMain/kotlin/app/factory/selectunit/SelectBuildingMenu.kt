@@ -32,6 +32,14 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
         onClose = { props.onClose() }
 
         MenuItem {
+            +"Smelter"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.SMELTER)) }
+        }
+        MenuItem {
+            +"Foundry"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.FOUNDRY)) }
+        }
+        MenuItem {
             +"Constructor"
             onClick = { props.onSelect(ProductionBuilding(U6Building.CONSTRUCTOR)) }
         }

@@ -1,6 +1,14 @@
 .production-building {
-  &.production-building {
+  &.MuiAccordion-rounded {
     border-radius: 12px;
+  }
+
+  &__clock-input {
+    margin: 12px 0;
+  }
+
+  &__recipe-input {
+    margin: 12px 0 0;
   }
 
   &__title {
@@ -8,9 +16,11 @@
     font-weight: 400;
   }
 
-  &--constructor {
-  }
+  &--assembler {}
 
-  &--assembler {
-  }
+  &--constructor {}
+
+  &--foundry {}
+
+  &--smelter {}
 }

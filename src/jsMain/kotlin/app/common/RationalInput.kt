@@ -7,13 +7,13 @@ import mui.material.FormControlVariant
 import mui.material.TextField
 import mui.system.sx
 import react.FC
-import react.Props
+import react.PropsWithClassName
 import react.ReactNode
 import react.dom.onChange
 import react.useState
 import util.math.Rational
 
-external interface RationalInputProps : Props {
+external interface RationalInputProps : PropsWithClassName {
     var label: ReactNode?
 
     var value: Rational?
@@ -34,6 +34,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
     var errorMessage by useState<String?>(null)
 
     TextField {
+        className = props.className
         sx {
             width = 256.px
             margin = Margin(0.px, 6.px, if (error) 0.px else (22.91).px, 6.px)

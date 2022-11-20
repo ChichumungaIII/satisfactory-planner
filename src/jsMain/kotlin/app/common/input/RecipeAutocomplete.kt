@@ -11,11 +11,11 @@ import mui.material.AutocompleteProps
 import mui.material.TextField
 import mui.system.sx
 import react.FC
-import react.Props
+import react.PropsWithClassName
 import react.ReactNode
 import react.create
 
-external interface RecipeAutocompleteProps : Props {
+external interface RecipeAutocompleteProps : PropsWithClassName {
     var recipe: U6Recipe?
     var setRecipe: (U6Recipe?) -> Unit
 
@@ -26,6 +26,7 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
     var recipe by PropsDelegate(props.recipe) { props.setRecipe(it) }
 
     @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<RecipeAutocompleteOption>> {
+        className = props.className
         sx {
             width = 256.px
             margin = Margin(0.px, 6.px)
