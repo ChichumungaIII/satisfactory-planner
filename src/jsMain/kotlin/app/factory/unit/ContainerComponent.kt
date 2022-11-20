@@ -1,5 +1,6 @@
 package app.factory.unit
 
+import app.factory.info.FactoryUnitInfoComponent
 import app.factory.model.FactoryUnit
 import app.factory.model.FactoryUnitContainer
 import app.factory.selectunit.SelectUnitSpeedDial
@@ -44,6 +45,8 @@ val ContainerComponent = FC<ContainerComponentProps>("ContainerComponent") { pro
         }
 
         AccordionDetails {
+            FactoryUnitInfoComponent { unit = container }
+
             container.units.forEachIndexed { i: Int, unit: FactoryUnit ->
                 factoryUnit(unit) { container = container.setUnit(i, it) }
             }

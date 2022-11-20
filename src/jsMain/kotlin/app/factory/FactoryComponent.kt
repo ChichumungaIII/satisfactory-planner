@@ -1,6 +1,7 @@
 package app.factory
 
 import app.common.layout.titlebar.TitleBar
+import app.factory.info.FactoryUnitInfoComponent
 import app.factory.model.Factory
 import app.factory.selectunit.SelectUnitSpeedDial
 import app.factory.unit.factoryUnit
@@ -31,6 +32,8 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
 
     Box {
         className = ClassName("factory")
+
+        FactoryUnitInfoComponent { unit = factory.container }
 
         container.units.forEachIndexed { i, unit ->
             Box {

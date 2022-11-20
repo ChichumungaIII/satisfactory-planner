@@ -15,10 +15,13 @@ data class ProductionBuilding(
     val clock: Rational = 1.q,
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>
-        get() = recipe?.components?.map { (item, quantity) ->
-            item to quantity * clock
-        }?.toMap() ?: mapOf()
+        get() {
+            if (recipe == null) return mapOf()
+            return recipe.components.map { (item, amount) ->
+                item to amount * clock * 60.q / recipe.time
+            }.toMap()
+        }
 
     override val consumption: Double
-        get() = (building.power * clock).toDouble().pow(1.6)
+        get() = building.power.toDouble() * clock.toDouble().pow(1.6)
 }

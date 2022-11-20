@@ -5,8 +5,10 @@ import app.common.RationalValidation.Companion.fail
 import app.common.RationalValidation.Companion.pass
 import app.common.input.RecipeAutocomplete
 import app.data.u6.U6Building
+import app.factory.info.FactoryUnitInfoComponent
 import app.factory.model.ProductionBuilding
 import app.util.PropsDelegate
+import app.util.math.toFixed
 import csstype.ClassName
 import mui.icons.material.ExpandMore
 import mui.material.Accordion
@@ -52,10 +54,17 @@ val ProductionBuildingComponent = FC<ProductionBuildingComponentProps>("Producti
                 variant = TypographyVariant.body1
 
                 +production.building.displayName
+                production.recipe?.let {
+                    var clockDisplay = (production.clock * CLOCK_INPUT_SCALE).toFixed(4)
+                    if (clockDisplay.endsWith(".0000")) clockDisplay = clockDisplay.substringBefore(".")
+                    +" (${it.displayName} @$clockDisplay%)"
+                }
             }
         }
 
         AccordionDetails {
+            FactoryUnitInfoComponent { unit = production }
+
             RecipeAutocomplete {
                 className = ClassName("production-building__recipe-input")
 

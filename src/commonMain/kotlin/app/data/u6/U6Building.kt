@@ -32,6 +32,7 @@ enum class U6Building(
             U6Item.IRON_ROD to 5.q,
             U6Item.WIRE to 8.q,
         ),
+        power = 4.q,
     ),
     CONSTRUCTOR(
         U6Milestone.HUB_UPGRADE_3,
@@ -40,6 +41,7 @@ enum class U6Building(
             U6Item.REINFORCED_IRON_PLATE to 2.q,
             U6Item.CABLE to 8.q,
         ),
+        power = 4.q,
     ),
     MINER_MK_1(
         U6Milestone.HUB_UPGRADE_5,
@@ -49,6 +51,7 @@ enum class U6Building(
             U6Item.IRON_PLATE to 10.q,
             U6Item.CONCRETE to 10.q,
         ),
+        power = 5.q,
     ),
     BIOMASS_BURNER(
         U6Milestone.HUB_UPGRADE_6,
@@ -68,6 +71,7 @@ enum class U6Building(
             U6Item.ROTOR to 4.q,
             U6Item.CABLE to 10.q,
         ),
+        power = 15.q,
     ),
     AWESOME_SINK(
         U6Milestone.RESOURCE_SINK_BONUS_PROGRAM,
@@ -101,5 +105,6 @@ enum class U6Building(
         U6Milestone.BASIC_STEEL_PRODUCTION,
         "Foundry",
         cost = mapOf(), // TODO
+        power = 16.q,
     ),
 }
