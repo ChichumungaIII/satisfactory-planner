@@ -1,0 +1,17 @@
+.factory-unit-container {
+  display: flex;
+
+  &__child-control {
+    margin: 3px 8px 3px 0;
+
+    &__button {
+      display: block;
+      padding: 0;
+      height: 26px;
+    }
+  }
+
+  &__child {
+    flex: 1;
+  }
+}
