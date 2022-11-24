@@ -39,7 +39,9 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
             Box {
                 className = ClassName("factory__aspect")
 
-                factoryUnit(unit) { container = container.setUnit(i, it) }
+                factoryUnit(unit,
+                    { container = container.setUnit(i, it) },
+                    { container = container.removeUnit(i) })
             }
         }
 

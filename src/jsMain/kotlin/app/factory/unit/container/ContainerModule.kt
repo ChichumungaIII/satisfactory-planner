@@ -14,7 +14,9 @@ external interface ContainerModuleProps : Props {
 
 val ContainerModule = FC<ContainerModuleProps>("ContainerModule") { props ->
     props.container.units.forEachIndexed { i: Int, unit: FactoryUnit ->
-        factoryUnit(unit) { props.setUnit(props.container.setUnit(i, it)) }
+        factoryUnit(unit,
+            { props.setUnit(props.container.setUnit(i, it)) },
+            { props.setUnit(props.container.removeUnit(i)) })
     }
 
     SelectUnitSpeedDial { onSelect = { props.setUnit(props.container.addUnit(it)) } }

@@ -60,6 +60,8 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
     }
 
     FactoryUnitComponentMenu {
+        this.unit = unit
+
         parent = menuAnchor
         onClose = { menuAnchor = null }
 
@@ -72,6 +74,11 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         details = showDetails
         setDetails = { next ->
             showDetails = next
+            menuAnchor = null
+        }
+
+        onDelete = {
+            props.deleteUnit()
             menuAnchor = null
         }
     }

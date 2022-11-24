@@ -9,10 +9,11 @@ import app.factory.unit.container.ContainerModule
 import app.factory.unit.production.ProductionBuildingModule
 import react.ChildrenBuilder
 
-fun ChildrenBuilder.factoryUnit(unit: FactoryUnit, setUnit: (FactoryUnit) -> Unit) {
+fun ChildrenBuilder.factoryUnit(unit: FactoryUnit, setUnit: (FactoryUnit) -> Unit, deleteUnit: () -> Unit) {
     FactoryUnitComponent {
         this.unit = unit
         this.setUnit = setUnit
+        this.deleteUnit = deleteUnit
 
         when (unit) {
             is ProductionBuilding -> ProductionBuildingModule {

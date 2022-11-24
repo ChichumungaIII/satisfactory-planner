@@ -54,7 +54,9 @@ val ArrayModule = FC<ArrayModuleProps>("ArrayModule") { props ->
     }
 
     props.array.unit?.also { child ->
-        factoryUnit(child) { props.setUnit(props.array.copy(unit = it)) }
+        factoryUnit(child,
+            { props.setUnit(props.array.copy(unit = it)) },
+            { props.setUnit(props.array.copy(unit = null)) })
     } ?: run {
         SelectUnitSpeedDial { onSelect = { props.setUnit(props.array.copy(unit = it)) } }
     }
