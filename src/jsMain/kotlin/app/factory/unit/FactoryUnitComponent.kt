@@ -1,6 +1,8 @@
 package app.factory.unit
 
 import app.factory.model.FactoryUnit
+import app.factory.model.FactoryUnitArray
+import app.factory.model.FactoryUnitContainer
 import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
@@ -79,6 +81,19 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         setDetails = { next ->
             showDetails = next
             menuAnchor = null
+        }
+
+        val factoryUnit = unit
+        if (factoryUnit is FactoryUnitContainer) {
+            setTitle = {
+                unit = factoryUnit.copy(title = it)
+                menuAnchor = null
+            }
+        } else if (factoryUnit is FactoryUnitArray) {
+            setTitle = {
+                unit = factoryUnit.copy(title = it)
+                menuAnchor = null
+            }
         }
 
         onDelete = {

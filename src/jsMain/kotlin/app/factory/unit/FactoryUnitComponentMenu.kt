@@ -1,6 +1,7 @@
 package app.factory.unit
 
 import app.common.layout.titlebar.DeleteConfirmationDialog
+import app.common.layout.titlebar.EditTitleDialog
 import app.factory.model.FactoryUnit
 import app.util.PropsDelegate
 import mui.material.Divider
@@ -24,12 +25,16 @@ external interface FactoryUnitComponentMenuProps : Props {
     var details: Boolean
     var setDetails: (Boolean) -> Unit
 
+    var setTitle: ((String) -> Unit)?
+
     var onDelete: () -> Unit
 }
 
 val FactoryUnitComponentMenu = FC<FactoryUnitComponentMenuProps>("FactoryUnitComponentMenu") { props ->
     var expanded by PropsDelegate(props.expanded) { props.setExpanded(it) }
     var details by PropsDelegate(props.details) { props.setDetails(it) }
+
+    var editTitle by useState(false)
 
     var confirmDelete by useState(false)
 
@@ -67,11 +72,32 @@ val FactoryUnitComponentMenu = FC<FactoryUnitComponentMenuProps>("FactoryUnitCom
             }
         }
 
+        if (props.setTitle != null) {
+            Divider {}
+
+            MenuItem {
+                +"Edit title"
+                onClick = { editTitle = true }
+            }
+        }
+
         Divider {}
 
         MenuItem {
             +"Delete"
             onClick = { confirmDelete = true }
+        }
+    }
+
+    if (props.setTitle != null) {
+        EditTitleDialog {
+            description = "Rename Factory Unit"
+
+            active = editTitle
+            setActive = { editTitle = it }
+
+            this.title = props.unit.title
+            this.setTitle = { props.setTitle?.invoke(it) }
         }
     }
 
