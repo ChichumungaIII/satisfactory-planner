@@ -107,4 +107,10 @@ enum class U6Building(
         cost = mapOf(), // TODO
         power = 16.q,
     ),
+    MANUFACTURER(
+        U6Milestone.GAME_START, // TODO
+        "Manufacturer",
+        cost = mapOf(), // TODO
+        power = 0.q, // TODO
+    ),
 }

@@ -4,6 +4,7 @@ import app.data.u6.U6Building
 import app.factory.model.FactoryUnit
 import app.factory.model.ProductionBuilding
 import csstype.ClassName
+import mui.material.Divider
 import mui.material.Menu
 import mui.material.MenuItem
 import mui.material.PopoverOrigin
@@ -43,6 +44,9 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
             +"Foundry"
             onClick = { props.onSelect(ProductionBuilding(U6Building.FOUNDRY)) }
         }
+
+        Divider {}
+
         MenuItem {
             +"Constructor"
             onClick = { props.onSelect(ProductionBuilding(U6Building.CONSTRUCTOR)) }
@@ -50,6 +54,10 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
         MenuItem {
             +"Assembler"
             onClick = { props.onSelect(ProductionBuilding(U6Building.ASSEMBLER)) }
+        }
+        MenuItem {
+            +"Manufacturer"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.MANUFACTURER)) }
         }
     }
 }

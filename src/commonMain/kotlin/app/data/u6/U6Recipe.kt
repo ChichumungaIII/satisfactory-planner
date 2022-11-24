@@ -360,8 +360,7 @@ enum class U6Recipe(
             U6Item.SCREW to -(100.q),
             U6Item.HEAVY_MODULAR_FRAME to 1.q,
         ),
-        // TODO: Unlock
-        buildings = listOf(/* U6Building.MANUFACTURER, */U6Building.CRAFT_BENCH),
+        buildings = listOf(U6Building.MANUFACTURER, U6Building.CRAFT_BENCH),
     ),
 
     /* Tier 4 -- Improved Melee Combat */
