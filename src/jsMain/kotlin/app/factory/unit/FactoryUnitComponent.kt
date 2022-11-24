@@ -37,9 +37,13 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         expanded = open
 
         AccordionSummary {
+            onClick = { open = !open }
             expandIcon = IconButton.create {
                 MoreVert { }
-                onClick = { event -> menuAnchor = event.currentTarget }
+                onClick = { event ->
+                    menuAnchor = event.currentTarget
+                    event.stopPropagation()
+                }
             }
 
             Typography {
