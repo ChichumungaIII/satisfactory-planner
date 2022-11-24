@@ -134,7 +134,7 @@ enum class U6Recipe(
             U6Item.SCREW to -(12.q),
             U6Item.REINFORCED_IRON_PLATE to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
     ),
 
     /* Onboarding -- HUB Upgrade 6 */
