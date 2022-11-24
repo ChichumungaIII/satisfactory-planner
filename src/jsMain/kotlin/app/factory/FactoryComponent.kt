@@ -1,10 +1,10 @@
 package app.factory
 
 import app.common.layout.titlebar.TitleBar
-import app.factory.info.FactoryUnitInfoComponent
 import app.factory.model.Factory
 import app.factory.selectunit.SelectUnitSpeedDial
 import app.factory.unit.factoryUnit
+import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
 import mui.material.Box

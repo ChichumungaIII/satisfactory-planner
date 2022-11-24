@@ -1,7 +1,7 @@
 package app.factory.unit
 
-import app.factory.info.FactoryUnitInfoComponent
 import app.factory.model.FactoryUnit
+import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
 import mui.icons.material.ExpandMore

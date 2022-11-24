@@ -1,4 +1,4 @@
-package app.factory.info
+package app.factory.unit.info
 
 import app.factory.model.FactoryUnit
 import app.util.math.toFixed
