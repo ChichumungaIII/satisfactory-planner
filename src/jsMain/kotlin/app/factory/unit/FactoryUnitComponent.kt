@@ -4,12 +4,14 @@ import app.factory.model.FactoryUnit
 import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
-import mui.icons.material.ExpandMore
+import mui.icons.material.MoreVert
 import mui.material.Accordion
 import mui.material.AccordionDetails
 import mui.material.AccordionSummary
+import mui.material.IconButton
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
+import org.w3c.dom.Element
 import react.FC
 import react.PropsWithChildren
 import react.create
@@ -25,15 +27,20 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
     var unit by PropsDelegate(props.unit) { props.setUnit(it) }
     var open by useState(true)
 
+    var menuAnchor by useState<Element?>(null)
+    var showDetails by useState(false)
+
     Accordion {
         className = ClassName("factory-unit")
         disableGutters = true
 
         expanded = open
-        onChange = { _, next -> open = next }
 
         AccordionSummary {
-            expandIcon = ExpandMore.create {}
+            expandIcon = IconButton.create {
+                MoreVert { }
+                onClick = { event -> menuAnchor = event.currentTarget }
+            }
 
             Typography {
                 className = ClassName("factory-unit__title")
@@ -44,9 +51,28 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         }
 
         AccordionDetails {
-            FactoryUnitInfoComponent { this.unit = unit }
+            if (showDetails) {
+                FactoryUnitInfoComponent { this.unit = unit }
+            }
 
             +props.children
+        }
+    }
+
+    FactoryUnitComponentMenu {
+        parent = menuAnchor
+        onClose = { menuAnchor = null }
+
+        expanded = open
+        setExpanded = { next ->
+            open = next
+            menuAnchor = null
+        }
+
+        details = showDetails
+        setDetails = { next ->
+            showDetails = next
+            menuAnchor = null
         }
     }
 }
