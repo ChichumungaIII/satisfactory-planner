@@ -1,0 +1,18 @@
+.factory-info {
+  justify-content: space-between;
+
+  &__tile {
+    padding: 8px;
+  }
+
+  &__content {
+    padding: 4px;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  & .MuiSvgIcon-root {
+    margin-right: 4px;
+  }
+}

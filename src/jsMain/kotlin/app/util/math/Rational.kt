@@ -2,4 +2,5 @@ package app.util.math
 
 import util.math.Rational
 
-fun Rational.toFixed(places: Int) = toDouble().asDynamic().toFixed(places) as String
+fun Double.toFixed(places: Int) = asDynamic().toFixed(places) as String
+fun Rational.toFixed(places: Int) = toDouble().toFixed(places)
