@@ -10,17 +10,17 @@ fun ChildrenBuilder.factoryUnit(unit: FactoryUnit, setUnit: (FactoryUnit) -> Uni
     when (unit) {
         is ProductionBuilding -> ProductionBuildingComponent {
             production = unit
-            setProduction = { setUnit(it) }
+            this.setUnit = { setUnit(it) }
         }
 
         is FactoryUnitContainer -> ContainerComponent {
             container = unit
-            setContainer = { setUnit(it) }
+            this.setUnit = { setUnit(it) }
         }
 
         is FactoryUnitArray -> ArrayComponent {
             array = unit
-            setArray = { setUnit(it) }
+            this.setUnit = { setUnit(it) }
         }
     }
 }

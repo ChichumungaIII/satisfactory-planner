@@ -7,7 +7,7 @@ import util.math.q
 
 @Serializable
 data class FactoryUnitArray(
-    var title: String = "Array",
+    override var title: String = "Array",
     val unit: FactoryUnit? = null,
     val count: Int = 1,
 ) : FactoryUnit {

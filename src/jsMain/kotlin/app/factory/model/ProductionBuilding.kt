@@ -3,6 +3,7 @@ package app.factory.model
 import app.data.u6.U6Building
 import app.data.u6.U6Item
 import app.data.u6.U6Recipe
+import app.util.math.toFixed
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -24,4 +25,12 @@ data class ProductionBuilding(
 
     override val consumption: Double
         get() = building.power.toDouble() * clock.toDouble().pow(1.6)
+
+    override val title = building.displayName + (recipe?.let(this::productionDisplay) ?: "")
+
+    private fun productionDisplay(recipe: U6Recipe): String {
+        var clockDisplay = (clock * 100.q).toFixed(4)
+        if (clockDisplay.endsWith(".0000")) clockDisplay = clockDisplay.substringBefore(".")
+        return " (${recipe.displayName} @$clockDisplay%)"
+    }
 }

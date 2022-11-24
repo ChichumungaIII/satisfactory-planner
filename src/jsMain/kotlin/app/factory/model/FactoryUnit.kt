@@ -17,4 +17,6 @@ sealed interface FactoryUnit {
 
     /** This factory's net power production. */
     val power get() = generation - consumption
+
+    val title: String
 }
