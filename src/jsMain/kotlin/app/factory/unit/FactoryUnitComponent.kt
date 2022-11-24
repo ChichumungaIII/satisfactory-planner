@@ -96,6 +96,15 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
             }
         }
 
+        onWrapInContainer = {
+            unit = FactoryUnitContainer(units = listOf(unit))
+            menuAnchor = null
+        }
+        onWrapInArray = {
+            unit = FactoryUnitArray(unit = unit)
+            menuAnchor = null
+        }
+
         onDelete = {
             props.deleteUnit()
             menuAnchor = null

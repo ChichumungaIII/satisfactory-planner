@@ -27,6 +27,9 @@ external interface FactoryUnitComponentMenuProps : Props {
 
     var setTitle: ((String) -> Unit)?
 
+    var onWrapInContainer: () -> Unit
+    var onWrapInArray: () -> Unit
+
     var onDelete: () -> Unit
 }
 
@@ -79,6 +82,18 @@ val FactoryUnitComponentMenu = FC<FactoryUnitComponentMenuProps>("FactoryUnitCom
                 +"Edit title"
                 onClick = { editTitle = true }
             }
+        }
+
+        Divider {}
+
+        MenuItem {
+            +"Wrap in Container"
+            onClick = { props.onWrapInContainer() }
+        }
+
+        MenuItem {
+            +"Wrap in Array"
+            onClick = { props.onWrapInArray() }
         }
 
         Divider {}
