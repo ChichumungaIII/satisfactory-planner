@@ -29,6 +29,13 @@ class RationalTest {
     }
 
     @Test
+    fun parse_matchesRepeatingDecimals() {
+        assertEquals(Rational.create(1, 3), Rational.parse("0._3"))
+        assertEquals(Rational.create(75, 99), Rational.parse("0._75"))
+        assertEquals(Rational.create(17, 6), Rational.parse("2.8_33"))
+    }
+
+    @Test
     fun parse_returnsNullOtherwise() {
         assertNull(Rational.parse("Unknown"))
     }

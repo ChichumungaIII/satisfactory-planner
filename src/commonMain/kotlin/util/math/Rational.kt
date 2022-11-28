@@ -24,21 +24,35 @@ class Rational private constructor(
             override fun unit() = ONE
         }
 
-        private val RATIONAL_OR_DECIMAL = Regex("""(-)?(\d+)(\s*/\s*(\d+)|\.(\d+))?""")
+        private val RATIONAL = Regex("""(-)?\s*(\d+)\s*/\s*(\d+)""")
+        private val DECIMAL = Regex("""(-)?(\d+)(\.(\d*)(_(\d*))?)?""")
 
         /**
          * Parses [text] as a Rational number.
          *
          * [text] may be either a rational number (e.g. "-7 / 4"), or a decimal (e.g. "-1.75").
          */
-        fun parse(text: String): Rational? {
-            val match = RATIONAL_OR_DECIMAL.matchEntire(text.trim()) ?: return null
-            val sign = if (match.groupValues[1].isEmpty()) ONE else -ONE
-            val principal = match.groupValues[2].toLong().toRational()
-            val denominator = match.groupValues[4].takeIf { it.isNotEmpty() }?.toLong()?.toRational() ?: ONE
-            val decimal = match.groupValues[5].takeIf { it.isNotEmpty() }?.asDecimal() ?: ZERO
-            return sign * (principal / denominator + decimal).norm()
-        }
+        fun parse(text: String): Rational? =
+            RATIONAL.matchEntire(text.trim())?.let { match ->
+                val sign = match.groupValues[1].takeIf { it.isEmpty() }?.let { ONE } ?: -ONE
+                val numerator = match.groupValues[2].toLong().toRational()
+                val denominator = match.groupValues[3].toLong().toRational()
+                (sign * numerator / denominator).norm()
+            } ?: DECIMAL.matchEntire(text.trim())?.let { match ->
+                val sign = match.groupValues[1].takeIf { it.isEmpty() }?.let { ONE } ?: -ONE
+                val integer = match.groupValues[2].toLong().toRational()
+
+                val decimalPart = match.groupValues[4]
+                val decimalScale = decimalPart.fold(1.q) { scale, _ -> scale * 10.q }
+                val decimal = decimalPart.takeIf { it.isNotEmpty() }?.let { it.toLong() / decimalScale } ?: ZERO
+
+                val repeatedPart = match.groupValues[6]
+                val repeatedScale = repeatedPart.fold(ONE) { scale, _ -> scale * 10.q } - ONE
+                val repeated =
+                    repeatedPart.takeIf { it.isNotEmpty() }?.let { it.toLong() / repeatedScale / decimalScale } ?: ZERO
+
+                sign * (integer + decimal + repeated).norm()
+            }
 
         private fun String.asDecimal(): Rational {
             var decimal = toLong().toRational()
@@ -79,7 +93,7 @@ class Rational private constructor(
      *
      * If the number is already reduced, returns this Rational number.
      */
-    fun norm() = Rational(normN, normD)
+    fun norm() = if (gcd == 1L) this else Rational(normN, normD)
 
     override fun factory() = FACTORY
 
