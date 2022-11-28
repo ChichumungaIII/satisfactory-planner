@@ -7,11 +7,7 @@ import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
 import mui.icons.material.MoreVert
-import mui.material.Accordion
-import mui.material.AccordionDetails
-import mui.material.AccordionSummary
-import mui.material.IconButton
-import mui.material.Typography
+import mui.material.*
 import mui.material.styles.TypographyVariant
 import org.w3c.dom.Element
 import react.FC
@@ -27,19 +23,17 @@ external interface FactoryUnitComponentProps : PropsWithChildren {
 
 val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent") { props ->
     var unit by PropsDelegate(props.unit) { props.setUnit(it) }
-    var open by useState(true)
 
     var menuAnchor by useState<Element?>(null)
-    var showDetails by useState(false)
 
     Accordion {
         className = ClassName("factory-unit")
         disableGutters = true
 
-        expanded = open
+        expanded = unit.open
 
         AccordionSummary {
-            onClick = { open = !open }
+            onClick = { unit = unit.clone(open = !unit.open) }
             expandIcon = IconButton.create {
                 MoreVert { }
                 onClick = { event ->
@@ -57,7 +51,7 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         }
 
         AccordionDetails {
-            if (showDetails) {
+            if (unit.details) {
                 FactoryUnitInfoComponent { this.unit = unit }
             }
 
@@ -71,15 +65,15 @@ val FactoryUnitComponent = FC<FactoryUnitComponentProps>("FactoryUnitComponent")
         parent = menuAnchor
         onClose = { menuAnchor = null }
 
-        expanded = open
+        expanded = unit.open
         setExpanded = { next ->
-            open = next
+            unit = unit.clone(open = next)
             menuAnchor = null
         }
 
-        details = showDetails
+        details = unit.details
         setDetails = { next ->
-            showDetails = next
+            unit = unit.clone(details = next)
             menuAnchor = null
         }
 

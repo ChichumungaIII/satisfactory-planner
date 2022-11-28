@@ -14,6 +14,8 @@ data class ProductionBuilding(
     val building: U6Building,
     val recipe: U6Recipe? = null,
     val clock: Rational = 1.q,
+    override val open: Boolean = true,
+    override val details: Boolean = false,
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>
         get() {
@@ -33,4 +35,7 @@ data class ProductionBuilding(
         if (clockDisplay.endsWith(".0000")) clockDisplay = clockDisplay.substringBefore(".")
         return " (${recipe.displayName} @$clockDisplay%)"
     }
+
+    override fun clone(open: Boolean?, details: Boolean?) =
+        copy(open = open ?: this.open, details = details ?: this.details)
 }

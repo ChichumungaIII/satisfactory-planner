@@ -9,6 +9,8 @@ import util.math.q
 data class FactoryUnitContainer(
     override val title: String = "New Container",
     val units: List<FactoryUnit> = listOf(),
+    override val open: Boolean = true,
+    override val details: Boolean = false,
 ) : FactoryUnit {
     override val outcome: Map<U6Item, Rational>
         get() = units.map { it.outcome }.fold(mutableMapOf<U6Item, Rational>()) { acc, outcome ->
@@ -36,4 +38,7 @@ data class FactoryUnitContainer(
         val after = units.subList(y + 1, units.size)
         return copy(units = before + units[y] + between + units[x] + after)
     }
+
+    override fun clone(open: Boolean?, details: Boolean?) =
+        copy(open = open ?: this.open, details = details ?: this.details)
 }

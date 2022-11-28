@@ -19,4 +19,8 @@ sealed interface FactoryUnit {
     val power get() = generation - consumption
 
     val title: String
+    val open: Boolean
+    val details: Boolean
+
+    fun clone(open: Boolean? = null, details: Boolean? = null): FactoryUnit
 }
