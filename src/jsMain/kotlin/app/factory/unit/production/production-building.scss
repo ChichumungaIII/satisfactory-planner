@@ -1,9 +1,9 @@
 .production-building {
+  display: flex;
+
   &__clock-input {
-    margin: 12px 0;
   }
 
   &__recipe-input {
-    margin: 12px 0 0;
   }
 }
