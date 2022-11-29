@@ -54,12 +54,6 @@ class Rational private constructor(
                 sign * (integer + decimal + repeated).norm()
             }
 
-        private fun String.asDecimal(): Rational {
-            var decimal = toLong().toRational()
-            for (i in indices) decimal /= 10.toRational()
-            return decimal
-        }
-
         /**
          * Creates a new [Rational] number, n / d.
          *
@@ -81,7 +75,7 @@ class Rational private constructor(
     }
 
     init {
-        check(d > 0) { "Rational number [$this] requires a positive denominator." }
+        check(d > 0) { "Rational number [$n/$d] requires a positive denominator." }
     }
 
     private val gcd by lazy { gcd(n, d) }
@@ -94,6 +88,8 @@ class Rational private constructor(
      * If the number is already reduced, returns this Rational number.
      */
     fun norm() = if (gcd == 1L) this else Rational(normN, normD)
+
+    fun abs() = if (n < 0) Rational(-n, d) else this
 
     override fun factory() = FACTORY
 
@@ -132,7 +128,43 @@ class Rational private constructor(
 
     override fun hashCode() = (normN * 31 + normD).toInt()
 
-    override fun toString() = if (d == 1L) "$n" else "$n/$d"
+    override fun toString(): String {
+        if (n < 0) return "-${abs()}"
+
+        val integer = n / d
+        if (n % d == 0L) return "$integer"
+
+        val remainder = (this - integer.toRational()).norm()
+        val fixedScale = getFixedScale(remainder.d)
+        val fixed = remainder.n * fixedScale / remainder.d
+
+        val trailing = remainder * fixedScale.toRational() - fixed.toRational()
+        if (trailing == ZERO) return "$integer.$fixed"
+
+        var nines = 9L
+        var digits = 1
+        while (nines % trailing.d != 0L) {
+            nines = nines * 10L + 9L
+            digits++
+        }
+        val repeated = trailing.n * nines / trailing.d
+        return "$integer.${if (fixed == 0L) "" else "$fixed"}_${"$repeated".padStart(digits, '0')}"
+    }
+
+    private fun getFixedScale(n: Long): Long {
+        check(n > 0) { "Expected number to be positive." }
+
+        var x = n
+        var scale = 1L
+        do {
+            val twos = x % 2 == 0L
+            val fives = x % 5 == 0L
+            if (twos || fives) scale *= 10L
+            if (twos) x /= 2
+            if (fives) x /= 5
+        } while (twos || fives)
+        return scale
+    }
 
     override fun toDouble() = n.toDouble() / d
     override fun toFloat() = toDouble().toFloat()

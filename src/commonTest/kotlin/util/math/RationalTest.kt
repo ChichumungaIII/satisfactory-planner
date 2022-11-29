@@ -53,7 +53,9 @@ class RationalTest {
 
     @Test
     fun norm_returnsReducedValue() {
-        assertEquals("3/4", Rational.create(9, 12).norm().toString())
+        val norm = Rational.create(9, 12).norm()
+        assertEquals(3L, norm.n)
+        assertEquals(4L, norm.d)
     }
 
     @Test
@@ -119,5 +121,13 @@ class RationalTest {
     @Test
     fun compareTo_returnsGreaterThan() {
         assertTrue { Rational.create(1, 2) > Rational.create(1, 3) }
+    }
+
+    @Test
+    fun toString_returnsRepeatedStringFormat() {
+        assertEquals("16", Rational.create(32, 2).toString())
+        assertEquals("12.25", Rational.create(49, 4).toString())
+        assertEquals("0._3", Rational.create(1, 3).toString())
+        assertEquals("-2.4_857142", Rational.create(-87, 35).toString())
     }
 }
