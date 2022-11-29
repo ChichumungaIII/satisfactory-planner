@@ -137,9 +137,12 @@ class Rational private constructor(
         val remainder = (this - integer.toRational()).norm()
         val fixedScale = getFixedScale(remainder.d)
         val fixed = remainder.n * fixedScale / remainder.d
+        val fixedOut = fixed.takeIf { it > 0L }
+            ?.toString()?.padStart("$fixedScale".length - 1, '0')
+            ?: ""
 
         val trailing = remainder * fixedScale.toRational() - fixed.toRational()
-        if (trailing == ZERO) return "$integer.$fixed"
+        if (trailing == ZERO) return "$integer.$fixedOut"
 
         var nines = 9L
         var digits = 1
@@ -148,7 +151,7 @@ class Rational private constructor(
             digits++
         }
         val repeated = trailing.n * nines / trailing.d
-        return "$integer.${if (fixed == 0L) "" else "$fixed"}_${"$repeated".padStart(digits, '0')}"
+        return "$integer.${fixedOut}_${"$repeated".padStart(digits, '0')}"
     }
 
     private fun getFixedScale(n: Long): Long {

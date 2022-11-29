@@ -129,5 +129,6 @@ class RationalTest {
         assertEquals("12.25", Rational.create(49, 4).toString())
         assertEquals("0._3", Rational.create(1, 3).toString())
         assertEquals("-2.4_857142", Rational.create(-87, 35).toString())
+        assertEquals("1.02_6", Rational.create(77, 75).toString())
     }
 }
