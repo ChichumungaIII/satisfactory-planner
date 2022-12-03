@@ -104,7 +104,11 @@ enum class U6Building(
     FOUNDRY(
         U6Milestone.BASIC_STEEL_PRODUCTION,
         "Foundry",
-        cost = mapOf(), // TODO
+        cost = mapOf(
+            U6Item.MODULAR_FRAME to 10.q,
+            U6Item.ROTOR to 10.q,
+            U6Item.CONCRETE to 20.q,
+        ),
         power = 16.q,
     ),
     MANUFACTURER(

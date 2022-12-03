@@ -221,4 +221,56 @@ enum class U6Milestone(
             U6Item.CONCRETE to 500.q,
         ),
     ),
+
+    /* Tier 5 */
+
+    OIL_PROCESSING(
+        U6Tier.TIER_5,
+        "Oil Processing",
+        cost = mapOf(
+            U6Item.MOTOR to 50.q,
+            U6Item.ENCASED_INDUSTRIAL_BEAM to 100.q,
+            U6Item.STEEL_PIPE to 500.q,
+            U6Item.COPPER_SHEET to 500.q,
+        ),
+    ),
+    INDUSTRIAL_MANUFACTURING(
+        U6Tier.TIER_5,
+        "Industrial Manufacturing",
+        cost = mapOf(
+            U6Item.MOTOR to 100.q,
+            // TODO: U6Item.PLASTIC to 200.q,
+            // TODO: U6Item.RUBBER to 200.q,
+            U6Item.CABLE to 1000.q,
+        ),
+    ),
+    ALTERNATIVE_FLUID_TRANSPORT(
+        U6Tier.TIER_5,
+        "Alternative Fluid Transport",
+        cost = mapOf(
+            U6Item.HEAVY_MODULAR_FRAME to 25.q,
+            U6Item.MOTOR to 100.q,
+            // TODO: U6Item.PLASTIC to 200.q,
+            U6Item.WIRE to 3000.q,
+        ),
+    ),
+    GAS_MASK(
+        U6Tier.TIER_5,
+        "Gas Mask",
+        cost = mapOf(
+            // TODO: U6Item.RUBBER to 200.q,
+            // TODO: U6Item.PLASTIC to 100.q,
+            // TODO: U6Item.FABRIC to 100.q,
+        ),
+    ),
+
+    /* Tier 6 */
+
+    /* Special */
+
+    FICSMAS(
+        U6Tier.FICSMAS,
+        "FICSMAS",
+        cost = mapOf(),
+    )
 }

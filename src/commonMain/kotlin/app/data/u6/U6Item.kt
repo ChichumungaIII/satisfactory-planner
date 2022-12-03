@@ -309,6 +309,19 @@ enum class U6Item(
         "Xeno-Basher",
     ),
 
+    /* FICSMAS */
+
+    FICSMAS_GIFT(
+        Type.PART,
+        U6Milestone.FICSMAS,
+        "FICSMAS Gift",
+    ),
+    RED_FICSMAS_ORNAMENT(
+        Type.PART,
+        U6Milestone.FICSMAS,
+        "Red FICSMAS Ornament",
+    ),
+
     /* Other -- TO BE CLASSIFIED */
     // TODO: Classify these when the appropriate tier is unlocked
 

@@ -8,4 +8,7 @@ enum class U6Tier(
     TIER_2("Tier 2"),
     TIER_3("Tier 3"),
     TIER_4("Tier 4"),
+    TIER_5("Tier 5"),
+    TIER_6("Tier 6"),
+    FICSMAS("FICSMAS"),
 }
