@@ -309,6 +309,51 @@ enum class U6Item(
         "Xeno-Basher",
     ),
 
+    /* Tier 5 -- Oil Processing */
+
+    CRUDE_OIL(
+        Type.RESOURCE,
+        U6Milestone.OIL_PROCESSING,
+        "Crude Oil",
+    ),
+    PLASTIC(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Plastic",
+    ),
+    RUBBER(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Rubber",
+    ),
+    FUEL(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Fuel",
+        energy = 750.q,
+    ),
+    HEAVY_OIL_RESIDUE(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Heavy Oil Residue",
+    ),
+    POLYMER_RESIN(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Polymer Resin",
+    ),
+    PETROLEUM_COKE(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Petroleum Coke",
+        energy = 180.q,
+    ),
+    CIRCUIT_BOARD(
+        Type.PART,
+        U6Milestone.OIL_PROCESSING,
+        "Circuit Board",
+    ),
+
     /* FICSMAS */
 
     FICSMAS_GIFT(

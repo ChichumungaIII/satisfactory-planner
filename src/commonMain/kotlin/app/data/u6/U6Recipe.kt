@@ -379,6 +379,95 @@ enum class U6Recipe(
         buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
     ),
 
+    /* Tier 5 -- Oil Processing */
+
+    PLASTIC(
+        U6Milestone.OIL_PROCESSING,
+        "Plastic",
+        time = 6.q,
+        components = mapOf(
+            U6Item.CRUDE_OIL to -(3.q),
+            U6Item.PLASTIC to 2.q,
+            U6Item.HEAVY_OIL_RESIDUE to 1.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    RESIDUAL_PLASTIC(
+        U6Milestone.OIL_PROCESSING,
+        "Residual Plastic",
+        time = 6.q,
+        components = mapOf(
+            U6Item.POLYMER_RESIN to -(6.q),
+            U6Item.WATER to -(2.q),
+            U6Item.PLASTIC to 2.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    RUBBER(
+        U6Milestone.OIL_PROCESSING,
+        "Rubber",
+        time = 6.q,
+        components = mapOf(
+            U6Item.CRUDE_OIL to -(3.q),
+            U6Item.RUBBER to 2.q,
+            U6Item.HEAVY_OIL_RESIDUE to 2.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    RESIDUAL_RUBBER(
+        U6Milestone.OIL_PROCESSING,
+        "Residual Rubber",
+        time = 6.q,
+        components = mapOf(
+            U6Item.POLYMER_RESIN to -(4.q),
+            U6Item.WATER to -(4.q),
+            U6Item.RUBBER to 2.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    PETROLEUM_COKE(
+        U6Milestone.OIL_PROCESSING,
+        "Petroleum Coke",
+        time = 6.q,
+        components = mapOf(
+            U6Item.HEAVY_OIL_RESIDUE to -(4.q),
+            U6Item.PETROLEUM_COKE to 12.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    FUEL(
+        U6Milestone.OIL_PROCESSING,
+        "Fuel",
+        time = 6.q,
+        components = mapOf(
+            U6Item.CRUDE_OIL to -(6.q),
+            U6Item.FUEL to 4.q,
+            U6Item.POLYMER_RESIN to 3.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    RESIDUAL_FUEL(
+        U6Milestone.OIL_PROCESSING,
+        "Residual Fuel",
+        time = 6.q,
+        components = mapOf(
+            U6Item.HEAVY_OIL_RESIDUE to -(6.q),
+            U6Item.FUEL to 4.q,
+        ),
+        buildings = listOf(U6Building.REFINERY),
+    ),
+    CIRCUIT_BOARD(
+        U6Milestone.OIL_PROCESSING,
+        "Circuit Board",
+        time = 8.q,
+        components = mapOf(
+            U6Item.COPPER_SHEET to -(2.q),
+            U6Item.PLASTIC to -(4.q),
+            U6Item.CIRCUIT_BOARD to 1.q,
+        ),
+        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+    ),
+
     /* Research -- Alien Organisms */
 
     HOG_PROTEIN(

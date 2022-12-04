@@ -111,8 +111,29 @@ enum class U6Building(
         ),
         power = 16.q,
     ),
+    OIL_EXTRACTOR(
+        U6Milestone.OIL_PROCESSING,
+        "Oil Extractor",
+        cost = mapOf(
+            U6Item.MOTOR to 15.q,
+            U6Item.ENCASED_INDUSTRIAL_BEAM to 20.q,
+            U6Item.CABLE to 60.q,
+        ),
+        power = 40.q,
+    ),
+    REFINERY(
+        U6Milestone.OIL_PROCESSING,
+        "Refinery",
+        cost = mapOf(
+            U6Item.MOTOR to 10.q,
+            U6Item.ENCASED_INDUSTRIAL_BEAM to 10.q,
+            U6Item.STEEL_PIPE to 30.q,
+            U6Item.COPPER_SHEET to 20.q,
+        ),
+        power = 30.q,
+    ),
     MANUFACTURER(
-        U6Milestone.GAME_START, // TODO
+        U6Milestone.INDUSTRIAL_MANUFACTURING, // TODO
         "Manufacturer",
         cost = mapOf(), // TODO
         power = 0.q, // TODO
