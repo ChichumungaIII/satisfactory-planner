@@ -15,22 +15,14 @@ external interface PlanOutcomeComponentProps : Props {
 }
 
 val PlanOutcomeComponent = FC<PlanOutcomeComponentProps>("PlanOutcomeComponent") { props ->
-    val recipes = props.outcome.recipes
-    if (recipes == null) {
-        Box {
-            sx { margin = Margin(12.px, 0.px) }
-            +"""It's not possible to produce the required product amounts from the available inputs. 
-                Please reduce the minimum requirements or provide additional supplies.
-                """.trimIndent()
-        }
-    } else {
+    props.outcome.recipes?.let { recipes ->
         TableContainer {
             Table {
                 TableHead {
                     TableRow {
                         TableCell { +"Recipe" }
                         TableCell { +"Rate" }
-                        TableCell { +" Exact" }
+                        TableCell { +"Exact" }
                     }
                 }
                 TableBody {
@@ -48,5 +40,11 @@ val PlanOutcomeComponent = FC<PlanOutcomeComponentProps>("PlanOutcomeComponent")
                 }
             }
         }
+    } ?: Box {
+        sx { margin = Margin(12.px, 0.px) }
+        +"""It's not possible to produce the required product amounts from the available inputs. 
+            Please reduce the minimum requirements or provide additional supplies.
+            """.trimIndent()
     }
+
 }
