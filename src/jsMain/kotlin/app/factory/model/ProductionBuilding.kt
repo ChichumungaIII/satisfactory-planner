@@ -1,6 +1,6 @@
 package app.factory.model
 
-import app.data.u6.U6Building
+import app.data.u6.U6ProductionBuilding
 import app.data.u6.U6Item
 import app.data.u6.U6Recipe
 import app.util.math.toFixed
@@ -11,7 +11,7 @@ import kotlin.math.pow
 
 @Serializable
 data class ProductionBuilding(
-    val building: U6Building,
+    val building: U6ProductionBuilding,
     val recipe: U6Recipe? = null,
     val clock: Rational = 1.q,
     override val open: Boolean = true,
