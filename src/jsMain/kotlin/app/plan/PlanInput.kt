@@ -7,15 +7,10 @@ import app.model.PlanInputModel
 import app.model.PlanModel
 import app.util.PropsDelegate
 import app.util.math.toFixed
-import csstype.Display
-import csstype.Margin
-import csstype.px
+import csstype.*
 import mui.icons.material.Close
-import mui.material.Box
-import mui.material.IconButton
-import mui.material.IconButtonColor
+import mui.material.*
 import mui.material.Size
-import mui.material.SvgIconSize
 import mui.system.sx
 import react.FC
 import react.Props
@@ -80,17 +75,20 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             }
         }
 
-        val target = input.target
-        if (target != null) {
-            Box {
-                +"Consumed: ${target.toFixed(4)} | ($target)"
+        input.target?.let { target ->
+            Chip {
+                className = ClassName("plan-input__chip")
+                color = ChipColor.info
+
+                label = ReactNode("$target consumed")
             }
         }
+        input.minimum?.let { minimum ->
+            Chip {
+                className = ClassName("plan-input__chip")
+                color = ChipColor.default
 
-        val minimum = input.minimum
-        if (minimum != null) {
-            Box {
-                +"Required: ${minimum.toFixed(4)} ($minimum)"
+                label = ReactNode("$minimum required")
             }
         }
     }

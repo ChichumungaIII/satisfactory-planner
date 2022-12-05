@@ -7,15 +7,12 @@ import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
 import app.util.math.toFixed
+import csstype.ClassName
 import csstype.Display
 import csstype.Margin
 import csstype.px
 import mui.icons.material.Close
-import mui.material.Box
-import mui.material.IconButton
-import mui.material.IconButtonColor
-import mui.material.Size
-import mui.material.SvgIconSize
+import mui.material.*
 import mui.system.sx
 import react.FC
 import react.Props
@@ -100,17 +97,20 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             })
         }
 
-        val target = product.target
-        if (target != null) {
-            Box {
-                +"Produced: ${target.toFixed(4)} | ($target)"
+        product.target?.let { target ->
+            Chip {
+                className = ClassName("plan-product__chip")
+                color = ChipColor.success
+
+                label = ReactNode("$target produced")
             }
         }
+        product.maximum?.let { maximum ->
+            Chip {
+                className = ClassName("plan-product__chip")
+                color = ChipColor.secondary
 
-        val maximum = product.maximum
-        if (maximum != null) {
-            Box {
-                +"Maximum: ${maximum.toFixed(4)} ($maximum)"
+                label = ReactNode("$maximum possible")
             }
         }
     }
