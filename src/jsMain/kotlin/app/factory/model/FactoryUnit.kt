@@ -1,8 +1,10 @@
 package app.factory.model
 
 import app.data.u6.U6Item
+import app.util.math.toFixed
 import kotlinx.serialization.Serializable
 import util.math.Rational
+import util.math.q
 
 @Serializable
 sealed interface FactoryUnit {
@@ -23,4 +25,9 @@ sealed interface FactoryUnit {
     val details: Boolean
 
     fun clone(open: Boolean? = null, details: Boolean? = null): FactoryUnit
+
+    fun Rational.toClockDisplay(): String {
+        val display = times(100.q).toFixed(4)
+        return if (display.endsWith(".0000")) display.substringBefore('.') else display
+    }
 }
