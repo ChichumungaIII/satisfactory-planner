@@ -26,7 +26,7 @@ data class ProductionBuilding(
         }
 
     override val consumption: Double
-        get() = building.power.toDouble() * clock.toDouble().pow(1.6)
+        get() = building.power.toDouble() * clock.toDouble().pow(1.321928)
 
     override val title = building.displayName + (recipe?.let(this::productionDisplay) ?: "")
 
