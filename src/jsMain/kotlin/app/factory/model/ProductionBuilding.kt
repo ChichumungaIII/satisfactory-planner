@@ -28,8 +28,13 @@ data class ProductionBuilding(
     override val consumption: Double
         get() = building.power.toDouble() * clock.toDouble().pow(1.321928)
 
-    override val title =
-        building.displayName + (recipe?.let { " (${it.displayName}) @${clock.toClockDisplay()}" } ?: "")
+    override val title = building.displayName + (recipe?.let(this::productionDisplay) ?: "")
+
+    private fun productionDisplay(recipe: U6Recipe): String {
+        var clockDisplay = (clock * 100.q).toFixed(4)
+        if (clockDisplay.endsWith(".0000")) clockDisplay = clockDisplay.substringBefore(".")
+        return " (${recipe.displayName} @$clockDisplay%)"
+    }
 
     override fun clone(open: Boolean?, details: Boolean?) =
         copy(open = open ?: this.open, details = details ?: this.details)
