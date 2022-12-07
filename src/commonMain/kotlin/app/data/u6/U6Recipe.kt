@@ -8,7 +8,7 @@ enum class U6Recipe(
     val displayName: String,
     val time: Rational,
     val components: Map<U6Item, Rational>,
-    val buildings: List<U6Building>,
+    val buildings: List<U6ProductionBuilding>,
     val alternate: Boolean = false,
 ) {
     /* Onboarding -- Game Start */
@@ -21,7 +21,7 @@ enum class U6Recipe(
             U6Item.IRON_ORE to -(1.q),
             U6Item.IRON_INGOT to 1.q,
         ),
-        buildings = listOf(U6Building.SMELTER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.SMELTER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     IRON_PLATE(
         U6Milestone.GAME_START,
@@ -31,7 +31,7 @@ enum class U6Recipe(
             U6Item.IRON_INGOT to -(3.q),
             U6Item.IRON_PLATE to 2.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     IRON_ROD(
         U6Milestone.GAME_START,
@@ -41,7 +41,7 @@ enum class U6Recipe(
             U6Item.IRON_INGOT to -(1.q),
             U6Item.IRON_ROD to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     XENO_ZAPPER(
         U6Milestone.GAME_START,
@@ -54,7 +54,7 @@ enum class U6Recipe(
             U6Item.WIRE to -(50.q),
             U6Item.XENO_ZAPPER to 1.q,
         ),
-        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+        buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP),
     ),
 
     /* Onboarding -- HUB Upgrade 1 */
@@ -67,7 +67,7 @@ enum class U6Recipe(
             U6Item.IRON_PLATE to -(2.q),
             U6Item.IRON_ROD to -(4.q),
             U6Item.PORTABLE_MINER to 1.q,
-        ), buildings = listOf(U6Building.EQUIPMENT_WORKSHOP)
+        ), buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP)
     ),
 
     /* Onboarding -- HUB Upgrade 2 */
@@ -80,7 +80,7 @@ enum class U6Recipe(
             U6Item.COPPER_ORE to -(1.q),
             U6Item.COPPER_INGOT to 1.q,
         ),
-        buildings = listOf(U6Building.SMELTER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.SMELTER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     WIRE(
         U6Milestone.HUB_UPGRADE_2,
@@ -90,7 +90,7 @@ enum class U6Recipe(
             U6Item.COPPER_INGOT to -(1.q),
             U6Item.WIRE to 2.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     CABLE(
         U6Milestone.HUB_UPGRADE_2,
@@ -100,7 +100,7 @@ enum class U6Recipe(
             U6Item.WIRE to -(2.q),
             U6Item.CABLE to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Onboarding -- HUB Upgrade 3 */
@@ -113,7 +113,7 @@ enum class U6Recipe(
             U6Item.LIMESTONE to -(3.q),
             U6Item.CONCRETE to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     SCREW(
         U6Milestone.HUB_UPGRADE_3,
@@ -123,7 +123,7 @@ enum class U6Recipe(
             U6Item.IRON_ROD to -(1.q),
             U6Item.SCREW to 4.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     REINFORCED_IRON_PLATE(
         U6Milestone.HUB_UPGRADE_3,
@@ -134,7 +134,7 @@ enum class U6Recipe(
             U6Item.SCREW to -(12.q),
             U6Item.REINFORCED_IRON_PLATE to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Onboarding -- HUB Upgrade 6 */
@@ -147,7 +147,7 @@ enum class U6Recipe(
             U6Item.WOOD to -(4.q),
             U6Item.BIOMASS to 20.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     BIOMASS_LEAVES(
         U6Milestone.HUB_UPGRADE_6,
@@ -157,7 +157,7 @@ enum class U6Recipe(
             U6Item.LEAVES to -(10.q),
             U6Item.BIOMASS to 5.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Tier 2 -- Part Assembly */
@@ -170,7 +170,7 @@ enum class U6Recipe(
             U6Item.COPPER_INGOT to -(2.q),
             U6Item.COPPER_SHEET to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     ROTOR(
         U6Milestone.PART_ASSEMBLY,
@@ -181,7 +181,7 @@ enum class U6Recipe(
             U6Item.SCREW to -(25.q),
             U6Item.ROTOR to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     MODULAR_FRAME(
         U6Milestone.PART_ASSEMBLY,
@@ -192,7 +192,7 @@ enum class U6Recipe(
             U6Item.IRON_ROD to -(12.q),
             U6Item.MODULAR_FRAME to 2.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     SMART_PLATING(
         U6Milestone.PART_ASSEMBLY,
@@ -203,7 +203,7 @@ enum class U6Recipe(
             U6Item.ROTOR to -(1.q),
             U6Item.SMART_PLATING to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER),
     ),
 
     /* Tier 2 -- Obstacle Clearing */
@@ -216,7 +216,7 @@ enum class U6Recipe(
             U6Item.BIOMASS to -(8.q),
             U6Item.SOLID_BIOFUEL to 4.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     CHAINSAW(
         U6Milestone.OBSTACLE_CLEARING,
@@ -229,7 +229,7 @@ enum class U6Recipe(
             U6Item.CABLE to -(15.q),
             U6Item.CHAINSAW to 1.q,
         ),
-        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+        buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP),
     ),
 
     /* Tier 2 -- Resource Sink Bonus Program */
@@ -242,7 +242,7 @@ enum class U6Recipe(
             U6Item.FLOWER_PETALS to -(5.q),
             U6Item.COLOR_CARTRIDGE to 10.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Tier 3 -- Coal Power */
@@ -250,12 +250,12 @@ enum class U6Recipe(
     BURN_COAL(
         U6Milestone.COAL_POWER,
         "Burn Coal",
-        time = U6Item.COAL.energy / U6Building.COAL_GENERATOR.power,
+        time = U6Item.COAL.energy / U6ProductionBuilding.COAL_GENERATOR.power,
         components = mapOf(
             U6Item.COAL to -(1.q),
-            U6Item.WATER to -((45.q / 60.q) * (U6Item.COAL.energy / U6Building.COAL_GENERATOR.power)),
+            U6Item.WATER to -((45.q / 60.q) * (U6Item.COAL.energy / U6ProductionBuilding.COAL_GENERATOR.power)),
         ),
-        buildings = listOf(U6Building.COAL_GENERATOR),
+        buildings = listOf(U6ProductionBuilding.COAL_GENERATOR),
     ),
 
     /* Tier 3 -- Basic Steel Production */
@@ -269,7 +269,7 @@ enum class U6Recipe(
             U6Item.COAL to -(3.q),
             U6Item.STEEL_INGOT to 3.q,
         ),
-        buildings = listOf(U6Building.FOUNDRY, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.FOUNDRY, U6ProductionBuilding.CRAFT_BENCH),
     ),
     STEEL_BEAM(
         U6Milestone.BASIC_STEEL_PRODUCTION,
@@ -279,7 +279,7 @@ enum class U6Recipe(
             U6Item.STEEL_INGOT to -(4.q),
             U6Item.STEEL_BEAM to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     STEEL_PIPE(
         U6Milestone.BASIC_STEEL_PRODUCTION,
@@ -289,7 +289,7 @@ enum class U6Recipe(
             U6Item.STEEL_INGOT to -(3.q),
             U6Item.STEEL_PIPE to 2.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     VERSATILE_FRAMEWORK(
         U6Milestone.BASIC_STEEL_PRODUCTION,
@@ -300,7 +300,7 @@ enum class U6Recipe(
             U6Item.STEEL_BEAM to -(12.q),
             U6Item.VERSATILE_FRAMEWORK to 2.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER),
     ),
 
     /* Tier 4 -- Advanced Steel Production */
@@ -314,7 +314,7 @@ enum class U6Recipe(
             U6Item.CONCRETE to -(5.q),
             U6Item.ENCASED_INDUSTRIAL_BEAM to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     STATOR(
         U6Milestone.ADVANCED_STEEL_PRODUCTION,
@@ -325,7 +325,7 @@ enum class U6Recipe(
             U6Item.WIRE to -(8.q),
             U6Item.STATOR to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     MOTOR(
         U6Milestone.ADVANCED_STEEL_PRODUCTION,
@@ -336,7 +336,7 @@ enum class U6Recipe(
             U6Item.STATOR to -(2.q),
             U6Item.MOTOR to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     AUTOMATED_WIRING(
         U6Milestone.ADVANCED_STEEL_PRODUCTION,
@@ -347,7 +347,7 @@ enum class U6Recipe(
             U6Item.CABLE to -(20.q),
             U6Item.AUTOMATED_WIRING to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER),
     ),
     HEAVY_MODULAR_FRAME(
         U6Milestone.ADVANCED_STEEL_PRODUCTION,
@@ -360,7 +360,7 @@ enum class U6Recipe(
             U6Item.SCREW to -(100.q),
             U6Item.HEAVY_MODULAR_FRAME to 1.q,
         ),
-        buildings = listOf(U6Building.MANUFACTURER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.MANUFACTURER, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Tier 4 -- Improved Melee Combat */
@@ -376,7 +376,7 @@ enum class U6Recipe(
             U6Item.WIRE to -(500.q),
             U6Item.XENO_BASHER to 1.q,
         ),
-        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+        buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP),
     ),
 
     /* Tier 5 -- Oil Processing */
@@ -390,7 +390,7 @@ enum class U6Recipe(
             U6Item.PLASTIC to 2.q,
             U6Item.HEAVY_OIL_RESIDUE to 1.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     RESIDUAL_PLASTIC(
         U6Milestone.OIL_PROCESSING,
@@ -401,7 +401,7 @@ enum class U6Recipe(
             U6Item.WATER to -(2.q),
             U6Item.PLASTIC to 2.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     RUBBER(
         U6Milestone.OIL_PROCESSING,
@@ -412,7 +412,7 @@ enum class U6Recipe(
             U6Item.RUBBER to 2.q,
             U6Item.HEAVY_OIL_RESIDUE to 2.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     RESIDUAL_RUBBER(
         U6Milestone.OIL_PROCESSING,
@@ -423,7 +423,7 @@ enum class U6Recipe(
             U6Item.WATER to -(4.q),
             U6Item.RUBBER to 2.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     PETROLEUM_COKE(
         U6Milestone.OIL_PROCESSING,
@@ -433,7 +433,7 @@ enum class U6Recipe(
             U6Item.HEAVY_OIL_RESIDUE to -(4.q),
             U6Item.PETROLEUM_COKE to 12.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     FUEL(
         U6Milestone.OIL_PROCESSING,
@@ -444,7 +444,7 @@ enum class U6Recipe(
             U6Item.FUEL to 4.q,
             U6Item.POLYMER_RESIN to 3.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     RESIDUAL_FUEL(
         U6Milestone.OIL_PROCESSING,
@@ -454,7 +454,7 @@ enum class U6Recipe(
             U6Item.HEAVY_OIL_RESIDUE to -(6.q),
             U6Item.FUEL to 4.q,
         ),
-        buildings = listOf(U6Building.REFINERY),
+        buildings = listOf(U6ProductionBuilding.REFINERY),
     ),
     CIRCUIT_BOARD(
         U6Milestone.OIL_PROCESSING,
@@ -465,7 +465,7 @@ enum class U6Recipe(
             U6Item.PLASTIC to -(4.q),
             U6Item.CIRCUIT_BOARD to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Research -- Alien Organisms */
@@ -478,7 +478,7 @@ enum class U6Recipe(
             U6Item.HOG_REMAINS to -(1.q),
             U6Item.ALIEN_PROTEIN to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     HATCHER_PROTEIN(
         U6Milestone.FIELD_RESEARCH,
@@ -488,7 +488,7 @@ enum class U6Recipe(
             U6Item.HATCHER_REMAINS to -(1.q),
             U6Item.ALIEN_PROTEIN to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     SPITTER_PROTEIN(
         U6Milestone.FIELD_RESEARCH,
@@ -498,7 +498,7 @@ enum class U6Recipe(
             U6Item.SPITTER_REMAINS to -(1.q),
             U6Item.ALIEN_PROTEIN to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     STINGER_PROTEIN(
         U6Milestone.FIELD_RESEARCH,
@@ -508,7 +508,7 @@ enum class U6Recipe(
             U6Item.STINGER_REMAINS to -(1.q),
             U6Item.ALIEN_PROTEIN to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     ORGANIC_DATA_CAPSULE(
@@ -519,7 +519,7 @@ enum class U6Recipe(
             U6Item.ALIEN_PROTEIN to -(1.q),
             U6Item.ORGANIC_DATA_CAPSULE to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Research -- Caterium */
@@ -532,7 +532,7 @@ enum class U6Recipe(
             U6Item.CATERIUM_ORE to -(3.q),
             U6Item.CATERIUM_INGOT to 1.q,
         ),
-        buildings = listOf(U6Building.SMELTER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.SMELTER, U6ProductionBuilding.CRAFT_BENCH),
     ),
     QUICKWIRE(
         U6Milestone.FIELD_RESEARCH,
@@ -542,7 +542,7 @@ enum class U6Recipe(
             U6Item.CATERIUM_INGOT to -(1.q),
             U6Item.QUICKWIRE to 5.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     AI_LIMITER(
         U6Milestone.FIELD_RESEARCH,
@@ -553,7 +553,7 @@ enum class U6Recipe(
             U6Item.QUICKWIRE to -(20.q),
             U6Item.AI_LIMITER to 1.q,
         ),
-        buildings = listOf(U6Building.ASSEMBLER, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.ASSEMBLER, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     ZIPLINE(
@@ -567,7 +567,7 @@ enum class U6Recipe(
             U6Item.CABLE to -(15.q),
             U6Item.ZIPLINE to 1.q,
         ),
-        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+        buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP),
     ),
 
     BLADE_RUNNERS(
@@ -580,7 +580,7 @@ enum class U6Recipe(
             U6Item.ROTOR to -(3.q),
             U6Item.BLADE_RUNNERS to 1.q,
         ),
-        buildings = listOf(U6Building.EQUIPMENT_WORKSHOP),
+        buildings = listOf(U6ProductionBuilding.EQUIPMENT_WORKSHOP),
     ),
 
     /* Research -- Mycelia */
@@ -593,7 +593,7 @@ enum class U6Recipe(
             U6Item.MYCELIA to -(1.q),
             U6Item.BIOMASS to 10.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 
     /* Research -- Power Slugs */
@@ -606,7 +606,7 @@ enum class U6Recipe(
             U6Item.BLUE_POWER_SLUG to -(1.q),
             U6Item.POWER_SHARD to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     POWER_SHARD_2(
         U6Milestone.FIELD_RESEARCH,
@@ -616,7 +616,7 @@ enum class U6Recipe(
             U6Item.YELLOW_POWER_SLUG to -(1.q),
             U6Item.POWER_SHARD to 1.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
     POWER_SHARD_5(
         U6Milestone.FIELD_RESEARCH,
@@ -626,6 +626,6 @@ enum class U6Recipe(
             U6Item.PURPLE_POWER_SLUG to -(1.q),
             U6Item.POWER_SHARD to 5.q,
         ),
-        buildings = listOf(U6Building.CONSTRUCTOR, U6Building.CRAFT_BENCH),
+        buildings = listOf(U6ProductionBuilding.CONSTRUCTOR, U6ProductionBuilding.CRAFT_BENCH),
     ),
 }

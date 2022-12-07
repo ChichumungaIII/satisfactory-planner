@@ -1,6 +1,6 @@
 package app.common.input
 
-import app.data.u6.U6Building
+import app.data.u6.U6ProductionBuilding
 import app.data.u6.U6Recipe
 import app.util.PropsDelegate
 import csstype.Margin
@@ -19,7 +19,7 @@ external interface RecipeAutocompleteProps : PropsWithClassName {
     var recipe: U6Recipe?
     var setRecipe: (U6Recipe?) -> Unit
 
-    var building: U6Building
+    var building: U6ProductionBuilding
 }
 
 val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { props ->
