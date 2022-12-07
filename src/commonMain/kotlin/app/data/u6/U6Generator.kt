@@ -8,8 +8,7 @@ enum class U6Generator(
     val displayName: String,
     val cost: Map<U6Item, Rational>,
     val power: Rational,
-    val fuels: List<U6Item>,
-    val water: Rational = 0.q,
+    val fuels: List<U6Item>
 ) {
     BIOMASS_BURNER(
         U6Milestone.HUB_UPGRADE_6,
@@ -43,7 +42,6 @@ enum class U6Generator(
         ),
         power = 75.q,
         fuels = listOf(U6Item.COAL, U6Item.PETROLEUM_COKE),
-        water = 45.q,
     ),
 
     ;
