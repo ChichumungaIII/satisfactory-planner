@@ -29,6 +29,7 @@ val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { 
     var active by useState(false)
 
     var buildingsAnchor by useState<Element?>(null)
+    var generatorsAnchor by useState<Element?>(null)
 
     SpeedDial {
         open = active
@@ -42,6 +43,7 @@ val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { 
                 OpenReason.toggle -> {
                     active = true
                     buildingsAnchor = null
+                    generatorsAnchor = null
                 }
 
                 else -> {}
@@ -65,6 +67,7 @@ val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { 
         SpeedDialAction {
             key = "generators"
             icon = ElectricBolt.create()
+            onClick = { event -> generatorsAnchor = if (generatorsAnchor == null) event.currentTarget else null }
         }
         SpeedDialAction {
             key = "container"
@@ -85,6 +88,16 @@ val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { 
             props.onSelect(it)
             active = false
             buildingsAnchor = null
+        }
+    }
+
+    SelectGeneratorMenu {
+        parent = generatorsAnchor
+        onClose = { generatorsAnchor = null }
+        onSelect = {
+            props.onSelect(it)
+            active = false
+            generatorsAnchor = null
         }
     }
 }
