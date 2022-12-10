@@ -366,6 +366,11 @@ enum class U6Item(
         U6Milestone.FICSMAS,
         "Red FICSMAS Ornament",
     ),
+    FICSMAS_ORNAMENT_BUNDLE(
+        Type.PART,
+        U6Milestone.FICSMAS,
+        "FICSMAS Ornament Bundle",
+    ),
 
     /* Other -- TO BE CLASSIFIED */
     // TODO: Classify these when the appropriate tier is unlocked

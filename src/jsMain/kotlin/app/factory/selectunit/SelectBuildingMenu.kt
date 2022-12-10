@@ -37,17 +37,6 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
         onClose = { props.onClose() }
 
         MenuItem {
-            +"Smelter"
-            onClick = { props.onSelect(ProductionBuilding(U6Building.SMELTER)) }
-        }
-        MenuItem {
-            +"Foundry"
-            onClick = { props.onSelect(ProductionBuilding(U6Building.FOUNDRY)) }
-        }
-
-        Divider {}
-
-        MenuItem {
             +"Constructor"
             onClick = { props.onSelect(ProductionBuilding(U6Building.CONSTRUCTOR)) }
         }
@@ -56,8 +45,23 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
             onClick = { props.onSelect(ProductionBuilding(U6Building.ASSEMBLER)) }
         }
         MenuItem {
+            +"Refinery"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.REFINERY)) }
+        }
+        MenuItem {
             +"Manufacturer"
             onClick = { props.onSelect(ProductionBuilding(U6Building.MANUFACTURER)) }
+        }
+
+        Divider {}
+
+        MenuItem {
+            +"Smelter"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.SMELTER)) }
+        }
+        MenuItem {
+            +"Foundry"
+            onClick = { props.onSelect(ProductionBuilding(U6Building.FOUNDRY)) }
         }
     }
 }
