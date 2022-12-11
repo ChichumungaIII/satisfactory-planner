@@ -344,6 +344,48 @@ enum class Recipe(
         outputs = mapOf(Item.CIRCUIT_BOARD to 1.q),
     ),
 
+    /* Tier 5 -- Industrial Manufacturing */
+    COMPUTER(
+        "Computer",
+        time = 24.q,
+        inputs = mapOf(
+            Item.CIRCUIT_BOARD to 10.q,
+            Item.CABLE to 9.q,
+            Item.PLASTIC to 18.q,
+            Item.SCREW to 52.q,
+        ),
+        outputs = mapOf(Item.COMPUTER to 1.q),
+    ),
+    MODULAR_ENGINE(
+        "Modular Engine",
+        time = 60.q,
+        inputs = mapOf(
+            Item.MOTOR to 2.q,
+            Item.RUBBER to 15.q,
+            Item.SMART_PLATING to 2.q,
+        ),
+        outputs = mapOf(Item.MODULAR_ENGINE to 1.q),
+    ),
+    ADAPTIVE_CONTROL_UNIT(
+        "Adaptive Control Unit",
+        time = 120.q,
+        inputs = mapOf(
+            Item.AUTOMATED_WIRING to 15.q,
+            Item.CIRCUIT_BOARD to 10.q,
+            Item.HEAVY_MODULAR_FRAME to 2.q,
+            Item.COMPUTER to 2.q,
+        ),
+        outputs = mapOf(Item.ADAPTIVE_CONTROL_UNIT to 2.q),
+    ),
+
+    /* Tier 6 -- Expanded Power Infrastructure */
+    BURN_FUEL(
+        "Fuel",
+        time = 5.q,
+        inputs = mapOf(Item.FUEL to 1.q),
+        outputs = mapOf(),
+    ),
+
     /* Research -- Alien Organisms */
     HOG_PROTEIN(
         "Hog Protein",
@@ -369,11 +411,36 @@ enum class Recipe(
         inputs = mapOf(Item.STINGER_REMAINS to 1.q),
         outputs = mapOf(Item.ALIEN_PROTEIN to 1.q),
     ),
-    ORGANIC_DATA_CAPSULE(
-        "Organic Data Capsule",
+    ALIEN_DNA_CAPSULE(
+        "Alien DNA Capsule",
         time = 6.q,
         inputs = mapOf(Item.ALIEN_PROTEIN to 1.q),
-        outputs = mapOf(Item.ORGANIC_DATA_CAPSULE to 1.q),
+        outputs = mapOf(Item.ALIEN_DNA_CAPSULE to 1.q),
+    ),
+    PROTEIN_INHALER(
+        "Protein Inhaler",
+        time = 20.q,
+        inputs = mapOf(
+            Item.ALIEN_PROTEIN to 1.q,
+            Item.BERYL_NUT to 10.q,
+        ),
+        outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
+    ),
+    REBAR_GUN(
+        "Rebar Gun",
+        time = 60.q,
+        inputs = mapOf(
+            Item.REINFORCED_IRON_PLATE to 6.q,
+            Item.IRON_ROD to 16.q,
+            Item.SCREW to 100.q,
+        ),
+        outputs = mapOf(Item.REBAR_GUN to 1.q)
+    ),
+    IRON_REBAR(
+        "Iron Rebar",
+        time = 4.q,
+        inputs = mapOf(Item.IRON_ROD to 1.q),
+        outputs = mapOf(Item.IRON_REBAR to 1.q)
     ),
 
     /* Research -- Caterium */
@@ -419,6 +486,15 @@ enum class Recipe(
         ),
         outputs = mapOf(Item.BLADE_RUNNERS to 1.q),
     ),
+    STUN_REBAR(
+        "Stun Rebar",
+        time = 6.q,
+        inputs = mapOf(
+            Item.IRON_REBAR to 1.q,
+            Item.QUICKWIRE to 5.q,
+        ),
+        outputs = mapOf(Item.STUN_REBAR to 1.q),
+    ),
 
     /* Research -- Mycelia */
     BIOMASS_MYCELIA(
@@ -426,6 +502,64 @@ enum class Recipe(
         time = 4.q,
         inputs = mapOf(Item.MYCELIA to 1.q),
         outputs = mapOf(Item.BIOMASS to 10.q),
+    ),
+    FABRIC(
+        "Fabric",
+        time = 4.q,
+        inputs = mapOf(
+            Item.MYCELIA to 1.q,
+            Item.BIOMASS to 5.q,
+        ),
+        outputs = mapOf(Item.FABRIC to 1.q),
+    ),
+    PARACHUTE(
+        "Parachute",
+        time = 20.q,
+        inputs = mapOf(
+            Item.FABRIC to 10.q,
+            Item.CABLE to 5.q,
+        ),
+        outputs = mapOf(Item.PARACHUTE to 5.q)
+    ),
+    POLYESTER_FABRIC(
+        "Polyester Fabric",
+        time = 2.q,
+        inputs = mapOf(
+            Item.POLYMER_RESIN to 1.q,
+            Item.WATER to 1.q,
+        ),
+        outputs = mapOf(Item.FABRIC to 1.q),
+    ),
+    VITAMIN_INHALER(
+        "Vitamin Inhaler",
+        time = 20.q,
+        inputs = mapOf(
+            Item.MYCELIA to 10.q,
+            Item.PALEBERRY to 5.q,
+        ),
+        outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
+    ),
+    THERAPUTIC_INHALER(
+        "Theraputic Inhaler",
+        time = 20.q,
+        inputs = mapOf(
+            Item.MYCELIA to 15.q,
+            Item.ALIEN_PROTEIN to 1.q,
+            Item.BACON_AGARIC to 1.q,
+        ),
+        outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
+    ),
+
+    /* Research -- Nutrients */
+    NUTRITIONAL_INHALER(
+        "Nutritional Inhaler",
+        time = 20.q,
+        inputs = mapOf(
+            Item.BACON_AGARIC to 1.q,
+            Item.PALEBERRY to 2.q,
+            Item.BERYL_NUT to 5.q,
+        ),
+        outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
     ),
 
     /* Research -- Power Slugs */
@@ -446,7 +580,41 @@ enum class Recipe(
         time = 24.q,
         inputs = mapOf(Item.PURPLE_POWER_SLUG to 1.q),
         outputs = mapOf(Item.POWER_SHARD to 5.q),
-    );
+    ),
+
+    /* Research -- Quartz */
+    QUARTZ_CRYSTAL(
+        "Quartz Crystal",
+        time = 8.q,
+        inputs = mapOf(Item.RAW_QUARTZ to 5.q),
+        outputs = mapOf(Item.QUARTZ_CRYSTAL to 3.q)
+    ),
+    SILICA(
+        "Silica",
+        time = 8.q,
+        inputs = mapOf(Item.RAW_QUARTZ to 3.q),
+        outputs = mapOf(Item.SILICA to 5.q),
+    ),
+    SHATTER_REBAR(
+        "Shatter Rebar",
+        time = 12.q,
+        inputs = mapOf(
+            Item.IRON_REBAR to 2.q,
+            Item.QUARTZ_CRYSTAL to 3.q,
+        ),
+        outputs = mapOf(Item.SHATTER_REBAR to 1.q),
+    ),
+    CRYSTAL_OSCILLATOR(
+        "Crystal Oscillator",
+        time = 120.q,
+        inputs = mapOf(
+            Item.QUARTZ_CRYSTAL to 36.q,
+            Item.CABLE to 28.q,
+            Item.REINFORCED_IRON_PLATE to 5.q,
+        ),
+        outputs = mapOf(Item.CRYSTAL_OSCILLATOR to 2.q),
+    ),
+    ;
 
     val components: Map<Item, Rational> get() = inputs.mapValues { (_, count) -> -count } + outputs
 }

@@ -35,19 +35,26 @@ enum class Building(
             Recipe.STATOR,
             Recipe.MOTOR,
             Recipe.HEAVY_MODULAR_FRAME,
+            Recipe.COMPUTER,
             Recipe.CIRCUIT_BOARD,
+            // Research
             Recipe.HOG_PROTEIN,
             Recipe.HATCHER_PROTEIN,
             Recipe.SPITTER_PROTEIN,
             Recipe.STINGER_PROTEIN,
-            Recipe.ORGANIC_DATA_CAPSULE,
+            Recipe.ALIEN_DNA_CAPSULE,
+            Recipe.IRON_REBAR,
             Recipe.CATERIUM_INGOT,
             Recipe.QUICKWIRE,
             Recipe.AI_LIMITER,
             Recipe.BIOMASS_MYCELIA,
+            Recipe.FABRIC,
             Recipe.POWER_SHARD_1,
             Recipe.POWER_SHARD_2,
             Recipe.POWER_SHARD_5,
+            Recipe.QUARTZ_CRYSTAL,
+            Recipe.SILICA,
+            Recipe.CRYSTAL_OSCILLATOR,
         ),
     ),
     EQUIPMENT_WORKSHOP(
@@ -59,6 +66,12 @@ enum class Building(
             Recipe.XENO_BASHER,
             Recipe.ZIPLINE,
             Recipe.BLADE_RUNNERS,
+            Recipe.NUTRITIONAL_INHALER,
+            Recipe.PROTEIN_INHALER,
+            Recipe.REBAR_GUN,
+            Recipe.PARACHUTE,
+            Recipe.VITAMIN_INHALER,
+            Recipe.THERAPUTIC_INHALER,
         ),
     ),
     SMELTER(
@@ -87,11 +100,13 @@ enum class Building(
             Recipe.COLOR_CARTRIDGE,
             Recipe.STEEL_BEAM,
             Recipe.STEEL_PIPE,
+            // Research
             Recipe.HOG_PROTEIN,
             Recipe.HATCHER_PROTEIN,
             Recipe.SPITTER_PROTEIN,
             Recipe.STINGER_PROTEIN,
-            Recipe.ORGANIC_DATA_CAPSULE,
+            Recipe.ALIEN_DNA_CAPSULE,
+            Recipe.IRON_REBAR,
             Recipe.QUICKWIRE,
             Recipe.BIOMASS_MYCELIA,
             Recipe.POWER_SHARD_1,
@@ -127,7 +142,9 @@ enum class Building(
             Recipe.MOTOR,
             Recipe.AUTOMATED_WIRING,
             Recipe.CIRCUIT_BOARD,
+            // Research
             Recipe.AI_LIMITER,
+            Recipe.FABRIC,
         ),
     ),
     AWESOME_SINK(
@@ -176,6 +193,8 @@ enum class Building(
             Recipe.PETROLEUM_COKE,
             Recipe.FUEL,
             Recipe.RESIDUAL_FUEL,
+            // Research
+            Recipe.POLYESTER_FABRIC,
         ),
     ),
     MANUFACTURER(
@@ -183,6 +202,18 @@ enum class Building(
         consumption = 55.q,
         recipes = listOf(
             Recipe.HEAVY_MODULAR_FRAME,
+            Recipe.COMPUTER,
+            Recipe.MODULAR_ENGINE,
+            Recipe.ADAPTIVE_CONTROL_UNIT,
+            // Research
+            Recipe.CRYSTAL_OSCILLATOR,
+        ),
+    ),
+    FUEL_GENERATOR(
+        "Fuel Generator",
+        generation = 150.q,
+        recipes = listOf(
+            Recipe.BURN_FUEL,
         ),
     );
 }

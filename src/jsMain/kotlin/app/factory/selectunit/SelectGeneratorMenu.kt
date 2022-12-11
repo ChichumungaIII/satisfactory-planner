@@ -10,6 +10,7 @@ import mui.material.PopoverOrigin
 import org.w3c.dom.Element
 import react.FC
 import react.Props
+import util.math.q
 
 external interface SelectGeneratorMenuProps : Props {
     var parent: Element?
@@ -35,9 +36,11 @@ val SelectGeneratorMenu = FC<SelectGeneratorMenuProps>("SelectGeneratorMenu") { 
 
         onClose = { props.onClose() }
 
-        MenuItem {
-            +"Coal Generator"
-            onClick = { props.onSelect(Generator(Building.COAL_GENERATOR)) }
+        for (building in Building.values().filter { it.generation > 0.q }) {
+            MenuItem {
+                +building.displayName
+                onClick = { props.onSelect(Generator(building)) }
+            }
         }
     }
 }

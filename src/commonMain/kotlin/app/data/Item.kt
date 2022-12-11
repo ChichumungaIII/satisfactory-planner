@@ -8,6 +8,7 @@ enum class Item(
     val energy: Rational = 0.q,
 ) {
     /* Environment */
+    BACON_AGARIC("Bacon Agaric"),
     BERYL_NUT("Beryl Nut"),
     BLUE_POWER_SLUG("Blue Power Slug"),
     FLOWER_PETALS("Flower Petals", energy = 100.q),
@@ -93,24 +94,40 @@ enum class Item(
     PETROLEUM_COKE("Petroleum Coke", energy = 180.q),
     CIRCUIT_BOARD("Circuit Board"),
 
+    /* Tier 5 -- Industrial Manufacturing */
+    COMPUTER("Computer"),
+    MODULAR_ENGINE("Modular Engine"),
+    ADAPTIVE_CONTROL_UNIT("Adaptive Control Unit"),
+
+    /* Tier 6 -- Expanded Power Infrastructure */
+    CATERIUM_ORE("Caterium Ore"),
+
     /* FICSMAS */
     FICSMAS_GIFT("FICSMAS Gift"),
     RED_FICSMAS_ORNAMENT("Red FICSMAS Ornament"),
     FICSMAS_ORNAMENT_BUNDLE("FICSMAS Ornament Bundle"),
 
     /* Other -- TO BE CLASSIFIED */
-    CATERIUM_ORE("Caterium Ore"),
     CATERIUM_INGOT("Caterium Ingot"),
     QUICKWIRE("Quickwire"),
     AI_LIMITER("AI Limiter"),
     ZIPLINE("Zipline"),
-    QUARTZ("Quartz"),
+    RAW_QUARTZ("Raw Quartz"),
+    QUARTZ_CRYSTAL("Quartz Crystal"),
     SULFUR("Sulfur"),
 
     /* Research */
     ALIEN_PROTEIN("Alien Protein"),
     BLADE_RUNNERS("Blade Runners"),
-    ORGANIC_DATA_CAPSULE("Organic Data Capsule"),
+    CRYSTAL_OSCILLATOR("Crystal Oscillator"),
+    FABRIC("Fabric"),
+    IRON_REBAR("Iron Rebar"),
+    MEDICINAL_INHALER("Medicinal Inhaler"),
+    ALIEN_DNA_CAPSULE("Alien DNA Capsule"),
+    PARACHUTE("Parachute"),
     POWER_SHARD("Power Shard"),
+    REBAR_GUN("Rebar Gun"),
     SILICA("Silica"),
+    SHATTER_REBAR("Shatter Rebar"),
+    STUN_REBAR("Stun Rebar"),
 }
