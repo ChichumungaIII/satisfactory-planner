@@ -1,13 +1,13 @@
 package app.api
 
-import app.data.u6.U6Item
-import app.data.u6.U6Recipe
+import app.data.Item
+import app.data.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational
 
 @Serializable
 data class OptimizeResponse(
-    val outcome: Map<U6Recipe, Rational>,
-    val minimums: Map<U6Item, Rational>,
-    val maximums: Map<U6Item, Rational>,
+    val outcome: Map<Recipe, Rational>,
+    val minimums: Map<Item, Rational>,
+    val maximums: Map<Item, Rational>,
 )

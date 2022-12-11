@@ -1,8 +1,8 @@
 package app.model
 
 import app.api.OptimizeResponse
-import app.data.u6.U6Item
-import app.data.u6.U6Recipe
+import app.data.Item
+import app.data.Recipe
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import util.math.Expression
@@ -63,8 +63,8 @@ data class PlanModel(
         )
     }
 
-    private fun consider(recipes: Iterable<U6Recipe>): Map<U6Item, Expression<U6Recipe, Rational>> {
-        val expressions = mutableMapOf<U6Item, Expression<U6Recipe, Rational>>()
+    private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, Rational>> {
+        val expressions = mutableMapOf<Item, Expression<Recipe, Rational>>()
         recipes.forEach { recipe ->
             recipe.components.forEach { (item, quantity) ->
                 val expression = (quantity * 60.q / recipe.time) * recipe

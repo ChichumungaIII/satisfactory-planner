@@ -1,11 +1,19 @@
 package app.plan
 
-import app.data.u6.U6Recipe
+import app.data.Recipe
 import app.model.PlanOutcomeModel
 import csstype.ClassName
 import csstype.Margin
 import csstype.px
-import mui.material.*
+import mui.material.Box
+import mui.material.Chip
+import mui.material.ChipColor
+import mui.material.Table
+import mui.material.TableBody
+import mui.material.TableCell
+import mui.material.TableContainer
+import mui.material.TableHead
+import mui.material.TableRow
 import mui.system.sx
 import react.FC
 import react.Props
@@ -28,7 +36,7 @@ val PlanOutcomeComponent = FC<PlanOutcomeComponentProps>("PlanOutcomeComponent")
                     }
                 }
                 TableBody {
-                    U6Recipe.values().map { it to (recipes[it] ?: 0.q) }.filter { (_, rate) -> rate > 0.q }
+                    Recipe.values().map { it to (recipes[it] ?: 0.q) }.filter { (_, rate) -> rate > 0.q }
                         .forEach { (recipe, rate) ->
                             TableRow {
                                 TableCell { +recipe.displayName }

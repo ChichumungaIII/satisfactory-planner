@@ -448,5 +448,5 @@ enum class Recipe(
         outputs = mapOf(Item.POWER_SHARD to 5.q),
     );
 
-    val components: Map<Item, Rational> get() = inputs + outputs.mapValues { (_, count) -> -count }
+    val components: Map<Item, Rational> get() = inputs.mapValues { (_, count) -> -count } + outputs
 }

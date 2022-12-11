@@ -1,6 +1,6 @@
 package app.factory.model
 
-import app.data.u6.U6Item
+import app.data.Item
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -12,8 +12,8 @@ data class FactoryUnitContainer(
     override val open: Boolean = true,
     override val details: Boolean = false,
 ) : FactoryUnit {
-    override val outcome: Map<U6Item, Rational>
-        get() = units.map { it.outcome }.fold(mutableMapOf<U6Item, Rational>()) { acc, outcome ->
+    override val outcome: Map<Item, Rational>
+        get() = units.map { it.outcome }.fold(mutableMapOf<Item, Rational>()) { acc, outcome ->
             outcome.forEach { (item, result) -> acc.put(item, acc.getOrElse(item) { 0.q } + result) }
             acc
         }.toMap()

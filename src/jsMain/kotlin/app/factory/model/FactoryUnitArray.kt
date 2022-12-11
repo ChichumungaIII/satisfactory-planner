@@ -1,6 +1,6 @@
 package app.factory.model
 
-import app.data.u6.U6Item
+import app.data.Item
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -13,7 +13,7 @@ data class FactoryUnitArray(
     override val open: Boolean = true,
     override val details: Boolean = false,
 ) : FactoryUnit {
-    override val outcome: Map<U6Item, Rational>
+    override val outcome: Map<Item, Rational>
         get() = unit?.outcome?.map { (item, result) -> item to result * count.q }?.toMap() ?: mapOf()
 
     override val generation: Double

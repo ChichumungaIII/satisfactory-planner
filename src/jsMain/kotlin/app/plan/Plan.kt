@@ -4,8 +4,8 @@ import app.api.OptimizeRequest
 import app.api.client.optimize
 import app.appScope
 import app.common.layout.titlebar.TitleBar
-import app.data.u6.U6Item
-import app.data.u6.U6Recipe
+import app.data.Item
+import app.data.Recipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
@@ -28,18 +28,11 @@ import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
 import mui.material.SvgIconSize
-import mui.material.Table
-import mui.material.TableBody
-import mui.material.TableCell
-import mui.material.TableContainer
-import mui.material.TableHead
-import mui.material.TableRow
 import mui.material.Typography
 import mui.system.sx
 import react.FC
 import react.Props
 import react.create
-import util.math.q
 
 external interface PlanProps : Props {
     var plan: PlanModel
@@ -50,7 +43,7 @@ external interface PlanProps : Props {
 val Plan = FC<PlanProps>("Plan") { props ->
     var plan by PropsDelegate(props.plan) { next -> props.setPlan(next) }
 
-    val nextItem = U6Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
+    val nextItem = Item.values().filterNot { item -> plan.inputs.any { input -> item == input.item } }
         .filterNot { item -> plan.products.any { product -> item == product.item } }.firstOrNull()
 
     TitleBar {
@@ -146,7 +139,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                         appScope.launch {
                             val request = OptimizeRequest(
-                                U6Recipe.values().toSet(),
+                                Recipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
                                 plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
 

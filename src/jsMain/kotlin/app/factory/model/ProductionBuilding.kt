@@ -1,8 +1,8 @@
 package app.factory.model
 
-import app.data.u6.U6Building
-import app.data.u6.U6Item
-import app.data.u6.U6Recipe
+import app.data.Building
+import app.data.Item
+import app.data.Recipe
 import app.util.math.toFixed
 import kotlinx.serialization.Serializable
 import util.math.Rational
@@ -11,13 +11,13 @@ import kotlin.math.pow
 
 @Serializable
 data class ProductionBuilding(
-    val building: U6Building,
-    val recipe: U6Recipe? = null,
+    val building: Building,
+    val recipe: Recipe? = null,
     val clock: Rational = 1.q,
     override val open: Boolean = true,
     override val details: Boolean = false,
 ) : FactoryUnit {
-    override val outcome: Map<U6Item, Rational>
+    override val outcome: Map<Item, Rational>
         get() {
             if (recipe == null) return mapOf()
             return recipe.components.map { (item, amount) ->
@@ -26,11 +26,11 @@ data class ProductionBuilding(
         }
 
     override val consumption: Double
-        get() = building.power.toDouble() * clock.toDouble().pow(1.321928)
+        get() = building.consumption.toDouble() * clock.toDouble().pow(1.321928)
 
     override val title = building.displayName + (recipe?.let(this::productionDisplay) ?: "")
 
-    private fun productionDisplay(recipe: U6Recipe): String {
+    private fun productionDisplay(recipe: Recipe): String {
         var clockDisplay = (clock * 100.q).toFixed(4)
         if (clockDisplay.endsWith(".0000")) clockDisplay = clockDisplay.substringBefore(".")
         return " (${recipe.displayName} @$clockDisplay%)"

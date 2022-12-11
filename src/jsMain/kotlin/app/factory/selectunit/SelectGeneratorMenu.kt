@@ -1,6 +1,6 @@
 package app.factory.selectunit
 
-import app.data.u6.U6Building
+import app.data.Building
 import app.factory.model.FactoryUnit
 import app.factory.model.Generator
 import csstype.ClassName
@@ -37,7 +37,7 @@ val SelectGeneratorMenu = FC<SelectGeneratorMenuProps>("SelectGeneratorMenu") { 
 
         MenuItem {
             +"Coal Generator"
-            onClick = { props.onSelect(Generator(U6Building.COAL_GENERATOR)) }
+            onClick = { props.onSelect(Generator(Building.COAL_GENERATOR)) }
         }
     }
 }

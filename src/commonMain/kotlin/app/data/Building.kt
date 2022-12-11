@@ -185,6 +185,4 @@ enum class Building(
             Recipe.HEAVY_MODULAR_FRAME,
         ),
     );
-
-    val power = generation - consumption
 }

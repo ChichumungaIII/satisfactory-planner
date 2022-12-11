@@ -1,7 +1,7 @@
 package app.common.input
 
-import app.data.u6.U6Building
-import app.data.u6.U6Recipe
+import app.data.Building
+import app.data.Recipe
 import app.util.PropsDelegate
 import csstype.Margin
 import csstype.px
@@ -16,10 +16,10 @@ import react.ReactNode
 import react.create
 
 external interface RecipeAutocompleteProps : PropsWithClassName {
-    var recipe: U6Recipe?
-    var setRecipe: (U6Recipe?) -> Unit
+    var recipe: Recipe?
+    var setRecipe: (Recipe?) -> Unit
 
-    var building: U6Building
+    var building: Building
 }
 
 val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { props ->
@@ -40,8 +40,7 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
             }
         }
 
-        options = (listOf(recipe) + U6Recipe.values()).distinct()
-            .filter { it?.buildings?.contains(props.building) ?: true }
+        options = (listOf(recipe) + props.building.recipes).distinct()
             .map { it?.let { RecipeAutocompleteOption(it) } ?: NOT_SELECTED }.toTypedArray()
 
         autoComplete = true
@@ -59,7 +58,7 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
 
 private external interface RecipeAutocompleteOption {
     var label: String
-    var data: U6Recipe?
+    var data: Recipe?
 }
 
 private val NOT_SELECTED = jso<RecipeAutocompleteOption> {
@@ -67,7 +66,7 @@ private val NOT_SELECTED = jso<RecipeAutocompleteOption> {
     data = null
 }
 
-private fun RecipeAutocompleteOption(recipe: U6Recipe): RecipeAutocompleteOption = jso {
+private fun RecipeAutocompleteOption(recipe: Recipe): RecipeAutocompleteOption = jso {
     label = recipe.displayName
     data = recipe
 }
