@@ -1,5 +1,6 @@
 package app.data
 
+import app.data.u6.U6Building
 import app.data.u6.U6Item
 import app.data.u6.U6Recipe
 import util.math.Rational
@@ -28,7 +29,7 @@ class Generator {
                     |  inputs = mapOf(${components.toEntry(-(1.q))}),
                     |  outputs = mapOf(${components.toEntry(1.q)}),
                     |),
-                """.trimMargin("|")
+                """.trimMargin()
             }
         })
     }
@@ -45,4 +46,36 @@ class Generator {
             "Item.${item.name} to ${count * signum}.q"
         }
     }
+
+    @Test
+    fun generateBuildings() {
+        println(U6Building.values().joinToString("\n") {
+            it.run {
+                """
+                    |$name(
+                    |  "$displayName",${power()}
+                    |  recipes = listOf(${U6Recipe.values().joinToString("") { it.forBuilding(this) }}
+                    |  ),
+                    |),
+                """.trimMargin()
+            }
+        })
+    }
+
+    private fun U6Building.power(): String {
+        if (power == 0.q)
+            return ""
+
+        val type =
+            if (setOf(U6Building.BIOMASS_BURNER, U6Building.COAL_GENERATOR).contains(this)) "generation"
+            else "consumption"
+        return "\n  $type = $power.q,"
+    }
+
+    private fun U6Recipe.forBuilding(building: U6Building): String {
+        if (!buildings.contains(building)) return ""
+
+        return "\n    Recipe.$name,"
+    }
 }
+
