@@ -1,6 +1,6 @@
 package app.factory.selectunit
 
-import app.data.building.Building
+import app.data.building.Manufacturer
 import app.factory.model.FactoryUnit
 import app.factory.model.ProductionBuilding
 import csstype.ClassName
@@ -38,30 +38,30 @@ val SelectBuildingMenu = FC<SelectBuildingMenuProps>("SelectBuildingMenu") { pro
 
         MenuItem {
             +"Constructor"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.CONSTRUCTOR)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.CONSTRUCTOR)) }
         }
         MenuItem {
             +"Assembler"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.ASSEMBLER)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.ASSEMBLER)) }
         }
         MenuItem {
             +"Refinery"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.REFINERY)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.REFINERY)) }
         }
         MenuItem {
             +"Manufacturer"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.MANUFACTURER)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.MANUFACTURER)) }
         }
 
         Divider {}
 
         MenuItem {
             +"Smelter"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.SMELTER)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.SMELTER)) }
         }
         MenuItem {
             +"Foundry"
-            onClick = { props.onSelect(ProductionBuilding(app.data.building.ProductionBuilding.FOUNDRY)) }
+            onClick = { props.onSelect(ProductionBuilding(Manufacturer.FOUNDRY)) }
         }
     }
 }
