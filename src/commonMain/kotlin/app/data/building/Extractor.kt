@@ -23,6 +23,13 @@ enum class Extractor(
             // TODO: Add extractor recipes
         ),
     ),
+    MINER_MK_2(
+        "Miner Mk. 2",
+        consumption = 12.q,
+        recipes = listOf(
+            // TODO: Add extractor recipes
+        ),
+    ),
     OIL_EXTRACTOR(
         "Oil Extractor",
         consumption = 40.q,
