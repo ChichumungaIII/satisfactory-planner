@@ -5,30 +5,17 @@ import app.api.client.optimize
 import app.appScope
 import app.common.layout.titlebar.TitleBar
 import app.data.Item
-import app.data.recipe.Recipe
+import app.data.recipe.ProductionRecipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
-import csstype.Color
-import csstype.FlexDirection
-import csstype.Margin
-import csstype.Padding
-import csstype.px
+import csstype.*
 import kotlinx.coroutines.launch
 import mui.icons.material.Add
 import mui.icons.material.ExpandMore
-import mui.material.Accordion
-import mui.material.AccordionDetails
-import mui.material.AccordionSummary
-import mui.material.Box
-import mui.material.Button
-import mui.material.ButtonVariant
-import mui.material.Fab
-import mui.material.FabColor
+import mui.material.*
 import mui.material.Size
-import mui.material.SvgIconSize
-import mui.material.Typography
 import mui.system.sx
 import react.FC
 import react.Props
@@ -139,7 +126,7 @@ val Plan = FC<PlanProps>("Plan") { props ->
 
                         appScope.launch {
                             val request = OptimizeRequest(
-                                Recipe.values().toSet(),
+                                ProductionRecipe.values().toSet(),
                                 plan.inputs.map { OptimizeRequest.Input(it.item, it.provision) },
                                 plan.products.map { OptimizeRequest.Product(it.item, it.requirement, it.limit) })
 

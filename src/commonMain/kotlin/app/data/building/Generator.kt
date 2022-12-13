@@ -13,21 +13,21 @@ enum class Generator(
         "Biomass Burner",
         generation = 30.q,
         recipes = listOf(
-            // TODO: Add biofuel recipes
+            // TODO: Add generator recipes
         ),
     ),
     COAL_GENERATOR(
         "Coal Generator",
         generation = 75.q,
         recipes = listOf(
-            Recipe.BURN_COAL,
+            // TODO: Add generator recipes
         ),
     ),
     FUEL_GENERATOR(
         "Fuel Generator",
         generation = 150.q,
         recipes = listOf(
-            Recipe.BURN_FUEL,
+            // TODO: Add generator recipes
         ),
     );
 
