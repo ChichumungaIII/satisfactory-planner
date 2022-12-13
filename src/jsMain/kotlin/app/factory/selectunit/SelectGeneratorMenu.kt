@@ -1,6 +1,5 @@
 package app.factory.selectunit
 
-import app.data.building.Building
 import app.factory.model.FactoryUnit
 import app.factory.model.Generator
 import csstype.ClassName
@@ -10,7 +9,6 @@ import mui.material.PopoverOrigin
 import org.w3c.dom.Element
 import react.FC
 import react.Props
-import util.math.q
 
 external interface SelectGeneratorMenuProps : Props {
     var parent: Element?
@@ -36,7 +34,7 @@ val SelectGeneratorMenu = FC<SelectGeneratorMenuProps>("SelectGeneratorMenu") { 
 
         onClose = { props.onClose() }
 
-        for (building in Building.values().filter { it.generation > 0.q }) {
+        for (building in app.data.building.Generator.values()) {
             MenuItem {
                 +building.displayName
                 onClick = { props.onSelect(Generator(building)) }
