@@ -8,7 +8,6 @@ enum class Recipe(
     val time: Rational,
     val inputs: Map<Item, Rational>,
     val outputs: Map<Item, Rational>,
-    val alternate: Boolean = false,
 ) {
     /* Onboarding -- Game Start */
     IRON_INGOT(
@@ -613,8 +612,7 @@ enum class Recipe(
             Item.REINFORCED_IRON_PLATE to 5.q,
         ),
         outputs = mapOf(Item.CRYSTAL_OSCILLATOR to 2.q),
-    ),
-    ;
+    );
 
     val components: Map<Item, Rational> get() = inputs.mapValues { (_, count) -> -count } + outputs
 }
