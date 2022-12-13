@@ -1,5 +1,6 @@
-package app.data
+package app.data.building
 
+import app.data.Recipe
 import util.math.Rational
 import util.math.q
 

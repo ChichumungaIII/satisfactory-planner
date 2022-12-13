@@ -1,6 +1,6 @@
 package app.common.input
 
-import app.data.Building
+import app.data.building.Building
 import app.data.Recipe
 import app.util.PropsDelegate
 import csstype.Margin

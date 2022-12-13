@@ -1,6 +1,6 @@
 package app.factory.selectunit
 
-import app.data.Building
+import app.data.building.Building
 import app.factory.model.FactoryUnit
 import app.factory.model.ProductionBuilding
 import csstype.ClassName
