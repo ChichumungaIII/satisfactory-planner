@@ -5,7 +5,7 @@ import app.api.client.optimize
 import app.appScope
 import app.common.layout.titlebar.TitleBar
 import app.data.Item
-import app.data.Recipe
+import app.data.recipe.Recipe
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel

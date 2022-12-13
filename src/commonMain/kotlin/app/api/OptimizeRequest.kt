@@ -1,7 +1,7 @@
 package app.api
 
 import app.data.Item
-import app.data.Recipe
+import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational
 

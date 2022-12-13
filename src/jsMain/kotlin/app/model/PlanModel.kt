@@ -2,7 +2,7 @@ package app.model
 
 import app.api.OptimizeResponse
 import app.data.Item
-import app.data.Recipe
+import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import util.math.Expression

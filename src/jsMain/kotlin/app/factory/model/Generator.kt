@@ -2,7 +2,7 @@ package app.factory.model
 
 import app.data.building.Building
 import app.data.Item
-import app.data.Recipe
+import app.data.recipe.Recipe
 import app.util.math.toFixed
 import kotlinx.serialization.Serializable
 import util.math.Rational

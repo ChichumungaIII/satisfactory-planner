@@ -1,6 +1,6 @@
 package app.plan
 
-import app.data.Recipe
+import app.data.recipe.Recipe
 import app.model.PlanOutcomeModel
 import csstype.ClassName
 import csstype.Margin

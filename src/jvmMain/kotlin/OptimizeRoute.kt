@@ -3,7 +3,7 @@ package com.chichumunga.satisfactory
 import app.api.OptimizeRequest
 import app.api.OptimizeResponse
 import app.data.Item
-import app.data.Recipe
+import app.data.recipe.Recipe
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.server.application.call
