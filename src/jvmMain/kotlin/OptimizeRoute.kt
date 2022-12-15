@@ -4,6 +4,7 @@ import app.api.OptimizeRequest
 import app.api.OptimizeResponse
 import app.data.Item
 import app.data.recipe.Recipe
+import app.serialization.AppJson
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.server.application.call
@@ -31,8 +32,14 @@ private val EMPTY = OptimizeResponse(mapOf(), mapOf(), mapOf())
 fun Routing.optimizeRoute() {
     post("/v1/optimize") {
         launch(newFixedThreadPoolContext(8, "OptimizeContext")) {
-            val request = Json.decodeFromString<OptimizeRequest>(call.receiveText())
-            call.respondText { Json.encodeToString(optimize(request)) }
+            try {
+                val request = AppJson.decodeFromString<OptimizeRequest>(call.receiveText())
+                call.respondText { AppJson.encodeToString(optimize(request)) }
+            } catch (e: Exception) {
+                println(e.message)
+                println(e.stackTrace)
+                throw e
+            }
         }.join()
     }
 }

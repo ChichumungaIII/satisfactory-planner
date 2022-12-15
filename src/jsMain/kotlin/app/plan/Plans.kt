@@ -1,6 +1,7 @@
 package app.plan
 
 import app.model.PlanModel
+import app.serialization.AppJson
 import csstype.Display
 import csstype.FlexDirection
 import csstype.Padding
@@ -8,7 +9,6 @@ import csstype.px
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import mui.icons.material.Add
 import mui.lab.TabContext
 import mui.lab.TabPanel
@@ -17,12 +17,7 @@ import mui.material.Tab
 import mui.material.Tabs
 import mui.material.TabsVariant
 import mui.system.sx
-import react.FC
-import react.Props
-import react.ReactNode
-import react.create
-import react.useEffect
-import react.useState
+import react.*
 import kotlin.math.min
 
 const val NEW_PLAN_ID = "new"
@@ -30,8 +25,8 @@ const val NEW_PLAN_ID = "new"
 external interface PlansProps : Props
 
 const val PLANS_STORAGE = "com.chichumunga.satisfactory::plans"
-fun save(plans: List<PlanModel>) = window.localStorage.setItem(PLANS_STORAGE, Json.encodeToString(plans))
-fun load(): List<PlanModel>? = window.localStorage.getItem(PLANS_STORAGE)?.let { Json.decodeFromString(it) }
+fun save(plans: List<PlanModel>) = window.localStorage.setItem(PLANS_STORAGE, AppJson.encodeToString(plans))
+fun load(): List<PlanModel>? = window.localStorage.getItem(PLANS_STORAGE)?.let { AppJson.decodeFromString(it) }
 
 val Plans = FC<PlansProps>("Plans") {
     var plans by useState(load() ?: listOf())

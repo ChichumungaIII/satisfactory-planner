@@ -1,6 +1,7 @@
 package app.factory
 
 import app.factory.model.Factory
+import app.serialization.AppJson
 import csstype.Display
 import csstype.FlexDirection
 import csstype.Padding
@@ -8,7 +9,6 @@ import csstype.px
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import mui.icons.material.Add
 import mui.lab.TabContext
 import mui.lab.TabPanel
@@ -17,12 +17,7 @@ import mui.material.Tab
 import mui.material.Tabs
 import mui.material.TabsVariant
 import mui.system.sx
-import react.FC
-import react.Props
-import react.ReactNode
-import react.create
-import react.useEffect
-import react.useState
+import react.*
 import kotlin.math.min
 
 external interface FactoriesComponentProps : Props
@@ -30,8 +25,8 @@ external interface FactoriesComponentProps : Props
 const val NEW_FACTORY_ID = "new"
 
 const val FACTORIES_STORAGE = "com.chichumunga.satisfactory::factories"
-fun save(plans: List<Factory>) = window.localStorage.setItem(FACTORIES_STORAGE, Json.encodeToString(plans))
-fun load(): List<Factory>? = window.localStorage.getItem(FACTORIES_STORAGE)?.let { Json.decodeFromString(it) }
+fun save(plans: List<Factory>) = window.localStorage.setItem(FACTORIES_STORAGE, AppJson.encodeToString(plans))
+fun load(): List<Factory>? = window.localStorage.getItem(FACTORIES_STORAGE)?.let { AppJson.decodeFromString(it) }
 
 val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
     var factories by useState(load() ?: listOf())
