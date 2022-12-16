@@ -36,6 +36,7 @@ enum class Workstation(
             ProductionRecipe.HEAVY_MODULAR_FRAME,
             ProductionRecipe.COMPUTER,
             ProductionRecipe.CIRCUIT_BOARD,
+            ProductionRecipe.EMPTY_CANISTER,
             // Research
             ProductionRecipe.HOG_PROTEIN,
             ProductionRecipe.HATCHER_PROTEIN,

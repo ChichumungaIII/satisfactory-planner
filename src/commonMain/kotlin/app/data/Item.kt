@@ -99,8 +99,20 @@ enum class Item(
     MODULAR_ENGINE("Modular Engine"),
     ADAPTIVE_CONTROL_UNIT("Adaptive Control Unit"),
 
+    /* Tier 5 -- Alternative Fluid Transport */
+    EMPTY_CANISTER("Empty Canister"),
+    PACKAGED_WATER("Packaged Water"),
+    PACKAGED_OIL("Packaged Oil"),
+    PACKAGED_FUEL("Packaged Fuel", energy = 750.q),
+    PACKAGED_HEAVY_OIL_RESIDUE("Packaged Heavy Oil Residue"),
+    PACKAGED_LIQUID_BIOFUEL("Packaged Liquid Biofuel", energy = 750.q),
+    LIQUID_BIOFUEL("Liquid Biofuel", energy = 750.q),
+
     /* Tier 6 -- Expanded Power Infrastructure */
     CATERIUM_ORE("Caterium Ore"),
+
+    /* Tier 6 -- Jetpack */
+    JETPACK("Jetpack"),
 
     /* FICSMAS */
     FICSMAS_GIFT("FICSMAS Gift"),

@@ -36,6 +36,7 @@ enum class Manufacturer(
             ProductionRecipe.COLOR_CARTRIDGE,
             ProductionRecipe.STEEL_BEAM,
             ProductionRecipe.STEEL_PIPE,
+            ProductionRecipe.EMPTY_CANISTER,
             // Research
             ProductionRecipe.HOG_PROTEIN,
             ProductionRecipe.HATCHER_PROTEIN,
@@ -87,6 +88,7 @@ enum class Manufacturer(
             ProductionRecipe.PETROLEUM_COKE,
             ProductionRecipe.FUEL,
             ProductionRecipe.RESIDUAL_FUEL,
+            ProductionRecipe.LIQUID_BIOFUEL,
             // Research
             ProductionRecipe.POLYESTER_FABRIC,
         ),
@@ -101,6 +103,22 @@ enum class Manufacturer(
             ProductionRecipe.ADAPTIVE_CONTROL_UNIT,
             // Research
             ProductionRecipe.CRYSTAL_OSCILLATOR,
+        ),
+    ),
+    PACKAGER(
+        "Packager",
+        consumption = 10.q,
+        recipes = listOf(
+            ProductionRecipe.PACKAGE_WATER,
+            ProductionRecipe.PACKAGE_OIL,
+            ProductionRecipe.PACKAGE_FUEL,
+            ProductionRecipe.PACKAGE_HEAVY_OIL_RESIDUE,
+            ProductionRecipe.PACKAGE_LIQUID_BIOFUEL,
+            ProductionRecipe.UNPACKAGE_WATER,
+            ProductionRecipe.UNPACKAGE_OIL,
+            ProductionRecipe.UNPACKAGE_FUEL,
+            ProductionRecipe.UNPACKAGE_HEAVY_OIL_RESIDUE,
+            ProductionRecipe.UNPACKAGE_LIQUID_BIOFUEL,
         ),
     );
 }

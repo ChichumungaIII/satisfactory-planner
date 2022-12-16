@@ -367,6 +367,126 @@ enum class ProductionRecipe(
         outputs = mapOf(Item.ADAPTIVE_CONTROL_UNIT to 2.q),
     ),
 
+    /* Tier 5 -- Alternative Fluid Transport */
+    EMPTY_CANISTER(
+        "Empty Canister",
+        time = 4.q,
+        inputs = mapOf(Item.PLASTIC to 2.q),
+        outputs = mapOf(Item.EMPTY_CANISTER to 4.q),
+    ),
+    PACKAGE_WATER(
+        "Package Water",
+        time = 2.q,
+        inputs = mapOf(
+            Item.WATER to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_WATER to 2.q),
+    ),
+    PACKAGE_OIL(
+        "Package Oil",
+        time = 4.q,
+        inputs = mapOf(
+            Item.CRUDE_OIL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_OIL to 2.q),
+    ),
+    PACKAGE_FUEL(
+        "Package Fuel",
+        time = 3.q,
+        inputs = mapOf(
+            Item.FUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_FUEL to 2.q),
+    ),
+    PACKAGE_HEAVY_OIL_RESIDUE(
+        "Package Heavy Oil Residue",
+        time = 4.q,
+        inputs = mapOf(
+            Item.HEAVY_OIL_RESIDUE to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_HEAVY_OIL_RESIDUE to 2.q),
+    ),
+    PACKAGE_LIQUID_BIOFUEL(
+        "Package Liquid Biofuel",
+        time = 3.q,
+        inputs = mapOf(
+            Item.LIQUID_BIOFUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_LIQUID_BIOFUEL to 2.q),
+    ),
+    UNPACKAGE_WATER(
+        "UNPACKAGE_WATER",
+        time = 1.q,
+        inputs = mapOf(Item.PACKAGED_WATER to 2.q),
+        outputs = mapOf(
+            Item.WATER to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    UNPACKAGE_OIL(
+        "Unpackage Oil",
+        time = 2.q,
+        inputs = mapOf(Item.PACKAGED_OIL to 2.q),
+        outputs = mapOf(
+            Item.CRUDE_OIL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    UNPACKAGE_FUEL(
+        "Unpackage Fuel",
+        time = 2.q,
+        inputs = mapOf(Item.PACKAGED_FUEL to 2.q),
+        outputs = mapOf(
+            Item.FUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    UNPACKAGE_HEAVY_OIL_RESIDUE(
+        "Unpackage Heavy Oil Residue",
+        time = 6.q,
+        inputs = mapOf(Item.PACKAGED_HEAVY_OIL_RESIDUE to 2.q),
+        outputs = mapOf(
+            Item.HEAVY_OIL_RESIDUE to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    UNPACKAGE_LIQUID_BIOFUEL(
+        "Unpackage Liquid Biofuel",
+        time = 2.q,
+        inputs = mapOf(Item.PACKAGED_LIQUID_BIOFUEL to 2.q),
+        outputs = mapOf(
+            Item.LIQUID_BIOFUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    LIQUID_BIOFUEL(
+        "Liquid Biofuel",
+        time = 4.q,
+        inputs = mapOf(
+            Item.SOLID_BIOFUEL to 6.q,
+            Item.WATER to 3.q,
+        ),
+        outputs = mapOf(Item.LIQUID_BIOFUEL to 4.q),
+    ),
+
+    /* Tier 6 -- Jetpack */
+    JETPACK(
+        "Jetpack",
+        time = 120.q,
+        inputs = mapOf(
+            Item.PLASTIC to 50.q,
+            Item.RUBBER to 50.q,
+            Item.CIRCUIT_BOARD to 15.q,
+            Item.MOTOR to 15.q,
+        ),
+        outputs = mapOf(Item.JETPACK to 1.q),
+    ),
+
     /* Research -- Alien Organisms */
     HOG_PROTEIN(
         "Hog Protein",
