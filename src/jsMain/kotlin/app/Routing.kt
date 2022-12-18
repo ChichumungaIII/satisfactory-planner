@@ -20,7 +20,7 @@ val Routing = FC<Props>("Routing") {
 
                 Route {
                     path = ""
-                    element = Navigate.create { to = "/production" }
+                    element = Navigate.create { to = "/factories" }
                 }
                 Route {
                     path = "production"
