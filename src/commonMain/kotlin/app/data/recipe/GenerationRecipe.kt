@@ -24,7 +24,8 @@ enum class GenerationRecipe(
     COAL(Generator.COAL_GENERATOR, Item.COAL),
     PETROLEUM_COKE(Generator.COAL_GENERATOR, Item.PETROLEUM_COKE),
 
-    FUEL(Generator.FUEL_GENERATOR, Item.FUEL);
+    FUEL(Generator.FUEL_GENERATOR, Item.FUEL),
+    TURBOFUEL(Generator.FUEL_GENERATOR, Item.TURBOFUEL);
 
     init {
         check(fuel.energy > 0.q) { "Cannot use $fuel as fuel." }

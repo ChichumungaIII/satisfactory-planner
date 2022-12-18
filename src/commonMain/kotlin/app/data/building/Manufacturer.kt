@@ -67,7 +67,10 @@ enum class Manufacturer(
             ProductionRecipe.CIRCUIT_BOARD,
             // Research
             ProductionRecipe.AI_LIMITER,
+            ProductionRecipe.BLACK_POWDER,
+            ProductionRecipe.COMPACTED_COAL,
             ProductionRecipe.FABRIC,
+            ProductionRecipe.NOBELISK,
         ),
     ),
     FOUNDRY(
@@ -91,6 +94,8 @@ enum class Manufacturer(
             ProductionRecipe.LIQUID_BIOFUEL,
             // Research
             ProductionRecipe.POLYESTER_FABRIC,
+            ProductionRecipe.SMOKELESS_POWDER,
+            ProductionRecipe.TURBOFUEL,
         ),
     ),
     MANUFACTURER(
@@ -114,11 +119,13 @@ enum class Manufacturer(
             ProductionRecipe.PACKAGE_FUEL,
             ProductionRecipe.PACKAGE_HEAVY_OIL_RESIDUE,
             ProductionRecipe.PACKAGE_LIQUID_BIOFUEL,
+            ProductionRecipe.PACKAGE_TURBOFUEL,
             ProductionRecipe.UNPACKAGE_WATER,
             ProductionRecipe.UNPACKAGE_OIL,
             ProductionRecipe.UNPACKAGE_FUEL,
             ProductionRecipe.UNPACKAGE_HEAVY_OIL_RESIDUE,
             ProductionRecipe.UNPACKAGE_LIQUID_BIOFUEL,
+            ProductionRecipe.UNPACKAGE_TURBOFUEL,
         ),
     );
 }

@@ -714,5 +714,80 @@ enum class ProductionRecipe(
             Item.REINFORCED_IRON_PLATE to 5.q,
         ),
         outputs = mapOf(Item.CRYSTAL_OSCILLATOR to 2.q),
+    ),
+
+    /* Research -- Sulfur */
+    BLACK_POWDER(
+        "Black Powder",
+        time = 4.q,
+        inputs = mapOf(
+            Item.COAL to 1.q,
+            Item.SULFUR to 1.q,
+        ),
+        outputs = mapOf(Item.BLACK_POWDER to 2.q),
+    ),
+    NOBELISK(
+        "Nobelisk",
+        time = 6.q,
+        inputs = mapOf(
+            Item.BLACK_POWDER to 2.q,
+            Item.STEEL_PIPE to 2.q,
+        ),
+        outputs = mapOf(Item.NOBELISK to 1.q),
+    ),
+    NOBELISK_DETONATOR(
+        "Nobelisk Detonator",
+        time = 80.q,
+        inputs = mapOf(
+            Item.OBJECT_SCANNER to 1.q,
+            Item.STEEL_BEAM to 10.q,
+            Item.CABLE to 50.q,
+        ),
+        outputs = mapOf(Item.NOBELISK_DETONATOR to 1.q),
+    ),
+    COMPACTED_COAL(
+        "Compacted Coal",
+        time = 12.q,
+        inputs = mapOf(
+            Item.COAL to 5.q,
+            Item.SULFUR to 5.q,
+        ),
+        outputs = mapOf(Item.COMPACTED_COAL to 5.q),
+    ),
+    TURBOFUEL(
+        "Turbofuel",
+        time = 16.q,
+        inputs = mapOf(
+            Item.FUEL to 6.q,
+            Item.COMPACTED_COAL to 4.q,
+        ),
+        outputs = mapOf(Item.TURBOFUEL to 5.q),
+    ),
+    PACKAGE_TURBOFUEL(
+        "Package Turbofuel",
+        time = 6.q,
+        inputs = mapOf(
+            Item.TURBOFUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+        outputs = mapOf(Item.PACKAGED_TURBOFUEL to 2.q),
+    ),
+    UNPACKAGE_TURBOFUEL(
+        "Unpackage Turbofuel",
+        time = 6.q,
+        inputs = mapOf(Item.PACKAGED_TURBOFUEL to 2.q),
+        outputs = mapOf(
+            Item.TURBOFUEL to 2.q,
+            Item.EMPTY_CANISTER to 2.q,
+        ),
+    ),
+    SMOKELESS_POWDER(
+        "Smokeless Powder",
+        time = 6.q,
+        inputs = mapOf(
+            Item.BLACK_POWDER to 2.q,
+            Item.HEAVY_OIL_RESIDUE to 1.q,
+        ),
+        outputs = mapOf(Item.SMOKELESS_POWDER to 2.q),
     );
 }

@@ -50,6 +50,7 @@ enum class Item(
 
     /* Tier 1 -- Field Research */
     BEACON("Beacon"),
+    OBJECT_SCANNER("Object Scanner"),
 
     /* Tier 2 -- Part Assembly */
     COPPER_SHEET("Copper Sheet"),
@@ -129,17 +130,24 @@ enum class Item(
     SULFUR("Sulfur"),
 
     /* Research */
+    ALIEN_DNA_CAPSULE("Alien DNA Capsule"),
     ALIEN_PROTEIN("Alien Protein"),
+    BLACK_POWDER("Black Powder"),
     BLADE_RUNNERS("Blade Runners"),
+    COMPACTED_COAL("Compacted Coal", energy = 630.q),
     CRYSTAL_OSCILLATOR("Crystal Oscillator"),
     FABRIC("Fabric"),
     IRON_REBAR("Iron Rebar"),
     MEDICINAL_INHALER("Medicinal Inhaler"),
-    ALIEN_DNA_CAPSULE("Alien DNA Capsule"),
+    NOBELISK("Nobelisk"),
+    NOBELISK_DETONATOR("Nobelisk Detonator"),
+    PACKAGED_TURBOFUEL("Packaged Turbofuel", energy = 2000.q),
     PARACHUTE("Parachute"),
     POWER_SHARD("Power Shard"),
     REBAR_GUN("Rebar Gun"),
-    SILICA("Silica"),
     SHATTER_REBAR("Shatter Rebar"),
+    SMOKELESS_POWDER("Smokeless Powder"),
+    SILICA("Silica"),
     STUN_REBAR("Stun Rebar"),
+    TURBOFUEL("Turbofuel", energy = 2000.q),
 }

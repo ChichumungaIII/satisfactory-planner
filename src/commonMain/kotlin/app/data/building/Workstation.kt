@@ -72,6 +72,8 @@ enum class Workstation(
             ProductionRecipe.PARACHUTE,
             ProductionRecipe.VITAMIN_INHALER,
             ProductionRecipe.THERAPUTIC_INHALER,
+            ProductionRecipe.NOBELISK,
+            ProductionRecipe.NOBELISK_DETONATOR,
         ),
     );
 
