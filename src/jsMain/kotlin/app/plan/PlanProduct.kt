@@ -6,13 +6,18 @@ import app.common.RationalValidation
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
-import app.util.math.toFixed
 import csstype.ClassName
 import csstype.Display
 import csstype.Margin
 import csstype.px
 import mui.icons.material.Close
-import mui.material.*
+import mui.material.Box
+import mui.material.Chip
+import mui.material.ChipColor
+import mui.material.IconButton
+import mui.material.IconButtonColor
+import mui.material.Size
+import mui.material.SvgIconSize
 import mui.system.sx
 import react.FC
 import react.Props
@@ -66,7 +71,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
-                else RationalValidation.fail("Maximum yield is ${maximum.toFixed(4)} (${maximum})")
+                else RationalValidation.fail("Maximum yield is $maximum")
             }, { value ->
                 val limit = product.limit
                 if (limit == null || value <= limit) RationalValidation.pass()
@@ -90,7 +95,7 @@ val PlanProduct = FC<PlanProductProps>("PlanProduct") { props ->
             validators = listOf({ value ->
                 val maximum = product.maximum
                 if (maximum == null || value <= maximum) RationalValidation.pass()
-                else RationalValidation.fail("Maximum yield is ${maximum.toFixed(4)} (${maximum})")
+                else RationalValidation.fail("Maximum yield is $maximum")
             }, { value ->
                 if (value >= product.requirement) RationalValidation.pass()
                 else RationalValidation.fail("Limit must exceed requirement.")

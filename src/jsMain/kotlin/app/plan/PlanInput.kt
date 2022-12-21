@@ -6,11 +6,18 @@ import app.common.RationalValidation
 import app.model.PlanInputModel
 import app.model.PlanModel
 import app.util.PropsDelegate
-import app.util.math.toFixed
-import csstype.*
+import csstype.ClassName
+import csstype.Display
+import csstype.Margin
+import csstype.px
 import mui.icons.material.Close
-import mui.material.*
+import mui.material.Box
+import mui.material.Chip
+import mui.material.ChipColor
+import mui.material.IconButton
+import mui.material.IconButtonColor
 import mui.material.Size
+import mui.material.SvgIconSize
 import mui.system.sx
 import react.FC
 import react.Props
@@ -64,7 +71,7 @@ val PlanInput = FC<PlanInputProps>("PlanInput") { props ->
             validators = listOf { value ->
                 val minimum = input.minimum
                 if (minimum == null || value >= minimum) RationalValidation.pass()
-                else RationalValidation.fail("Plan requires at least ${minimum.toFixed(4)} ($minimum)")
+                else RationalValidation.fail("Plan requires at least $minimum")
             }
 
             onBlur = {

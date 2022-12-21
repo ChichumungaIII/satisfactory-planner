@@ -89,7 +89,7 @@ val FactoryUnitInfoComponent = FC<FactoryUnitInfoComponentProps>("FactoryUnitInf
                         outputs.forEach { (item, amount) ->
                             TableRow {
                                 TableCell { +item.displayName }
-                                TableCell { +amount.toFixed(4) }
+                                TableCell { +"$amount" }
                             }
                         }
                     } else {
@@ -117,7 +117,7 @@ val FactoryUnitInfoComponent = FC<FactoryUnitInfoComponentProps>("FactoryUnitInf
                         inputs.forEach { (item, amount) ->
                             TableRow {
                                 TableCell { +item.displayName }
-                                TableCell { +amount.toFixed(4) }
+                                TableCell { +"$amount" }
                             }
                         }
                     } else {
