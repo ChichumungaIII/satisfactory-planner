@@ -474,6 +474,28 @@ enum class ProductionRecipe(
         outputs = mapOf(Item.LIQUID_BIOFUEL to 4.q),
     ),
 
+    /* Tier 5 -- Gas Mask */
+    GAS_MASK(
+        "Gas Mask",
+        time = 60.q,
+        inputs = mapOf(
+            Item.RUBBER to 100.q,
+            Item.PLASTIC to 100.q,
+            Item.FABRIC to 100.q,
+        ),
+        outputs = mapOf(Item.GAS_MASK to 1.q),
+    ),
+    GAS_FILTER(
+        "Gas Filter",
+        time = 8.q,
+        inputs = mapOf(
+            Item.COAL to 5.q,
+            Item.RUBBER to 2.q,
+            Item.FABRIC to 2.q,
+        ),
+        outputs = mapOf(Item.GAS_FILTER to 1.q),
+    ),
+
     /* Tier 6 -- Jetpack */
     JETPACK(
         "Jetpack",

@@ -106,6 +106,7 @@ enum class Manufacturer(
             ProductionRecipe.COMPUTER,
             ProductionRecipe.MODULAR_ENGINE,
             ProductionRecipe.ADAPTIVE_CONTROL_UNIT,
+            ProductionRecipe.GAS_FILTER,
             // Research
             ProductionRecipe.CRYSTAL_OSCILLATOR,
         ),

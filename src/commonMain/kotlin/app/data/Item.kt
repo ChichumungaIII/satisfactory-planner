@@ -109,6 +109,10 @@ enum class Item(
     PACKAGED_LIQUID_BIOFUEL("Packaged Liquid Biofuel", energy = 750.q),
     LIQUID_BIOFUEL("Liquid Biofuel", energy = 750.q),
 
+    /* Tier 5 -- Gas Mask */
+    GAS_MASK("Gas Mask"),
+    GAS_FILTER("Gas Filter"),
+
     /* Tier 6 -- Expanded Power Infrastructure */
     CATERIUM_ORE("Caterium Ore"),
 

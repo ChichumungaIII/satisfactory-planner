@@ -37,6 +37,7 @@ enum class Workstation(
             ProductionRecipe.COMPUTER,
             ProductionRecipe.CIRCUIT_BOARD,
             ProductionRecipe.EMPTY_CANISTER,
+            ProductionRecipe.GAS_FILTER,
             // Research
             ProductionRecipe.HOG_PROTEIN,
             ProductionRecipe.HATCHER_PROTEIN,
@@ -64,6 +65,8 @@ enum class Workstation(
             ProductionRecipe.PORTABLE_MINER,
             ProductionRecipe.CHAINSAW,
             ProductionRecipe.XENO_BASHER,
+            ProductionRecipe.GAS_MASK,
+            // Research
             ProductionRecipe.ZIPLINE,
             ProductionRecipe.BLADE_RUNNERS,
             ProductionRecipe.NUTRITIONAL_INHALER,
