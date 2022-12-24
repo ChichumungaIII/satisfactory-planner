@@ -618,6 +618,27 @@ enum class ProductionRecipe(
         ),
         outputs = mapOf(Item.STUN_REBAR to 1.q),
     ),
+    HIGH_SPEED_CONNECTOR(
+        "High-Speed Connector",
+        time = 16.q,
+        inputs = mapOf(
+            Item.QUICKWIRE to 56.q,
+            Item.CABLE to 10.q,
+            Item.CIRCUIT_BOARD to 1.q,
+        ),
+        outputs = mapOf(Item.HIGH_SPEED_CONNECTOR to 1.q),
+    ),
+    SUPERCOMPUTER(
+        "Supercomputer",
+        time = 32.q,
+        inputs = mapOf(
+            Item.COMPUTER to 2.q,
+            Item.AI_LIMITER to 2.q,
+            Item.HIGH_SPEED_CONNECTOR to 3.q,
+            Item.PLASTIC to 28.q,
+        ),
+        outputs = mapOf(Item.SUPERCOMPUTER to 1.q),
+    ),
 
     /* Research -- Mycelia */
     BIOMASS_MYCELIA(
@@ -736,6 +757,15 @@ enum class ProductionRecipe(
             Item.REINFORCED_IRON_PLATE to 5.q,
         ),
         outputs = mapOf(Item.CRYSTAL_OSCILLATOR to 2.q),
+    ),
+    PULSE_NOBELISK(
+        "Pulse Nobelisk",
+        time = 60.q,
+        inputs = mapOf(
+            Item.NOBELISK to 5.q,
+            Item.CRYSTAL_OSCILLATOR to 1.q,
+        ),
+        outputs = mapOf(Item.PULSE_NOBELISK to 1.q),
     ),
 
     /* Research -- Sulfur */

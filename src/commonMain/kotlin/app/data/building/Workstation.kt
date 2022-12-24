@@ -48,6 +48,8 @@ enum class Workstation(
             ProductionRecipe.CATERIUM_INGOT,
             ProductionRecipe.QUICKWIRE,
             ProductionRecipe.AI_LIMITER,
+            ProductionRecipe.HIGH_SPEED_CONNECTOR,
+            ProductionRecipe.SUPERCOMPUTER,
             ProductionRecipe.BIOMASS_MYCELIA,
             ProductionRecipe.FABRIC,
             ProductionRecipe.POWER_SHARD_1,
@@ -56,6 +58,7 @@ enum class Workstation(
             ProductionRecipe.QUARTZ_CRYSTAL,
             ProductionRecipe.SILICA,
             ProductionRecipe.CRYSTAL_OSCILLATOR,
+            ProductionRecipe.PULSE_NOBELISK,
         ),
     ),
     EQUIPMENT_WORKSHOP(

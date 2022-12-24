@@ -71,6 +71,7 @@ enum class Manufacturer(
             ProductionRecipe.COMPACTED_COAL,
             ProductionRecipe.FABRIC,
             ProductionRecipe.NOBELISK,
+            ProductionRecipe.PULSE_NOBELISK,
         ),
     ),
     FOUNDRY(
@@ -109,6 +110,8 @@ enum class Manufacturer(
             ProductionRecipe.GAS_FILTER,
             // Research
             ProductionRecipe.CRYSTAL_OSCILLATOR,
+            ProductionRecipe.HIGH_SPEED_CONNECTOR,
+            ProductionRecipe.SUPERCOMPUTER,
         ),
     ),
     PACKAGER(
