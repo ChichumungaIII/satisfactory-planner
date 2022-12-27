@@ -12,13 +12,12 @@ import io.ktor.server.request.receiveText
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import util.math.Constraint
 import util.math.Expression
 import util.math.Expression.Companion.times
@@ -26,12 +25,14 @@ import util.math.InfeasibleSolutionException
 import util.math.maximize
 import util.math.minimize
 import util.math.q
+import java.util.concurrent.Executors
 
 private val EMPTY = OptimizeResponse(mapOf(), mapOf(), mapOf())
+private val THREAD_POOL = Executors.newFixedThreadPool(16)
 
 fun Routing.optimizeRoute() {
     post("/v1/optimize") {
-        launch(newFixedThreadPoolContext(8, "OptimizeContext")) {
+        launch(THREAD_POOL.asCoroutineDispatcher()) {
             try {
                 val request = AppJson.decodeFromString<OptimizeRequest>(call.receiveText())
                 call.respondText { AppJson.encodeToString(optimize(request)) }
