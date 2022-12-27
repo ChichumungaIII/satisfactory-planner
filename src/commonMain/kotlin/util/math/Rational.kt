@@ -24,6 +24,8 @@ class Rational private constructor(
             override fun unit() = ONE
         }
 
+        private val MAX_REPEATED_DIGITS = 10
+
         private val RATIONAL = Regex("""(-)?\s*(\d+)\s*/\s*(\d+)""")
         private val DECIMAL = Regex("""(-)?(\d+)(\.(\d*)(_(\d*))?)?""")
 
@@ -144,11 +146,18 @@ class Rational private constructor(
         val trailing = remainder * fixedScale.toRational() - fixed.toRational()
         if (trailing == ZERO) return "$integer.$fixedOut"
 
+        // TODO: Come up with a better way to determine the repeating decimal part.
         var nines = 9L
         var digits = 1
         while (nines % trailing.d != 0L) {
             nines = nines * 10L + 9L
-            digits++
+            if (++digits > MAX_REPEATED_DIGITS) {
+                println(
+                    """[$n / $d] exceeded the limit for maximum repeated digits in a Rational string 
+                    |representation ($MAX_REPEATED_DIGITS).""".trimMargin()
+                )
+                return "$n / $d"
+            }
         }
         val repeated = trailing.n * nines / trailing.d
         return "$integer.${fixedOut}_${"$repeated".padStart(digits, '0')}"
