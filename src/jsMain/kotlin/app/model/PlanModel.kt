@@ -44,6 +44,13 @@ data class PlanModel(
 
     fun update(result: OptimizeResponse): PlanModel {
         val (outcome, minimums, maximums) = result
+        if (outcome.isEmpty()) {
+            return copy(
+                loading = false,
+                outcome = PlanOutcomeModel()
+            )
+        }
+
         val expressions = consider(outcome.keys)
         return copy(
             loading = false,

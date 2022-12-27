@@ -121,8 +121,15 @@ enum class Item(
 
     /* FICSMAS */
     FICSMAS_GIFT("FICSMAS Gift"),
-    RED_FICSMAS_ORNAMENT("Red FICSMAS Ornament"),
     FICSMAS_ORNAMENT_BUNDLE("FICSMAS Ornament Bundle"),
+    FICSMAS_TREE_BRANCH("FICSMAS Tree Branch"),
+    FICSMAS_BOW("FICSMAS Bow"),
+    CANDY_CANE("Candy Cane"),
+    RED_FICSMAS_ORNAMENT("Red FICSMAS Ornament"),
+    BLUE_FICSMAS_ORNAMENT("Blue FICSMAS Ornament"),
+    COPPER_FICSMAS_ORNAMENT("Copper FICSMAS Ornament"),
+    IRON_FICSMAS_ORNAMENT("Iron FICSMAS Ornament"),
+    ACTUAL_SNOW("Actual Snow"),
 
     /* Other -- TO BE CLASSIFIED */
     CATERIUM_INGOT("Caterium Ingot"),
