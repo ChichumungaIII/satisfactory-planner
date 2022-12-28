@@ -17,6 +17,9 @@ enum class Manufacturer(
             ProductionRecipe.IRON_INGOT,
             ProductionRecipe.COPPER_INGOT,
             ProductionRecipe.CATERIUM_INGOT,
+            // Research
+            ProductionRecipe.RED_FICSMAS_ORNAMENT,
+            ProductionRecipe.BLUE_FICSMAS_ORNAMENT,
         ),
     ),
     CONSTRUCTOR(
@@ -79,6 +82,9 @@ enum class Manufacturer(
         consumption = 16.q,
         recipes = listOf(
             ProductionRecipe.STEEL_INGOT,
+            // Research
+            ProductionRecipe.COPPER_FICSMAS_ORNAMENT,
+            ProductionRecipe.IRON_FICSMAS_ORNAMENT,
         ),
     ),
     REFINERY(

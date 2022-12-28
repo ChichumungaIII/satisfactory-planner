@@ -841,5 +841,48 @@ enum class ProductionRecipe(
             Item.HEAVY_OIL_RESIDUE to 1.q,
         ),
         outputs = mapOf(Item.SMOKELESS_POWDER to 2.q),
+    ),
+
+    /* Research -- FICSMAS */
+    RED_FICSMAS_ORNAMENT(
+        "Red FICSMAS Ornament",
+        time = 12.q,
+        inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
+        outputs = mapOf(Item.RED_FICSMAS_ORNAMENT to 1.q),
+    ),
+    BLUE_FICSMAS_ORNAMENT(
+        "Blue FICSMAS Ornament",
+        time = 12.q,
+        inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
+        outputs = mapOf(Item.BLUE_FICSMAS_ORNAMENT to 2.q),
+    ),
+    COPPER_FICSMAS_ORNAMENT(
+        "Copper FICSMAS Ornament",
+        time = 12.q,
+        inputs = mapOf(
+            Item.RED_FICSMAS_ORNAMENT to 2.q,
+            Item.COPPER_INGOT to 2.q
+        ),
+        outputs = mapOf(Item.COPPER_FICSMAS_ORNAMENT to 1.q),
+    ),
+    IRON_FICSMAS_ORNAMENT(
+        "Iron FICSMAS Ornament",
+        time = 12.q,
+        inputs = mapOf(
+            Item.BLUE_FICSMAS_ORNAMENT to 3.q,
+            Item.IRON_INGOT to 3.q,
+        ),
+        outputs = mapOf(Item.IRON_FICSMAS_ORNAMENT to 1.q),
+    ),
+
+    /* Alternate */
+    HEAVY_OIL_RESIDUE(
+        "Heavy Oil Residue",
+        time = 6.q,
+        inputs = mapOf(Item.CRUDE_OIL to 3.q),
+        outputs = mapOf(
+            Item.HEAVY_OIL_RESIDUE to 4.q,
+            Item.POLYMER_RESIN to 2.q,
+        ),
     );
 }
