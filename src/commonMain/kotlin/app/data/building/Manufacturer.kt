@@ -100,6 +100,7 @@ enum class Manufacturer(
             ProductionRecipe.RESIDUAL_FUEL,
             ProductionRecipe.LIQUID_BIOFUEL,
             // Research
+            ProductionRecipe.HEAVY_OIL_RESIDUE,
             ProductionRecipe.POLYESTER_FABRIC,
             ProductionRecipe.SMOKELESS_POWDER,
             ProductionRecipe.TURBOFUEL,
