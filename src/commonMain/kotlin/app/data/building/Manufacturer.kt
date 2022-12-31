@@ -52,6 +52,8 @@ enum class Manufacturer(
             ProductionRecipe.POWER_SHARD_1,
             ProductionRecipe.POWER_SHARD_2,
             ProductionRecipe.POWER_SHARD_5,
+            ProductionRecipe.FICSMAS_TREE_BRANCH,
+            ProductionRecipe.FICSMAS_BOW,
         ),
     ),
     ASSEMBLER(
@@ -73,6 +75,9 @@ enum class Manufacturer(
             ProductionRecipe.BLACK_POWDER,
             ProductionRecipe.COMPACTED_COAL,
             ProductionRecipe.FABRIC,
+            ProductionRecipe.FICSMAS_DECORATION,
+            ProductionRecipe.FICSMAS_ORNAMENT_BUNDLE,
+            ProductionRecipe.FICSMAS_WONDER_STAR,
             ProductionRecipe.NOBELISK,
             ProductionRecipe.PULSE_NOBELISK,
         ),

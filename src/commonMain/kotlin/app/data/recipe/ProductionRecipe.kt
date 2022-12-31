@@ -844,6 +844,18 @@ enum class ProductionRecipe(
     ),
 
     /* Research -- FICSMAS */
+    FICSMAS_TREE_BRANCH(
+        "FICSMAS Tree Branch",
+        time = 6.q,
+        inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
+        outputs = mapOf(Item.FICSMAS_TREE_BRANCH to 1.q),
+    ),
+    FICSMAS_BOW(
+        "FICSMAS Bow",
+        time = 12.q,
+        inputs = mapOf(Item.FICSMAS_GIFT to 2.q),
+        outputs = mapOf(Item.FICSMAS_BOW to 1.q),
+    ),
     RED_FICSMAS_ORNAMENT(
         "Red FICSMAS Ornament",
         time = 12.q,
@@ -873,6 +885,33 @@ enum class ProductionRecipe(
             Item.IRON_INGOT to 3.q,
         ),
         outputs = mapOf(Item.IRON_FICSMAS_ORNAMENT to 1.q),
+    ),
+    FICSMAS_ORNAMENT_BUNDLE(
+        "FICSMAS Ornament Bundle",
+        time = 12.q,
+        inputs = mapOf(
+            Item.COPPER_FICSMAS_ORNAMENT to 1.q,
+            Item.IRON_FICSMAS_ORNAMENT to 1.q,
+        ),
+        outputs = mapOf(Item.FICSMAS_ORNAMENT_BUNDLE to 1.q),
+    ),
+    FICSMAS_DECORATION(
+        "FICSMAS Decoration",
+        time = 60.q,
+        inputs = mapOf(
+            Item.FICSMAS_TREE_BRANCH to 15.q,
+            Item.FICSMAS_ORNAMENT_BUNDLE to 6.q,
+        ),
+        outputs = mapOf(Item.FICSMAS_DECORATION to 2.q),
+    ),
+    FICSMAS_WONDER_STAR(
+        "FICSMAS Wonder Star",
+        time = 60.q,
+        inputs = mapOf(
+            Item.FICSMAS_DECORATION to 5.q,
+            Item.CANDY_CANE to 20.q,
+        ),
+        outputs = mapOf(Item.FICSMAS_WONDER_STAR to 1.q),
     ),
 
     /* Alternate */
