@@ -52,6 +52,8 @@ enum class Manufacturer(
             ProductionRecipe.POWER_SHARD_1,
             ProductionRecipe.POWER_SHARD_2,
             ProductionRecipe.POWER_SHARD_5,
+            ProductionRecipe.QUARTZ_CRYSTAL,
+            ProductionRecipe.SILICA,
             ProductionRecipe.FICSMAS_TREE_BRANCH,
             ProductionRecipe.FICSMAS_BOW,
         ),
