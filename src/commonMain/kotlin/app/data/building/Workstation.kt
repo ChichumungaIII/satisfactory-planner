@@ -80,6 +80,12 @@ enum class Workstation(
             ProductionRecipe.THERAPUTIC_INHALER,
             ProductionRecipe.NOBELISK,
             ProductionRecipe.NOBELISK_DETONATOR,
+            ProductionRecipe.EXPLOSIVE_REBAR,
+            ProductionRecipe.RIFLE,
+            ProductionRecipe.RIFLE_AMMO,
+            ProductionRecipe.HOMING_RIFLE_AMMO,
+            ProductionRecipe.CLUSTER_NOBELISK,
+            ProductionRecipe.GAS_NOBELISK,
         ),
     );
 

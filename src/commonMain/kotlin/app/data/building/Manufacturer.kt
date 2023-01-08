@@ -82,6 +82,10 @@ enum class Manufacturer(
             ProductionRecipe.FICSMAS_WONDER_STAR,
             ProductionRecipe.NOBELISK,
             ProductionRecipe.PULSE_NOBELISK,
+            ProductionRecipe.RIFLE_AMMO,
+            ProductionRecipe.HOMING_RIFLE_AMMO,
+            ProductionRecipe.CLUSTER_NOBELISK,
+            ProductionRecipe.GAS_NOBELISK,
         ),
     ),
     FOUNDRY(
@@ -124,6 +128,7 @@ enum class Manufacturer(
             ProductionRecipe.GAS_FILTER,
             // Research
             ProductionRecipe.CRYSTAL_OSCILLATOR,
+            ProductionRecipe.EXPLOSIVE_REBAR,
             ProductionRecipe.HIGH_SPEED_CONNECTOR,
             ProductionRecipe.SUPERCOMPUTER,
         ),

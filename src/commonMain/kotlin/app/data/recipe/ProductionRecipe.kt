@@ -639,6 +639,15 @@ enum class ProductionRecipe(
         ),
         outputs = mapOf(Item.SUPERCOMPUTER to 1.q),
     ),
+    HOMING_RIFLE_AMMO(
+        "Homing Rifle Ammo",
+        time = 24.q,
+        inputs = mapOf(
+            Item.RIFLE_AMMO to 20.q,
+            Item.HIGH_SPEED_CONNECTOR to 1.q,
+        ),
+        outputs = mapOf(Item.HOMING_RIFLE_AMMO to 10.q),
+    ),
 
     /* Research -- Mycelia */
     BIOMASS_MYCELIA(
@@ -692,6 +701,15 @@ enum class ProductionRecipe(
             Item.BACON_AGARIC to 1.q,
         ),
         outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
+    ),
+    GAS_NOBELISK(
+        "Gas Nobelisk",
+        time = 12.q,
+        inputs = mapOf(
+            Item.NOBELISK to 1.q,
+            Item.BIOMASS to 10.q,
+        ),
+        outputs = mapOf(Item.GAS_NOBELISK to 1.q),
     ),
 
     /* Research -- Nutrients */
@@ -841,6 +859,45 @@ enum class ProductionRecipe(
             Item.HEAVY_OIL_RESIDUE to 1.q,
         ),
         outputs = mapOf(Item.SMOKELESS_POWDER to 2.q),
+    ),
+    EXPLOSIVE_REBAR(
+        "Explosive Rebar",
+        time = 12.q,
+        inputs = mapOf(
+            Item.IRON_REBAR to 2.q,
+            Item.SMOKELESS_POWDER to 2.q,
+            Item.STEEL_PIPE to 2.q,
+        ),
+        outputs = mapOf(Item.EXPLOSIVE_REBAR to 1.q),
+    ),
+    RIFLE(
+        "Rifle",
+        time = 120.q,
+        inputs = mapOf(
+            Item.MOTOR to 2.q,
+            Item.RUBBER to 10.q,
+            Item.STEEL_PIPE to 25.q,
+            Item.SCREW to 250.q,
+        ),
+        outputs = mapOf(Item.RIFLE to 1.q),
+    ),
+    RIFLE_AMMO(
+        "Rifle Ammo",
+        time = 12.q,
+        inputs = mapOf(
+            Item.COPPER_SHEET to 3.q,
+            Item.SMOKELESS_POWDER to 2.q,
+        ),
+        outputs = mapOf(Item.RIFLE_AMMO to 15.q),
+    ),
+    CLUSTER_NOBELISK(
+        "Cluster Nobelisk",
+        time = 24.q,
+        inputs = mapOf(
+            Item.NOBELISK to 3.q,
+            Item.SMOKELESS_POWDER to 4.q,
+        ),
+        outputs = mapOf(Item.CLUSTER_NOBELISK to 1.q),
     ),
 
     /* Research -- FICSMAS */
