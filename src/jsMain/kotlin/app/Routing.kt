@@ -16,24 +16,33 @@ val Routing = FC<Props>("Routing") {
         Routes {
             Route {
                 path = "/"
-                element = App.create()
 
                 Route {
                     path = ""
-                    element = Navigate.create { to = "/factories" }
+                    element = Navigate.create { to = "/v1" }
                 }
+
                 Route {
-                    path = "production"
-                    element = RootComponent.create {
-                        title = "Production Plans"
-                        Plans {}
+                    path = "v1"
+                    element = App.create()
+
+                    Route {
+                        path = ""
+                        element = Navigate.create { to = "/v1/factories" }
                     }
-                }
-                Route {
-                    path = "factories"
-                    element = RootComponent.create {
-                        title = "Factories"
-                        FactoriesComponent {}
+                    Route {
+                        path = "production"
+                        element = RootComponent.create {
+                            title = "Production Plans"
+                            Plans {}
+                        }
+                    }
+                    Route {
+                        path = "factories"
+                        element = RootComponent.create {
+                            title = "Factories"
+                            FactoriesComponent {}
+                        }
                     }
                 }
             }
