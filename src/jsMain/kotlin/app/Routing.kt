@@ -1,9 +1,9 @@
 package app
 
 import app.common.layout.RootComponent
-import app.factory.FactoriesComponent
 import app.plan.Plans
 import app.themes.ThemeModule
+import app.v2.factories.FactoriesComponent
 import app.v2.frame.FrameComponent
 import app.v2.frame.title.TitleModule
 import mui.material.Typography
@@ -54,7 +54,7 @@ val Routing = FC<Props>("Routing") {
                         path = AppRoutes.V1_FACTORIES.segment
                         element = RootComponent.create {
                             title = "Factories"
-                            FactoriesComponent {}
+                            app.factory.FactoriesComponent {}
                         }
                     }
                 }
@@ -66,9 +66,10 @@ val Routing = FC<Props>("Routing") {
 
                     Route {
                         path = AppRoutes.FACTORIES.segment
-                        element = Typography.create {
-                            variant = TypographyVariant.h2
-                            +"Factories"
+
+                        Route {
+                            path = ""
+                            element = FactoriesComponent.create {}
                         }
                     }
                     Route {

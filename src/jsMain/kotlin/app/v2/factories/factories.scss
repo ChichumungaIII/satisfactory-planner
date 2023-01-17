@@ -1,0 +1,13 @@
+.factories {
+  &__empty {
+    margin: 48px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__create-button {
+      margin: 8px;
+    }
+  }
+}
