@@ -1,0 +1,13 @@
+.frame {
+  $drawer-width: 256px;
+
+  &__drawer {
+    width: $drawer-width;
+  }
+
+  &__content {
+    &--drawer-open {
+      margin-left: $drawer-width;
+    }
+  }
+}
