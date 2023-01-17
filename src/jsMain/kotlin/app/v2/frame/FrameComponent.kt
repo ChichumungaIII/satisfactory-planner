@@ -3,6 +3,7 @@ package app.v2.frame
 import app.AppRoutes
 import app.themes.Colors
 import app.themes.ThemeContext
+import app.v2.frame.title.TitleContext
 import csstype.ClassName
 import csstype.integer
 import kotlinx.js.jso
@@ -39,6 +40,7 @@ external interface FrameComponentProps : Props
 val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
     val navigate = useNavigate()
     val theme by useContext(ThemeContext)
+    val title by useContext(TitleContext)
 
     var drawerOpen by useState(false)
 
@@ -63,7 +65,7 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
                 Typography {
                     className = ClassName("frame__title")
                     variant = TypographyVariant.h1
-                    +"Satisfactory Planner" // TODO: Replace with a route-based title.
+                    +title
                 }
             }
         }

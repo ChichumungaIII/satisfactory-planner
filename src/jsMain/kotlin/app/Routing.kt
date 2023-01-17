@@ -5,6 +5,7 @@ import app.factory.FactoriesComponent
 import app.plan.Plans
 import app.themes.ThemeModule
 import app.v2.frame.FrameComponent
+import app.v2.frame.title.TitleModule
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
@@ -60,7 +61,7 @@ val Routing = FC<Props>("Routing") {
 
                 Route {
                     path = AppRoutes.V2.segment
-                    element = ThemeModule.create { FrameComponent {} }
+                    element = ThemeModule.create { TitleModule { FrameComponent {} } }
                     Route { path = ""; element = Navigate.create { to = AppRoutes.FACTORIES.segment } }
 
                     Route {
