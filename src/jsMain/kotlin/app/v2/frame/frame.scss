@@ -1,6 +1,10 @@
 .frame {
   $drawer-width: 256px;
 
+  &__title {
+    padding: 0 16px;
+  }
+
   &__drawer {
     width: $drawer-width;
   }

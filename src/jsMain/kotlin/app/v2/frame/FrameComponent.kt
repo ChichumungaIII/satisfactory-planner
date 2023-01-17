@@ -50,16 +50,18 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
 
             Toolbar {
                 IconButton {
+                    // TODO: Use themed colors instead of hard-coding white.
                     if (drawerOpen) {
-                        MenuOpen { sx { color = Colors.white } } // TODO: Use a theme color.
+                        MenuOpen { sx { color = Colors.white } }
                         onClick = { drawerOpen = false }
                     } else {
-                        Menu { sx { color = Colors.white } } // TODO: Use a theme color.
+                        Menu { sx { color = Colors.white } }
                         onClick = { drawerOpen = true }
                     }
                 }
 
                 Typography {
+                    className = ClassName("frame__title")
                     variant = TypographyVariant.h1
                     +"Satisfactory Planner" // TODO: Replace with a route-based title.
                 }
@@ -69,9 +71,7 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
         Drawer {
             variant = DrawerVariant.persistent
             open = drawerOpen
-            PaperProps = jso {
-                className = ClassName("frame__drawer")
-            }
+            PaperProps = jso { className = ClassName("frame__drawer") }
 
             Toolbar {} // Adds space equivalent to the header
             mui.material.List {

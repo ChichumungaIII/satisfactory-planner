@@ -35,20 +35,13 @@ val Routing = FC<Props>("Routing") {
         Routes {
             Route {
                 path = AppRoutes.ROOT.segment
-
-                Route {
-                    path = ""
-                    element = Navigate.create { to = AppRoutes.V1.path }
-                }
+                Route { path = ""; element = Navigate.create { to = AppRoutes.V1.segment } }
 
                 Route {
                     path = AppRoutes.V1.segment
                     element = App.create()
+                    Route { path = ""; element = Navigate.create { to = AppRoutes.V1_FACTORIES.segment } }
 
-                    Route {
-                        path = ""
-                        element = Navigate.create { to = AppRoutes.V1_FACTORIES.path }
-                    }
                     Route {
                         path = AppRoutes.V1_PRODUCTION.segment
                         element = RootComponent.create {
@@ -68,6 +61,7 @@ val Routing = FC<Props>("Routing") {
                 Route {
                     path = AppRoutes.V2.segment
                     element = ThemeModule.create { FrameComponent {} }
+                    Route { path = ""; element = Navigate.create { to = AppRoutes.FACTORIES.segment } }
 
                     Route {
                         path = AppRoutes.FACTORIES.segment
