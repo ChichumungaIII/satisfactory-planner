@@ -2,10 +2,9 @@ package app
 
 import app.common.layout.RootComponent
 import app.plan.Plans
-import app.themes.ThemeModule
+import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
-import app.v2.frame.FrameComponent
-import app.v2.frame.title.TitleModule
+import app.v2.factory.FactoryRouteComponent
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
@@ -61,7 +60,7 @@ val Routing = FC<Props>("Routing") {
 
                 Route {
                     path = AppRoutes.V2.segment
-                    element = ThemeModule.create { TitleModule { FrameComponent {} } }
+                    element = AppV2.create {}
                     Route { path = ""; element = Navigate.create { to = AppRoutes.FACTORIES.segment } }
 
                     Route {
@@ -70,6 +69,10 @@ val Routing = FC<Props>("Routing") {
                         Route {
                             path = ""
                             element = FactoriesComponent.create {}
+                        }
+                        Route {
+                            path = ":factoryId"
+                            element = FactoryRouteComponent.create {}
                         }
                     }
                     Route {
