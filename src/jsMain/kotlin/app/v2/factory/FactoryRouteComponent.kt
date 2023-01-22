@@ -16,7 +16,7 @@ import react.Props
 import react.router.useNavigate
 import react.router.useParams
 import react.useContext
-import react.useEffect
+import react.useEffectOnce
 import react.useState
 
 private val Scope = MainScope()
@@ -32,7 +32,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
     var factory by useState<Factory?>(null)
     var loading by useState(true)
 
-    useEffect {
+    useEffectOnce {
         Scope.launch {
             try {
                 factory = factoryService.getFactory(factoryId)
