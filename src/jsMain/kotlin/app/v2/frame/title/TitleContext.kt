@@ -8,14 +8,7 @@ import react.useState
 
 val TitleContext = createContext<StateInstance<String>>()
 
-val TitleModule = FC<PropsWithChildren> { props ->
+val TitleContextComponent = FC<PropsWithChildren> { props ->
     val state = useState("Satisfactory Planner")
-    val title = (state)
-
-    TitleContext(state) {
-        TitleContext.Provider {
-            value = title
-            +props.children
-        }
-    }
+    TitleContext(state) { +props.children }
 }

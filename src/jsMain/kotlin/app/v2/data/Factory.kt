@@ -1,4 +1,4 @@
-package app.v2.factory
+package app.v2.data
 
 data class Factory(
     val id: ULong,

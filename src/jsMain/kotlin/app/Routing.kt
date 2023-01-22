@@ -17,7 +17,7 @@ import react.router.dom.BrowserRouter
 
 enum class AppRoutes(
     val segment: String,
-    private val parent: AppRoutes? = null,
+    parent: AppRoutes? = null,
 ) {
     ROOT(""),
     V1("v1", ROOT),

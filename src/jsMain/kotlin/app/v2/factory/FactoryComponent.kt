@@ -1,5 +1,6 @@
 package app.v2.factory
 
+import app.v2.data.Factory
 import app.v2.frame.title.TitleContext
 import mui.material.Typography
 import react.FC
