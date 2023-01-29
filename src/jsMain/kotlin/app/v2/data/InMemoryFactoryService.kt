@@ -1,5 +1,9 @@
 package app.v2.data
 
+import kotlinx.coroutines.delay
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
+
 class InMemoryFactoryService : FactoryService {
     private val factories = mutableListOf<Factory>()
 
@@ -9,7 +13,11 @@ class InMemoryFactoryService : FactoryService {
         return factory
     }
 
-    override suspend fun getFactory(id: ULong) = factories.singleOrNull { it.id == id } ?: throwNotFound(id)
+    override suspend fun getFactory(id: ULong): Factory {
+        // Simulate RPC latency.
+        delay(Random.nextInt(750, 3000).milliseconds)
+        return factories.singleOrNull { it.id == id } ?: throwNotFound(id)
+    }
 
     override suspend fun updateFactory(factory: Factory): Factory {
         val existing =

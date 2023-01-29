@@ -6,6 +6,6 @@ import react.createContext
 
 val FactoryServiceContext = createContext<FactoryService>()
 
-val FactoryServiceContextComponent = FC<PropsWithChildren> { props ->
+val FactoryServiceContextProvider = FC<PropsWithChildren> { props ->
     FactoryServiceContext(InMemoryFactoryService()) { +props.children }
 }

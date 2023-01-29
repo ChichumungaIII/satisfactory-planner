@@ -4,6 +4,7 @@ import app.common.layout.RootComponent
 import app.plan.Plans
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
+import app.v2.factory.FactoryContextProvider
 import app.v2.factory.FactoryRouteComponent
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
@@ -72,7 +73,7 @@ val Routing = FC<Props>("Routing") {
                         }
                         Route {
                             path = ":factoryId"
-                            element = FactoryRouteComponent.create {}
+                            element = FactoryContextProvider.create { FactoryRouteComponent {} }
                         }
                     }
                     Route {

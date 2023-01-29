@@ -1,11 +1,11 @@
 package app.v2.factory
 
 import app.v2.common.layout.ZeroStateComponent
-import app.v2.data.Factory
-import app.v2.data.FactoryServiceContext
+import app.v2.data.Failure
+import app.v2.data.Loaded
+import app.v2.data.Loading
 import csstype.ClassName
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.CircularProgress
@@ -16,52 +16,36 @@ import react.Props
 import react.router.useNavigate
 import react.router.useParams
 import react.useContext
-import react.useEffectOnce
-import react.useState
+import react.useEffect
 
 private val Scope = MainScope()
 
 external interface FactoryRouteComponentProps : Props
 
 val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponent") { props ->
+    val (factory, updateFactory) = useContext(FactoryContext)
+    // TODO: Embed this in routing and expose a typed route params hook
+    val factoryId = useParams()["factoryId"]!!.toULong()
+    useEffect(factoryId) { updateFactory(SetFactoryId(factoryId)) }
+
     val navigate = useNavigate()
 
-    val factoryService = useContext(FactoryServiceContext)
-    val factoryId = useParams()["factoryId"]!!.toULong()
-
-    var factory by useState<Factory?>(null)
-    var loading by useState(true)
-
-    useEffectOnce {
-        Scope.launch {
-            try {
-                factory = factoryService.getFactory(factoryId)
-            } finally {
-                loading = false
+    when (factory) {
+        is Loaded -> FactoryComponent { this.factory = factory.value }
+        is Loading -> ZeroStateComponent { CircularProgress {} }
+        is Failure -> ZeroStateComponent {
+            Typography {
+                variant = TypographyVariant.subtitle1
+                +factory.message
             }
-        }
-    }
+            Button {
+                className = ClassName("factory-route__return-button")
 
-    if (loading) {
-        ZeroStateComponent { CircularProgress {} }
-    } else {
-        when (val loaded = factory) {
-            null -> ZeroStateComponent {
-                Typography {
-                    variant = TypographyVariant.subtitle1
-                    +"Factory #$factoryId could not be found."
-                }
-                Button {
-                    className = ClassName("factory-route__return-button")
+                variant = ButtonVariant.contained
+                +"Factory List"
 
-                    variant = ButtonVariant.contained
-                    +"Factory List"
-
-                    onClick = { navigate("..") }
-                }
+                onClick = { navigate("..") }
             }
-
-            else -> FactoryComponent { this.factory = loaded }
         }
     }
 }
