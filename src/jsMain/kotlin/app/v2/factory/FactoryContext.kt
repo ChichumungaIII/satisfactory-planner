@@ -1,11 +1,11 @@
 package app.v2.factory
 
+import app.v2.AppScope
 import app.v2.data.Factory
 import app.v2.data.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import react.FC
 import react.PropsWithChildren
@@ -14,9 +14,6 @@ import react.createContext
 import react.useContext
 import react.useEffect
 import react.useReducer
-
-
-private val Scope = MainScope()
 
 sealed interface FactoryContextAction
 data class SetFactoryId(val id: ULong) : FactoryContextAction
@@ -43,7 +40,7 @@ val FactoryContextProvider = FC<PropsWithChildren> { props ->
     useEffect(state) {
         if (state is LoadState.Requested) {
             updateState(SetState(LoadState.loading(state.id)))
-            Scope.launch {
+            AppScope.launch {
                 val next =
                     try {
                         val factory = factoryService.getFactory(state.id)

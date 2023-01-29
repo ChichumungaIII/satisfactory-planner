@@ -3,7 +3,6 @@ package app.v2.factory
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.LoadState
 import csstype.ClassName
-import kotlinx.coroutines.MainScope
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.CircularProgress
@@ -14,8 +13,6 @@ import react.Props
 import react.router.useNavigate
 import react.router.useParams
 import react.useContext
-
-private val Scope = MainScope()
 
 external interface FactoryRouteComponentProps : Props
 

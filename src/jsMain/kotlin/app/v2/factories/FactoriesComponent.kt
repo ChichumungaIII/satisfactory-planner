@@ -1,12 +1,12 @@
 package app.v2.factories
 
+import app.v2.AppScope
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.Factory
 import app.v2.data.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.SetFactory
 import csstype.ClassName
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mui.material.Button
 import mui.material.ButtonVariant
@@ -22,8 +22,6 @@ import react.useState
 import kotlin.random.Random
 import kotlin.random.nextULong
 
-private val Scope = MainScope()
-
 external interface FactoriesComponentProps : Props
 
 val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { props ->
@@ -36,7 +34,7 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { pro
     var loading by useState(true)
 
     useEffectOnce {
-        Scope.launch {
+        AppScope.launch {
             factories = factoryService.listFactories()
             loading = false
         }
@@ -58,7 +56,7 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { pro
                     +"Create a factory"
 
                     onClick = {
-                        Scope.launch {
+                        AppScope.launch {
                             val factory = Factory(Random.nextULong(), "New Factory")
                             updateStore(SetFactory(factoryService.createFactory(factory)))
                             navigate("${factory.id}")
