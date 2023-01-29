@@ -3,6 +3,8 @@ package app.v2.factories
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.Factory
 import app.v2.data.FactoryServiceContext
+import app.v2.data.FactoryStoreContext
+import app.v2.data.SetFactory
 import csstype.ClassName
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { pro
     val navigate = useNavigate()
 
     val factoryService = useContext(FactoryServiceContext)
+    val (_, updateStore) = useContext(FactoryStoreContext)
 
     var factories by useState(listOf<Factory>())
     var loading by useState(true)
@@ -57,7 +60,7 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { pro
                     onClick = {
                         Scope.launch {
                             val factory = Factory(Random.nextULong(), "New Factory")
-                            factoryService.createFactory(factory)
+                            updateStore(SetFactory(factoryService.createFactory(factory)))
                             navigate("${factory.id}")
                         }
                     }

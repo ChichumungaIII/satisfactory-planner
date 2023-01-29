@@ -8,25 +8,25 @@ class InMemoryFactoryService : FactoryService {
     private val factories = mutableListOf<Factory>()
 
     override suspend fun createFactory(factory: Factory): Factory {
+        // Simulate RPC latency.
         check(factories.none { it.id == factory.id }) { "Factory #${factory.id} already exists." }
         factories.add(factory)
-        return factory
+        return factory.also { lag() }
     }
 
-    override suspend fun getFactory(id: ULong): Factory {
-        // Simulate RPC latency.
-        delay(Random.nextInt(750, 3000).milliseconds)
-        return factories.singleOrNull { it.id == id } ?: throwNotFound(id)
-    }
+    override suspend fun getFactory(id: ULong) =
+        (factories.singleOrNull { it.id == id } ?: throwNotFound(id)).also { lag() }
 
     override suspend fun updateFactory(factory: Factory): Factory {
         val existing =
             factories.withIndex().singleOrNull { (_, it) -> it.id == factory.id } ?: throwNotFound(factory.id)
         factories[existing.index] = factory
-        return factory
+        return factory.also { lag() }
     }
 
-    override suspend fun listFactories() = factories.toList()
+    override suspend fun listFactories() = factories.toList().also { lag() }
+
+    private suspend fun lag() = delay(Random.nextInt(750, 3500).milliseconds)
 
     private fun throwNotFound(id: ULong): Nothing = throw IllegalArgumentException("Factory #$id does not exist.")
 }
