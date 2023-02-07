@@ -4,8 +4,6 @@ import app.common.layout.RootComponent
 import app.plan.Plans
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
-import app.v2.factories.FactoriesContextProvider
-import app.v2.factory.FactoryContextProvider
 import app.v2.factory.FactoryRouteComponent
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
@@ -13,7 +11,6 @@ import react.FC
 import react.Props
 import react.create
 import react.router.Navigate
-import react.router.Outlet
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
@@ -68,7 +65,6 @@ val Routing = FC<Props>("Routing") {
 
                     Route {
                         path = AppRoutes.FACTORIES.segment
-                        element = FactoriesContextProvider.create { Outlet {} }
 
                         Route {
                             path = ""
@@ -76,7 +72,7 @@ val Routing = FC<Props>("Routing") {
                         }
                         Route {
                             path = ":factoryId"
-                            element = FactoryContextProvider.create { FactoryRouteComponent {} }
+                            element = FactoryRouteComponent.create {}
                         }
                     }
                     Route {

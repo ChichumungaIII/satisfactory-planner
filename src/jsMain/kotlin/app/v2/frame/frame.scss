@@ -7,6 +7,10 @@
 
   &__drawer {
     width: $drawer-width;
+
+    &__create-new {
+      padding-left: 32px;
+    }
   }
 
   &__content {
