@@ -25,51 +25,57 @@ import kotlin.random.nextULong
 
 external interface FactoriesComponentProps : Props
 
-val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { props ->
-    val navigate = useNavigate()
-    val factoryService = useContext(FactoryServiceContext)
-    val (_, updateStore) = useContext(FactoryStoreContext)
+val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
     val (factories, updateFactories) = useContext(FactoriesContext)
-
-    var creating by useState(false)
 
     when (factories) {
         is LoadState.Loaded -> when (factories.data.size) {
-            0 -> ZeroStateComponent {
-                Typography {
-                    variant = TypographyVariant.subtitle1
-                    +"It doesn't look like you've made any factories yet."
-                }
-                Button {
-                    className = ClassName("factories__create-button")
-
-                    variant = ButtonVariant.contained
-                    disabled = creating
-                    +"Create a factory"
-
-                    onClick = {
-                        creating = true
-                        AppScope.launch {
-                            val factory = Factory(Random.nextULong(), "New Factory")
-                            updateStore(SetFactory(factoryService.createFactory(factory)))
-                            updateFactories(AddFactory(factory))
-                            navigate("${factory.id}")
-                        }
-                    }
-                }
+            0 -> ZeroFactoriesPlaceholderComponent { }
+            else -> FactoriesListComponent {
+                this.factories = factories.data
             }
-
-            else -> ZeroStateComponent { +"TODO" }
         }
 
         is LoadState.Loading -> ZeroStateComponent { CircularProgress { size = 80; thickness = 4.8 } }
 
         else -> updateFactories(LoadList)
     }
+}
+
+private val ZeroFactoriesPlaceholderComponent = FC<Props>("ZeroFactoriesPlaceholderComponent") { _ ->
+    val navigate = useNavigate()
+    val factoryService = useContext(FactoryServiceContext)
+    val (_, updateStore) = useContext(FactoryStoreContext)
+    val (_, updateFactories) = useContext(FactoriesContext)
+
+    var creating by useState(false)
+
+    ZeroStateComponent {
+        Typography {
+            variant = TypographyVariant.subtitle1
+            +"It doesn't look like you've made any factories yet."
+        }
+        Button {
+            className = ClassName("factories__create-button")
+
+            variant = ButtonVariant.contained
+            disabled = creating
+            +"Create a factory"
+
+            onClick = {
+                creating = true
+                AppScope.launch {
+                    val factory = Factory(Random.nextULong(), "New Factory")
+                    updateStore(SetFactory(factoryService.createFactory(factory)))
+                    updateFactories(AddFactory(factory))
+                    navigate("${factory.id}")
+                }
+            }
+        }
+    }
 
     Backdrop {
         open = creating
-
         CircularProgress { size = 80; thickness = 4.8 }
     }
 }

@@ -6,14 +6,15 @@ import mui.material.Typography
 import react.FC
 import react.Props
 import react.useContext
+import react.useEffectOnce
 
 external interface FactoryComponentProps : Props {
     var factory: Factory
 }
 
 val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
-    var title by useContext(TitleContext)
-    title = props.factory.displayName
+    val (_, setTitle) = useContext(TitleContext)
+    useEffectOnce { setTitle(props.factory.displayName) }
 
     Typography {
         +props.factory.displayName

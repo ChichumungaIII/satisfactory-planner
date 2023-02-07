@@ -16,7 +16,7 @@ import react.useContext
 
 external interface FactoryRouteComponentProps : Props
 
-val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponent") { props ->
+val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponent") { _ ->
     val factoryId = useParams()["factoryId"]!!.toULong()
     val navigate = useNavigate()
     val (factory, updateFactory) = useContext(FactoryContext)

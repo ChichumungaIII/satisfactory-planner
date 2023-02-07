@@ -13,7 +13,7 @@ external interface AppV2Props : Props
 
 val AppScope = MainScope()
 
-val AppV2 = FC<AppV2Props>("AppV2") { props ->
+val AppV2 = FC<AppV2Props>("AppV2") { _ ->
     // Global theme
     ThemeModule {
         // Global data
