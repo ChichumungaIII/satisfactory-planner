@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.8.0"
-    kotlin("plugin.serialization") version "1.8.0"
+    kotlin("multiplatform") version "1.8.10"
+    kotlin("plugin.serialization") version "1.8.10"
     application
 }
 
@@ -26,7 +26,7 @@ kotlin {
 
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "18"
         }
         withJava()
         testRuns["test"].executionTask.configure {
