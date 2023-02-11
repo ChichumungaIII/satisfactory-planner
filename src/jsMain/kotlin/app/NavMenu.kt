@@ -29,7 +29,7 @@ val NavMenu = FC<NavMenuProps>("NavMenu") { props ->
             ).forEach { target ->
                 MenuItem {
                     onClick = {
-                        navigate(target.destination)
+                        navigate.invoke(target.destination)
                         props.close()
                     }
                     ListItemText { +target.title }

@@ -1,6 +1,6 @@
 package app.themes
 
-import kotlinx.js.jso
+import js.core.jso
 import mui.material.styles.createTheme
 
 val DefaultTheme = createTheme(

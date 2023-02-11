@@ -4,15 +4,15 @@ import app.factory.model.FactoryUnit
 import app.factory.model.FactoryUnitArray
 import app.factory.selectunit.SelectUnitSpeedDial
 import app.factory.unit.factoryUnit
-import kotlinx.js.jso
+import js.core.jso
 import mui.material.FormControlVariant
 import mui.material.TextField
 import react.FC
 import react.Props
 import react.ReactNode
-import react.dom.html.InputMode
 import react.dom.onChange
 import react.useState
+import web.html.InputMode
 
 external interface ArrayModuleProps : Props {
     var array: FactoryUnitArray

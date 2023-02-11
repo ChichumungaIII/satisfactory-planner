@@ -39,7 +39,7 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
                     }
 
                     onClick = {
-                        navigate("${factory.id}")
+                        navigate.invoke("${factory.id}")
                     }
                 }
             }

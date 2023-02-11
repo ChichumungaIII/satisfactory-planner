@@ -3,6 +3,7 @@ package app.v2.factory
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.LoadState
 import csstype.ClassName
+import js.core.get
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.CircularProgress
@@ -35,7 +36,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
                 variant = ButtonVariant.contained
                 +"Factory List"
 
-                onClick = { navigate("..") }
+                onClick = { navigate.invoke("..") }
             }
         }
 

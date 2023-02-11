@@ -8,10 +8,10 @@ import mui.material.Divider
 import mui.material.Menu
 import mui.material.MenuItem
 import mui.material.PopoverOrigin
-import org.w3c.dom.Element
 import react.FC
 import react.Props
 import react.useState
+import web.dom.Element
 
 external interface FactoryUnitComponentMenuProps : Props {
     var unit: FactoryUnit

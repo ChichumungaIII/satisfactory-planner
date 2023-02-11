@@ -7,13 +7,17 @@ import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
 import csstype.ClassName
 import mui.icons.material.MoreVert
-import mui.material.*
+import mui.material.Accordion
+import mui.material.AccordionDetails
+import mui.material.AccordionSummary
+import mui.material.IconButton
+import mui.material.Typography
 import mui.material.styles.TypographyVariant
-import org.w3c.dom.Element
 import react.FC
 import react.PropsWithChildren
 import react.create
 import react.useState
+import web.dom.Element
 
 external interface FactoryUnitComponentProps : PropsWithChildren {
     var unit: FactoryUnit

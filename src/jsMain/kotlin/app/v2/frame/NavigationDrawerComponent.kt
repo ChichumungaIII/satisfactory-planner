@@ -8,8 +8,8 @@ import app.v2.data.SetFactory
 import app.v2.factories.AddFactory
 import app.v2.factories.FactoriesContext
 import csstype.ClassName
+import js.core.jso
 import kotlinx.coroutines.launch
-import kotlinx.js.jso
 import mui.icons.material.AccountTree
 import mui.icons.material.Add
 import mui.icons.material.Factory
@@ -60,7 +60,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
                     ListItemIcon { Factory {} }
                     ListItemText { +"All Factories" }
 
-                    onClick = { navigate(AppRoutes.FACTORIES.segment) }
+                    onClick = { navigate.invoke(AppRoutes.FACTORIES.segment) }
                 }
             }
 
@@ -98,7 +98,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
                     ListItemIcon { AccountTree {} }
                     ListItemText { +"All Plans" }
 
-                    onClick = { navigate(AppRoutes.PLANS.segment) }
+                    onClick = { navigate.invoke(AppRoutes.PLANS.segment) }
                 }
             }
         }

@@ -6,9 +6,9 @@ import csstype.ClassName
 import mui.material.Menu
 import mui.material.MenuItem
 import mui.material.PopoverOrigin
-import org.w3c.dom.Element
 import react.FC
 import react.Props
+import web.dom.Element
 
 external interface SelectGeneratorMenuProps : Props {
     var parent: Element?
