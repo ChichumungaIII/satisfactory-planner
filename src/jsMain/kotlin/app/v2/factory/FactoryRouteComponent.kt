@@ -23,7 +23,11 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
     val (factory, updateFactory) = useContext(FactoryContext)
 
     when (factory) {
-        is LoadState.Loaded -> FactoryComponent { this.factory = factory.data }
+        is LoadState.Loaded -> FactoryComponent {
+            this.factory = factory.data
+            setFactory = { next -> updateFactory(SaveFactory(next)) }
+        }
+
         is LoadState.Loading -> ZeroStateComponent { CircularProgress {} }
         is LoadState.Failure -> ZeroStateComponent {
             Typography {
