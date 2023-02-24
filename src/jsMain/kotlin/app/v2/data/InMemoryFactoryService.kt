@@ -24,6 +24,10 @@ class InMemoryFactoryService : FactoryService {
         return factory.also { lag() }
     }
 
+    override suspend fun deleteFactory(id: ULong) {
+        factories.retainAll { it.id != id }.also { lag() }
+    }
+
     override suspend fun listFactories() = factories.toList().also { lag() }
 
     private suspend fun lag() = delay(Random.nextInt(750, 3500).milliseconds)

@@ -14,6 +14,7 @@ import react.FC
 import react.Props
 import react.create
 import react.router.useNavigate
+import react.useContext
 
 external interface FactoriesListComponentProps : Props {
     var factories: List<Factory>
@@ -21,6 +22,7 @@ external interface FactoriesListComponentProps : Props {
 
 val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListComponent") { props ->
     val navigate = useNavigate()
+    val (_, updateFactories) = useContext(FactoriesContext)
 
     mui.material.List {
         props.factories.forEach { factory ->
@@ -28,6 +30,8 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
                 disablePadding = true
                 secondaryAction = IconButton.create {
                     Delete {}
+
+                    onClick = { updateFactories(DeleteFactory(factory.id)) }
                 }
 
                 ListItemButton {

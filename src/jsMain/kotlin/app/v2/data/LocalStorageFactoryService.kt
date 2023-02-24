@@ -12,12 +12,17 @@ class LocalStorageFactoryService : FactoryService {
     private val IDS_STORAGE = "//satisfactory.chichumunga.com/factories"
 
     private val ids: MutableList<ULong> by lazy {
-        window.localStorage.getItem(IDS_STORAGE)?.split(",")?.map { it.toULong() }?.toMutableList() ?: mutableListOf()
+        window.localStorage.getItem(IDS_STORAGE)
+            ?.takeUnless { it.isBlank() }
+            ?.split(",")
+            ?.map { it.toULong() }
+            ?.toMutableList()
+            ?: mutableListOf()
     }
 
     override suspend fun createFactory(factory: Factory) = updateFactory(factory).also {
         ids.add(factory.id)
-        window.localStorage.setItem(IDS_STORAGE, ids.joinToString(","))
+        writeIds()
     }
 
     override suspend fun getFactory(id: ULong): Factory =
@@ -28,7 +33,16 @@ class LocalStorageFactoryService : FactoryService {
         window.localStorage.setItem(storageName(factory.id), AppJson.encodeToString(factory))
     }
 
+    override suspend fun deleteFactory(id: ULong) {
+        ids.remove(id)
+        writeIds()
+    }
+
     override suspend fun listFactories() = ids.map { getFactory(it) }
+
+    private fun writeIds() {
+        window.localStorage.setItem(IDS_STORAGE, ids.joinToString(","))
+    }
 
     private fun storageName(id: ULong) = "//satisfactory.chichumunga.com/factories/$id"
     private suspend fun lag() = delay(Random.nextInt(250, 1000).milliseconds)
