@@ -1,7 +1,7 @@
 package app.v2
 
 import app.themes.ThemeModule
-import app.v2.data.FactoryServiceContextProvider
+import app.v2.data.service.FactoryServiceContextProvider
 import app.v2.data.FactoryStoreContextProvider
 import app.v2.factories.FactoriesContextProvider
 import app.v2.factory.FactoryContextProvider

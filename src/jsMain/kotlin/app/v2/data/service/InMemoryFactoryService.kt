@@ -1,5 +1,6 @@
-package app.v2.data
+package app.v2.data.service
 
+import app.v2.data.Factory
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds

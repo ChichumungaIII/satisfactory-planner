@@ -1,6 +1,7 @@
-package app.v2.data
+package app.v2.data.service
 
 import app.serialization.AppJson
+import app.v2.data.Factory
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.serialization.decodeFromString

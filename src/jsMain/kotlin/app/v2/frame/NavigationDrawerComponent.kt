@@ -2,7 +2,7 @@ package app.v2.frame
 
 import app.AppRoutes
 import app.v2.AppScope
-import app.v2.data.FactoryServiceContext
+import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.SetFactory
 import app.v2.factories.AddFactory

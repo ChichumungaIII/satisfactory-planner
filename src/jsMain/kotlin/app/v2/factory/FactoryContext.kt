@@ -2,7 +2,7 @@ package app.v2.factory
 
 import app.v2.AppScope
 import app.v2.data.Factory
-import app.v2.data.FactoryServiceContext
+import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
