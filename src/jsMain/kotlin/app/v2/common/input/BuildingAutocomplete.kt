@@ -15,7 +15,7 @@ val BUILDINGS: List<Building> = (Manufacturer.values() + Generator.values() + Ex
 val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete") { props ->
     var model by PropsDelegate(props.model, props.setModel)
 
-    @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<BuildingAutocompleteOption>> {
+    @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<Building>> {
         renderInput = { params ->
             TextField.create {
                 +params
@@ -24,23 +24,15 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
         }
         size = "small"
 
-        options = BUILDINGS.map { BuildingAutocompleteOption(it) }.toTypedArray()
+        options = BUILDINGS.toTypedArray()
+        getOptionLabel = { it.displayName }
 
-        value = model?.let { BuildingAutocompleteOption(it) }
-        isOptionEqualToValue = { x, y -> x.data == y.data }
-        onChange = { _, next: BuildingAutocompleteOption?, _, _ -> model = next?.data }
+        groupBy = { it::class.simpleName ?: throw Error("Building [$it] does not have a class.") }
+
+        value = model
+        onChange = { _, next: Building?, _, _ -> model = next }
 
         autoHighlight = true
-        autoSelect = true
+        filterSelectedOptions = true
     }
-}
-
-private external interface BuildingAutocompleteOption {
-    val label: String
-    val data: Building
-}
-
-private fun BuildingAutocompleteOption(building: Building) = object : BuildingAutocompleteOption {
-    override val label = building.displayName
-    override val data = building
 }

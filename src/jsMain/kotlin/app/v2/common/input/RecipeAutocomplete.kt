@@ -21,7 +21,7 @@ external interface RecipeAutocompleteProps : Props {
 val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { props ->
     var model by PropsDelegate(props.model, props.setModel)
 
-    @Suppress("UPPER_BOUND_VIOLATED") (Autocomplete<AutocompleteProps<RecipeAutocompleteOption>> {
+    @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<RecipeAutocompleteOption>> {
         renderInput = { params ->
             TextField.create {
                 +params
@@ -30,26 +30,28 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
         }
         size = "small"
 
-        options = (props.building?.let { listOf(it) } ?: BUILDINGS)
-            .flatMap { it.recipes }
-            .map { RecipeAutocompleteOption(it) }
+        options = (props.building?.let { listOf(it) }
+            ?: BUILDINGS).flatMap { building -> building.recipes.map { RecipeAutocompleteOption(it, building) } }
             .toTypedArray()
+        getOptionLabel = { it.recipe.displayName }
 
-        value = model?.let { RecipeAutocompleteOption(it) }
-        isOptionEqualToValue = { x, y -> x.data == y.data }
-        onChange = { _, next: RecipeAutocompleteOption?, _, _ -> model = next?.data }
+        groupBy = { it.building?.displayName ?: "Selected" }
+
+        value = model?.let { RecipeAutocompleteOption(it, null) }
+        isOptionEqualToValue = { x, y -> x.recipe == y.recipe }
+        onChange = { _, next: RecipeAutocompleteOption?, _, _ -> model = next?.recipe }
 
         autoHighlight = true
-        autoSelect = true
-    })
+        filterSelectedOptions = true
+    }
 }
 
 private external interface RecipeAutocompleteOption {
-    val label: String
-    val data: Recipe
+    val recipe: Recipe
+    val building: Building?
 }
 
-private fun RecipeAutocompleteOption(building: Recipe) = object : RecipeAutocompleteOption {
-    override val label = building.displayName
-    override val data = building
+private fun RecipeAutocompleteOption(recipe: Recipe, building: Building?) = object : RecipeAutocompleteOption {
+    override val recipe = recipe
+    override val building = building
 }
