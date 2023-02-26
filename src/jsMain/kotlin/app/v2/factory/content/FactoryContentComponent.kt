@@ -18,8 +18,7 @@ val FactoryContentComponent = FC<FactoryContentComponentProps>("FactoryContentCo
         when (node) {
             is FactoryLeaf -> FactoryBuildingComponent {
                 settings = node
-
-                setBuilding = { next -> content = content.setNode(0, node.copy(building = next)) }
+                setSettings = { next -> content = content.setNode(0, next) }
             }
 
 

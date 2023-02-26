@@ -1,29 +1,41 @@
 package app.v2.factory.content
 
-import app.data.building.Building
-import app.data.recipe.Recipe
 import app.util.PropsDelegate
+import app.v2.common.input.BUILDINGS
 import app.v2.common.input.BuildingAutocomplete
+import app.v2.common.input.RecipeAutocomplete
 import app.v2.data.FactoryLeaf
 import react.FC
 import react.Props
-import util.math.Rational
 
 external interface FactoryBuildingComponentProps : Props {
     var settings: FactoryLeaf
-
-    var setBuilding: (Building?) -> Unit
-    var setRecipe: (Recipe?) -> Unit
-    var setClock: (Rational) -> Unit
+    var setSettings: (FactoryLeaf) -> Unit
 }
 
 val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildingComponent") { props ->
-    var building by PropsDelegate(props.settings.building, props.setBuilding)
-    var recipe by PropsDelegate(props.settings.recipe, props.setRecipe)
-    var clock by PropsDelegate(props.settings.clock, props.setClock)
+    var settings by PropsDelegate(props.settings, props.setSettings)
+    val (building, recipe, clock) = settings
 
     BuildingAutocomplete {
         model = building
-        setModel = { next -> building = next }
+        setModel = { next ->
+            settings = settings.copy(
+                building = next,
+                recipe = next?.let { new -> recipe?.takeIf { new.recipes.contains(it) } })
+        }
+    }
+
+    RecipeAutocomplete {
+        model = recipe
+        setModel = { next ->
+            settings = settings.copy(
+                recipe = next,
+                building = building ?: next?.let {
+                    BUILDINGS.associateWith { it.recipes }.filterValues { it.contains(next) }.keys.singleOrNull()
+                })
+        }
+
+        this.building = building
     }
 }

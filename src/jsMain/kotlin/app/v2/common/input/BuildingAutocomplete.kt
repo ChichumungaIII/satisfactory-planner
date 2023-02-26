@@ -10,6 +10,8 @@ external interface BuildingAutocompleteProps : Props {
     var setModel: (Building?) -> Unit
 }
 
+val BUILDINGS: List<Building> = (Manufacturer.values() + Generator.values() + Extractor.values()).toList()
+
 val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete") { props ->
     var model by PropsDelegate(props.model, props.setModel)
 
@@ -20,14 +22,16 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
                 label = ReactNode("Building")
             }
         }
+        size = "small"
 
-        options = (Manufacturer.values() + Generator.values() + Extractor.values())
-            .map { BuildingAutocompleteOption(it) }
-            .toTypedArray()
+        options = BUILDINGS.map { BuildingAutocompleteOption(it) }.toTypedArray()
 
         value = model?.let { BuildingAutocompleteOption(it) }
         isOptionEqualToValue = { x, y -> x.data == y.data }
-        onChange = { _, next: BuildingAutocompleteOption, _, _ -> model = next.data }
+        onChange = { _, next: BuildingAutocompleteOption?, _, _ -> model = next?.data }
+
+        autoHighlight = true
+        autoSelect = true
     }
 }
 
