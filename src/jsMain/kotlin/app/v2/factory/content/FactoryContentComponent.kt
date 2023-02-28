@@ -3,6 +3,8 @@ package app.v2.factory.content
 import app.util.PropsDelegate
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
+import mui.icons.material.Add
+import mui.material.*
 import react.FC
 import react.Props
 
@@ -11,22 +13,35 @@ external interface FactoryContentComponentProps : Props {
     var setContent: (FactoryTree) -> Unit
 }
 
-val FactoryContentComponent = FC<FactoryContentComponentProps>("FactoryContentComponent") { props ->
+val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
     var content by PropsDelegate(props.content, props.setContent)
 
-    content.nodes.singleOrNull()?.let { node ->
-        when (node) {
-            is FactoryLeaf -> FactoryBuildingComponent {
-                settings = node
-                setSettings = { next -> content = content.setNode(0, next) }
+    Box {
+        content.nodes.withIndex().forEach { (index, node) ->
+            when (node) {
+                is FactoryTree -> RecursiveFactoryContentComponent {
+                    this.content = node
+                    this.setContent = { next -> content = content.setNode(index, next) }
+                }
+
+                is FactoryLeaf -> FactoryBuildingComponent {
+                    settings = node
+                    setSettings = { next -> content = content.setNode(index, next) }
+                }
             }
 
-
-            is FactoryTree -> {
-                TODO("Handle nontrivial factory trees.")
-            }
+            Divider {}
         }
-    } ?: run {
-        TODO("Handle multiple content nodes.")
+
+        Fab {
+            color = FabColor.primary
+            size = Size.small
+            Add { fontSize = SvgIconSize.medium }
+
+            onClick = { content = content.addNode(FactoryLeaf()) }
+        }
     }
 }
+val RecursiveFactoryContentComponent = FactoryContentComponent
+
+

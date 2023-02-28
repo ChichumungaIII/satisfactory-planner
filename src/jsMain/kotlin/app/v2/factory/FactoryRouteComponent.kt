@@ -14,6 +14,7 @@ import react.Props
 import react.router.useNavigate
 import react.router.useParams
 import react.useContext
+import react.useEffectOnce
 
 external interface FactoryRouteComponentProps : Props
 
@@ -21,6 +22,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
     val factoryId = useParams()["factoryId"]!!.toULong()
     val navigate = useNavigate()
     val (factory, updateFactory) = useContext(FactoryContext)
+    useEffectOnce { updateFactory(SetFactoryId(factoryId)) }
 
     when (factory) {
         is LoadState.Loaded -> FactoryComponent {
@@ -43,7 +45,5 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
                 onClick = { navigate.invoke("..") }
             }
         }
-
-        else -> updateFactory(SetFactoryId(factoryId))
     }
 }
