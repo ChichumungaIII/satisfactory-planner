@@ -3,6 +3,7 @@ package app.v2.common.input
 import app.data.building.Building
 import app.data.recipe.Recipe
 import app.util.PropsDelegate
+import csstype.ClassName
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
 import mui.material.TextField
@@ -22,6 +23,8 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
     var model by PropsDelegate(props.model, props.setModel)
 
     @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<RecipeAutocompleteOption>> {
+        className = ClassName("recipe-autocomplete")
+
         renderInput = { params ->
             TextField.create {
                 +params

@@ -12,7 +12,11 @@
 @import 'plan/plan-product';
 
 // v2
+@import 'v2/common/input/building-autocomplete';
+@import 'v2/common/input/recipe-autocomplete';
 @import 'v2/common/layout/zero-state';
 @import 'v2/factories/factories';
+@import 'v2/factory/content/factory-building';
+@import 'v2/factory/content/factory-content';
 @import 'v2/factory/factory-route';
 @import 'v2/frame/frame';

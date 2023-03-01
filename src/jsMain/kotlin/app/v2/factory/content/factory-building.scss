@@ -1,0 +1,11 @@
+.factory-building {
+  padding: 4px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  & > *:not(:first-child) {
+    margin-left: 6px;
+  }
+}

@@ -2,6 +2,7 @@ package app.v2.common.input
 
 import app.data.building.*
 import app.util.PropsDelegate
+import csstype.ClassName
 import mui.material.*
 import react.*
 
@@ -16,6 +17,8 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
     var model by PropsDelegate(props.model, props.setModel)
 
     @Suppress("UPPER_BOUND_VIOLATED") Autocomplete<AutocompleteProps<Building>> {
+        className = ClassName("building-autocomplete")
+
         renderInput = { params ->
             TextField.create {
                 +params

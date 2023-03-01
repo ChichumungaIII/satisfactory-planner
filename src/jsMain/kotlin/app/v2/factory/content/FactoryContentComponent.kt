@@ -3,6 +3,7 @@ package app.v2.factory.content
 import app.util.PropsDelegate
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
+import csstype.ClassName
 import mui.icons.material.Add
 import mui.material.*
 import react.FC
@@ -16,7 +17,12 @@ external interface FactoryContentComponentProps : Props {
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
     var content by PropsDelegate(props.content, props.setContent)
 
-    Box {
+    Card {
+        className = ClassName("factory-content")
+
+        variant = PaperVariant.outlined
+        elevation = 2
+
         content.nodes.withIndex().forEach { (index, node) ->
             when (node) {
                 is FactoryTree -> RecursiveFactoryContentComponent {
@@ -29,11 +35,11 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                     setSettings = { next -> content = content.setNode(index, next) }
                 }
             }
-
-            Divider {}
         }
 
         Fab {
+            className = ClassName("add-building")
+
             color = FabColor.primary
             size = Size.small
             Add { fontSize = SvgIconSize.medium }
