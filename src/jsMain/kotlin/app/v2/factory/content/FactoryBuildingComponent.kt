@@ -3,6 +3,7 @@ package app.v2.factory.content
 import app.util.PropsDelegate
 import app.v2.common.input.BUILDINGS
 import app.v2.common.input.BuildingAutocomplete
+import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.RecipeAutocomplete
 import app.v2.data.FactoryLeaf
 import csstype.ClassName
@@ -42,6 +43,11 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
             }
 
             this.building = building
+        }
+
+        ClockSpeedInput {
+            model = clock
+            setModel = { next -> settings = settings.copy(clock = next) }
         }
     }
 }

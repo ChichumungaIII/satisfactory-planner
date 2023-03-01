@@ -1,16 +1,14 @@
 package app.common
 
 import app.util.PropsDelegate
+import csstype.Length
 import csstype.Margin
 import csstype.px
-import mui.material.FormControlVariant
-import mui.material.TextField
+import js.core.jso
+import mui.material.*
 import mui.system.sx
-import react.FC
-import react.PropsWithClassName
-import react.ReactNode
+import react.*
 import react.dom.onChange
-import react.useState
 import util.math.Rational
 
 external interface RationalInputProps : PropsWithClassName {
@@ -24,6 +22,11 @@ external interface RationalInputProps : PropsWithClassName {
 
     var validators: List<(Rational) -> RationalValidation>
     var onBlur: (() -> Unit)?
+
+    var size: BaseSize?
+    var width: (() -> Length?)?
+    var adornment: String?
+    var errorSpacer: Length?
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
@@ -36,8 +39,14 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
     TextField {
         className = props.className
         sx {
-            width = 256.px
-            margin = Margin(0.px, 6.px, if (error) 0.px else (22.91).px, 6.px)
+            (props.width ?: { 256.px }).invoke()?.also { width = it }
+            margin = Margin(0.px, 6.px, if (error) 0.px else (props.errorSpacer ?: (22.91).px), 6.px)
+        }
+        size = props.size
+        props.adornment?.also { adornment ->
+            this.unsafeCast<OutlinedTextFieldProps>().InputProps = jso {
+                this.endAdornment = InputAdornment.create { +adornment }
+            }
         }
 
         variant = FormControlVariant.outlined
@@ -79,8 +88,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
 }
 
 data class RationalValidation(
-    val error: Boolean,
-    val message: String?
+    val error: Boolean, val message: String?
 ) {
     companion object {
         private val PASS = RationalValidation(false, null)

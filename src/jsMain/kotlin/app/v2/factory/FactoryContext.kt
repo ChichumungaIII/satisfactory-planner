@@ -6,6 +6,7 @@ import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
 import app.v2.data.service.FactoryServiceContext
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import react.*
 
@@ -16,9 +17,22 @@ private data class SetState(val state: LoadState<ULong, Factory>) : FactoryConte
 
 val FactoryContext = createContext<ReducerInstance<LoadState<ULong, Factory>, FactoryContextAction>>()
 
+private var factoryToSave: Factory? = null
+
 val FactoryContextProvider = FC<PropsWithChildren> { props ->
     val factoryService = useContext(FactoryServiceContext)
     val (store, updateStore) = useContext(FactoryStoreContext)
+
+    fun debouncedSaveFactory(factory: Factory) {
+        factoryToSave = factory
+        AppScope.launch {
+            delay(100)
+            if (factory == factoryToSave) {
+                updateStore(SetFactory(factory))
+                factoryService.updateFactory(factory)
+            }
+        }
+    }
 
     val factoryContext = useReducer<LoadState<ULong, Factory>, FactoryContextAction>(
         { state, action ->
@@ -32,10 +46,7 @@ val FactoryContextProvider = FC<PropsWithChildren> { props ->
 
                 is SaveFactory -> {
                     val factory = action.factory
-                    AppScope.launch {
-                        updateStore(SetFactory(factory))
-                        factoryService.updateFactory(factory)
-                    }
+                    debouncedSaveFactory(factory)
 
                     if (state.id == factory.id) LoadState.loaded(factory.id, factory)
                     else state
