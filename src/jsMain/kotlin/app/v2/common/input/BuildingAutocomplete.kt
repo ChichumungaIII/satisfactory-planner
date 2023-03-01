@@ -35,7 +35,10 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
         value = model
         onChange = { _, next: Building?, _, _ -> model = next }
 
+        autoComplete = true
         autoHighlight = true
+        autoSelect = true
+        clearOnEscape = true
         filterSelectedOptions = true
     }
 }

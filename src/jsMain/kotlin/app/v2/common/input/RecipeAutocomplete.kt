@@ -44,7 +44,10 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
         isOptionEqualToValue = { x, y -> x.recipe == y.recipe }
         onChange = { _, next: RecipeAutocompleteOption?, _, _ -> model = next?.recipe }
 
+        autoComplete = true
         autoHighlight = true
+        autoSelect = true
+        clearOnEscape = true
         filterSelectedOptions = true
     }
 }
