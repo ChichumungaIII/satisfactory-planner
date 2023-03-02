@@ -5,6 +5,8 @@ import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
 import csstype.ClassName
 import mui.icons.material.Add
+import mui.icons.material.ArrowDropDown
+import mui.icons.material.ArrowDropUp
 import mui.material.*
 import react.FC
 import react.Props
@@ -24,21 +26,53 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
         elevation = 2
 
         content.nodes.withIndex().forEach { (index, node) ->
-            when (node) {
-                is FactoryTree -> RecursiveFactoryContentComponent {
-                    this.content = node
-                    this.setContent = { next -> content = content.setNode(index, next) }
+            Box {
+                className = ClassName("factory-content__item")
+
+                Box {
+                    className = ClassName("factory-content__item__controls")
+
+                    IconButton {
+                        className = ClassName("factory-content__item__controls__button")
+
+                        size = Size.small
+                        ArrowDropUp { fontSize = SvgIconSize.small }
+
+                        disabled = index == 0
+                        onClick = {
+                            content = content.splice(index - 1, 2, content.nodes[index], content.nodes[index - 1])
+                        }
+                    }
+
+                    IconButton {
+                        className = ClassName("factory-content__item__controls__button")
+
+                        size = Size.small
+                        ArrowDropDown { fontSize = SvgIconSize.small }
+
+                        disabled = index == content.nodes.size - 1
+                        onClick = {
+                            content = content.splice(index, 2, content.nodes[index + 1], content.nodes[index])
+                        }
+                    }
                 }
 
-                is FactoryLeaf -> FactoryBuildingComponent {
-                    settings = node
-                    setSettings = { next -> content = content.setNode(index, next) }
+                when (node) {
+                    is FactoryTree -> RecursiveFactoryContentComponent {
+                        this.content = node
+                        this.setContent = { next -> content = content.setNode(index, next) }
+                    }
+
+                    is FactoryLeaf -> FactoryBuildingComponent {
+                        settings = node
+                        setSettings = { next -> content = content.setNode(index, next) }
+                    }
                 }
             }
         }
 
         Fab {
-            className = ClassName("add-building")
+            className = ClassName("factory-content__add-building")
 
             color = FabColor.primary
             size = Size.small

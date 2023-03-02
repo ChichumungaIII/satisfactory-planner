@@ -16,6 +16,9 @@ data class FactoryTree(
 
     fun setNode(i: Int, node: FactoryNode) =
         copy(nodes = nodes.subList(0, i) + node + nodes.subList(i + 1, nodes.size))
+
+    fun splice(i: Int, length: Int = 0, vararg insert: FactoryNode) =
+        copy(nodes = nodes.subList(0, i) + insert + nodes.subList(i + length, nodes.size))
 }
 
 @Serializable

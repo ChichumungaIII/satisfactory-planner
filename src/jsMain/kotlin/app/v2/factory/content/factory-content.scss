@@ -2,7 +2,21 @@
   margin: 4px;
   padding: 4px;
 
-  .add-building {
-    margin: 4px;
+  &__item {
+    display: flex;
+    align-items: center;
+
+    &__controls {
+      display: flex;
+      flex-direction: column;
+
+      &__button {
+        padding: 0;
+      }
+    }
+  }
+
+  &__add-building {
+    margin: 4px 4px 4px 24px;
   }
 }

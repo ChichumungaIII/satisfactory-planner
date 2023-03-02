@@ -4,16 +4,10 @@ import app.common.RationalInput
 import app.common.RationalValidation.Companion.fail
 import app.common.RationalValidation.Companion.pass
 import app.util.PropsDelegate
-import app.v2.AppScope
 import csstype.ClassName
 import csstype.px
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import mui.material.Size
-import react.FC
-import react.Props
-import react.ReactNode
-import react.useState
+import react.*
 import util.math.Rational
 import util.math.q
 
@@ -24,8 +18,13 @@ external interface ClockSpeedInputProps : Props {
 
 val ClockSpeedInput = FC<ClockSpeedInputProps>("ClockSpeedInput") { props ->
     var model by PropsDelegate(props.model, props.setModel)
-
     var text by useState((model * 100.q).toString())
+
+    useEffect(model) {
+        (model * 100.q).takeUnless { it == Rational.parse(text) }
+            ?.let { it.toString() }
+            ?.also { text = it }
+    }
 
     RationalInput {
         className = ClassName("clock-speed-input")
