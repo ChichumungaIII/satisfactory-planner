@@ -28,7 +28,7 @@ class LocalStorageFactoryService : FactoryService {
 
     override suspend fun getFactory(id: ULong): Factory =
         window.localStorage.getItem(storageName(id))?.also { lag() }?.let { AppJson.decodeFromString(it) }
-            ?: throw Error("Factory [factories/$id] was not found.")
+            ?: throw IllegalArgumentException("Factory [factories/$id] was not found.")
 
     override suspend fun updateFactory(factory: Factory) = factory.also { lag() }.also {
         window.localStorage.setItem(storageName(factory.id), AppJson.encodeToString(factory))

@@ -10,7 +10,7 @@ class InMemoryFactoryService : FactoryService {
 
     override suspend fun createFactory(factory: Factory): Factory {
         // Simulate RPC latency.
-        check(factories.none { it.id == factory.id }) { "Factory #${factory.id} already exists." }
+        require(factories.none { it.id == factory.id }) { "Factory #${factory.id} already exists." }
         factories.add(factory)
         return factory.also { lag() }
     }
