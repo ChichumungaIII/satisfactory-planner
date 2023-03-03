@@ -10,10 +10,7 @@ import app.v2.data.FactoryNode
 import app.v2.data.FactoryTree
 import csstype.ClassName
 import csstype.px
-import mui.icons.material.ArrowForward
-import mui.icons.material.ExpandLess
-import mui.icons.material.ExpandMore
-import mui.icons.material.Segment
+import mui.icons.material.*
 import mui.material.*
 import react.FC
 import react.Props
@@ -34,6 +31,31 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
 
         Box {
             className = ClassName("factory-building__settings")
+
+            Tooltip {
+                className = ClassName("factory-building__action")
+                title = ReactNode("Repeat")
+
+                IconButton {
+                    color = IconButtonColor.default
+                    size = Size.small
+                    (if (count == null) Repeat else RepeatOn) {
+                        fontSize = SvgIconSize.medium
+                    }
+
+                    onClick = {
+                        val next = if (count == null) 1.toUInt() else null
+                        settings = settings.copy(count = next)
+                    }
+                }
+            }
+
+            count?.also {
+                CountInput {
+                    model = it
+                    setModel = { next -> settings = settings.copy(count = next)}
+                }
+            }
 
             BuildingAutocomplete {
                 model = building

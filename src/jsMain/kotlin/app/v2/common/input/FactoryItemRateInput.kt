@@ -27,7 +27,7 @@ val FactoryItemRateInput = FC<FactoryItemRateInputProps>("FactoryItemRateInput")
 
     var text by useState(convertIn(clock).toString())
 
-    useEffect(clock, props.count, props.rate) {
+    useEffect(clock, props.count?.toInt(), props.rate) {
         convertIn(clock)
             .takeUnless { it == Rational.parse(text) }
             ?.also { text = it.toString() }
@@ -40,6 +40,8 @@ val FactoryItemRateInput = FC<FactoryItemRateInputProps>("FactoryItemRateInput")
 
         this.text = text
         setText = { next -> text = next }
+
+        disabled = props.count == 0.toUInt()
 
         validators = listOf { value ->
             value.takeIf { it < 0.q }

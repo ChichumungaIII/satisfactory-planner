@@ -20,6 +20,8 @@ external interface RationalInputProps : PropsWithClassName {
     var text: String?
     var setText: ((String) -> Unit)?
 
+    var disabled: Boolean?
+
     var validators: List<(Rational) -> RationalValidation>
     var onBlur: (() -> Unit)?
 
@@ -52,6 +54,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
         variant = FormControlVariant.outlined
         props.label?.let { label = it }
 
+        disabled = props.disabled
         this.error = error
         if (error) errorMessage?.let { helperText = ReactNode(it) }
 
