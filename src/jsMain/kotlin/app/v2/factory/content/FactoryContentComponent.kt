@@ -35,7 +35,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 className = ClassName("factory-content__item")
 
                 Tooltip {
-                    title = ReactNode("Delete Child")
+                    title = ReactNode("Delete")
 
                     IconButton {
                         color = IconButtonColor.default

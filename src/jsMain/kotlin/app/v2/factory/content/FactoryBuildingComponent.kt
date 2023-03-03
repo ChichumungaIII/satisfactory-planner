@@ -40,7 +40,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
                     color = IconButtonColor.default
                     size = Size.small
                     (if (count == null) Repeat else RepeatOn) {
-                        fontSize = SvgIconSize.medium
+                        fontSize = SvgIconSize.small
                     }
 
                     onClick = {
