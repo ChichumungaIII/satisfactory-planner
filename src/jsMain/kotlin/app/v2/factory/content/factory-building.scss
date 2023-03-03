@@ -1,15 +1,35 @@
 .factory-building {
+  $spacing: 6px;
+
   padding: 4px;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  &__settings {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 
-  & > *:not(:first-child) {
-    margin-left: 6px;
+    & > *:not(:first-child) {
+      margin-left: $spacing;
+    }
   }
 
   &__action {
     width: 40px;
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+
+    padding: $spacing 20px;
+  }
+
+  &__item-details {
+    display: flex;
+    align-items: center;
+  }
+
+  &__recipe-divider {
+    margin: $spacing
   }
 }

@@ -22,15 +22,13 @@ val ClockSpeedInput = FC<ClockSpeedInputProps>("ClockSpeedInput") { props ->
 
     useEffect(model) {
         (model * 100.q).takeUnless { it == Rational.parse(text) }
-            ?.let { it.toString() }
-            ?.also { text = it }
+            ?.also { text = it.toString() }
     }
 
     RationalInput {
         className = ClassName("clock-speed-input")
         label = ReactNode("Clock Speed")
 
-        value = model
         setValue = { next -> next?.let { model = it / 100.q } }
 
         this.text = text
@@ -49,7 +47,6 @@ val ClockSpeedInput = FC<ClockSpeedInputProps>("ClockSpeedInput") { props ->
         onBlur = {
             if (text.isEmpty()) {
                 model = 0.q
-                text = "0"
             }
         }
 

@@ -23,12 +23,12 @@ data class FactoryTree(
 
 @Serializable
 data class FactoryLeaf(
+    val count: UInt? = null,
     val building: Building? = null,
     val recipe: Recipe? = null,
     val clock: Rational = 1.q,
-    val count: UInt? = null,
-) : FactoryNode {
-}
+    val details: Boolean = false,
+) : FactoryNode
 
 @Serializable
 sealed interface FactoryNode {}
