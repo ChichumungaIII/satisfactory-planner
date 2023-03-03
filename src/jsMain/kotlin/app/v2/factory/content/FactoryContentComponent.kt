@@ -4,10 +4,14 @@ import app.util.PropsDelegate
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
 import csstype.ClassName
+import csstype.Margin
+import csstype.px
 import mui.icons.material.Add
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
+import mui.icons.material.Clear
 import mui.material.*
+import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
@@ -29,6 +33,20 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
         content.nodes.withIndex().forEach { (index, node) ->
             Box {
                 className = ClassName("factory-content__item")
+
+                Tooltip {
+                    title = ReactNode("Delete Child")
+
+                    IconButton {
+                        color = IconButtonColor.default
+                        size = Size.small
+                        Clear { fontSize = SvgIconSize.small }
+
+                        onClick = {
+                            content = content.removeNode(index)
+                        }
+                    }
+                }
 
                 Box {
                     className = ClassName("factory-content__item__controls")
@@ -56,6 +74,13 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                             content = content.splice(index, 2, content.nodes[index + 1], content.nodes[index])
                         }
                     }
+                }
+
+                Divider {
+                    sx { margin = Margin(4.px, 0.px, 4.px, 2.px) }
+
+                    orientation = Orientation.vertical
+                    flexItem = true
                 }
 
                 when (node) {

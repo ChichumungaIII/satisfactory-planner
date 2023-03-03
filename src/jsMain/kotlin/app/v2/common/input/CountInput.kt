@@ -5,11 +5,8 @@ import csstype.ClassName
 import mui.material.FormControlVariant
 import mui.material.Size
 import mui.material.TextField
-import react.FC
-import react.Props
-import react.ReactNode
+import react.*
 import react.dom.onChange
-import react.useState
 
 external interface CountInputProps : Props {
     var model: UInt
@@ -20,6 +17,10 @@ val CountInput = FC<CountInputProps>("CountInput") { props ->
     var model by PropsDelegate(props.model, props.setModel)
     var text by useState(model.toString())
     var error by useState(false)
+
+    useEffect(model) {
+        text = model.toString()
+    }
 
     TextField {
         className = ClassName("count-input")
