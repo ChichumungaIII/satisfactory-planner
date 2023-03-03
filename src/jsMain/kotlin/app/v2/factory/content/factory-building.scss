@@ -8,4 +8,8 @@
   & > *:not(:first-child) {
     margin-left: 6px;
   }
+
+  &__action {
+    width: 40px;
+  }
 }

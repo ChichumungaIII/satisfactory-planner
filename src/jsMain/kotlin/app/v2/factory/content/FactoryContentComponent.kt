@@ -10,6 +10,7 @@ import mui.icons.material.ArrowDropUp
 import mui.material.*
 import react.FC
 import react.Props
+import react.ReactNode
 
 external interface FactoryContentComponentProps : Props {
     var content: FactoryTree
@@ -65,23 +66,25 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
                     is FactoryLeaf -> FactoryBuildingComponent {
                         settings = node
-                        setSettings = { next -> content = content.setNode(index, next) }
+                        setNode = { next -> content = content.setNode(index, next) }
                     }
                 }
             }
         }
 
-        Fab {
+        Tooltip {
             className = ClassName("factory-content__add-building")
+            title = ReactNode("Add Building")
 
-            color = FabColor.primary
-            size = Size.small
-            Add { fontSize = SvgIconSize.medium }
+            Fab {
+                color = FabColor.primary
+                size = Size.small
+                Add { fontSize = SvgIconSize.medium }
 
-            onClick = { content = content.addNode(FactoryLeaf()) }
+                onClick = { content = content.addNode(FactoryLeaf()) }
+            }
         }
     }
 }
+
 val RecursiveFactoryContentComponent = FactoryContentComponent
-
-

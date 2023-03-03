@@ -6,18 +6,23 @@ import app.v2.common.input.BuildingAutocomplete
 import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.RecipeAutocomplete
 import app.v2.data.FactoryLeaf
+import app.v2.data.FactoryNode
+import app.v2.data.FactoryTree
 import csstype.ClassName
-import mui.material.Box
+import mui.icons.material.ArrowCircleRightOutlined
+import mui.icons.material.DoubleArrow
+import mui.material.*
 import react.FC
 import react.Props
+import react.ReactNode
 
 external interface FactoryBuildingComponentProps : Props {
     var settings: FactoryLeaf
-    var setSettings: (FactoryLeaf) -> Unit
+    var setNode: (FactoryNode) -> Unit
 }
 
 val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildingComponent") { props ->
-    var settings by PropsDelegate(props.settings, props.setSettings)
+    var settings by PropsDelegate(props.settings, props.setNode)
     val (building, recipe, clock) = settings
 
     Box {
@@ -48,6 +53,19 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         ClockSpeedInput {
             model = clock
             setModel = { next -> settings = settings.copy(clock = next) }
+        }
+
+        Tooltip {
+            className = ClassName("factory-building__action")
+            title = ReactNode("Move Into Group")
+
+            IconButton {
+                color = IconButtonColor.default
+                size = Size.small
+                DoubleArrow {}
+
+                onClick = { props.setNode(FactoryTree(listOf(settings))) }
+            }
         }
     }
 }
