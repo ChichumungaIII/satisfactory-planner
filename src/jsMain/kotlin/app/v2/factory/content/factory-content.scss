@@ -1,6 +1,13 @@
 .factory-content {
   margin: 4px;
-  padding: 4px;
+
+  &__header {
+    margin: 0 0 4px;
+  }
+
+  &__card {
+    padding: 4px;
+  }
 
   &__item {
     display: flex;

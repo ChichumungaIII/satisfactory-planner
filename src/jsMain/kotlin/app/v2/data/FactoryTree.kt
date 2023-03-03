@@ -8,8 +8,9 @@ import util.math.q
 
 @Serializable
 data class FactoryTree(
-    val nodes: List<FactoryNode> = listOf(FactoryLeaf()),
+    val title: String? = null,
     val count: UInt? = null,
+    val nodes: List<FactoryNode> = listOf(FactoryLeaf()),
 ) : FactoryNode {
     fun addNode(node: FactoryNode) =
         copy(nodes = nodes + node)

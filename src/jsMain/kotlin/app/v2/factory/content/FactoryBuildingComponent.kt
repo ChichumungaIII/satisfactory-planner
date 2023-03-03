@@ -117,7 +117,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
                         fontSize = SvgIconSize.medium
                     }
 
-                    onClick = { props.setNode(FactoryTree(listOf(settings))) }
+                    onClick = { props.setNode(FactoryTree(title = "Factory Group", nodes = listOf(settings))) }
                 }
             }
         }
