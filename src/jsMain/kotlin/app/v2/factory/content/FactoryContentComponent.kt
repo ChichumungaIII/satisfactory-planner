@@ -1,6 +1,7 @@
 package app.v2.factory.content
 
 import app.util.PropsDelegate
+import app.v2.common.input.ToggleIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
@@ -61,18 +62,15 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 }
             }
 
-            Tooltip {
-                this.title = if (expanded) ReactNode("Collapse") else ReactNode("Expand")
+            ToggleIconButton {
+                toggle = expanded
+                setToggle = { next -> content = content.copy(expanded = next) }
 
-                IconButton {
-                    color = IconButtonColor.default
-                    size = Size.small
-                    (if (expanded) KeyboardDoubleArrowUp else KeyboardDoubleArrowDown) {
-                        fontSize = SvgIconSize.medium
-                    }
+                titleOn = "Collapse"
+                iconOn = KeyboardDoubleArrowUp
 
-                    onClick = { content = content.copy(expanded = !expanded) }
-                }
+                titleOff = "Expand"
+                iconOff = KeyboardDoubleArrowDown
             }
         }
 

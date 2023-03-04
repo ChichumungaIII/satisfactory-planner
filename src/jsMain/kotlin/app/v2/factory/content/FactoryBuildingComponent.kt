@@ -7,6 +7,7 @@ import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.CountInput
 import app.v2.common.input.FactoryItemRateInput
 import app.v2.common.input.RecipeAutocomplete
+import app.v2.common.input.ToggleIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
@@ -45,28 +46,23 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         className = ClassName("factory-building")
 
         ControlBar {
-            Tooltip {
-                className = ClassName("factory-building__action")
-                title = ReactNode("Repeat")
-
-                IconButton {
-                    color = IconButtonColor.default
-                    size = Size.small
-                    (if (count == null) Repeat else RepeatOn) {
-                        fontSize = SvgIconSize.medium
-                    }
-
-                    onClick = {
-                        val next = if (count == null) 1.toUInt() else null
-                        settings = settings.copy(count = next)
-                    }
+            ToggleIconButton {
+                toggle = count != null
+                setToggle = { on ->
+                    settings = settings.copy(count = 1.toUInt().takeIf { on })
                 }
+
+                titleOn = "Repeat"
+                iconOn = RepeatOn
+
+                titleOff = "Repeat"
+                iconOff = Repeat
             }
 
             count?.also {
                 CountInput {
                     model = it
-                    setModel = { next -> settings = settings.copy(count = next)}
+                    setModel = { next -> settings = settings.copy(count = next) }
                 }
             }
 
@@ -103,19 +99,15 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
             }
 
             if (recipe != null) {
-                Tooltip {
-                    className = ClassName("factory-building__action")
-                    title = if (details) ReactNode("Hide Details") else ReactNode("Show Details")
+                ToggleIconButton {
+                    toggle = details
+                    setToggle = { next -> settings = settings.copy(details = next) }
 
-                    IconButton {
-                        color = IconButtonColor.default
-                        size = Size.small
-                        (if (details) ExpandLess else ExpandMore) {
-                            fontSize = SvgIconSize.medium
-                        }
+                    titleOn = "Hide Details"
+                    iconOn = ExpandLess
 
-                        onClick = { settings = settings.copy(details = !details) }
-                    }
+                    titleOff = "Show Details"
+                    iconOff = ExpandMore
                 }
             }
 
