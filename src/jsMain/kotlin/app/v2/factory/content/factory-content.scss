@@ -1,5 +1,10 @@
 .factory-content {
-  margin: 4px;
+  padding: 4px;
+
+  & > .control-bar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
   &__card {
     padding: 4px;

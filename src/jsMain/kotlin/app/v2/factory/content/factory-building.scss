@@ -1,27 +1,9 @@
 .factory-building {
-  $spacing: 6px;
-
-  padding: 4px;
-
-  &__settings {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-
-    & > *:not(:first-child) {
-      margin-left: $spacing;
-    }
-  }
-
-  &__action {
-    width: 40px;
-  }
-
   &__details {
     display: flex;
     align-items: center;
 
-    padding: $spacing 20px 0;
+    padding: 2px 20px 4px;
   }
 
   &__item-details {
@@ -30,6 +12,6 @@
   }
 
   &__recipe-divider {
-    margin: $spacing
+    margin: 6px;
   }
 }

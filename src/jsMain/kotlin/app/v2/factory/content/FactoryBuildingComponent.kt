@@ -1,17 +1,32 @@
 package app.v2.factory.content
 
-import app.common.RationalInput
-import app.common.RationalValidation.Companion.fail
-import app.common.RationalValidation.Companion.pass
 import app.util.PropsDelegate
-import app.v2.common.input.*
+import app.v2.common.input.BUILDINGS
+import app.v2.common.input.BuildingAutocomplete
+import app.v2.common.input.ClockSpeedInput
+import app.v2.common.input.CountInput
+import app.v2.common.input.FactoryItemRateInput
+import app.v2.common.input.RecipeAutocomplete
+import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
 import app.v2.data.FactoryTree
 import csstype.ClassName
 import csstype.px
-import mui.icons.material.*
-import mui.material.*
+import mui.icons.material.ArrowForward
+import mui.icons.material.ExpandLess
+import mui.icons.material.ExpandMore
+import mui.icons.material.Repeat
+import mui.icons.material.RepeatOn
+import mui.icons.material.Segment
+import mui.material.Box
+import mui.material.IconButton
+import mui.material.IconButtonColor
+import mui.material.Size
+import mui.material.Stack
+import mui.material.SvgIconSize
+import mui.material.Tooltip
+import mui.system.responsive
 import react.FC
 import react.Props
 import react.ReactNode
@@ -29,9 +44,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
     Box {
         className = ClassName("factory-building")
 
-        Box {
-            className = ClassName("factory-building__settings")
-
+        ControlBar {
             Tooltip {
                 className = ClassName("factory-building__action")
                 title = ReactNode("Repeat")
@@ -40,7 +53,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
                     color = IconButtonColor.default
                     size = Size.small
                     (if (count == null) Repeat else RepeatOn) {
-                        fontSize = SvgIconSize.small
+                        fontSize = SvgIconSize.medium
                     }
 
                     onClick = {
@@ -127,7 +140,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
                 className = ClassName("factory-building__details")
 
                 Stack {
-                    className = ClassName("factory-building__items")
+                    spacing = responsive(2.px)
 
                     recipe.inputs.takeUnless { it.isEmpty() }?.also {
                         it.entries.forEach { (item, rate) ->
@@ -155,7 +168,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
                 }
 
                 Stack {
-                    className = ClassName("factory-building__items")
+                    spacing = responsive(2.px)
 
                     recipe.outputs.takeUnless { it.isEmpty() }?.also {
                         it.entries.forEach { (item, rate) ->
