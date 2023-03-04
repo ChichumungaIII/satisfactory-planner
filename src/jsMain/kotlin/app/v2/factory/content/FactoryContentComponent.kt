@@ -10,7 +10,22 @@ import mui.icons.material.Add
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
 import mui.icons.material.Clear
-import mui.material.*
+import mui.icons.material.KeyboardDoubleArrowDown
+import mui.icons.material.KeyboardDoubleArrowUp
+import mui.material.Box
+import mui.material.Card
+import mui.material.Divider
+import mui.material.Fab
+import mui.material.FabColor
+import mui.material.FormControlVariant
+import mui.material.IconButton
+import mui.material.IconButtonColor
+import mui.material.Orientation
+import mui.material.PaperVariant
+import mui.material.Size
+import mui.material.SvgIconSize
+import mui.material.TextField
+import mui.material.Tooltip
 import mui.system.sx
 import react.FC
 import react.Props
@@ -24,6 +39,7 @@ external interface FactoryContentComponentProps : Props {
 
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
     var content by PropsDelegate(props.content, props.setContent)
+    val (count, title, nodes, details, expanded) = content
 
     Box {
         className = ClassName("factory-content")
@@ -31,7 +47,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
         Box {
             className = ClassName("factory-content__header")
 
-            content.title?.also { title ->
+            title?.also { title ->
                 TextField {
                     variant = FormControlVariant.outlined
                     size = Size.small
@@ -42,18 +58,32 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                     }
                 }
             }
+
+            Tooltip {
+                this.title = if (expanded) ReactNode("Collapse") else ReactNode("Expand")
+
+                IconButton {
+                    color = IconButtonColor.default
+                    size = Size.small
+                    (if (expanded) KeyboardDoubleArrowUp else KeyboardDoubleArrowDown) {
+                        fontSize = SvgIconSize.medium
+                    }
+
+                    onClick = { content = content.copy(expanded = !expanded) }
+                }
+            }
         }
 
-        Card {
+        Card.takeIf { expanded }?.invoke {
             className = ClassName("factory-content__card")
             variant = PaperVariant.outlined
 
-            content.nodes.withIndex().forEach { (index, node) ->
+            nodes.withIndex().forEach { (index, node) ->
                 Box {
                     className = ClassName("factory-content__item")
 
                     Tooltip {
-                        title = ReactNode("Delete")
+                        this.title = ReactNode("Delete")
 
                         IconButton {
                             color = IconButtonColor.default
@@ -77,7 +107,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
                             disabled = index == 0
                             onClick = {
-                                content = content.splice(index - 1, 2, content.nodes[index], content.nodes[index - 1])
+                                content = content.splice(index - 1, 2, nodes[index], nodes[index - 1])
                             }
                         }
 
@@ -87,9 +117,9 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                             size = Size.small
                             ArrowDropDown { fontSize = SvgIconSize.small }
 
-                            disabled = index == content.nodes.size - 1
+                            disabled = index == nodes.size - 1
                             onClick = {
-                                content = content.splice(index, 2, content.nodes[index + 1], content.nodes[index])
+                                content = content.splice(index, 2, nodes[index + 1], nodes[index])
                             }
                         }
                     }
@@ -117,7 +147,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
             Tooltip {
                 className = ClassName("factory-content__add-building")
-                title = ReactNode("Add Building")
+                this.title = ReactNode("Add Building")
 
                 Fab {
                     color = FabColor.primary
