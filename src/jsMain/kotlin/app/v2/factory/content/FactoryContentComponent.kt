@@ -1,6 +1,8 @@
 package app.v2.factory.content
 
 import app.util.PropsDelegate
+import app.v2.common.layout.ControlBar
+import app.v2.common.layout.ControlBarItem
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
 import csstype.ClassName
@@ -44,32 +46,34 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
     Box {
         className = ClassName("factory-content")
 
-        Box {
-            className = ClassName("factory-content__header")
+        ControlBar {
+            title?.also {
+                ControlBarItem {
+                    TextField {
+                        variant = FormControlVariant.outlined
+                        size = Size.small
 
-            title?.also { title ->
-                TextField {
-                    variant = FormControlVariant.outlined
-                    size = Size.small
-
-                    value = title
-                    onChange = { event ->
-                        content = content.copy(title = event.target.asDynamic().value as String)
+                        value = it
+                        onChange = { event ->
+                            content = content.copy(title = event.target.asDynamic().value as String)
+                        }
                     }
                 }
             }
 
-            Tooltip {
-                this.title = if (expanded) ReactNode("Collapse") else ReactNode("Expand")
+            ControlBarItem {
+                Tooltip {
+                    this.title = if (expanded) ReactNode("Collapse") else ReactNode("Expand")
 
-                IconButton {
-                    color = IconButtonColor.default
-                    size = Size.small
-                    (if (expanded) KeyboardDoubleArrowUp else KeyboardDoubleArrowDown) {
-                        fontSize = SvgIconSize.medium
+                    IconButton {
+                        color = IconButtonColor.default
+                        size = Size.small
+                        (if (expanded) KeyboardDoubleArrowUp else KeyboardDoubleArrowDown) {
+                            fontSize = SvgIconSize.medium
+                        }
+
+                        onClick = { content = content.copy(expanded = !expanded) }
                     }
-
-                    onClick = { content = content.copy(expanded = !expanded) }
                 }
             }
         }
