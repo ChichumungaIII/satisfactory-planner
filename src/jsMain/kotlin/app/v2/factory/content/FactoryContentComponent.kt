@@ -1,6 +1,7 @@
 package app.v2.factory.content
 
 import app.util.PropsDelegate
+import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
@@ -50,6 +51,11 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
         spacing = responsive(4.px)
 
         ControlBar {
+            CountToggleComponent {
+                this.count = count
+                setCount = { next -> content = content.copy(count = next) }
+            }
+
             title?.also {
                 TextField {
                     variant = FormControlVariant.outlined
