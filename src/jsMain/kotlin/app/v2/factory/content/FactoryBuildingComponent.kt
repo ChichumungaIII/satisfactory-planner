@@ -4,7 +4,7 @@ import app.util.PropsDelegate
 import app.v2.common.input.BUILDINGS
 import app.v2.common.input.BuildingAutocomplete
 import app.v2.common.input.ClockSpeedInput
-import app.v2.common.input.CountInput
+import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.FactoryItemRateInput
 import app.v2.common.input.RecipeAutocomplete
 import app.v2.common.input.ToggleIconButton
@@ -17,8 +17,6 @@ import csstype.px
 import mui.icons.material.ArrowForward
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
-import mui.icons.material.Repeat
-import mui.icons.material.RepeatOn
 import mui.icons.material.Segment
 import mui.material.Box
 import mui.material.IconButton
@@ -46,24 +44,9 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         className = ClassName("factory-building")
 
         ControlBar {
-            ToggleIconButton {
-                toggle = count != null
-                setToggle = { on ->
-                    settings = settings.copy(count = 1.toUInt().takeIf { on })
-                }
-
-                titleOn = "Repeat"
-                iconOn = RepeatOn
-
-                titleOff = "Repeat"
-                iconOff = Repeat
-            }
-
-            count?.also {
-                CountInput {
-                    model = it
-                    setModel = { next -> settings = settings.copy(count = next) }
-                }
+            CountToggleComponent {
+                this.count = count
+                setCount = { next -> settings = settings.copy(count = next) }
             }
 
             BuildingAutocomplete {
