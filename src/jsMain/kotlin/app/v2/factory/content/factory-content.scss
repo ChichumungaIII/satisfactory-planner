@@ -53,11 +53,15 @@
     padding: 5px;
   }
 
+  &__child {
+    flex: 1 1 auto;
+  }
+
   &__add-building.factory-content__add-building {
     min-height: 34px;
     max-height: 34px;
     width: 34px;
 
-    margin: 12px 0 2px 65px;
+    margin: 12px 0 12px 65px;
   }
 }

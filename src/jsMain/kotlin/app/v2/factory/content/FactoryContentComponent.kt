@@ -303,25 +303,29 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                             flexItem = true
                         }
 
-                        when (node) {
-                            is FactoryTree -> RecursiveFactoryContentComponent {
-                                this.content = node
-                                this.setContent = { next -> content = content.setNode(index, next) }
+                        Box {
+                            className = ClassName("factory-content__child")
 
-                                onFlatten = {
-                                    val one = 1.toUInt()
-                                    val children = node.nodes.map { child ->
-                                        child.clone(count = node.count?.takeUnless { it == one }
-                                            ?.let { (child.count ?: one) * it }
-                                            ?: child.count)
+                            when (node) {
+                                is FactoryTree -> RecursiveFactoryContentComponent {
+                                    this.content = node
+                                    this.setContent = { next -> content = content.setNode(index, next) }
+
+                                    onFlatten = {
+                                        val one = 1.toUInt()
+                                        val children = node.nodes.map { child ->
+                                            child.clone(count = node.count?.takeUnless { it == one }
+                                                ?.let { (child.count ?: one) * it }
+                                                ?: child.count)
+                                        }
+                                        content = content.splice(index, 1, children)
                                     }
-                                    content = content.splice(index, 1, children)
                                 }
-                            }
 
-                            is FactoryLeaf -> FactoryBuildingComponent {
-                                settings = node
-                                setNode = { next -> content = content.setNode(index, next) }
+                                is FactoryLeaf -> FactoryBuildingComponent {
+                                    settings = node
+                                    setNode = { next -> content = content.setNode(index, next) }
+                                }
                             }
                         }
                     }
@@ -336,6 +340,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                         size = Size.small
                         Add { fontSize = SvgIconSize.medium }
 
+                        disabled = newGroup != null
                         onClick = { content = content.addNode(FactoryLeaf()) }
                     }
                 }
