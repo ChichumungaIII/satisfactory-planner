@@ -128,6 +128,8 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
 
             Stack {
+                spacing = responsive(2.px)
+
                 content.outputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
                     Stack {
                         className = ClassName("factory-content__detail-list")
