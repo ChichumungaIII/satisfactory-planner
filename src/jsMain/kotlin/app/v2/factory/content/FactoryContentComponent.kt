@@ -8,11 +8,15 @@ import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryTree
 import csstype.ClassName
 import csstype.Margin
+import csstype.number
 import csstype.px
 import mui.icons.material.Add
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
+import mui.icons.material.ArrowForward
 import mui.icons.material.Clear
+import mui.icons.material.ExpandLess
+import mui.icons.material.ExpandMore
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
 import mui.material.Box
@@ -27,6 +31,7 @@ import mui.material.Orientation
 import mui.material.PaperVariant
 import mui.material.Size
 import mui.material.Stack
+import mui.material.StackDirection
 import mui.material.SvgIconSize
 import mui.material.TextField
 import mui.material.Tooltip
@@ -69,6 +74,17 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
 
             ToggleIconButton {
+                toggle = details
+                setToggle = { next -> content = content.copy(details = next) }
+
+                titleOn = "Hide Details"
+                iconOn = ExpandLess
+
+                titleOff = "Show Details"
+                iconOff = ExpandMore
+            }
+
+            ToggleIconButton {
                 toggle = expanded
                 setToggle = { next -> content = content.copy(expanded = next) }
 
@@ -80,12 +96,65 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
         }
 
+        Stack.takeIf { details }?.invoke {
+            className = ClassName("factory-content__details")
+            direction = responsive(StackDirection.row)
+
+            Stack {
+                spacing = responsive(2.px)
+
+                content.inputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
+                    Stack {
+                        className = ClassName("factory-content__detail-list")
+                        direction = responsive(StackDirection.row)
+
+                        Card {
+                            className = ClassName("factory-content__detail-display")
+                            variant = PaperVariant.outlined
+
+                            +"$rate"
+                            Box { sx { flexGrow = number(1.0) } }
+                            +"/ min"
+                        }
+                        +item.displayName
+                    }
+                } ?: run {
+                    Box { +"Nothing" }
+                }
+            }
+
+            ArrowForward {
+                className = ClassName("factory-content__detail-divider")
+            }
+
+            Stack {
+                content.outputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
+                    Stack {
+                        className = ClassName("factory-content__detail-list")
+                        direction = responsive(StackDirection.row)
+
+                        Card {
+                            className = ClassName("factory-content__detail-display")
+                            variant = PaperVariant.outlined
+
+                            +"$rate"
+                            Box { sx { flexGrow = number(1.0) } }
+                            +"/ min"
+                        }
+                        +item.displayName
+                    }
+                } ?: run {
+                    Box { +"Nothing" }
+                }
+            }
+        }
+
         Card.takeIf { expanded }?.invoke {
             className = ClassName("factory-content__card")
             variant = PaperVariant.outlined
 
             Stack {
-                spacing = responsive(2.px)
+                spacing = responsive(6.px)
 
                 nodes.withIndex().forEach { (index, node) ->
                     Box {

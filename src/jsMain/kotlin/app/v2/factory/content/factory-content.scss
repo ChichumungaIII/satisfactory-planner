@@ -1,6 +1,28 @@
 .factory-content {
   padding: 4px;
 
+  &__details {
+    align-items: center;
+
+    padding: 0 20px;
+  }
+
+  &__detail-list {
+    align-items: center;
+  }
+
+  &__detail-display {
+    display: flex;
+
+    margin: 0 6px 0 0;
+    padding: 8px 14px;
+    width: 128px;
+  }
+
+  &__detail-divider {
+    margin: 6px;
+  }
+
   & > .control-bar {
     padding-top: 0;
     padding-bottom: 0;

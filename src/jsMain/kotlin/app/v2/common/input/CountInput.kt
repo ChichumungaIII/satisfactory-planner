@@ -5,8 +5,12 @@ import csstype.ClassName
 import mui.material.FormControlVariant
 import mui.material.Size
 import mui.material.TextField
-import react.*
+import react.FC
+import react.Props
+import react.ReactNode
 import react.dom.onChange
+import react.useEffect
+import react.useState
 
 external interface CountInputProps : Props {
     var model: UInt
@@ -18,7 +22,7 @@ val CountInput = FC<CountInputProps>("CountInput") { props ->
     var text by useState(model.toString())
     var error by useState(false)
 
-    useEffect(model) {
+    useEffect(model.toInt()) {
         text = model.toString()
     }
 
@@ -45,9 +49,10 @@ val CountInput = FC<CountInputProps>("CountInput") { props ->
         }
 
         onBlur = {
-            if (text.isEmpty()) {
+            if (error) {
                 model = 0.toUInt()
                 text = "0"
+                error = false
             }
         }
     }
