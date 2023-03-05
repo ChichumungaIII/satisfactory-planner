@@ -22,7 +22,6 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
         renderInput = { params ->
             TextField.create {
                 +params
-                autoFocus = true
                 label = ReactNode("Building")
             }
         }
