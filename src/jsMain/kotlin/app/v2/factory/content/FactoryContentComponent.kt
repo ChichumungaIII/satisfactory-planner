@@ -5,6 +5,7 @@ import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
+import app.v2.data.FactoryNode
 import app.v2.data.FactoryTree
 import csstype.ClassName
 import csstype.Margin
@@ -19,8 +20,11 @@ import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
+import mui.icons.material.Layers
+import mui.icons.material.LayersOutlined
 import mui.material.Box
 import mui.material.Card
+import mui.material.Checkbox
 import mui.material.Divider
 import mui.material.Fab
 import mui.material.FabColor
@@ -41,6 +45,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.dom.onChange
+import react.useState
 
 external interface FactoryContentComponentProps : Props {
     var content: FactoryTree
@@ -50,6 +55,8 @@ external interface FactoryContentComponentProps : Props {
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
     var content by PropsDelegate(props.content, props.setContent)
     val (count, title, nodes, details, expanded) = content
+
+    var newGroup: List<Int>? by useState(null)
 
     Stack {
         className = ClassName("factory-content")
@@ -83,6 +90,34 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 titleOff = "Show Details"
                 iconOff = ExpandMore
             }
+
+            ToggleIconButton {
+                toggle = newGroup == null
+                setToggle = { confirm ->
+                    if (confirm) {
+                        newGroup?.takeUnless { it.isEmpty() }?.also { group ->
+                            var next = content
+                            val insert = mutableListOf<FactoryNode>()
+                            group.reversed().forEach { i ->
+                                next = next.removeNode(i)
+                                insert.add(0, nodes[i])
+                            }
+                            content = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
+                        }
+                        newGroup = null
+                    } else {
+                        newGroup = listOf()
+                    }
+                }
+
+                titleOn = "Create Group"
+                iconOn = LayersOutlined
+
+                titleOff = "Confirm Group"
+                iconOff = Layers
+            }
+
+
 
             ToggleIconButton {
                 toggle = expanded
@@ -162,19 +197,42 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                     Box {
                         className = ClassName("factory-content__item")
 
-                        Tooltip {
-                            this.title = ReactNode("Delete")
+                        newGroup?.also { group ->
+                            Tooltip {
+                                val helptext =
+                                    "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
+                                this.title = ReactNode(helptext)
 
-                            IconButton {
-                                color = IconButtonColor.default
-                                size = Size.small
-                                Clear { fontSize = SvgIconSize.small }
+                                Checkbox {
+                                    className = ClassName("factory-content__group-checkbox")
+                                    size = Size.small
 
-                                onClick = {
-                                    content = content.removeNode(index)
+                                    checked = group.contains(index)
+                                    onChange = { _, include ->
+                                        newGroup = if (include) {
+                                            (group + index).sorted()
+                                        } else {
+                                            group - index
+                                        }
+                                    }
+                                }
+                            }
+                        } ?: run {
+                            Tooltip {
+                                this.title = ReactNode("Delete")
+
+                                IconButton {
+                                    color = IconButtonColor.default
+                                    size = Size.small
+                                    Clear { fontSize = SvgIconSize.small }
+
+                                    onClick = {
+                                        content = content.removeNode(index)
+                                    }
                                 }
                             }
                         }
+
 
                         Box {
                             className = ClassName("factory-content__item__controls")
@@ -185,7 +243,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                                 size = Size.small
                                 ArrowDropUp { fontSize = SvgIconSize.medium }
 
-                                disabled = index == 0
+                                disabled = index == 0 || newGroup != null
                                 onClick = {
                                     content = content.splice(index - 1, 2, nodes[index], nodes[index - 1])
                                 }
@@ -197,7 +255,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                                 size = Size.small
                                 ArrowDropDown { fontSize = SvgIconSize.medium }
 
-                                disabled = index == nodes.size - 1
+                                disabled = index == nodes.size - 1 || newGroup != null
                                 onClick = {
                                     content = content.splice(index, 2, nodes[index + 1], nodes[index])
                                 }
@@ -224,18 +282,18 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                         }
                     }
                 }
-            }
 
-            Tooltip {
-                className = ClassName("factory-content__add-building")
-                this.title = ReactNode("Add Building")
+                Tooltip {
+                    className = ClassName("factory-content__add-building")
+                    this.title = ReactNode("Add Building")
 
-                Fab {
-                    color = FabColor.primary
-                    size = Size.small
-                    Add { fontSize = SvgIconSize.medium }
+                    Fab {
+                        color = FabColor.primary
+                        size = Size.small
+                        Add { fontSize = SvgIconSize.medium }
 
-                    onClick = { content = content.addNode(FactoryLeaf()) }
+                        onClick = { content = content.addNode(FactoryLeaf()) }
+                    }
                 }
             }
         }

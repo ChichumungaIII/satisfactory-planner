@@ -11,24 +11,16 @@ import app.v2.common.input.ToggleIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
-import app.v2.data.FactoryTree
 import csstype.ClassName
 import csstype.px
 import mui.icons.material.ArrowForward
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
-import mui.icons.material.Segment
 import mui.material.Box
-import mui.material.IconButton
-import mui.material.IconButtonColor
-import mui.material.Size
 import mui.material.Stack
-import mui.material.SvgIconSize
-import mui.material.Tooltip
 import mui.system.responsive
 import react.FC
 import react.Props
-import react.ReactNode
 import util.math.q
 
 external interface FactoryBuildingComponentProps : Props {
@@ -91,21 +83,6 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
 
                     titleOff = "Show Details"
                     iconOff = ExpandMore
-                }
-            }
-
-            Tooltip {
-                className = ClassName("factory-building__action")
-                title = ReactNode("Move Into Group")
-
-                IconButton {
-                    color = IconButtonColor.default
-                    size = Size.small
-                    Segment {
-                        fontSize = SvgIconSize.medium
-                    }
-
-                    onClick = { props.setNode(FactoryTree(title = "Factory Group", nodes = listOf(settings))) }
                 }
             }
         }
