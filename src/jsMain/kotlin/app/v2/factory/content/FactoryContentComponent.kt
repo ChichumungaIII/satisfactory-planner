@@ -18,6 +18,7 @@ import mui.icons.material.ArrowForward
 import mui.icons.material.Clear
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
+import mui.icons.material.FormatIndentDecrease
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
 import mui.icons.material.Layers
@@ -51,6 +52,8 @@ import react.dom.onChange
 external interface FactoryContentComponentProps : Props {
     var content: FactoryTree
     var setContent: (FactoryTree) -> Unit
+
+    var onFlatten: (() -> Unit)?
 }
 
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
@@ -88,6 +91,22 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
                 titleOff = "Show Details"
                 iconOff = ExpandMore
+            }
+
+            props.onFlatten?.also { onFlatten ->
+                Tooltip {
+                    this.title = ReactNode("Flatten Group")
+
+                    IconButton {
+                        color = IconButtonColor.default
+                        size = Size.small
+                        FormatIndentDecrease {
+                            fontSize = SvgIconSize.medium
+                        }
+
+                        onClick = { onFlatten() }
+                    }
+                }
             }
 
             ToggleIconButton {
@@ -288,6 +307,16 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                             is FactoryTree -> RecursiveFactoryContentComponent {
                                 this.content = node
                                 this.setContent = { next -> content = content.setNode(index, next) }
+
+                                onFlatten = {
+                                    val one = 1.toUInt()
+                                    val children = node.nodes.map { child ->
+                                        child.clone(count = node.count?.takeUnless { it == one }
+                                            ?.let { (child.count ?: one) * it }
+                                            ?: child.count)
+                                    }
+                                    content = content.splice(index, 1, children)
+                                }
                             }
 
                             is FactoryLeaf -> FactoryBuildingComponent {

@@ -10,7 +10,7 @@ import util.math.q
 
 @Serializable
 data class FactoryTree(
-    val count: UInt? = null,
+    override val count: UInt? = null,
     val title: String? = null,
     val nodes: List<FactoryNode> = listOf(FactoryLeaf()),
     val details: Boolean = false,
@@ -22,6 +22,9 @@ data class FactoryTree(
     fun setNode(i: Int, node: FactoryNode) = copy(nodes = nodes.subList(0, i) + node + nodes.subList(i + 1, nodes.size))
 
     fun removeNode(i: Int) = splice(i, 1)
+
+    fun splice(i: Int, length: Int = 0, insert: Collection<FactoryNode> = listOf()) =
+        splice(i, length, *insert.toTypedArray())
 
     fun splice(i: Int, length: Int = 0, vararg insert: FactoryNode) =
         copy(nodes = nodes.subList(0, i) + insert + nodes.subList(i + length, nodes.size))
@@ -35,11 +38,13 @@ data class FactoryTree(
     }
     override val inputs by lazy { components.filterValues { it < 0.q }.mapValues { (_, rate) -> -rate } }
     override val outputs by lazy { components.filterValues { it > 0.q } }
+
+    override fun clone(count: UInt?) = copy(count = count)
 }
 
 @Serializable
 data class FactoryLeaf(
-    val count: UInt? = null,
+    override val count: UInt? = null,
     val building: Building? = null,
     val recipe: Recipe? = null,
     val clock: Rational = 1.q,
@@ -50,12 +55,18 @@ data class FactoryLeaf(
 
     private fun scale(rates: Map<Item, Rational>?) =
         rates?.mapValues { (_, rate) -> count.q * clock * rate } ?: mapOf()
+
+    override fun clone(count: UInt?) = copy(count = count)
 }
 
 @Serializable
 sealed interface FactoryNode {
+    val count: UInt?
+
     val inputs: Map<Item, Rational>
     val outputs: Map<Item, Rational>
+
+    fun clone(count: UInt?): FactoryNode
 }
 
 private inline val UInt?.q: Rational get() = (this?.toInt() ?: 1).q
