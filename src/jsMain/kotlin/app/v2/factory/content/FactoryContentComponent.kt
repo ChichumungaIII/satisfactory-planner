@@ -21,6 +21,7 @@ import mui.icons.material.ExpandMore
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
 import mui.icons.material.Layers
+import mui.icons.material.LayersClear
 import mui.icons.material.LayersOutlined
 import mui.material.Box
 import mui.material.Card
@@ -39,13 +40,13 @@ import mui.material.StackDirection
 import mui.material.SvgIconSize
 import mui.material.TextField
 import mui.material.Tooltip
+import mui.material.TooltipPlacement
 import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
 import react.dom.onChange
-import react.useState
 
 external interface FactoryContentComponentProps : Props {
     var content: FactoryTree
@@ -54,9 +55,7 @@ external interface FactoryContentComponentProps : Props {
 
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
     var content by PropsDelegate(props.content, props.setContent)
-    val (count, title, nodes, details, expanded) = content
-
-    var newGroup: List<Int>? by useState(null)
+    val (count, title, nodes, details, expanded, newGroup) = content
 
     Stack {
         className = ClassName("factory-content")
@@ -95,18 +94,18 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 toggle = newGroup == null
                 setToggle = { confirm ->
                     if (confirm) {
+                        var next = content
                         newGroup?.takeUnless { it.isEmpty() }?.also { group ->
-                            var next = content
                             val insert = mutableListOf<FactoryNode>()
                             group.reversed().forEach { i ->
                                 next = next.removeNode(i)
                                 insert.add(0, nodes[i])
                             }
-                            content = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
+                            next = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
                         }
-                        newGroup = null
+                        content = next.copy(newGroup = null)
                     } else {
-                        newGroup = listOf()
+                        content = content.copy(newGroup = listOf())
                     }
                 }
 
@@ -117,7 +116,21 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 iconOff = Layers
             }
 
+            if (newGroup != null) {
+                Tooltip {
+                    this.title = ReactNode("Cancel Group")
 
+                    IconButton {
+                        color = IconButtonColor.default
+                        size = Size.small
+                        LayersClear {
+                            fontSize = SvgIconSize.medium
+                        }
+
+                        onClick = { content = content.copy(newGroup = null) }
+                    }
+                }
+            }
 
             ToggleIconButton {
                 toggle = expanded
@@ -202,6 +215,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                                 val helptext =
                                     "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
                                 this.title = ReactNode(helptext)
+                                placement = TooltipPlacement.right
 
                                 Checkbox {
                                     className = ClassName("factory-content__group-checkbox")
@@ -209,11 +223,12 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
                                     checked = group.contains(index)
                                     onChange = { _, include ->
-                                        newGroup = if (include) {
+                                        val nextGroup = if (include) {
                                             (group + index).sorted()
                                         } else {
                                             group - index
                                         }
+                                        content = content.copy(newGroup = nextGroup)
                                     }
                                 }
                             }

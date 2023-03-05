@@ -4,6 +4,7 @@ import app.data.Item
 import app.data.building.Building
 import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import util.math.Rational
 import util.math.q
 
@@ -14,6 +15,7 @@ data class FactoryTree(
     val nodes: List<FactoryNode> = listOf(FactoryLeaf()),
     val details: Boolean = false,
     val expanded: Boolean = true,
+    @Transient val newGroup: List<Int>? = null,
 ) : FactoryNode {
     fun addNode(node: FactoryNode) = copy(nodes = nodes + node)
 
