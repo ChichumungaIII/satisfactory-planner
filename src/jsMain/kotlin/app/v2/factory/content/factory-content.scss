@@ -54,6 +54,10 @@
   }
 
   &__add-building.factory-content__add-building {
-    margin-left: 57px;
+    min-height: 34px;
+    max-height: 34px;
+    width: 34px;
+
+    margin: 12px 0 2px 65px;
   }
 }
