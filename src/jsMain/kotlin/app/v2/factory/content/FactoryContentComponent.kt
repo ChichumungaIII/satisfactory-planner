@@ -35,6 +35,7 @@ import mui.material.FabColor
 import mui.material.FormControlVariant
 import mui.material.IconButton
 import mui.material.Orientation
+import mui.material.Paper
 import mui.material.PaperVariant
 import mui.material.Size
 import mui.material.Stack
@@ -154,7 +155,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                         className = ClassName("factory-content__detail-list")
                         direction = responsive(StackDirection.row)
 
-                        Card {
+                        Paper {
                             className = ClassName("factory-content__detail-display")
                             variant = PaperVariant.outlined
 
@@ -181,7 +182,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                         className = ClassName("factory-content__detail-list")
                         direction = responsive(StackDirection.row)
 
-                        Card {
+                        Paper {
                             className = ClassName("factory-content__detail-display")
                             variant = PaperVariant.outlined
 
