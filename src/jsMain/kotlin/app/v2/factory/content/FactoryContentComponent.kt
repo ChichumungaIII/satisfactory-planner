@@ -18,8 +18,6 @@ import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
 import mui.icons.material.ArrowForward
 import mui.icons.material.Clear
-import mui.icons.material.ExpandLess
-import mui.icons.material.ExpandMore
 import mui.icons.material.FormatIndentDecrease
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
@@ -27,7 +25,6 @@ import mui.icons.material.Layers
 import mui.icons.material.LayersClear
 import mui.icons.material.LayersOutlined
 import mui.material.Box
-import mui.material.Card
 import mui.material.Checkbox
 import mui.material.Divider
 import mui.material.Fab
@@ -198,13 +195,11 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
         }
 
-        Card.takeIf { expanded }?.invoke {
+        Paper.takeIf { expanded }?.invoke {
             className = ClassName("factory-content__card")
             variant = PaperVariant.outlined
 
             Stack {
-                spacing = responsive(6.px)
-
                 nodes.withIndex().forEach { (index, node) ->
                     Box {
                         className = ClassName("factory-content__item")
@@ -268,7 +263,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                         }
 
                         Divider {
-                            sx { margin = Margin(4.px, 0.px, 4.px, 2.px) }
+                            sx { margin = Margin(8.px, 4.px, 4.px, 2.px) }
 
                             orientation = Orientation.vertical
                             flexItem = true
