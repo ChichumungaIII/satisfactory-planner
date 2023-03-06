@@ -3,6 +3,7 @@ package app.v2.factory.content
 import app.util.PropsDelegate
 import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.ToggleIconButton
+import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
@@ -94,18 +95,10 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
 
             props.onFlatten?.also { onFlatten ->
-                Tooltip {
-                    this.title = ReactNode("Flatten Group")
-
-                    IconButton {
-                        color = IconButtonColor.default
-                        size = Size.small
-                        FormatIndentDecrease {
-                            fontSize = SvgIconSize.medium
-                        }
-
-                        onClick = { onFlatten() }
-                    }
+                TooltipIconButton {
+                    this.title = "Flatten Group"
+                    icon = FormatIndentDecrease
+                    onClick = { onFlatten() }
                 }
             }
 
@@ -136,18 +129,10 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
 
             if (newGroup != null) {
-                Tooltip {
-                    this.title = ReactNode("Cancel Group")
-
-                    IconButton {
-                        color = IconButtonColor.default
-                        size = Size.small
-                        LayersClear {
-                            fontSize = SvgIconSize.medium
-                        }
-
-                        onClick = { content = content.copy(newGroup = null) }
-                    }
+                TooltipIconButton {
+                    this.title = "Cancel Group"
+                    icon = LayersClear
+                    onClick = { content = content.copy(newGroup = null) }
                 }
             }
 
@@ -252,21 +237,12 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                                 }
                             }
                         } ?: run {
-                            Tooltip {
-                                this.title = ReactNode("Delete")
-
-                                IconButton {
-                                    color = IconButtonColor.default
-                                    size = Size.small
-                                    Clear { fontSize = SvgIconSize.small }
-
-                                    onClick = {
-                                        content = content.removeNode(index)
-                                    }
-                                }
+                            TooltipIconButton {
+                                this.title = "Delete"
+                                icon = Clear
+                                onClick = { content = content.removeNode(index) }
                             }
                         }
-
 
                         Box {
                             className = ClassName("factory-content__item__controls")
