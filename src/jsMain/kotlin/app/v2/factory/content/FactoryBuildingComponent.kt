@@ -5,6 +5,7 @@ import app.v2.common.input.BUILDINGS
 import app.v2.common.input.BuildingAutocomplete
 import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.CountToggleComponent
+import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.FactoryItemRateInput
 import app.v2.common.input.RecipeAutocomplete
 import app.v2.common.input.ToggleIconButton
@@ -74,15 +75,9 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
             }
 
             if (recipe != null) {
-                ToggleIconButton {
-                    toggle = details
-                    setToggle = { next -> settings = settings.copy(details = next) }
-
-                    titleOn = "Hide Details"
-                    iconOn = ExpandLess
-
-                    titleOff = "Show Details"
-                    iconOff = ExpandMore
+                DetailsToggleButton {
+                    this.details = details
+                    setDetails = { next -> settings = settings.copy(details = next) }
                 }
             }
         }

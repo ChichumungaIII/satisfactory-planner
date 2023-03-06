@@ -2,6 +2,7 @@ package app.v2.factory.content
 
 import app.util.PropsDelegate
 import app.v2.common.input.CountToggleComponent
+import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.ControlBar
@@ -33,7 +34,6 @@ import mui.material.Fab
 import mui.material.FabColor
 import mui.material.FormControlVariant
 import mui.material.IconButton
-import mui.material.IconButtonColor
 import mui.material.Orientation
 import mui.material.PaperVariant
 import mui.material.Size
@@ -83,15 +83,9 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 }
             }
 
-            ToggleIconButton {
-                toggle = details
-                setToggle = { next -> content = content.copy(details = next) }
-
-                titleOn = "Hide Details"
-                iconOn = ExpandLess
-
-                titleOff = "Show Details"
-                iconOff = ExpandMore
+            DetailsToggleButton {
+                this.details = details
+                setDetails = { next -> content = content.copy(details = next) }
             }
 
             props.onFlatten?.also { onFlatten ->
