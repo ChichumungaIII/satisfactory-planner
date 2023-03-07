@@ -9,17 +9,17 @@ import react.StateInstance
 import react.createContext
 import react.useState
 
-typealias ThemeState = StateInstance<Theme>
+typealias ThemeState = StateInstance<Themes>
 
 val ThemeContext = createContext<ThemeState>()
 
 val ThemeModule = FC<PropsWithChildren>("ThemeModule") { props ->
-    val state = useState(DefaultTheme)
+    val state = useState(Themes.DEFAULT)
     val (theme) = state
 
     ThemeContext(state) {
         ThemeProvider {
-            this.theme = theme
+            this.theme = theme.mui
 
             CssBaseline()
             +props.children

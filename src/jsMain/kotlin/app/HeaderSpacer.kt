@@ -20,14 +20,14 @@ val HeaderSpacer = FC<HeaderSpacerProps>("HeaderSpacer") { props ->
         sx {
             transition =
                 if (props.isOpen) {
-                    theme.transitions.create("margin") {
-                        this.easing = theme.transitions.easing.easeOut
-                        this.duration = theme.transitions.duration.enteringScreen
+                    theme.mui.transitions.create("margin") {
+                        this.easing = theme.mui.transitions.easing.easeOut
+                        this.duration = theme.mui.transitions.duration.enteringScreen
                     }
                 } else {
-                    theme.transitions.create("margin") {
-                        this.easing = theme.transitions.easing.sharp
-                        this.duration = theme.transitions.duration.leavingScreen
+                    theme.mui.transitions.create("margin") {
+                        this.easing = theme.mui.transitions.easing.sharp
+                        this.duration = theme.mui.transitions.duration.leavingScreen
                     }
                 }
 
