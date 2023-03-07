@@ -1,5 +1,6 @@
 package app.v2.factory.content
 
+import app.themes.ThemeContext
 import app.util.PropsDelegate
 import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.DetailsToggleButton
@@ -10,6 +11,7 @@ import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
 import app.v2.data.FactoryTree
 import csstype.ClassName
+import csstype.Color
 import csstype.Margin
 import csstype.number
 import csstype.px
@@ -47,21 +49,34 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.dom.onChange
+import react.useContext
 
 external interface FactoryContentComponentProps : Props {
     var content: FactoryTree
     var setContent: (FactoryTree) -> Unit
 
+    var depth: Int
+
     var onFlatten: (() -> Unit)?
 }
 
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
+    val theme by useContext(ThemeContext)
+
     var content by PropsDelegate(props.content, props.setContent)
     val (count, title, nodes, details, expanded, newGroup) = content
 
     Stack {
         className = ClassName("factory-content")
         spacing = responsive(4.px)
+
+        println(JSON.stringify(theme.mui.palette.grey, null, "  "))
+        sx {
+            backgroundColor = Color(
+                if (props.depth % 2 == 0) theme.mui.palette.grey["900"] as String
+                else theme.mui.palette.background.paper
+            )
+        }
 
         ControlBar {
             CountToggleComponent {
@@ -195,11 +210,12 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
             }
         }
 
-        Paper.takeIf { expanded }?.invoke {
+        Box.takeIf { expanded }?.invoke {
             className = ClassName("factory-content__card")
-            variant = PaperVariant.outlined
 
             Stack {
+                spacing = responsive(6.px)
+
                 nodes.withIndex().forEach { (index, node) ->
                     Box {
                         className = ClassName("factory-content__item")
@@ -276,6 +292,8 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                                 is FactoryTree -> RecursiveFactoryContentComponent {
                                     this.content = node
                                     this.setContent = { next -> content = content.setNode(index, next) }
+
+                                    depth = props.depth + 1
 
                                     onFlatten = {
                                         val one = 1.toUInt()
