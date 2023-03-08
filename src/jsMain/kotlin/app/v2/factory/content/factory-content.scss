@@ -1,9 +1,10 @@
 .factory-content {
-  border-radius: 8px;
+  padding: 4px;
 
   // Control Bar
   & > .control-bar {
-    border-radius: 8px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   // Detail Display
@@ -31,9 +32,7 @@
 
   // Content
   &__card {
-    &.factory-content__card {
-      margin-bottom: 4px;
-    }
+    padding: 4px;
   }
 
   &__item {
@@ -63,6 +62,6 @@
     max-height: 34px;
     width: 34px;
 
-    margin: 12px 0 12px 67px;
+    margin: 12px 0 12px 65px;
   }
 }
