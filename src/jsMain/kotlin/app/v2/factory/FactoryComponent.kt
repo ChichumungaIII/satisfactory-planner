@@ -23,7 +23,5 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
     FactoryContentComponent {
         content = factory.tree
         setContent = { next -> factory = factory.copy(tree = next) }
-
-        depth = 1
     }
 }
