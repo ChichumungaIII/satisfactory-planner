@@ -7,7 +7,6 @@ import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
-import app.v2.frame.title.TitleContext
 import csstype.ClassName
 import kotlinx.coroutines.launch
 import mui.material.Backdrop
@@ -20,7 +19,6 @@ import react.FC
 import react.Props
 import react.router.useNavigate
 import react.useContext
-import react.useEffectOnce
 import react.useState
 import kotlin.random.Random
 import kotlin.random.nextULong
@@ -28,10 +26,7 @@ import kotlin.random.nextULong
 external interface FactoriesComponentProps : Props
 
 val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
-    var title by useContext(TitleContext)
     val (factories, updateFactories) = useContext(FactoriesContext)
-
-    useEffectOnce { title = "All Factories" }
 
     when (factories) {
         is LoadState.Loaded -> when (factories.data.size) {
