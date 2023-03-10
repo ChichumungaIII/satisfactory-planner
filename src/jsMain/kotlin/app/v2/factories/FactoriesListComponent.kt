@@ -15,6 +15,7 @@ import react.Props
 import react.create
 import react.router.useNavigate
 import react.useContext
+import react.useState
 
 external interface FactoriesListComponentProps : Props {
     var factories: List<Factory>
@@ -24,6 +25,8 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
     val navigate = useNavigate()
     val (_, updateFactories) = useContext(FactoriesContext)
 
+    var factoryToDelete by useState<Factory?>(null)
+
     mui.material.List {
         props.factories.forEach { factory ->
             ListItem {
@@ -31,7 +34,7 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
                 secondaryAction = IconButton.create {
                     Delete {}
 
-                    onClick = { updateFactories(DeleteFactory(factory.id)) }
+                    onClick = { factoryToDelete = factory }
                 }
 
                 ListItemButton {
@@ -47,6 +50,14 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
                     }
                 }
             }
+        }
+    }
+
+    factoryToDelete?.also {
+        DeleteFactoryDialog {
+            factory = it
+            onCancel = { factoryToDelete = null }
+            onDelete = { updateFactories(DeleteFactory(it.id)) }
         }
     }
 }
