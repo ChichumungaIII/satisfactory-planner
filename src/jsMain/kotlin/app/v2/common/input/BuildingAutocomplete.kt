@@ -37,7 +37,6 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
 
         autoComplete = true
         autoHighlight = true
-        autoSelect = true
         clearOnEscape = true
     }
 }

@@ -27,7 +27,7 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") {
     val theme by useContext(ThemeContext)
     val title by useContext(TitleContext)
 
-    var drawerOpen by useState(false)
+    var drawerOpen by useState(true)
 
     Box {
         className = ClassName("frame")

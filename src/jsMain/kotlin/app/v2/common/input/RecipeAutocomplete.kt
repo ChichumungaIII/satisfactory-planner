@@ -46,7 +46,6 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
 
         autoComplete = true
         autoHighlight = true
-        autoSelect = true
         clearOnEscape = true
     }
 }
