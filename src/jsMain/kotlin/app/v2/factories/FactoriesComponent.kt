@@ -3,10 +3,12 @@ package app.v2.factories
 import app.v2.AppScope
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.Factory
-import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
+import app.v2.data.service.FactoryServiceContext
+import app.v2.frame.FrameMenuOptionsContext
+import app.v2.frame.title.TitleContext
 import csstype.ClassName
 import kotlinx.coroutines.launch
 import mui.material.Backdrop
@@ -19,6 +21,7 @@ import react.FC
 import react.Props
 import react.router.useNavigate
 import react.useContext
+import react.useEffectOnce
 import react.useState
 import kotlin.random.Random
 import kotlin.random.nextULong
@@ -26,6 +29,13 @@ import kotlin.random.nextULong
 external interface FactoriesComponentProps : Props
 
 val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
+    var title by useContext(TitleContext)
+    var frameMenuOptions by useContext(FrameMenuOptionsContext)
+    useEffectOnce {
+        title = "All Factories"
+        frameMenuOptions = listOf()
+    }
+
     val (factories, updateFactories) = useContext(FactoriesContext)
 
     when (factories) {
