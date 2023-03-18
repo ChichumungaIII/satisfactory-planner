@@ -24,8 +24,8 @@ val NavMenu = FC<NavMenuProps>("NavMenu") { props ->
         HeaderSpacer {}
         MenuList {
             listOf(
-                Target("Production Plans", "/production"),
-                Target("Factories", "/factories"),
+                Target("Production Plans", AppRoute.V1_PRODUCTION.url),
+                Target("Factories", AppRoute.V1_FACTORIES.url),
             ).forEach { target ->
                 MenuItem {
                     onClick = {

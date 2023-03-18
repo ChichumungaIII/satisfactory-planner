@@ -1,10 +1,10 @@
 package app.v2.frame
 
-import app.AppRoutes
+import app.AppRoute
 import app.v2.AppScope
-import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.SetFactory
+import app.v2.data.service.FactoryServiceContext
 import app.v2.factories.AddFactory
 import app.v2.factories.FactoriesContext
 import csstype.ClassName
@@ -60,7 +60,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
                     ListItemIcon { Factory {} }
                     ListItemText { +"All Factories" }
 
-                    onClick = { navigate.invoke(AppRoutes.FACTORIES.segment) }
+                    onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
                 }
             }
 
@@ -98,7 +98,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
                     ListItemIcon { AccountTree {} }
                     ListItemText { +"All Plans" }
 
-                    onClick = { navigate.invoke(AppRoutes.PLANS.segment) }
+                    onClick = { navigate.invoke(AppRoute.PLANS.url) }
                 }
             }
         }

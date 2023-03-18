@@ -1,7 +1,6 @@
 package app
 
 import app.common.layout.RootComponent
-import app.plan.Plans
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
@@ -9,81 +8,64 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
+import react.ReactElement
 import react.create
 import react.router.Navigate
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
 
-enum class AppRoutes(
-    val segment: String,
-    parent: AppRoutes? = null,
+enum class AppRoute(
+    val path: String,
+    val parent: AppRoute?,
+    val element: (() -> ReactElement<*>)? = null,
+    val default: (() -> ReactElement<*>)? = null,
+    val redirect: (() -> String)? = null,
 ) {
-    ROOT(""),
-    V1("v1", ROOT),
-    V1_FACTORIES("factories", V1),
-    V1_PRODUCTION("production", V1),
-    V2("v2"),
-    FACTORIES("factories", V2),
-    PLANS("plans", V2);
+    ROOT("", parent = null, redirect = { V1.url }),
 
-    val path: String = "${parent?.let { it.path + "/" } ?: ""}$segment"
+    V1("v1", ROOT, { App.create {} }, redirect = { V1_FACTORIES.url }),
+    V1_FACTORIES("factories", V1, {
+        RootComponent.create {
+            title = "Factories"
+            app.factory.FactoriesComponent {}
+        }
+    }),
+    V1_PRODUCTION("production", V1, {
+        RootComponent.create {
+            title = "Production Plans"
+            app.plan.Plans {}
+        }
+    }),
+
+    V2("v2", ROOT, { AppV2.create {} }, redirect = { FACTORIES.url }),
+    FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
+    FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
+    PLANS("plans", V2, {
+        Typography.create {
+            variant = TypographyVariant.h2
+            +"Plans"
+        }
+    });
+
+    val url = url()
+    fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))
+    fun url(vars: Map<String, String>): String =
+        segment(vars).let { segment -> parent?.let { "${it.url(vars)}/$segment" } ?: segment }
+
+    private fun segment(vars: Map<String, String>): String =
+        path.takeIf { it.startsWith(":") }?.let { vars[it.substring(1)] } ?: path
 }
 
 val Routing = FC<Props>("Routing") {
-    BrowserRouter {
-        Routes {
-            Route {
-                path = AppRoutes.ROOT.segment
-                Route { path = ""; element = Navigate.create { to = AppRoutes.V1.segment } }
+    BrowserRouter { Routes { +render(AppRoute.ROOT) } }
+}
 
-                Route {
-                    path = AppRoutes.V1.segment
-                    element = App.create()
-                    Route { path = ""; element = Navigate.create { to = AppRoutes.V1_FACTORIES.segment } }
+private fun render(route: AppRoute): ReactElement<*> = Route.create {
+    path = route.path
+    route.element?.also { element = it() }
+    route.default?.also { +Route.create { path = ""; element = it() } }
+    route.redirect?.also { +Route.create { path = ""; element = Navigate.create { to = it() } } }
 
-                    Route {
-                        path = AppRoutes.V1_PRODUCTION.segment
-                        element = RootComponent.create {
-                            title = "Production Plans"
-                            Plans {}
-                        }
-                    }
-                    Route {
-                        path = AppRoutes.V1_FACTORIES.segment
-                        element = RootComponent.create {
-                            title = "Factories"
-                            app.factory.FactoriesComponent {}
-                        }
-                    }
-                }
-
-                Route {
-                    path = AppRoutes.V2.segment
-                    element = AppV2.create {}
-                    Route { path = ""; element = Navigate.create { to = AppRoutes.FACTORIES.segment } }
-
-                    Route {
-                        path = AppRoutes.FACTORIES.segment
-
-                        Route {
-                            path = ""
-                            element = FactoriesComponent.create {}
-                        }
-                        Route {
-                            path = ":factoryId"
-                            element = FactoryRouteComponent.create {}
-                        }
-                    }
-                    Route {
-                        path = AppRoutes.PLANS.segment
-                        element = Typography.create {
-                            variant = TypographyVariant.h2
-                            +"Plans"
-                        }
-                    }
-                }
-            }
-        }
-    }
+    AppRoute.values().filter { it.parent == route }.map { render(it) }.forEach { +it }
 }

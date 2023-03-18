@@ -1,5 +1,6 @@
 package app.v2.factories
 
+import app.AppRoute
 import app.v2.data.Factory
 import mui.icons.material.Delete
 import mui.icons.material.Factory
@@ -46,7 +47,7 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
                     }
 
                     onClick = {
-                        navigate.invoke("${factory.id}")
+                        navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
                     }
                 }
             }

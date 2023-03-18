@@ -1,5 +1,6 @@
 package app.v2.factories
 
+import app.AppRoute
 import app.v2.AppScope
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.Factory
@@ -78,7 +79,7 @@ private val ZeroFactoriesPlaceholderComponent = FC<Props>("ZeroFactoriesPlacehol
                     val factory = Factory(Random.nextULong(), "New Factory")
                     updateStore(SetFactory(factoryService.createFactory(factory)))
                     updateFactories(AddFactory(factory))
-                    navigate.invoke("${factory.id}")
+                    navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
                 }
             }
         }

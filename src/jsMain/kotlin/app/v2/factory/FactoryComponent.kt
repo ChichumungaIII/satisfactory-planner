@@ -1,5 +1,6 @@
 package app.v2.factory
 
+import app.AppRoute
 import app.util.PropsDelegate
 import app.v2.data.Factory
 import app.v2.factories.DeleteFactory
@@ -62,7 +63,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
             onCancel = { factoryToDelete = null }
             onDelete = {
                 updateFactories(DeleteFactory(it.id))
-                navigate(to = "..")
+                navigate(AppRoute.FACTORIES.url)
             }
         }
     }

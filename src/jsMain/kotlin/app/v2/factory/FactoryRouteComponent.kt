@@ -1,5 +1,6 @@
 package app.v2.factory
 
+import app.AppRoute
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.LoadState
 import csstype.ClassName
@@ -42,7 +43,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
                 variant = ButtonVariant.contained
                 +"Factory List"
 
-                onClick = { navigate.invoke("..") }
+                onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
             }
         }
     }
