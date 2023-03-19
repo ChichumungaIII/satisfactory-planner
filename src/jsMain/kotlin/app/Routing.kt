@@ -2,6 +2,8 @@ package app
 
 import app.common.layout.RootComponent
 import app.v2.AppV2
+import app.v2.common.layout.AppTitleComponent
+import app.v2.common.layout.FrameComponent
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
 import mui.material.Typography
@@ -42,10 +44,18 @@ enum class AppRoute(
     FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
     FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
     PLANS("plans", V2, {
-        Typography.create {
-            variant = TypographyVariant.h2
-            +"Plans"
+        FrameComponent.create {
+            titleBar = {
+                it.title = AppTitleComponent.create {
+                    title = "Production Plans"
+                }
+            }
+            content = Typography.create {
+                variant = TypographyVariant.h2
+                +"Plans"
+            }
         }
+
     });
 
     val url = url()

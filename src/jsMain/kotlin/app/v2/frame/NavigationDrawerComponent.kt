@@ -25,7 +25,7 @@ import mui.material.ListItemText
 import mui.material.ListSubheader
 import mui.material.Toolbar
 import react.FC
-import react.Props
+import react.PropsWithClassName
 import react.create
 import react.router.useNavigate
 import react.useContext
@@ -33,7 +33,7 @@ import react.useState
 import kotlin.random.Random
 import kotlin.random.nextULong
 
-external interface NavigationDrawerComponentProps : Props {
+external interface NavigationDrawerComponentProps : PropsWithClassName {
     var drawerOpen: Boolean
 }
 

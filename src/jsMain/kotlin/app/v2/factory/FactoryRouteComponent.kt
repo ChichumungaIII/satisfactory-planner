@@ -1,8 +1,12 @@
 package app.v2.factory
 
 import app.AppRoute
+import app.v2.common.layout.AppTitleComponent
+import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.ZeroStateComponent
-import app.v2.data.LoadState
+import app.v2.data.LoadState.Failure
+import app.v2.data.LoadState.Loaded
+import app.v2.data.LoadState.Loading
 import csstype.ClassName
 import js.core.get
 import mui.material.Button
@@ -12,6 +16,8 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
+import react.ReactNode
+import react.create
 import react.router.useNavigate
 import react.router.useParams
 import react.useContext
@@ -26,25 +32,47 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
     useEffectOnce { updateFactory(SetFactoryId(factoryId)) }
 
     when (factory) {
-        is LoadState.Loaded -> FactoryComponent {
+        is Loading -> FactoryNotYetLoadedComponent {
+            content = ZeroStateComponent.create {
+                CircularProgress {}
+            }
+        }
+
+        is Loaded -> FactoryComponent {
             this.factory = factory.data
             setFactory = { next -> updateFactory(SaveFactory(next)) }
         }
 
-        is LoadState.Loading -> ZeroStateComponent { CircularProgress {} }
-        is LoadState.Failure -> ZeroStateComponent {
-            Typography {
-                variant = TypographyVariant.subtitle1
-                +factory.message
-            }
-            Button {
-                className = ClassName("factory-route__return-button")
+        is Failure -> FactoryNotYetLoadedComponent {
+            content = ZeroStateComponent.create {
+                Typography {
+                    variant = TypographyVariant.subtitle1
+                    +factory.message
+                }
+                Button {
+                    className = ClassName("factory-route__return-button")
 
-                variant = ButtonVariant.contained
-                +"Factory List"
+                    variant = ButtonVariant.contained
+                    +"Factory List"
 
-                onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
+                    onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
+                }
             }
         }
+    }
+}
+
+external interface FactoryNotYetLoadedComponentProps : Props {
+    var content: ReactNode
+}
+
+private val FactoryNotYetLoadedComponent = FC<FactoryNotYetLoadedComponentProps>("FactoryNotYetLoadedComponent") {
+    FrameComponent {
+        titleBar = {
+            it.title = AppTitleComponent.create {
+                +"Factory Planner"
+            }
+        }
+        content = it.content
     }
 }
