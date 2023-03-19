@@ -70,7 +70,7 @@ external interface FactoryNotYetLoadedComponentProps : Props {
 private val FactoryNotYetLoadedComponent = FC<FactoryNotYetLoadedComponentProps>("FactoryNotYetLoadedComponent") {
     FrameComponent {
         titleBar = TitleBarComponent.create {
-            title = AppTitleComponent.create { +"Factories" }
+            title = AppTitleComponent.create { title = "Factories" }
         }
         content = it.content
     }
