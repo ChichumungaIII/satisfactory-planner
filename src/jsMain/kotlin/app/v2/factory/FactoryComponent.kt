@@ -38,8 +38,10 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
     val (_, updateFactories) = useContext(FactoriesContext)
 
     var factory by PropsDelegate(props.factory, props.setFactory)
-    var factoryToDelete by useState<Factory?>(null)
+
     var menuElement by useState<Element?>(null)
+    var displayName by useState<String?>(null)
+    var factoryToDelete by useState<Factory?>(null)
 
     FrameComponent {
         titleBar = TitleBarComponent.create {
@@ -68,13 +70,28 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
         MenuItem {
             ListItemIcon { Edit {} }
             ListItemText { +"Rename Factory" }
+            onClick = {
+                menuElement = null
+                displayName = factory.displayName
+            }
         }
         MenuItem {
             ListItemIcon { Delete {} }
             ListItemText { +"Delete Factory" }
             onClick = {
                 menuElement = null
-                factoryToDelete = props.factory
+                factoryToDelete = factory
+            }
+        }
+    }
+
+    displayName?.also {
+        EditFactoryNameDialog {
+            this.displayName = it
+            onCancel = { displayName = null }
+            onAccept = {
+                displayName = null
+                factory = factory.copy(displayName = it)
             }
         }
     }
