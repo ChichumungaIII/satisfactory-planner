@@ -39,13 +39,9 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
             }
         }
 
-        is Loaded -> FactoryHistoryContextProvider {
+        is Loaded -> FactoryComponent {
             this.factory = factory.data
-
-            FactoryComponent {
-                this.factory = factory.data
-                setFactory = { next -> updateFactory(SaveFactory(next)) }
-            }
+            setFactory = { next -> updateFactory(SaveFactory(next)) }
         }
 
         is Failure -> FactoryNotYetLoadedComponent {

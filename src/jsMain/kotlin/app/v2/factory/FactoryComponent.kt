@@ -43,7 +43,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
     val (_, updateFactories) = useContext(FactoriesContext)
 
     var factory by PropsDelegate(props.factory, props.setFactory)
-    var history by useContext(FactoryHistoryContext)
+    var history by useState(FactoryHistory(listOf(factory), 0))
 
     var menuElement by useState<Element?>(null)
     var displayName by useState<String?>(null)
