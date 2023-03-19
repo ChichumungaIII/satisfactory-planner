@@ -30,5 +30,12 @@ external interface FactoryHistoryContextProviderProps : PropsWithChildren {
 
 val FactoryHistoryContextProvider = FC<FactoryHistoryContextProviderProps>("FactoryHistoryContextProvider") { props ->
     val factoryHistoryState = useState(FactoryHistory(listOf(props.factory), 0))
+
+//    var factoryHistory by factoryHistoryState
+//    useEffect(props.factory.id.toInt()) {
+//        println("RESET: ${props.factory.id}")
+//        factoryHistory = FactoryHistory(listOf(props.factory), 0)
+//    }
+
     FactoryHistoryContext(factoryHistoryState) { +props.children }
 }
