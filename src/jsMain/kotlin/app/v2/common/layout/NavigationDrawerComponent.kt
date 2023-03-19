@@ -1,4 +1,4 @@
-package app.v2.frame
+package app.v2.common.layout
 
 import app.AppRoute
 import app.v2.AppScope

@@ -1,7 +1,6 @@
 package app.v2.common.layout
 
 import app.themes.ThemeContext
-import app.v2.frame.NavigationDrawerComponent
 import csstype.ClassName
 import csstype.integer
 import mui.material.AppBar
