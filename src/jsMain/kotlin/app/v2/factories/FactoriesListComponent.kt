@@ -58,7 +58,10 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
         DeleteFactoryDialog {
             factory = it
             onCancel = { factoryToDelete = null }
-            onDelete = { updateFactories(DeleteFactory(it.id)) }
+            onDelete = {
+                factoryToDelete = null
+                updateFactories(DeleteFactory(it.id))
+            }
         }
     }
 }
