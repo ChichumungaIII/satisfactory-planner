@@ -4,6 +4,7 @@ import app.AppRoute
 import app.util.PropsDelegate
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
 import app.v2.data.Factory
 import app.v2.factories.DeleteFactory
 import app.v2.factories.DeleteFactoryDialog
@@ -32,9 +33,9 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
     var factoryToDelete by useState<Factory?>(null)
 
     FrameComponent {
-        titleBar = {
-            it.title = AppTitleComponent.create { title = factory.displayName }
-            it.controls = IconButton.create {
+        titleBar = TitleBarComponent.create {
+            title = AppTitleComponent.create { title = factory.displayName }
+            controls = IconButton.create {
                 className = ClassName("title-bar__icon")
                 MoreVert {}
                 onClick = { }

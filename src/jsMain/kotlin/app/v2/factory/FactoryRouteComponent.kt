@@ -3,6 +3,7 @@ package app.v2.factory
 import app.AppRoute
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.LoadState.Failure
 import app.v2.data.LoadState.Loaded
@@ -68,10 +69,8 @@ external interface FactoryNotYetLoadedComponentProps : Props {
 
 private val FactoryNotYetLoadedComponent = FC<FactoryNotYetLoadedComponentProps>("FactoryNotYetLoadedComponent") {
     FrameComponent {
-        titleBar = {
-            it.title = AppTitleComponent.create {
-                +"Factory Planner"
-            }
+        titleBar = TitleBarComponent.create {
+            title = AppTitleComponent.create { +"Factory Planner" }
         }
         content = it.content
     }

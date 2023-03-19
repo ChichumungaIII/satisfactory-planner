@@ -4,6 +4,7 @@ import app.common.layout.RootComponent
 import app.v2.AppV2
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
 import mui.material.Typography
@@ -45,10 +46,8 @@ enum class AppRoute(
     FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
     PLANS("plans", V2, {
         FrameComponent.create {
-            titleBar = {
-                it.title = AppTitleComponent.create {
-                    title = "Production Plans"
-                }
+            titleBar = TitleBarComponent.create {
+                title = AppTitleComponent.create { title = "Production Plans" }
             }
             content = Typography.create {
                 variant = TypographyVariant.h2

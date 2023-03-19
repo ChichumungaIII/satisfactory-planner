@@ -4,6 +4,7 @@ import app.AppRoute
 import app.v2.AppScope
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
 import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.Factory
 import app.v2.data.FactoryStoreContext
@@ -33,8 +34,8 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ -
     val (factories, updateFactories) = useContext(FactoriesContext)
 
     FrameComponent {
-        titleBar = {
-            it.title = AppTitleComponent.create { title = "Factories" }
+        titleBar = TitleBarComponent.create {
+            title = AppTitleComponent.create { title = "Factories" }
         }
         content = when (factories) {
             is LoadState.Loading -> ZeroStateComponent.create {

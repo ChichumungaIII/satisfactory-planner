@@ -14,7 +14,7 @@ import react.ReactNode
 import react.useContext
 
 external interface FrameComponentProps : Props {
-    var titleBar: (TitleBarComponentProps) -> Unit
+    var titleBar: ReactNode
     var content: ReactNode?
 }
 
@@ -25,14 +25,7 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
     AppBar {
         sx { zIndex = integer(theme.zIndex.drawer.toInt() + 1) }
         position = AppBarPosition.sticky
-
-        TitleBarComponent {
-            props.titleBar(this)
-
-            // TODO: Drawer is a context and doesn't need to be prop-drilled here
-            this.drawer = drawer
-            setDrawer = { next -> drawer = next }
-        }
+        +props.titleBar
     }
 
     NavigationDrawerComponent {
