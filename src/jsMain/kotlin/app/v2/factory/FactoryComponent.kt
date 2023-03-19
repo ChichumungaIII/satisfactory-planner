@@ -11,14 +11,22 @@ import app.v2.factories.DeleteFactoryDialog
 import app.v2.factories.FactoriesContext
 import app.v2.factory.content.FactoryContentComponent
 import csstype.ClassName
+import js.core.jso
+import mui.icons.material.Delete
+import mui.icons.material.Edit
 import mui.icons.material.MoreVert
 import mui.material.IconButton
+import mui.material.ListItemIcon
+import mui.material.ListItemText
+import mui.material.Menu
+import mui.material.MenuItem
 import react.FC
 import react.Props
 import react.create
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.dom.Element
 
 external interface FactoryComponentProps : Props {
     var factory: Factory
@@ -31,6 +39,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
 
     var factory by PropsDelegate(props.factory, props.setFactory)
     var factoryToDelete by useState<Factory?>(null)
+    var menuElement by useState<Element?>(null)
 
     FrameComponent {
         titleBar = TitleBarComponent.create {
@@ -38,7 +47,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
             controls = IconButton.create {
                 className = ClassName("title-bar__icon")
                 MoreVert {}
-                onClick = { }
+                onClick = { event -> menuElement = event.currentTarget }
             }
         }
 
@@ -48,11 +57,34 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
         }
     }
 
+    Menu {
+        open = menuElement != null
+        menuElement?.also { anchorEl = { it } }
+        anchorOrigin = jso { vertical = "top"; horizontal = "right" }
+        transformOrigin = jso { vertical = "top"; horizontal = "right" }
+
+        onClose = { menuElement = null }
+
+        MenuItem {
+            ListItemIcon { Edit {} }
+            ListItemText { +"Rename Factory" }
+        }
+        MenuItem {
+            ListItemIcon { Delete {} }
+            ListItemText { +"Delete Factory" }
+            onClick = {
+                menuElement = null
+                factoryToDelete = props.factory
+            }
+        }
+    }
+
     factoryToDelete?.also {
         DeleteFactoryDialog {
             this.factory = it
             onCancel = { factoryToDelete = null }
             onDelete = {
+                factoryToDelete = null
                 updateFactories(DeleteFactory(it.id))
                 navigate(AppRoute.FACTORIES.url)
             }
