@@ -18,8 +18,6 @@ import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
 import mui.icons.material.ArrowForward
 import mui.icons.material.Clear
-import mui.icons.material.ExpandLess
-import mui.icons.material.ExpandMore
 import mui.icons.material.FormatIndentDecrease
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
@@ -89,48 +87,6 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                 setDetails = { next -> content = content.copy(details = next) }
             }
 
-            props.onFlatten?.also { onFlatten ->
-                TooltipIconButton {
-                    this.title = "Flatten Group"
-                    icon = FormatIndentDecrease
-                    onClick = { onFlatten() }
-                }
-            }
-
-            ToggleIconButton {
-                toggle = newGroup == null
-                setToggle = { confirm ->
-                    if (confirm) {
-                        var next = content
-                        newGroup?.takeUnless { it.isEmpty() }?.also { group ->
-                            val insert = mutableListOf<FactoryNode>()
-                            group.reversed().forEach { i ->
-                                next = next.removeNode(i)
-                                insert.add(0, nodes[i])
-                            }
-                            next = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
-                        }
-                        content = next.copy(newGroup = null)
-                    } else {
-                        content = content.copy(newGroup = listOf())
-                    }
-                }
-
-                titleOn = "Create Group"
-                iconOn = LayersOutlined
-
-                titleOff = "Confirm Group"
-                iconOff = Layers
-            }
-
-            if (newGroup != null) {
-                TooltipIconButton {
-                    this.title = "Cancel Group"
-                    icon = LayersClear
-                    onClick = { content = content.copy(newGroup = null) }
-                }
-            }
-
             ToggleIconButton {
                 toggle = expanded
                 setToggle = { next -> content = content.copy(expanded = next) }
@@ -140,6 +96,50 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
                 titleOff = "Expand"
                 iconOff = KeyboardDoubleArrowDown
+            }
+
+            if (expanded) {
+                props.onFlatten?.also { onFlatten ->
+                    TooltipIconButton {
+                        this.title = "Flatten Group"
+                        icon = FormatIndentDecrease
+                        onClick = { onFlatten() }
+                    }
+                }
+
+                ToggleIconButton {
+                    toggle = newGroup == null
+                    setToggle = { confirm ->
+                        if (confirm) {
+                            var next = content
+                            newGroup?.takeUnless { it.isEmpty() }?.also { group ->
+                                val insert = mutableListOf<FactoryNode>()
+                                group.reversed().forEach { i ->
+                                    next = next.removeNode(i)
+                                    insert.add(0, nodes[i])
+                                }
+                                next = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
+                            }
+                            content = next.copy(newGroup = null)
+                        } else {
+                            content = content.copy(newGroup = listOf())
+                        }
+                    }
+
+                    titleOn = "Create Group"
+                    iconOn = LayersOutlined
+
+                    titleOff = "Confirm Group"
+                    iconOff = Layers
+                }
+
+                if (newGroup != null) {
+                    TooltipIconButton {
+                        this.title = "Cancel Group"
+                        icon = LayersClear
+                        onClick = { content = content.copy(newGroup = null) }
+                    }
+                }
             }
         }
 
