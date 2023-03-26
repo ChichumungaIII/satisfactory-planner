@@ -6,6 +6,9 @@ import app.v2.data.FactoryStoreContextProvider
 import app.v2.data.service.FactoryServiceContextProvider
 import app.v2.factories.FactoriesContextProvider
 import app.v2.factory.FactoryContextProvider
+import app.v2.plans.data.PlanStoreContextProvider
+import app.v2.plans.data.PlansListContextProvider
+import app.v2.plans.data.model.PlanServiceContextProvider
 import kotlinx.coroutines.MainScope
 import react.FC
 import react.Props
@@ -23,11 +26,14 @@ val AppV2 = FC<AppV2Props>("AppV2") {
         // Global theme
         ThemeModule,
         // Global data
+        PlanServiceContextProvider,
+        PlanStoreContextProvider,
         FactoryServiceContextProvider,
         FactoryStoreContextProvider,
         // Frame data
         DrawerContextProvider,
         // Specific data
+        PlansListContextProvider,
         FactoriesContextProvider,
         FactoryContextProvider,
     ).nest(Outlet.create {})

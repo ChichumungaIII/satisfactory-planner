@@ -2,13 +2,9 @@ package app
 
 import app.common.layout.RootComponent
 import app.v2.AppV2
-import app.v2.common.layout.AppTitleComponent
-import app.v2.common.layout.FrameComponent
-import app.v2.common.layout.TitleBarComponent
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
+import app.v2.plans.PlansRouteComponent
 import react.FC
 import react.Props
 import react.ReactElement
@@ -44,22 +40,12 @@ enum class AppRoute(
     V2("v2", ROOT, { AppV2.create {} }, redirect = { FACTORIES.url }),
     FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
     FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
-    PLANS("plans", V2, {
-        FrameComponent.create {
-            titleBar = TitleBarComponent.create {
-                title = AppTitleComponent.create { title = "Production Plans" }
-            }
-            content = Typography.create {
-                variant = TypographyVariant.h2
-                +"Plans"
-            }
-        }
-
-    });
+    PLANS("plans", V2, default = { PlansRouteComponent.create {} });
 
     val url = url()
     fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))
-    fun url(vars: Map<String, String>): String =
+
+    private fun url(vars: Map<String, String>): String =
         segment(vars).let { segment -> parent?.let { "${it.url(vars)}/$segment" } ?: segment }
 
     private fun segment(vars: Map<String, String>): String =
