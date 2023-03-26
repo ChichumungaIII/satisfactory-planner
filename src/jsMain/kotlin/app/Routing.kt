@@ -23,7 +23,7 @@ enum class AppRoute(
 ) {
     ROOT("", parent = null, redirect = { V1.url }),
 
-    V1("v1", ROOT, { App.create {} }, redirect = { V1_FACTORIES.url }),
+    V1("v1", ROOT, { App.create {} }, redirect = { V2.url }),
     V1_FACTORIES("factories", V1, {
         RootComponent.create {
             title = "Factories"
