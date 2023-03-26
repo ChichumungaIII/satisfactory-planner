@@ -8,7 +8,12 @@ import app.v2.data.SetFactory
 import app.v2.data.service.FactoryServiceContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import react.*
+import react.FC
+import react.PropsWithChildren
+import react.ReducerInstance
+import react.createContext
+import react.useContext
+import react.useReducer
 
 sealed interface FactoryContextAction
 data class SetFactoryId(val id: ULong) : FactoryContextAction
@@ -34,14 +39,29 @@ val FactoryContextProvider = FC<PropsWithChildren> { props ->
         }
     }
 
+    var updateFactory: (FactoryContextAction) -> Unit = { throw Error("updateFactory callback not bound") }
     val factoryContext = useReducer<LoadState<ULong, Factory>, FactoryContextAction>(
         { state, action ->
             when (action) {
-                is SetState -> action.state
-
                 is SetFactoryId -> {
                     if (state.id == action.id) state
-                    else store[action.id]?.let { LoadState.loaded(action.id, it) } ?: LoadState.request(action.id)
+                    else store[action.id]?.let { LoadState.loaded(action.id, it) }
+                        ?: LoadState.loading<ULong, Factory>(action.id).also {
+                            AppScope.launch {
+                                val next =
+                                    try {
+                                        val factory = factoryService.getFactory(action.id)
+                                        updateStore(SetFactory(factory))
+                                        LoadState.loaded(action.id, factory)
+                                    } catch (e: IllegalArgumentException) {
+                                        LoadState.failure(
+                                            action.id,
+                                            e.message ?: "There was an error loading Factory #${action.id}"
+                                        )
+                                    }
+                                updateFactory(SetState(next))
+                            }
+                        }
                 }
 
                 is SaveFactory -> {
@@ -51,26 +71,12 @@ val FactoryContextProvider = FC<PropsWithChildren> { props ->
                     if (state.id == factory.id) LoadState.loaded(factory.id, factory)
                     else state
                 }
+
+                is SetState -> action.state
             }
         }, initialState = LoadState.empty()
     )
-    val (state, updateState) = factoryContext
-    useEffect(state) {
-        if (state is LoadState.Requested) {
-            updateState(SetState(LoadState.loading(state.id)))
-            AppScope.launch {
-                val next =
-                    try {
-                        val factory = factoryService.getFactory(state.id)
-                        updateStore(SetFactory(factory))
-                        LoadState.loaded(state.id, factory)
-                    } catch (e: IllegalArgumentException) {
-                        LoadState.failure(state.id, e.message ?: "There was an error loading Factory #${state.id}")
-                    }
-                updateState(SetState(next))
-            }
-        }
-    }
+    updateFactory = factoryContext.component2()
 
     FactoryContext(factoryContext) { +props.children }
 }

@@ -2,17 +2,17 @@ package app.v2.factories
 
 import app.v2.AppScope
 import app.v2.data.Factory
-import app.v2.data.service.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
+import app.v2.data.LoadState.Loading
 import app.v2.data.SetFactories
+import app.v2.data.service.FactoryServiceContext
 import kotlinx.coroutines.launch
 import react.FC
 import react.PropsWithChildren
 import react.ReducerInstance
 import react.createContext
 import react.useContext
-import react.useEffect
 import react.useReducer
 
 sealed interface FactoriesContextAction
@@ -27,45 +27,40 @@ val FactoriesContextProvider = FC<PropsWithChildren> { props ->
     val factoryService = useContext(FactoryServiceContext)
     val (_, updateStore) = useContext(FactoryStoreContext)
 
-    val factoriesContext = useReducer<LoadState<Unit, List<Factory>>, FactoriesContextAction>(
-        { state, action ->
-            when (action) {
-                is SetState -> action.state
-                LoadList -> state.takeIf { it is LoadState.Requested } ?: LoadState.request(Unit)
-
-                is AddFactory -> when (state) {
-                    is LoadState.Loaded -> LoadState.loaded(Unit, state.data + action.factory)
-                    else -> state
-                }
-
-                is DeleteFactory -> when (state) {
-                    is LoadState.Loaded -> {
-                        AppScope.launch { factoryService.deleteFactory(action.factoryId) }
-                        LoadState.loaded(Unit, state.data.filterNot { it.id == action.factoryId })
+    var updateFactories: (FactoriesContextAction) -> Unit = { throw Error("updateFactories callback not bound") }
+    val factoriesContext = useReducer<LoadState<Unit, List<Factory>>, FactoriesContextAction>({ state, action ->
+        when (action) {
+            LoadList -> state.takeIf { it is Loading } ?: LoadState.loading<Unit, List<Factory>>(Unit).also {
+                AppScope.launch {
+                    val next = try {
+                        val factories = factoryService.listFactories()
+                        updateStore(SetFactories(factories))
+                        LoadState.loaded(Unit, factories)
+                    } catch (e: IllegalArgumentException) {
+                        LoadState.failure(Unit, e.message ?: "There was an error loading the Factory list.")
                     }
+                    updateFactories(SetState(next))
+                }
+            }
 
-                    else -> state
+            is AddFactory -> when (state) {
+                is LoadState.Loaded -> LoadState.loaded(Unit, state.data + action.factory)
+                else -> state
+            }
+
+            is DeleteFactory -> when (state) {
+                is LoadState.Loaded -> {
+                    AppScope.launch { factoryService.deleteFactory(action.factoryId) }
+                    LoadState.loaded(Unit, state.data.filterNot { it.id == action.factoryId })
                 }
 
+                else -> state
             }
-        }, initialState = LoadState.empty()
-    )
-    val (state, updateState) = factoriesContext
-    useEffect(state) {
-        if (state is LoadState.Requested) {
-            updateState(SetState(LoadState.loading(state.id)))
-            AppScope.launch {
-                val next = try {
-                    val factories = factoryService.listFactories()
-                    updateStore(SetFactories(factories))
-                    LoadState.loaded(Unit, factories)
-                } catch (e: IllegalArgumentException) {
-                    LoadState.failure(Unit, e.message ?: "There was an error loading the Factory list.")
-                }
-                updateState(SetState(next))
-            }
+
+            is SetState -> action.state
         }
-    }
+    }, initialState = LoadState.empty())
+    updateFactories = factoriesContext.component2()
 
     FactoriesContext(factoriesContext) { +props.children }
 }
