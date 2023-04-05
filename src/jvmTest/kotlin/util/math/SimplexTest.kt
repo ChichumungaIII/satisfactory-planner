@@ -169,4 +169,23 @@ class SimplexTest {
             solution,
         )
     }
+
+    @Test
+    fun maximize_reversible_doesNotReturnNegativeValue() = runBlocking {
+        val fuel = Constraint.atLeast((-2).q * "PACK" + 2.q * "UNPACK", (-10).q)
+        val canister = Constraint.atLeast((-2).q * "PACK" + 2.q * "UNPACK", (-10).q)
+        val packaged = Constraint.atLeast(2.q * "PACK" - 2.q * "UNPACK", 0.q)
+
+        val objective = packaged.expression
+
+        val solution = maximize(objective, listOf(fuel, canister, packaged), Rational.FACTORY)
+
+        assertEquals(
+            mapOf(
+                "PACK" to 5.q,
+                "UNPACK" to 0.q,
+            ),
+            solution
+        )
+    }
 }

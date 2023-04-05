@@ -109,28 +109,31 @@ suspend fun <V, N : Numeric<N>> maximize(
         throw InfeasibleSolutionException("An artificial variable had a value greater than zero.")
     }
 
-    // Extract the solution from the matrix. Terms are in the solution with a nonzero value if their corresponding
-    // column is all zeros except for a single row, in which case their value is (right-hand side) / (that coefficient).
+    // Extract the solution from the matrix. Terms are in the solution if their corresponding column is all zeros except
+    // for a single one, in which case their value is the right-hand side.
     return terms.withIndex().associate { (column, term) ->
         term to (matrix.column(column).withIndex().filterNot { it.value == MValue.zilch(numbers) }
-            .map { (row, cell) -> matrix.get(row, matrix.columns() - 1) / cell }.singleOrNull()?.toNumeric()
+            .singleOrNull()
+            ?.takeIf { (_, cell) -> cell.toNumeric() == numbers.unit() }
+            ?.let { (row, _) -> matrix.get(row, matrix.columns() - 1) }
+            ?.toNumeric()
             ?: numbers.zilch())
     }
 }
 
 class InfeasibleSolutionException(message: String) : Exception(message)
 
-private fun <V, N : Numeric<N>> Constraint<V, N>.normalize(numbers: Numeric.Factory<N>) = when (comparison) {
-    Comparison.AT_LEAST -> if (result > numbers.zilch()) this
-    else Constraint.atMost(-expression, -result)
-    Comparison.AT_MOST -> if (result >= numbers.zilch()) this
-    else Constraint.atLeast(-expression, -result)
-    Comparison.EQUAL_TO -> if (result >= numbers.zilch()) this
-    else Constraint.equalTo(-expression, -result)
-}
+private fun <V, N : Numeric<N>> Constraint<V, N>.normalize(numbers: Numeric.Factory<N>) =
+    if (result >= numbers.zilch()) this
+    else when (comparison) {
+        Comparison.AT_LEAST -> Constraint.atMost(-expression, -result)
+        Comparison.AT_MOST -> Constraint.atLeast(-expression, -result)
+        Comparison.EQUAL_TO -> Constraint.equalTo(-expression, -result)
+    }
 
 private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: Int, pivotColumn: Int) = coroutineScope {
-    // This isn't necessary, but I find it tidy to normalize the rows of variables in the solution.
+    // Normalize the rows of variables in the solution so that the variables in the solution can be identified as
+    // the only 1 in a column that's otherwise 0s.
     val divisor = get(pivotRow, pivotColumn)
     for (column in 0 until columns()) {
         update(pivotRow, column) { (it / divisor) }
@@ -147,14 +150,14 @@ private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: In
     }.joinAll()
 }
 
-private fun <T> MutableMatrix<T>.debug() {
+private fun <T> MutableMatrix<T>.debug(pad: Int = 10) {
     val cells = mutableListOf<MutableList<String>>()
     for (row in 0 until rows()) {
         cells.add(mutableListOf())
         row(row).forEach { value -> cells[row].add(value.toString()) }
     }
     val debug = cells.joinToString("\n") { row ->
-        row.joinToString(" | ") { it.padStart(12, ' ') }
+        row.joinToString(" | ") { it.padStart(pad, ' ') }
     }
     println(".\n\n$debug\n")
 }
