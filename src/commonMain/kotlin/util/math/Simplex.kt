@@ -124,7 +124,9 @@ suspend fun <V, N : Numeric<N>> maximize(
 class InfeasibleSolutionException(message: String) : Exception(message)
 
 private fun <V, N : Numeric<N>> Constraint<V, N>.normalize(numbers: Numeric.Factory<N>) =
-    if (result >= numbers.zilch()) this
+    if (result > numbers.zilch()) this
+    else if (result == numbers.zilch() && comparison == Comparison.AT_LEAST)
+        Constraint.atMost(-expression, -result)
     else when (comparison) {
         Comparison.AT_LEAST -> Constraint.atMost(-expression, -result)
         Comparison.AT_MOST -> Constraint.atLeast(-expression, -result)
