@@ -1,0 +1,46 @@
+package app.v2.plans.plan
+
+import app.v2.common.layout.AppTitleComponent
+import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
+import app.v2.common.layout.ZeroStateComponent
+import app.v2.data.LoadState.Loaded
+import app.v2.data.LoadState.Loading
+import app.v2.plans.data.GetPlan
+import app.v2.plans.data.PlanContext
+import js.core.get
+import mui.material.CircularProgress
+import mui.material.Typography
+import mui.material.styles.TypographyVariant
+import react.FC
+import react.Props
+import react.create
+import react.router.useParams
+import react.useContext
+
+external interface PlanRouteComponentProps : Props
+
+val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { props ->
+    val planId = useParams()["planId"]!!.toULong()
+    val (plan, updatePlan) = useContext(PlanContext)
+
+    FrameComponent {
+        titleBar = TitleBarComponent.create {
+            title = AppTitleComponent.create {
+                title = if (plan is Loaded) plan.data.title else "Plans"
+            }
+        }
+        content = when (plan) {
+            is Loading -> ZeroStateComponent.create {
+                CircularProgress { size = 80; thickness = 4.8 }
+            }
+
+            is Loaded -> Typography.create {
+                variant = TypographyVariant.h1
+                +plan.data.title
+            }
+
+            else -> null.also { updatePlan(GetPlan(planId)) }
+        }
+    }
+}

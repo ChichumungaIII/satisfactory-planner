@@ -6,6 +6,7 @@ import app.v2.data.FactoryStoreContextProvider
 import app.v2.data.service.FactoryServiceContextProvider
 import app.v2.factories.FactoriesContextProvider
 import app.v2.factory.FactoryContextProvider
+import app.v2.plans.data.PlanContextProvider
 import app.v2.plans.data.PlanStoreContextProvider
 import app.v2.plans.data.PlansListContextProvider
 import app.v2.plans.data.model.PlanServiceContextProvider
@@ -34,6 +35,7 @@ val AppV2 = FC<AppV2Props>("AppV2") {
         DrawerContextProvider,
         // Specific data
         PlansListContextProvider,
+        PlanContextProvider,
         FactoriesContextProvider,
         FactoryContextProvider,
     ).nest(Outlet.create {})

@@ -9,11 +9,11 @@ import mui.material.Box
 import mui.material.styles.create
 import mui.system.sx
 import react.FC
-import react.Props
+import react.PropsWithChildren
 import react.ReactNode
 import react.useContext
 
-external interface FrameComponentProps : Props {
+external interface FrameComponentProps : PropsWithChildren {
     var titleBar: ReactNode
     var content: ReactNode?
 }
@@ -51,5 +51,6 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
         }
 
         +props.content
+        +props.children
     }
 }

@@ -53,11 +53,7 @@ val PlansListComponent = FC<PlansListComponentProps>("PlansListComponent") { pro
             ListItemButton {
                 ListItemAvatar { Avatar { Add {} } }
                 ListItemText { primary = Typography.create { +"Create plan" } }
-                onClick = {
-                    val plan = Plan(Random.nextULong(), "New Plan")
-                    // TODO: Store the factory.
-                    navigate(AppRoute.PLAN.url("planId" to "${plan.id}"))
-                }
+                onClick = { props.onCreate(Plan(Random.nextULong(), "New Plan")) }
             }
         }
     }
