@@ -152,6 +152,7 @@ private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: In
     }.joinAll()
 }
 
+// Simplex solver to help with bugs: https://cbom.atozmath.com/CBOM/Simplex.aspx
 private fun <T> MutableMatrix<T>.debug(pad: Int = 10) {
     val cells = mutableListOf<MutableList<String>>()
     for (row in 0 until rows()) {
