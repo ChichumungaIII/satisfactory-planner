@@ -4,6 +4,7 @@ import app.common.layout.RootComponent
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
+import app.v2.plan.PlanRouteComponent
 import app.v2.plans.PlansRouteComponent
 import react.FC
 import react.Props
@@ -40,7 +41,8 @@ enum class AppRoute(
     V2("v2", ROOT, { AppV2.create {} }, redirect = { FACTORIES.url }),
     FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
     FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
-    PLANS("plans", V2, default = { PlansRouteComponent.create {} });
+    PLANS("plans", V2, default = { PlansRouteComponent.create {} }),
+    PLAN(":planId", PLANS, { PlanRouteComponent.create {} });
 
     val url = url()
     fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))

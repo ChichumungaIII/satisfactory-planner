@@ -16,7 +16,7 @@ import react.useContext
 
 external interface PlansRouteComponentProps : Props
 
-val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") { props ->
+val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") {
     val (plans, updatePlans) = useContext(PlansListContext)
 
     FrameComponent {
@@ -28,7 +28,9 @@ val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") { 
                 CircularProgress { size = 80; thickness = 4.8 }
             }
 
-            is Loaded -> ZeroStateComponent.create { +"Success!" }
+            is Loaded -> PlansListComponent.create {
+                this.plans = plans.data
+            }
 
             else -> null.also { updatePlans(LoadPlansList) }
         }
