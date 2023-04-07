@@ -1,6 +1,7 @@
 package app.v2.plans
 
 import app.AppRoute
+import app.v2.plans.common.DeletePlanDialog
 import app.v2.plans.data.model.Plan
 import mui.icons.material.AccountTree
 import mui.icons.material.Add
@@ -16,6 +17,7 @@ import react.FC
 import react.Props
 import react.create
 import react.router.useNavigate
+import react.useState
 import kotlin.random.Random
 import kotlin.random.nextULong
 
@@ -28,13 +30,15 @@ external interface PlansListComponentProps : Props {
 val PlansListComponent = FC<PlansListComponentProps>("PlansListComponent") { props ->
     val navigate = useNavigate()
 
+    var planToDelete by useState<Plan?>(null)
+
     mui.material.List {
         props.plans.forEach { plan ->
             ListItem {
                 disablePadding = true
                 secondaryAction = IconButton.create {
                     Delete {}
-                    onClick = { TODO() }
+                    onClick = { planToDelete = plan }
                 }
 
                 ListItemButton {
@@ -55,6 +59,15 @@ val PlansListComponent = FC<PlansListComponentProps>("PlansListComponent") { pro
                 ListItemText { primary = Typography.create { +"Create plan" } }
                 onClick = { props.onCreate(Plan(Random.nextULong(), "New Plan")) }
             }
+        }
+    }
+
+    DeletePlanDialog {
+        plan = planToDelete
+        onCancel = { planToDelete = null }
+        onDelete = {
+            planToDelete?.also { props.onDelete(it.id) }
+            planToDelete = null
         }
     }
 }

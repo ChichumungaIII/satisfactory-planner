@@ -12,6 +12,7 @@ import app.v2.plans.data.AppendPlan
 import app.v2.plans.data.LoadPlansList
 import app.v2.plans.data.PlanStoreContext
 import app.v2.plans.data.PlansListContext
+import app.v2.plans.data.RemovePlan
 import app.v2.plans.data.StorePlan
 import app.v2.plans.data.model.PlanServiceContext
 import kotlinx.coroutines.launch
@@ -53,6 +54,9 @@ val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") {
                         updatePlans(AppendPlan(plan))
                         navigate(AppRoute.PLAN.url("planId" to "${plan.id}"))
                     }
+                }
+                onDelete = { id ->
+                    updatePlans(RemovePlan(id))
                 }
             }
 
