@@ -17,7 +17,7 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
-import react.ReactNode
+import react.PropsWithChildren
 import react.create
 import react.router.useNavigate
 import react.router.useParams
@@ -34,7 +34,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
 
     when (factory) {
         is Loading -> FactoryNotYetLoadedComponent {
-            content = ZeroStateComponent.create {
+            ZeroStateComponent {
                 CircularProgress {}
             }
         }
@@ -45,7 +45,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
         }
 
         is Failure -> FactoryNotYetLoadedComponent {
-            content = ZeroStateComponent.create {
+            ZeroStateComponent {
                 Typography {
                     variant = TypographyVariant.subtitle1
                     +factory.message
@@ -63,15 +63,12 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
     }
 }
 
-external interface FactoryNotYetLoadedComponentProps : Props {
-    var content: ReactNode
-}
 
-private val FactoryNotYetLoadedComponent = FC<FactoryNotYetLoadedComponentProps>("FactoryNotYetLoadedComponent") {
+private val FactoryNotYetLoadedComponent = FC<PropsWithChildren>("FactoryNotYetLoadedComponent") { props ->
     FrameComponent {
         titleBar = TitleBarComponent.create {
             title = AppTitleComponent.create { title = "Factories" }
         }
-        content = it.content
+        +props.children
     }
 }

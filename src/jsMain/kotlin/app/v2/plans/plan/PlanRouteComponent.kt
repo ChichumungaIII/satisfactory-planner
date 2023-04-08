@@ -30,12 +30,13 @@ val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { pro
                 title = if (plan is Loaded) plan.data.title else "Plans"
             }
         }
-        content = when (plan) {
-            is Loading -> ZeroStateComponent.create {
+
+        when (plan) {
+            is Loading -> ZeroStateComponent {
                 CircularProgress { size = 80; thickness = 4.8 }
             }
 
-            is Loaded -> Typography.create {
+            is Loaded -> Typography {
                 variant = TypographyVariant.h1
                 +plan.data.title
             }

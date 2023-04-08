@@ -53,7 +53,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
             }
         }
 
-        content = FactoryContentComponent.create {
+        FactoryContentComponent {
             content = factory.tree
             setContent = { next -> factory = factory.copy(tree = next) }
         }

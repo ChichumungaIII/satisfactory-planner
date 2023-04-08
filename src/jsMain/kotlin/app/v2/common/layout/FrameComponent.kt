@@ -15,7 +15,6 @@ import react.useContext
 
 external interface FrameComponentProps : PropsWithChildren {
     var titleBar: ReactNode
-    var content: ReactNode?
 }
 
 val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
@@ -50,7 +49,6 @@ val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
             }
         }
 
-        +props.content
         +props.children
     }
 }

@@ -37,14 +37,14 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ -
         titleBar = TitleBarComponent.create {
             title = AppTitleComponent.create { title = "Factories" }
         }
-        content = when (factories) {
-            is LoadState.Loading -> ZeroStateComponent.create {
+        when (factories) {
+            is LoadState.Loading -> ZeroStateComponent {
                 CircularProgress { size = 80; thickness = 4.8 }
             }
 
             is LoadState.Loaded -> when (factories.data.size) {
-                0 -> ZeroFactoriesPlaceholderComponent.create { }
-                else -> FactoriesListComponent.create {
+                0 -> ZeroFactoriesPlaceholderComponent { }
+                else -> FactoriesListComponent {
                     this.factories = factories.data
                 }
             }
