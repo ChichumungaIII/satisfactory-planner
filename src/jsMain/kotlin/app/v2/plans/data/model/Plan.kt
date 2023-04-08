@@ -1,6 +1,7 @@
 package app.v2.plans.data.model
 
 import app.data.Item
+import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -12,6 +13,7 @@ data class Plan(
     val activeStep: Int = 0,
     val inputs: List<PlanInput> = listOf(),
     val products: List<PlanProduct> = listOf(),
+    val result: Map<Recipe, Rational>? = null,
 )
 
 @Serializable
@@ -27,4 +29,3 @@ data class PlanProduct(
     val amount: Rational = 0.q,
     val maximum: Rational? = null,
 )
-

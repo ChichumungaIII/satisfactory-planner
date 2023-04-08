@@ -1,10 +1,18 @@
 package app.v2.plans.plan
 
+import app.api.OptimizeRequest
+import app.api.OptimizeResponse
+import app.api.client.optimize
+import app.data.recipe.ProductionRecipe
 import app.util.PropsDelegate
+import app.v2.AppScope
 import app.v2.plans.data.model.Plan
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
+import app.v2.plans.plan.results.PlanResultsComponent
 import csstype.ClassName
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import mui.icons.material.Circle
 import mui.material.Box
 import mui.material.ButtonProps
@@ -18,17 +26,55 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import react.useEffect
+import kotlin.time.Duration.Companion.milliseconds
 
 external interface PlanComponentProps : Props {
     var plan: Plan
     var setPlan: (Plan) -> Unit
 }
 
+private var pending: OptimizeRequest? = null
+private var requested: OptimizeRequest? = null
+private var latest: OptimizeRequest? = null
+
+private suspend fun conditionalSend(request: OptimizeRequest): OptimizeResponse? {
+    if (request != pending || requested != null) return null
+
+    requested = request
+    return optimize(request).takeIf { request == requested }
+        .also {
+            requested = null
+            latest = request
+        }
+}
+
 val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
     var plan by PropsDelegate(props.plan, props.setPlan)
 
-    fun setActiveStep(i: Int) {
-        plan = plan.copy(activeStep = i)
+    useEffect(plan.inputs, plan.products) {
+        val current = OptimizeRequest(
+            recipes = ProductionRecipe.values().toSet(),
+            inputs = plan.inputs.mapNotNull { it.item?.let { item -> OptimizeRequest.Input(item, it.amount) } },
+            products = plan.products.mapNotNull {
+                it.item?.let { item ->
+                    OptimizeRequest.Product(
+                        item,
+                        it.amount,
+                        if (it.exact) it.amount else it.maximum
+                    )
+                }
+            }
+        )
+        if (current == latest) return@useEffect
+
+        pending = current
+        AppScope.launch {
+            delay(200.milliseconds)
+            conditionalSend(current)?.also { response ->
+                plan = plan.copy(result = response.outcome)
+            }
+        }
     }
 
     Stepper {
@@ -55,18 +101,16 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
                 content = ReactNode("Recipes (content)"),
             ), PlanStepData(
                 title = "Results",
-                content = ReactNode("Results (content)"),
+                content = PlanResultsComponent.create { results = plan.result },
             )
         ).withIndex().forEach { (index, step) ->
             Step {
                 className = ClassName("plan__step")
 
                 StepButton {
-                    unsafeCast<ButtonProps>().onClick = { setActiveStep(index) }
+                    unsafeCast<ButtonProps>().onClick = { plan = plan.copy(activeStep = index) }
                     icon = Circle.create {
-                        color = SvgIconColor.primary
-                            ?.takeIf { plan.activeStep == index }
-                            ?: SvgIconColor.disabled
+                        color = SvgIconColor.primary?.takeIf { plan.activeStep == index } ?: SvgIconColor.disabled
                     }
                     +step.title
                 }
