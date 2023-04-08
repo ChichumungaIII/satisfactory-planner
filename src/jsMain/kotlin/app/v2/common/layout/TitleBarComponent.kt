@@ -14,29 +14,29 @@ import react.ReactNode
 import react.useContext
 
 external interface TitleBarComponentProps : Props {
-    var title: ReactNode
-    var controls: ReactNode?
+  var title: ReactNode
+  var controls: ReactNode?
 }
 
 val TitleBarComponent = FC<TitleBarComponentProps>("TitleBarComponent") { props ->
-    var drawer by useContext(DrawerContext)
+  var drawer by useContext(DrawerContext)
 
-    Toolbar {
-        ToggleIconButton {
-            className = ClassName("title-bar__nav-menu-icon title-bar__icon")
+  Toolbar {
+    ToggleIconButton {
+      className = ClassName("title-bar__nav-menu-icon title-bar__icon")
 
-            toggle = drawer
-            setToggle = { next -> drawer = next }
+      toggle = drawer
+      setToggle = { next -> drawer = next }
 
-            titleOn = "Close Menu"
-            iconOn = MenuOpen
+      titleOn = "Close Menu"
+      iconOn = MenuOpen
 
-            titleOff = "Open Menu"
-            iconOff = Menu
-        }
-
-        +props.title
-        Box { sx { flexGrow = number(1.0) } }
-        +props.controls
+      titleOff = "Open Menu"
+      iconOff = Menu
     }
+
+    +props.title
+    Box { sx { flexGrow = number(1.0) } }
+    +props.controls
+  }
 }

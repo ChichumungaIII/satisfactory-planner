@@ -34,78 +34,78 @@ import kotlin.random.Random
 import kotlin.random.nextULong
 
 external interface NavigationDrawerComponentProps : PropsWithClassName {
-    var drawerOpen: Boolean
+  var drawerOpen: Boolean
 }
 
 val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDrawerComponent") { props ->
-    val navigate = useNavigate()
-    val factoryService = useContext(FactoryServiceContext)
-    val (_, updateStore) = useContext(FactoryStoreContext)
-    val (_, updateFactories) = useContext(FactoriesContext)
+  val navigate = useNavigate()
+  val factoryService = useContext(FactoryServiceContext)
+  val (_, updateStore) = useContext(FactoryStoreContext)
+  val (_, updateFactories) = useContext(FactoriesContext)
 
-    // TODO: Extract "creating" to a common context.
-    var creating by useState(false)
+  // TODO: Extract "creating" to a common context.
+  var creating by useState(false)
 
-    Drawer {
-        variant = DrawerVariant.persistent
-        open = props.drawerOpen
-        PaperProps = jso { className = ClassName("frame__drawer") }
+  Drawer {
+    variant = DrawerVariant.persistent
+    open = props.drawerOpen
+    PaperProps = jso { className = ClassName("frame__drawer") }
 
-        Toolbar {} // Adds space equivalent to the header
-        mui.material.List {
-            subheader = ListSubheader.create { +"Factories" }
+    Toolbar {} // Adds space equivalent to the header
+    mui.material.List {
+      subheader = ListSubheader.create { +"Factories" }
 
-            ListItem {
-                ListItemButton {
-                    ListItemIcon { Factory {} }
-                    ListItemText { +"All Factories" }
+      ListItem {
+        ListItemButton {
+          ListItemIcon { Factory {} }
+          ListItemText { +"All Factories" }
 
-                    onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
-                }
-            }
-
-            mui.material.List {
-                disablePadding = true
-
-                ListItem {
-                    className = ClassName("frame__drawer__create-new")
-
-                    ListItemButton {
-                        ListItemIcon { Add {} }
-                        ListItemText { +"Create new" }
-
-                        onClick = {
-                            creating = true
-                            AppScope.launch {
-                                val factory = app.v2.data.Factory(Random.nextULong(), "New Factory")
-                                updateStore(SetFactory(factoryService.createFactory(factory)))
-                                updateFactories(AddFactory(factory))
-                                creating = false
-                            }
-                        }
-                    }
-                }
-            }
+          onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
         }
+      }
 
-        Divider {}
+      mui.material.List {
+        disablePadding = true
 
-        mui.material.List {
-            subheader = ListSubheader.create { +"Production Plans" }
+        ListItem {
+          className = ClassName("frame__drawer__create-new")
 
-            ListItem {
-                ListItemButton {
-                    ListItemIcon { AccountTree {} }
-                    ListItemText { +"All Plans" }
+          ListItemButton {
+            ListItemIcon { Add {} }
+            ListItemText { +"Create new" }
 
-                    onClick = { navigate.invoke(AppRoute.PLANS.url) }
-                }
+            onClick = {
+              creating = true
+              AppScope.launch {
+                val factory = app.v2.data.Factory(Random.nextULong(), "New Factory")
+                updateStore(SetFactory(factoryService.createFactory(factory)))
+                updateFactories(AddFactory(factory))
+                creating = false
+              }
             }
+          }
         }
-
-        Backdrop {
-            open = creating
-            CircularProgress { size = 80; thickness = 4.8 }
-        }
+      }
     }
+
+    Divider {}
+
+    mui.material.List {
+      subheader = ListSubheader.create { +"Production Plans" }
+
+      ListItem {
+        ListItemButton {
+          ListItemIcon { AccountTree {} }
+          ListItemText { +"All Plans" }
+
+          onClick = { navigate.invoke(AppRoute.PLANS.url) }
+        }
+      }
+    }
+
+    Backdrop {
+      open = creating
+      CircularProgress { size = 80; thickness = 4.8 }
+    }
+  }
 }

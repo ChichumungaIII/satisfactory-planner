@@ -6,12 +6,12 @@ import react.FC
 import react.Props
 
 external interface AppTitleComponentProps : Props {
-    var title: String
+  var title: String
 }
 
 val AppTitleComponent = FC<AppTitleComponentProps>("AppTitleComponent") { props ->
-    Typography {
-        variant = TypographyVariant.h1
-        +props.title
-    }
+  Typography {
+    variant = TypographyVariant.h1
+    +props.title
+  }
 }

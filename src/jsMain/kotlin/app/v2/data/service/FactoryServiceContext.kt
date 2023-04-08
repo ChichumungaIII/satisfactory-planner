@@ -7,5 +7,5 @@ import react.createContext
 val FactoryServiceContext = createContext<FactoryService>()
 
 val FactoryServiceContextProvider = FC<PropsWithChildren> { props ->
-    FactoryServiceContext(LocalStorageFactoryService()) { +props.children }
+  FactoryServiceContext(LocalStorageFactoryService()) { +props.children }
 }

@@ -14,23 +14,23 @@ import kotlinx.html.script
 import kotlinx.html.title
 
 fun Routing.indexRoute() {
-    route("/{...}") {
-        get {
-            call.respondHtml(HttpStatusCode.OK) {
-                head {
-                    meta { charset = "UTF-8" }
-                    title("Satisfactory Planner")
+  route("/{...}") {
+    get {
+      call.respondHtml(HttpStatusCode.OK) {
+        head {
+          meta { charset = "UTF-8" }
+          title("Satisfactory Planner")
 
-                    link {
-                        rel = "stylesheet"
-                        href = "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-                    }
-                }
-                body {
-                    link { rel = "stylesheet"; href = "/static/satisfactory-planner.css" }
-                    script { src = "/static/satisfactory-planner.js" }
-                }
-            }
+          link {
+            rel = "stylesheet"
+            href = "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          }
         }
+        body {
+          link { rel = "stylesheet"; href = "/static/satisfactory-planner.css" }
+          script { src = "/static/satisfactory-planner.js" }
+        }
+      }
     }
+  }
 }

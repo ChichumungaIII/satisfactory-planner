@@ -18,47 +18,47 @@ import react.Props
 import react.ReactNode
 
 external interface PlanInputsComponentProps : Props {
-    var inputs: List<PlanInput>
-    var setInputs: (List<PlanInput>) -> Unit
+  var inputs: List<PlanInput>
+  var setInputs: (List<PlanInput>) -> Unit
 }
 
 val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { props ->
-    var inputs by PropsDelegate(props.inputs, props.setInputs)
+  var inputs by PropsDelegate(props.inputs, props.setInputs)
 
-    Stack {
-        className = ClassName("plan-inputs")
-        direction = responsive(StackDirection.column)
-        spacing = responsive(10.px)
+  Stack {
+    className = ClassName("plan-inputs")
+    direction = responsive(StackDirection.column)
+    spacing = responsive(10.px)
 
-        inputs.withIndex().forEach { (index, input) ->
-            fun before() = inputs.subList(0, index)
-            fun after() = inputs.subList(index + 1, inputs.size)
-            fun setInput(input: PlanInput) {
-                inputs = before() + input + after()
-            }
+    inputs.withIndex().forEach { (index, input) ->
+      fun before() = inputs.subList(0, index)
+      fun after() = inputs.subList(index + 1, inputs.size)
+      fun setInput(input: PlanInput) {
+        inputs = before() + input + after()
+      }
 
-            PlanInputComponent {
-                item = input.item
-                setItem = { next -> setInput(input.copy(item = next)) }
+      PlanInputComponent {
+        item = input.item
+        setItem = { next -> setInput(input.copy(item = next)) }
 
-                amount = input.amount
-                setAmount = { next -> setInput(input.copy(amount = next)) }
+        amount = input.amount
+        setAmount = { next -> setInput(input.copy(amount = next)) }
 
-                onDelete = { inputs = before() + after() }
-            }
-        }
-
-        Tooltip {
-            className = ClassName("plan-inputs__add-input")
-            title = ReactNode("Add Input")
-
-            Fab {
-                color = FabColor.primary
-                size = Size.small
-                Add { fontSize = SvgIconSize.medium }
-
-                onClick = { inputs = inputs + PlanInput() }
-            }
-        }
+        onDelete = { inputs = before() + after() }
+      }
     }
+
+    Tooltip {
+      className = ClassName("plan-inputs__add-input")
+      title = ReactNode("Add Input")
+
+      Fab {
+        color = FabColor.primary
+        size = Size.small
+        Add { fontSize = SvgIconSize.medium }
+
+        onClick = { inputs = inputs + PlanInput() }
+      }
+    }
+  }
 }

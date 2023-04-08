@@ -23,23 +23,23 @@ external interface AppV2Props : Props
 val AppScope = MainScope()
 
 val AppV2 = FC<AppV2Props>("AppV2") {
-    +listOf(
-        // Global theme
-        ThemeModule,
-        // Global data
-        PlanServiceContextProvider,
-        PlanStoreContextProvider,
-        FactoryServiceContextProvider,
-        FactoryStoreContextProvider,
-        // Frame data
-        DrawerContextProvider,
-        // Specific data
-        PlansListContextProvider,
-        PlanContextProvider,
-        FactoriesContextProvider,
-        FactoryContextProvider,
-    ).nest(Outlet.create {})
+  +listOf(
+    // Global theme
+    ThemeModule,
+    // Global data
+    PlanServiceContextProvider,
+    PlanStoreContextProvider,
+    FactoryServiceContextProvider,
+    FactoryStoreContextProvider,
+    // Frame data
+    DrawerContextProvider,
+    // Specific data
+    PlansListContextProvider,
+    PlanContextProvider,
+    FactoriesContextProvider,
+    FactoryContextProvider,
+  ).nest(Outlet.create {})
 }
 
 private fun List<FC<PropsWithChildren>>.nest(element: ReactElement<*>): ReactElement<*> =
-    foldRight(element) { parent, child -> parent.create { +child } }
+  foldRight(element) { parent, child -> parent.create { +child } }

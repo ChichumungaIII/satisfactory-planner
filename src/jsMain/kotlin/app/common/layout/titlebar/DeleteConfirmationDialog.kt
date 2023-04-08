@@ -11,37 +11,37 @@ import react.FC
 import react.Props
 
 external interface DeleteConfirmationDialogProps : Props {
-    var description: String
+  var description: String
 
-    var active: Boolean
-    var setActive: (Boolean) -> Unit
-    var title: String
+  var active: Boolean
+  var setActive: (Boolean) -> Unit
+  var title: String
 
-    var onDelete: () -> Unit
+  var onDelete: () -> Unit
 }
 
 val DeleteConfirmationDialog = FC<DeleteConfirmationDialogProps>("DeleteConfirmationDialog") { props ->
-    var active by PropsDelegate(props.active) { props.setActive(it) }
+  var active by PropsDelegate(props.active) { props.setActive(it) }
 
-    Dialog {
-        open = active
+  Dialog {
+    open = active
 
-        DialogTitle { +props.description }
-        DialogContent { +"Are you sure you want to delete \"${props.title}\"?" }
-        DialogActions {
-            Button {
-                variant = ButtonVariant.outlined
-                onClick = { active = false }
-                +"Cancel"
-            }
-            Button {
-                variant = ButtonVariant.contained
-                onClick = {
-                    props.onDelete()
-                    active = false
-                }
-                +"Delete"
-            }
+    DialogTitle { +props.description }
+    DialogContent { +"Are you sure you want to delete \"${props.title}\"?" }
+    DialogActions {
+      Button {
+        variant = ButtonVariant.outlined
+        onClick = { active = false }
+        +"Cancel"
+      }
+      Button {
+        variant = ButtonVariant.contained
+        onClick = {
+          props.onDelete()
+          active = false
         }
+        +"Delete"
+      }
     }
+  }
 }

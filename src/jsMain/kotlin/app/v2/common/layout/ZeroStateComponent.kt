@@ -8,8 +8,8 @@ import react.PropsWithChildren
 external interface ZeroStateComponentProps : PropsWithChildren
 
 val ZeroStateComponent = FC<ZeroStateComponentProps>("ZeroStateComponent") { props ->
-    Box {
-        className = ClassName("zero-state")
-        +props.children
-    }
+  Box {
+    className = ClassName("zero-state")
+    +props.children
+  }
 }

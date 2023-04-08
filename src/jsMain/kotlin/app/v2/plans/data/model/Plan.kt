@@ -8,24 +8,24 @@ import util.math.q
 
 @Serializable
 data class Plan(
-    val id: ULong,
-    val title: String,
-    val activeStep: Int = 0,
-    val inputs: List<PlanInput> = listOf(),
-    val products: List<PlanProduct> = listOf(),
-    val result: Map<Recipe, Rational>? = null,
+  val id: ULong,
+  val title: String,
+  val activeStep: Int = 0,
+  val inputs: List<PlanInput> = listOf(),
+  val products: List<PlanProduct> = listOf(),
+  val result: Map<Recipe, Rational>? = null,
 )
 
 @Serializable
 data class PlanInput(
-    val item: Item? = null,
-    val amount: Rational = 0.q,
+  val item: Item? = null,
+  val amount: Rational = 0.q,
 )
 
 @Serializable
 data class PlanProduct(
-    val item: Item? = null,
-    val exact: Boolean = false,
-    val amount: Rational = 0.q,
-    val maximum: Rational? = null,
+  val item: Item? = null,
+  val exact: Boolean = false,
+  val amount: Rational = 0.q,
+  val maximum: Rational? = null,
 )

@@ -9,6 +9,6 @@ import react.useState
 val DrawerContext = createContext<StateInstance<Boolean>>()
 
 val DrawerContextProvider = FC<PropsWithChildren> { props ->
-    val drawer = useState(true)
-    DrawerContext(drawer) { +props.children }
+  val drawer = useState(true)
+  DrawerContext(drawer) { +props.children }
 }

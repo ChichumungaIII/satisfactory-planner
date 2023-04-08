@@ -27,48 +27,48 @@ import react.useEffectOnce
 external interface FactoryRouteComponentProps : Props
 
 val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponent") { _ ->
-    val factoryId = useParams()["factoryId"]!!.toULong()
-    val navigate = useNavigate()
-    val (factory, updateFactory) = useContext(FactoryContext)
-    useEffectOnce { updateFactory(SetFactoryId(factoryId)) }
+  val factoryId = useParams()["factoryId"]!!.toULong()
+  val navigate = useNavigate()
+  val (factory, updateFactory) = useContext(FactoryContext)
+  useEffectOnce { updateFactory(SetFactoryId(factoryId)) }
 
-    when (factory) {
-        is Loading -> FactoryNotYetLoadedComponent {
-            ZeroStateComponent {
-                CircularProgress {}
-            }
-        }
-
-        is Loaded -> FactoryComponent {
-            this.factory = factory.data
-            setFactory = { next -> updateFactory(SaveFactory(next)) }
-        }
-
-        is Failure -> FactoryNotYetLoadedComponent {
-            ZeroStateComponent {
-                Typography {
-                    variant = TypographyVariant.subtitle1
-                    +factory.message
-                }
-                Button {
-                    className = ClassName("factory-route__return-button")
-
-                    variant = ButtonVariant.contained
-                    +"Factory List"
-
-                    onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
-                }
-            }
-        }
+  when (factory) {
+    is Loading -> FactoryNotYetLoadedComponent {
+      ZeroStateComponent {
+        CircularProgress {}
+      }
     }
+
+    is Loaded -> FactoryComponent {
+      this.factory = factory.data
+      setFactory = { next -> updateFactory(SaveFactory(next)) }
+    }
+
+    is Failure -> FactoryNotYetLoadedComponent {
+      ZeroStateComponent {
+        Typography {
+          variant = TypographyVariant.subtitle1
+          +factory.message
+        }
+        Button {
+          className = ClassName("factory-route__return-button")
+
+          variant = ButtonVariant.contained
+          +"Factory List"
+
+          onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
+        }
+      }
+    }
+  }
 }
 
 
 private val FactoryNotYetLoadedComponent = FC<PropsWithChildren>("FactoryNotYetLoadedComponent") { props ->
-    FrameComponent {
-        titleBar = TitleBarComponent.create {
-            title = AppTitleComponent.create { title = "Factories" }
-        }
-        +props.children
+  FrameComponent {
+    titleBar = TitleBarComponent.create {
+      title = AppTitleComponent.create { title = "Factories" }
     }
+    +props.children
+  }
 }

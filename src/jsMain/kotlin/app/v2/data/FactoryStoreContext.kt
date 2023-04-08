@@ -13,14 +13,14 @@ data class SetFactories(val factories: List<Factory>) : FactoryStoreAction
 data class SetFactory(val factory: Factory) : FactoryStoreAction
 
 val FactoryStoreContextProvider = FC<PropsWithChildren> { props ->
-    val store = useReducer<Map<ULong, Factory>, FactoryStoreAction>({ state, action ->
-        val next = state.toMutableMap()
-        when (action) {
-            is SetFactories -> next.putAll(action.factories.associateBy { it.id })
-            is SetFactory -> next[action.factory.id] = action.factory
-        }
-        next.toMap()
-    }, initialState = mapOf())
+  val store = useReducer<Map<ULong, Factory>, FactoryStoreAction>({ state, action ->
+    val next = state.toMutableMap()
+    when (action) {
+      is SetFactories -> next.putAll(action.factories.associateBy { it.id })
+      is SetFactory -> next[action.factory.id] = action.factory
+    }
+    next.toMap()
+  }, initialState = mapOf())
 
-    FactoryStoreContext(store) { +props.children }
+  FactoryStoreContext(store) { +props.children }
 }

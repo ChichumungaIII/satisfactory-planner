@@ -9,17 +9,17 @@ import util.math.Rational
 import util.math.q
 
 external interface PlanResultsComponentProps : Props {
-    var results: Map<Recipe, Rational>?
+  var results: Map<Recipe, Rational>?
 }
 
 val PlanResultsComponent = FC<PlanResultsComponentProps>("PlanResultsComponent") { props ->
-    props.results?.also { results ->
-        Stack {
-            results.filterNot { (_, rate) -> rate == 0.q }.forEach { (recipe, rate) ->
-                Box { +"${recipe.displayName} @${rate * 100.q}%" }
-            }
-        }
-    } ?: Box {
-        +"Plan not yet computed."
+  props.results?.also { results ->
+    Stack {
+      results.filterNot { (_, rate) -> rate == 0.q }.forEach { (recipe, rate) ->
+        Box { +"${recipe.displayName} @${rate * 100.q}%" }
+      }
     }
+  } ?: Box {
+    +"Plan not yet computed."
+  }
 }

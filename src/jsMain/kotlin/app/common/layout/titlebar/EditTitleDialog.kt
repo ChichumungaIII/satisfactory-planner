@@ -14,45 +14,45 @@ import react.dom.onChange
 import react.useState
 
 external interface EditTitleDialogProps : Props {
-    var description: String
+  var description: String
 
-    var active: Boolean
-    var setActive: (Boolean) -> Unit
+  var active: Boolean
+  var setActive: (Boolean) -> Unit
 
-    var title: String
-    var setTitle: (String) -> Unit
+  var title: String
+  var setTitle: (String) -> Unit
 }
 
 val EditTitleDialog = FC<EditTitleDialogProps>("EditTitleDialog") { props ->
-    var active by PropsDelegate(props.active) { props.setActive(it) }
-    var title by PropsDelegate(props.title) { props.setTitle(it) }
-    var edit by useState(title)
+  var active by PropsDelegate(props.active) { props.setActive(it) }
+  var title by PropsDelegate(props.title) { props.setTitle(it) }
+  var edit by useState(title)
 
-    Dialog {
-        open = active
+  Dialog {
+    open = active
 
-        DialogTitle { +props.description }
-        DialogContent {
-            TextField {
-                autoFocus = true
-                defaultValue = edit
-                onChange = { edit = it.target.asDynamic().value as String }
-            }
-        }
-        DialogActions {
-            Button {
-                variant = ButtonVariant.outlined
-                onClick = { active = false }
-                +"Cancel"
-            }
-            Button {
-                variant = ButtonVariant.contained
-                onClick = {
-                    title = edit
-                    active = false
-                }
-                +"Save"
-            }
-        }
+    DialogTitle { +props.description }
+    DialogContent {
+      TextField {
+        autoFocus = true
+        defaultValue = edit
+        onChange = { edit = it.target.asDynamic().value as String }
+      }
     }
+    DialogActions {
+      Button {
+        variant = ButtonVariant.outlined
+        onClick = { active = false }
+        +"Cancel"
+      }
+      Button {
+        variant = ButtonVariant.contained
+        onClick = {
+          title = edit
+          active = false
+        }
+        +"Save"
+      }
+    }
+  }
 }

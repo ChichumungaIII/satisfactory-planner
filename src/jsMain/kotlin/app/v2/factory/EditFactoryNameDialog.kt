@@ -13,40 +13,40 @@ import react.dom.onChange
 import react.useState
 
 external interface EditFactoryNameDialogProps : Props {
-    var displayName: String
-    var onCancel: () -> Unit
-    var onAccept: (String) -> Unit
+  var displayName: String
+  var onCancel: () -> Unit
+  var onAccept: (String) -> Unit
 }
 
 val EditFactoryNameDialog = FC<EditFactoryNameDialogProps>("EditFactoryNameDialog") { props ->
-    var displayName by useState(props.displayName)
+  var displayName by useState(props.displayName)
 
-    Dialog {
-        open = true
+  Dialog {
+    open = true
 
-        DialogTitle { +"Rename Factory" }
+    DialogTitle { +"Rename Factory" }
 
-        DialogContent {
-            TextField {
-                autoFocus = true
-                defaultValue = displayName
-                onChange = { event -> displayName = event.target.asDynamic().value as String }
-            }
-        }
-
-        DialogActions {
-            DialogActions {
-                Button {
-                    variant = ButtonVariant.outlined
-                    onClick = { props.onCancel() }
-                    +"Cancel"
-                }
-                Button {
-                    variant = ButtonVariant.contained
-                    onClick = { props.onAccept(displayName) }
-                    +"Accept"
-                }
-            }
-        }
+    DialogContent {
+      TextField {
+        autoFocus = true
+        defaultValue = displayName
+        onChange = { event -> displayName = event.target.asDynamic().value as String }
+      }
     }
+
+    DialogActions {
+      DialogActions {
+        Button {
+          variant = ButtonVariant.outlined
+          onClick = { props.onCancel() }
+          +"Cancel"
+        }
+        Button {
+          variant = ButtonVariant.contained
+          onClick = { props.onAccept(displayName) }
+          +"Accept"
+        }
+      }
+    }
+  }
 }

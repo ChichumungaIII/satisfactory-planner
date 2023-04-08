@@ -7,7 +7,7 @@ import util.math.Rational
 
 @Serializable
 data class OptimizeResponse(
-    val outcome: Map<Recipe, Rational>,
-    val minimums: Map<Item, Rational>,
-    val maximums: Map<Item, Rational>,
+  val outcome: Map<Recipe, Rational>,
+  val minimums: Map<Item, Rational>,
+  val maximums: Map<Item, Rational>,
 )

@@ -11,11 +11,11 @@ import react.PropsWithChildren
 external interface ControlBarProps : PropsWithChildren
 
 val ControlBar = FC<ControlBarProps>("ControlBar") { props ->
-    Stack {
-        className = ClassName("control-bar")
-        direction = responsive(StackDirection.row)
-        spacing = responsive(6.px)
+  Stack {
+    className = ClassName("control-bar")
+    direction = responsive(StackDirection.row)
+    spacing = responsive(6.px)
 
-        +props.children
-    }
+    +props.children
+  }
 }

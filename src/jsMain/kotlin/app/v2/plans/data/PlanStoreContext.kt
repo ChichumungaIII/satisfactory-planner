@@ -15,14 +15,14 @@ data class StorePlan(val plan: Plan) : PlanStoreContextAction
 data class StorePlans(val plans: List<Plan>) : PlanStoreContextAction
 
 val PlanStoreContextProvider = FC<PropsWithChildren>("PlanStoreContextProvider") { props ->
-    val store = useReducer<Map<ULong, Plan>, PlanStoreContextAction>({ state, action ->
-        val next = state.toMutableMap()
-        when (action) {
-            is StorePlan -> next[action.plan.id] = action.plan
-            is StorePlans -> next.putAll(action.plans.associateBy { it.id })
-        }
-        next.toMap()
-    }, initialState = mapOf())
+  val store = useReducer<Map<ULong, Plan>, PlanStoreContextAction>({ state, action ->
+    val next = state.toMutableMap()
+    when (action) {
+      is StorePlan -> next[action.plan.id] = action.plan
+      is StorePlans -> next.putAll(action.plans.associateBy { it.id })
+    }
+    next.toMap()
+  }, initialState = mapOf())
 
-    PlanStoreContext(store) { +props.children }
+  PlanStoreContext(store) { +props.children }
 }

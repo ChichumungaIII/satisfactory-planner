@@ -10,33 +10,33 @@ import react.PropsWithChildren
 import react.useContext
 
 external interface HeaderSpacerProps : PropsWithChildren {
-    var isOpen: Boolean
+  var isOpen: Boolean
 }
 
 val HeaderSpacer = FC<HeaderSpacerProps>("HeaderSpacer") { props ->
-    val theme by useContext(ThemeContext)
+  val theme by useContext(ThemeContext)
 
-    Box {
-        sx {
-            transition =
-                if (props.isOpen) {
-                    theme.transitions.create("margin") {
-                        this.easing = theme.transitions.easing.easeOut
-                        this.duration = theme.transitions.duration.enteringScreen
-                    }
-                } else {
-                    theme.transitions.create("margin") {
-                        this.easing = theme.transitions.easing.sharp
-                        this.duration = theme.transitions.duration.leavingScreen
-                    }
-                }
-
-            marginTop = 66.px
-            if (props.isOpen) {
-                marginLeft = 156.px
-            }
+  Box {
+    sx {
+      transition =
+        if (props.isOpen) {
+          theme.transitions.create("margin") {
+            this.easing = theme.transitions.easing.easeOut
+            this.duration = theme.transitions.duration.enteringScreen
+          }
+        } else {
+          theme.transitions.create("margin") {
+            this.easing = theme.transitions.easing.sharp
+            this.duration = theme.transitions.duration.leavingScreen
+          }
         }
 
-        +props.children
+      marginTop = 66.px
+      if (props.isOpen) {
+        marginLeft = 156.px
+      }
     }
+
+    +props.children
+  }
 }

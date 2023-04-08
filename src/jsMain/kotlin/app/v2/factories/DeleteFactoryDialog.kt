@@ -11,33 +11,33 @@ import react.FC
 import react.Props
 
 external interface DeleteFactoryDialogProps : Props {
-    var factory: Factory
+  var factory: Factory
 
-    var onCancel: () -> Unit
-    var onDelete: () -> Unit
+  var onCancel: () -> Unit
+  var onDelete: () -> Unit
 }
 
 val DeleteFactoryDialog = FC<DeleteFactoryDialogProps>("DeleteFactoryDialog") { props ->
-    Dialog {
-        open = true
+  Dialog {
+    open = true
 
-        DialogTitle { +"Delete Factory" }
+    DialogTitle { +"Delete Factory" }
 
-        DialogContent {
-            +"Are you sure you want to delete \"${props.factory.displayName}\"?"
-        }
-
-        DialogActions {
-            Button {
-                variant = ButtonVariant.outlined
-                onClick = { props.onCancel() }
-                +"Cancel"
-            }
-            Button {
-                variant = ButtonVariant.contained
-                onClick = { props.onDelete() }
-                +"Delete"
-            }
-        }
+    DialogContent {
+      +"Are you sure you want to delete \"${props.factory.displayName}\"?"
     }
+
+    DialogActions {
+      Button {
+        variant = ButtonVariant.outlined
+        onClick = { props.onCancel() }
+        +"Cancel"
+      }
+      Button {
+        variant = ButtonVariant.contained
+        onClick = { props.onDelete() }
+        +"Delete"
+      }
+    }
+  }
 }

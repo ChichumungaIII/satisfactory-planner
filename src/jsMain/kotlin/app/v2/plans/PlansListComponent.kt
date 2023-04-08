@@ -22,52 +22,52 @@ import kotlin.random.Random
 import kotlin.random.nextULong
 
 external interface PlansListComponentProps : Props {
-    var plans: List<Plan>
-    var onCreate: (Plan) -> Unit
-    var onDelete: (ULong) -> Unit
+  var plans: List<Plan>
+  var onCreate: (Plan) -> Unit
+  var onDelete: (ULong) -> Unit
 }
 
 val PlansListComponent = FC<PlansListComponentProps>("PlansListComponent") { props ->
-    val navigate = useNavigate()
+  val navigate = useNavigate()
 
-    var planToDelete by useState<Plan?>(null)
+  var planToDelete by useState<Plan?>(null)
 
-    mui.material.List {
-        props.plans.forEach { plan ->
-            ListItem {
-                disablePadding = true
-                secondaryAction = IconButton.create {
-                    Delete {}
-                    onClick = { planToDelete = plan }
-                }
-
-                ListItemButton {
-                    ListItemAvatar {
-                        Avatar { AccountTree {} }
-                    }
-                    ListItemText { primary = Typography.create { +plan.title } }
-                    onClick = { navigate(AppRoute.PLAN.url("planId" to "${plan.id}")) }
-
-                }
-            }
+  mui.material.List {
+    props.plans.forEach { plan ->
+      ListItem {
+        disablePadding = true
+        secondaryAction = IconButton.create {
+          Delete {}
+          onClick = { planToDelete = plan }
         }
 
-        ListItem {
-            disablePadding = true
-            ListItemButton {
-                ListItemAvatar { Avatar { Add {} } }
-                ListItemText { primary = Typography.create { +"Create plan" } }
-                onClick = { props.onCreate(Plan(Random.nextULong(), "New Plan")) }
-            }
+        ListItemButton {
+          ListItemAvatar {
+            Avatar { AccountTree {} }
+          }
+          ListItemText { primary = Typography.create { +plan.title } }
+          onClick = { navigate(AppRoute.PLAN.url("planId" to "${plan.id}")) }
+
         }
+      }
     }
 
-    DeletePlanDialog {
-        plan = planToDelete
-        onCancel = { planToDelete = null }
-        onDelete = {
-            planToDelete?.also { props.onDelete(it.id) }
-            planToDelete = null
-        }
+    ListItem {
+      disablePadding = true
+      ListItemButton {
+        ListItemAvatar { Avatar { Add {} } }
+        ListItemText { primary = Typography.create { +"Create plan" } }
+        onClick = { props.onCreate(Plan(Random.nextULong(), "New Plan")) }
+      }
     }
+  }
+
+  DeletePlanDialog {
+    plan = planToDelete
+    onCancel = { planToDelete = null }
+    onDelete = {
+      planToDelete?.also { props.onDelete(it.id) }
+      planToDelete = null
+    }
+  }
 }

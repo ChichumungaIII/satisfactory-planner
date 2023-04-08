@@ -6,21 +6,21 @@ import util.math.Rational
 
 @Serializable
 sealed interface FactoryUnit {
-    /** The net production and consumption of items within this factory unit.  */
-    val outcome: Map<Item, Rational> get() = mapOf()
+  /** The net production and consumption of items within this factory unit.  */
+  val outcome: Map<Item, Rational> get() = mapOf()
 
-    /** The total amount of power produced by all generators in this factory unit. */
-    val generation: Double get() = 0.0
+  /** The total amount of power produced by all generators in this factory unit. */
+  val generation: Double get() = 0.0
 
-    /** The total amount of power consumed by all buildings in this factory unit. */
-    val consumption: Double get() = 0.0
+  /** The total amount of power consumed by all buildings in this factory unit. */
+  val consumption: Double get() = 0.0
 
-    /** This factory's net power production. */
-    val power get() = generation - consumption
+  /** This factory's net power production. */
+  val power get() = generation - consumption
 
-    val title: String
-    val open: Boolean
-    val details: Boolean
+  val title: String
+  val open: Boolean
+  val details: Boolean
 
-    fun clone(open: Boolean? = null, details: Boolean? = null): FactoryUnit
+  fun clone(open: Boolean? = null, details: Boolean? = null): FactoryUnit
 }

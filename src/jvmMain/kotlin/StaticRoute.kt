@@ -5,5 +5,5 @@ import io.ktor.server.http.content.static
 import io.ktor.server.routing.Routing
 
 fun Routing.staticRoute() {
-    static("/static") { resources() }
+  static("/static") { resources() }
 }

@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Factory(
-    val id: ULong,
-    val displayName: String,
-    val tree: FactoryTree = FactoryTree(),
+  val id: ULong,
+  val displayName: String,
+  val tree: FactoryTree = FactoryTree(),
 ) {
 }

@@ -28,44 +28,44 @@ import react.useState
 external interface PlansRouteComponentProps : Props
 
 val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") {
-    val navigate = useNavigate()
-    val planService = useContext(PlanServiceContext)
-    val (_, updatePlanStore) = useContext(PlanStoreContext)
-    val (plans, updatePlans) = useContext(PlansListContext)
+  val navigate = useNavigate()
+  val planService = useContext(PlanServiceContext)
+  val (_, updatePlanStore) = useContext(PlanStoreContext)
+  val (plans, updatePlans) = useContext(PlansListContext)
 
-    var creating by useState(false)
+  var creating by useState(false)
 
-    FrameComponent {
-        titleBar = TitleBarComponent.create {
-            title = AppTitleComponent.create { title = "Plans" }
-        }
-        when (plans) {
-            is Loading -> ZeroStateComponent {
-                CircularProgress { size = 80; thickness = 4.8 }
-            }
-
-            is Loaded -> PlansListComponent {
-                this.plans = plans.data
-                onCreate = { plan ->
-                    creating = true
-                    AppScope.launch {
-                        planService.create(plan)
-                        updatePlanStore(StorePlan(plan))
-                        updatePlans(AppendPlan(plan))
-                        navigate(AppRoute.PLAN.url("planId" to "${plan.id}"))
-                    }
-                }
-                onDelete = { id ->
-                    updatePlans(RemovePlan(id))
-                }
-            }
-
-            else -> updatePlans(LoadPlansList)
-        }
-
-        Backdrop {
-            open = creating
-            CircularProgress { size = 80; thickness = 4.8 }
-        }
+  FrameComponent {
+    titleBar = TitleBarComponent.create {
+      title = AppTitleComponent.create { title = "Plans" }
     }
+    when (plans) {
+      is Loading -> ZeroStateComponent {
+        CircularProgress { size = 80; thickness = 4.8 }
+      }
+
+      is Loaded -> PlansListComponent {
+        this.plans = plans.data
+        onCreate = { plan ->
+          creating = true
+          AppScope.launch {
+            planService.create(plan)
+            updatePlanStore(StorePlan(plan))
+            updatePlans(AppendPlan(plan))
+            navigate(AppRoute.PLAN.url("planId" to "${plan.id}"))
+          }
+        }
+        onDelete = { id ->
+          updatePlans(RemovePlan(id))
+        }
+      }
+
+      else -> updatePlans(LoadPlansList)
+    }
+
+    Backdrop {
+      open = creating
+      CircularProgress { size = 80; thickness = 4.8 }
+    }
+  }
 }

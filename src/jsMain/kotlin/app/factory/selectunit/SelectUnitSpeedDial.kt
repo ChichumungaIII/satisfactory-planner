@@ -21,82 +21,82 @@ import react.useState
 import web.dom.Element
 
 external interface SelectUnitSpeedDialProps : Props {
-    var onSelect: (FactoryUnit) -> Unit
+  var onSelect: (FactoryUnit) -> Unit
 }
 
 val SelectUnitSpeedDial = FC<SelectUnitSpeedDialProps>("SelectUnitSpeedDial") { props ->
-    var active by useState(false)
+  var active by useState(false)
 
-    var buildingsAnchor by useState<Element?>(null)
-    var generatorsAnchor by useState<Element?>(null)
+  var buildingsAnchor by useState<Element?>(null)
+  var generatorsAnchor by useState<Element?>(null)
 
-    SpeedDial {
-        open = active
-        className = ClassName("select-unit-speed-dial")
-        ariaLabel = "Select New Factory Component"
-        direction = SpeedDialDirection.right
-        icon = SpeedDialIcon.create()
+  SpeedDial {
+    open = active
+    className = ClassName("select-unit-speed-dial")
+    ariaLabel = "Select New Factory Component"
+    direction = SpeedDialDirection.right
+    icon = SpeedDialIcon.create()
 
-        onOpen = { _, reason ->
-            when (reason) {
-                OpenReason.toggle -> {
-                    active = true
-                    buildingsAnchor = null
-                    generatorsAnchor = null
-                }
-
-                else -> {}
-            }
-        }
-        onClose = { _, reason ->
-            when (reason) {
-                CloseReason.toggle -> {
-                    active = false
-                }
-
-                else -> {}
-            }
+    onOpen = { _, reason ->
+      when (reason) {
+        OpenReason.toggle -> {
+          active = true
+          buildingsAnchor = null
+          generatorsAnchor = null
         }
 
-        SpeedDialAction {
-            key = "buildings"
-            icon = Factory.create()
-            onClick = { event -> buildingsAnchor = if (buildingsAnchor == null) event.currentTarget else null }
+        else -> {}
+      }
+    }
+    onClose = { _, reason ->
+      when (reason) {
+        CloseReason.toggle -> {
+          active = false
         }
-        SpeedDialAction {
-            key = "generators"
-            icon = ElectricBolt.create()
-            onClick = { event -> generatorsAnchor = if (generatorsAnchor == null) event.currentTarget else null }
-        }
-        SpeedDialAction {
-            key = "container"
-            icon = ViewList.create()
-            onClick = { props.onSelect(FactoryUnitContainer()) }
-        }
-        SpeedDialAction {
-            key = "array"
-            icon = Loop.create()
-            onClick = { props.onSelect(FactoryUnitArray()) }
-        }
+
+        else -> {}
+      }
     }
 
-    SelectBuildingMenu {
-        parent = buildingsAnchor
-        onClose = { buildingsAnchor = null }
-        onSelect = {
-            props.onSelect(it)
-            active = false
-            buildingsAnchor = null
-        }
+    SpeedDialAction {
+      key = "buildings"
+      icon = Factory.create()
+      onClick = { event -> buildingsAnchor = if (buildingsAnchor == null) event.currentTarget else null }
     }
+    SpeedDialAction {
+      key = "generators"
+      icon = ElectricBolt.create()
+      onClick = { event -> generatorsAnchor = if (generatorsAnchor == null) event.currentTarget else null }
+    }
+    SpeedDialAction {
+      key = "container"
+      icon = ViewList.create()
+      onClick = { props.onSelect(FactoryUnitContainer()) }
+    }
+    SpeedDialAction {
+      key = "array"
+      icon = Loop.create()
+      onClick = { props.onSelect(FactoryUnitArray()) }
+    }
+  }
 
-    SelectGeneratorMenu {
-        parent = generatorsAnchor
-        onClose = { generatorsAnchor = null }
-        onSelect = {
-            props.onSelect(it)
-            active = false
-            generatorsAnchor = null
-        }
+  SelectBuildingMenu {
+    parent = buildingsAnchor
+    onClose = { buildingsAnchor = null }
+    onSelect = {
+      props.onSelect(it)
+      active = false
+      buildingsAnchor = null
     }
+  }
+
+  SelectGeneratorMenu {
+    parent = generatorsAnchor
+    onClose = { generatorsAnchor = null }
+    onSelect = {
+      props.onSelect(it)
+      active = false
+      generatorsAnchor = null
+    }
+  }
 }

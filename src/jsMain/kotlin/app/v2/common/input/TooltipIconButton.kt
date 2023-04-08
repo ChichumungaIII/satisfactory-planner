@@ -11,21 +11,21 @@ import react.PropsWithClassName
 import react.ReactNode
 
 external interface TooltipIconButtonProps : PropsWithClassName {
-    var title: String
-    var icon: SvgIconComponent
-    var onClick: () -> Unit
+  var title: String
+  var icon: SvgIconComponent
+  var onClick: () -> Unit
 }
 
 val TooltipIconButton = FC<TooltipIconButtonProps>("TooltipIconButton") { props ->
-    Tooltip {
-        className = props.className
-        title = ReactNode(props.title)
+  Tooltip {
+    className = props.className
+    title = ReactNode(props.title)
 
-        IconButton {
-            color = IconButtonColor.default
-            size = Size.small
-            props.icon { fontSize = SvgIconSize.medium }
-            onClick = { props.onClick() }
-        }
+    IconButton {
+      color = IconButtonColor.default
+      size = Size.small
+      props.icon { fontSize = SvgIconSize.medium }
+      onClick = { props.onClick() }
     }
+  }
 }

@@ -9,7 +9,7 @@ import react.router.Outlet
 val appScope = MainScope()
 
 val App = FC<Props>("App") {
-    ThemeModule {
-        Outlet {}
-    }
+  ThemeModule {
+    Outlet {}
+  }
 }

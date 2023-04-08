@@ -11,29 +11,29 @@ import react.FC
 import react.Props
 
 external interface DeletePlanDialogProps : Props {
-    var plan: Plan?
+  var plan: Plan?
 
-    var onCancel: () -> Unit
-    var onDelete: () -> Unit
+  var onCancel: () -> Unit
+  var onDelete: () -> Unit
 }
 
 val DeletePlanDialog = FC<DeletePlanDialogProps>("DeletePlanDialog") { props ->
-    Dialog {
-        open = props.plan != null
+  Dialog {
+    open = props.plan != null
 
-        DialogTitle { +"Delete Plan" }
-        DialogContent { +"Are you sure you want to delete ${props.plan?.title}?" }
-        DialogActions {
-            Button {
-                variant = ButtonVariant.outlined
-                onClick = { props.onCancel() }
-                +"Cancel"
-            }
-            Button {
-                variant = ButtonVariant.contained
-                onClick = { props.onDelete() }
-                +"Delete"
-            }
-        }
+    DialogTitle { +"Delete Plan" }
+    DialogContent { +"Are you sure you want to delete ${props.plan?.title}?" }
+    DialogActions {
+      Button {
+        variant = ButtonVariant.outlined
+        onClick = { props.onCancel() }
+        +"Cancel"
+      }
+      Button {
+        variant = ButtonVariant.contained
+        onClick = { props.onDelete() }
+        +"Delete"
+      }
     }
+  }
 }

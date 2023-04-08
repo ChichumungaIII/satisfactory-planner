@@ -29,82 +29,82 @@ import react.useState
 import web.dom.Element
 
 external interface FactoryComponentProps : Props {
-    var factory: Factory
-    var setFactory: (Factory) -> Unit
+  var factory: Factory
+  var setFactory: (Factory) -> Unit
 }
 
 val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
-    val navigate = useNavigate()
-    val (_, updateFactories) = useContext(FactoriesContext)
+  val navigate = useNavigate()
+  val (_, updateFactories) = useContext(FactoriesContext)
 
-    var factory by PropsDelegate(props.factory, props.setFactory)
+  var factory by PropsDelegate(props.factory, props.setFactory)
 
-    var menuElement by useState<Element?>(null)
-    var displayName by useState<String?>(null)
-    var factoryToDelete by useState<Factory?>(null)
+  var menuElement by useState<Element?>(null)
+  var displayName by useState<String?>(null)
+  var factoryToDelete by useState<Factory?>(null)
 
-    FrameComponent {
-        titleBar = TitleBarComponent.create {
-            title = AppTitleComponent.create { title = factory.displayName }
-            controls = IconButton.create {
-                className = ClassName("title-bar__icon")
-                MoreVert {}
-                onClick = { event -> menuElement = event.currentTarget }
-            }
-        }
-
-        FactoryContentComponent {
-            content = factory.tree
-            setContent = { next -> factory = factory.copy(tree = next) }
-        }
+  FrameComponent {
+    titleBar = TitleBarComponent.create {
+      title = AppTitleComponent.create { title = factory.displayName }
+      controls = IconButton.create {
+        className = ClassName("title-bar__icon")
+        MoreVert {}
+        onClick = { event -> menuElement = event.currentTarget }
+      }
     }
 
-    Menu {
-        open = menuElement != null
-        menuElement?.also { anchorEl = { it } }
-        anchorOrigin = jso { vertical = "top"; horizontal = "right" }
-        transformOrigin = jso { vertical = "top"; horizontal = "right" }
-
-        onClose = { menuElement = null }
-
-        MenuItem {
-            ListItemIcon { Edit {} }
-            ListItemText { +"Rename Factory" }
-            onClick = {
-                menuElement = null
-                displayName = factory.displayName
-            }
-        }
-        MenuItem {
-            ListItemIcon { Delete {} }
-            ListItemText { +"Delete Factory" }
-            onClick = {
-                menuElement = null
-                factoryToDelete = factory
-            }
-        }
+    FactoryContentComponent {
+      content = factory.tree
+      setContent = { next -> factory = factory.copy(tree = next) }
     }
+  }
 
-    displayName?.also {
-        EditFactoryNameDialog {
-            this.displayName = it
-            onCancel = { displayName = null }
-            onAccept = {
-                displayName = null
-                factory = factory.copy(displayName = it)
-            }
-        }
-    }
+  Menu {
+    open = menuElement != null
+    menuElement?.also { anchorEl = { it } }
+    anchorOrigin = jso { vertical = "top"; horizontal = "right" }
+    transformOrigin = jso { vertical = "top"; horizontal = "right" }
 
-    factoryToDelete?.also {
-        DeleteFactoryDialog {
-            this.factory = it
-            onCancel = { factoryToDelete = null }
-            onDelete = {
-                factoryToDelete = null
-                updateFactories(DeleteFactory(it.id))
-                navigate(AppRoute.FACTORIES.url)
-            }
-        }
+    onClose = { menuElement = null }
+
+    MenuItem {
+      ListItemIcon { Edit {} }
+      ListItemText { +"Rename Factory" }
+      onClick = {
+        menuElement = null
+        displayName = factory.displayName
+      }
     }
+    MenuItem {
+      ListItemIcon { Delete {} }
+      ListItemText { +"Delete Factory" }
+      onClick = {
+        menuElement = null
+        factoryToDelete = factory
+      }
+    }
+  }
+
+  displayName?.also {
+    EditFactoryNameDialog {
+      this.displayName = it
+      onCancel = { displayName = null }
+      onAccept = {
+        displayName = null
+        factory = factory.copy(displayName = it)
+      }
+    }
+  }
+
+  factoryToDelete?.also {
+    DeleteFactoryDialog {
+      this.factory = it
+      onCancel = { factoryToDelete = null }
+      onDelete = {
+        factoryToDelete = null
+        updateFactories(DeleteFactory(it.id))
+        navigate(AppRoute.FACTORIES.url)
+      }
+    }
+  }
 }

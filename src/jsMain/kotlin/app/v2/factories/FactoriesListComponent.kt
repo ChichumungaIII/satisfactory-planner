@@ -19,49 +19,49 @@ import react.useContext
 import react.useState
 
 external interface FactoriesListComponentProps : Props {
-    var factories: List<Factory>
+  var factories: List<Factory>
 }
 
 val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListComponent") { props ->
-    val navigate = useNavigate()
-    val (_, updateFactories) = useContext(FactoriesContext)
+  val navigate = useNavigate()
+  val (_, updateFactories) = useContext(FactoriesContext)
 
-    var factoryToDelete by useState<Factory?>(null)
+  var factoryToDelete by useState<Factory?>(null)
 
-    mui.material.List {
-        props.factories.forEach { factory ->
-            ListItem {
-                disablePadding = true
-                secondaryAction = IconButton.create {
-                    Delete {}
+  mui.material.List {
+    props.factories.forEach { factory ->
+      ListItem {
+        disablePadding = true
+        secondaryAction = IconButton.create {
+          Delete {}
 
-                    onClick = { factoryToDelete = factory }
-                }
-
-                ListItemButton {
-                    ListItemAvatar {
-                        Avatar { Factory {} }
-                    }
-                    ListItemText {
-                        primary = Typography.create { +factory.displayName }
-                    }
-
-                    onClick = {
-                        navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
-                    }
-                }
-            }
+          onClick = { factoryToDelete = factory }
         }
-    }
 
-    factoryToDelete?.also {
-        DeleteFactoryDialog {
-            factory = it
-            onCancel = { factoryToDelete = null }
-            onDelete = {
-                factoryToDelete = null
-                updateFactories(DeleteFactory(it.id))
-            }
+        ListItemButton {
+          ListItemAvatar {
+            Avatar { Factory {} }
+          }
+          ListItemText {
+            primary = Typography.create { +factory.displayName }
+          }
+
+          onClick = {
+            navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
+          }
         }
+      }
     }
+  }
+
+  factoryToDelete?.also {
+    DeleteFactoryDialog {
+      factory = it
+      onCancel = { factoryToDelete = null }
+      onDelete = {
+        factoryToDelete = null
+        updateFactories(DeleteFactory(it.id))
+      }
+    }
+  }
 }

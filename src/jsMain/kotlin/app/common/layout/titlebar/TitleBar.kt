@@ -18,63 +18,63 @@ import react.Props
 import react.useState
 
 external interface TitleBarProps : Props {
-    var editDescription: String
-    var deleteDescription: String
+  var editDescription: String
+  var deleteDescription: String
 
-    var title: String
-    var setTitle: (String) -> Unit
-    var onDelete: () -> Unit
+  var title: String
+  var setTitle: (String) -> Unit
+  var onDelete: () -> Unit
 }
 
 val TitleBar = FC<TitleBarProps>("TitleBar") { props ->
-    var title by PropsDelegate(props.title) { props.setTitle(it) }
-    var edit by useState(false)
-    var delete by useState(false)
+  var title by PropsDelegate(props.title) { props.setTitle(it) }
+  var edit by useState(false)
+  var delete by useState(false)
+
+  Box {
+    className = ClassName("title-bar")
+
+    Typography {
+      className = ClassName("title-bar__title")
+
+      variant = TypographyVariant.h2
+      +title
+    }
+
+    IconButton {
+      color = IconButtonColor.default
+      size = Size.medium
+      Edit { fontSize = SvgIconSize.inherit }
+
+      onClick = { edit = true }
+    }
 
     Box {
-        className = ClassName("title-bar")
-
-        Typography {
-            className = ClassName("title-bar__title")
-
-            variant = TypographyVariant.h2
-            +title
-        }
-
-        IconButton {
-            color = IconButtonColor.default
-            size = Size.medium
-            Edit { fontSize = SvgIconSize.inherit }
-
-            onClick = { edit = true }
-        }
-
-        Box {
-            className = ClassName("title-bar__spacer")
-        }
-
-        Fab {
-            color = FabColor.warning
-            size = Size.medium
-            Delete { fontSize = SvgIconSize.medium }
-
-            onClick = { delete = true }
-        }
+      className = ClassName("title-bar__spacer")
     }
 
-    EditTitleDialog {
-        description = props.editDescription
-        active = edit
-        setActive = { edit = it }
-        this.title = title
-        setTitle = { title = it }
-    }
+    Fab {
+      color = FabColor.warning
+      size = Size.medium
+      Delete { fontSize = SvgIconSize.medium }
 
-    DeleteConfirmationDialog {
-        description = props.deleteDescription
-        active = delete
-        setActive = { delete = it }
-        this.title = title
-        onDelete = { props.onDelete() }
+      onClick = { delete = true }
     }
+  }
+
+  EditTitleDialog {
+    description = props.editDescription
+    active = edit
+    setActive = { edit = it }
+    this.title = title
+    setTitle = { title = it }
+  }
+
+  DeleteConfirmationDialog {
+    description = props.deleteDescription
+    active = delete
+    setActive = { delete = it }
+    this.title = title
+    onDelete = { props.onDelete() }
+  }
 }

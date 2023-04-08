@@ -13,47 +13,47 @@ import react.useEffect
 import react.useState
 
 external interface CountInputProps : Props {
-    var model: UInt
-    var setModel: (UInt) -> Unit
+  var model: UInt
+  var setModel: (UInt) -> Unit
 }
 
 val CountInput = FC<CountInputProps>("CountInput") { props ->
-    var model by PropsDelegate(props.model, props.setModel)
-    var text by useState(model.toString())
-    var error by useState(false)
+  var model by PropsDelegate(props.model, props.setModel)
+  var text by useState(model.toString())
+  var error by useState(false)
 
-    useEffect(model.toInt()) {
-        text = model.toString()
+  useEffect(model.toInt()) {
+    text = model.toString()
+  }
+
+  TextField {
+    className = ClassName("count-input")
+
+    variant = FormControlVariant.outlined
+    size = Size.small
+    label = ReactNode("Count")
+
+    this.error = error
+
+    value = text
+    onChange = { event ->
+      val next = event.target.asDynamic().value as String
+      text = next
+
+      next.toUIntOrNull()?.also {
+        model = it
+        error = false
+      } ?: run {
+        error = true
+      }
     }
 
-    TextField {
-        className = ClassName("count-input")
-
-        variant = FormControlVariant.outlined
-        size = Size.small
-        label = ReactNode("Count")
-
-        this.error = error
-
-        value = text
-        onChange = { event ->
-            val next = event.target.asDynamic().value as String
-            text = next
-
-            next.toUIntOrNull()?.also {
-                model = it
-                error = false
-            } ?: run {
-                error = true
-            }
-        }
-
-        onBlur = {
-            if (error) {
-                model = 0.toUInt()
-                text = "0"
-                error = false
-            }
-        }
+    onBlur = {
+      if (error) {
+        model = 0.toUInt()
+        text = "0"
+        error = false
+      }
     }
+  }
 }

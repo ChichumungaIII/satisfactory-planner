@@ -20,27 +20,27 @@ import react.useContext
 external interface PlanRouteComponentProps : Props
 
 val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { props ->
-    val planId = useParams()["planId"]!!.toULong()
-    val (plan, updatePlan) = useContext(PlanContext)
+  val planId = useParams()["planId"]!!.toULong()
+  val (plan, updatePlan) = useContext(PlanContext)
 
-    FrameComponent {
-        titleBar = TitleBarComponent.create {
-            title = AppTitleComponent.create {
-                title = if (plan is Loaded) plan.data.title else "Plans"
-            }
-        }
-
-        when (plan) {
-            is Loading -> ZeroStateComponent {
-                CircularProgress { size = 80; thickness = 4.8 }
-            }
-
-            is Loaded -> PlanComponent {
-                this.plan = plan.data
-                setPlan = { next -> updatePlan(SavePlan(next)) }
-            }
-
-            else -> null.also { updatePlan(GetPlan(planId)) }
-        }
+  FrameComponent {
+    titleBar = TitleBarComponent.create {
+      title = AppTitleComponent.create {
+        title = if (plan is Loaded) plan.data.title else "Plans"
+      }
     }
+
+    when (plan) {
+      is Loading -> ZeroStateComponent {
+        CircularProgress { size = 80; thickness = 4.8 }
+      }
+
+      is Loaded -> PlanComponent {
+        this.plan = plan.data
+        setPlan = { next -> updatePlan(SavePlan(next)) }
+      }
+
+      else -> null.also { updatePlan(GetPlan(planId)) }
+    }
+  }
 }

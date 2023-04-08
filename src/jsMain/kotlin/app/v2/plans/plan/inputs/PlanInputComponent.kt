@@ -17,39 +17,39 @@ import react.ReactNode
 import util.math.Rational
 
 external interface PlanInputComponentProps : Props {
-    var item: Item?
-    var setItem: (Item?) -> Unit
+  var item: Item?
+  var setItem: (Item?) -> Unit
 
-    var amount: Rational
-    var setAmount: (Rational) -> Unit
+  var amount: Rational
+  var setAmount: (Rational) -> Unit
 
-    var onDelete: () -> Unit
+  var onDelete: () -> Unit
 }
 
 val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { props ->
-    var item by PropsDelegate(props.item, props.setItem)
-    var amount by PropsDelegate(props.amount, props.setAmount)
+  var item by PropsDelegate(props.item, props.setItem)
+  var amount by PropsDelegate(props.amount, props.setAmount)
 
-    Stack {
-        className = ClassName("plan-inputs__input")
-        direction = responsive(StackDirection.row)
-        spacing = responsive(4.px)
+  Stack {
+    className = ClassName("plan-inputs__input")
+    direction = responsive(StackDirection.row)
+    spacing = responsive(4.px)
 
-        TooltipIconButton {
-            title = "Delete"
-            icon = Clear
-            onClick = { props.onDelete() }
-        }
-
-        ItemAutocomplete {
-            model = item
-            setModel = { next -> item = next }
-        }
-
-        PlanItemAmountInput {
-            label = ReactNode("Amount available")
-            model = amount
-            setModel = { next -> amount = next }
-        }
+    TooltipIconButton {
+      title = "Delete"
+      icon = Clear
+      onClick = { props.onDelete() }
     }
+
+    ItemAutocomplete {
+      model = item
+      setModel = { next -> item = next }
+    }
+
+    PlanItemAmountInput {
+      label = ReactNode("Amount available")
+      model = amount
+      setModel = { next -> amount = next }
+    }
+  }
 }

@@ -7,21 +7,21 @@ import react.FC
 import react.Props
 
 external interface DetailsToggleButtonProps : Props {
-    var details: Boolean
-    var setDetails: (Boolean) -> Unit
+  var details: Boolean
+  var setDetails: (Boolean) -> Unit
 }
 
 val DetailsToggleButton = FC<DetailsToggleButtonProps>("DetailsToggleButton") { props ->
-    var details by PropsDelegate(props.details, props.setDetails)
+  var details by PropsDelegate(props.details, props.setDetails)
 
-    ToggleIconButton {
-        toggle = details
-        setToggle = { next -> details = next}
+  ToggleIconButton {
+    toggle = details
+    setToggle = { next -> details = next }
 
-        titleOn = "Hide Details"
-        iconOn = Info
+    titleOn = "Hide Details"
+    iconOn = Info
 
-        titleOff = "Show Details"
-        iconOff = InfoOutlined
-    }
+    titleOff = "Show Details"
+    iconOff = InfoOutlined
+  }
 }

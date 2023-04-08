@@ -50,274 +50,274 @@ import react.ReactNode
 import react.dom.onChange
 
 external interface FactoryContentComponentProps : Props {
-    var content: FactoryTree
-    var setContent: (FactoryTree) -> Unit
+  var content: FactoryTree
+  var setContent: (FactoryTree) -> Unit
 
-    var onFlatten: (() -> Unit)?
+  var onFlatten: (() -> Unit)?
 }
 
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
-    var content by PropsDelegate(props.content, props.setContent)
-    val (count, title, nodes, details, expanded, newGroup) = content
+  var content by PropsDelegate(props.content, props.setContent)
+  val (count, title, nodes, details, expanded, newGroup) = content
 
-    Stack {
-        className = ClassName("factory-content")
-        spacing = responsive(4.px)
+  Stack {
+    className = ClassName("factory-content")
+    spacing = responsive(4.px)
 
-        ControlBar {
-            CountToggleComponent {
-                this.count = count
-                setCount = { next -> content = content.copy(count = next) }
-            }
+    ControlBar {
+      CountToggleComponent {
+        this.count = count
+        setCount = { next -> content = content.copy(count = next) }
+      }
 
-            title?.also {
-                TextField {
-                    variant = FormControlVariant.outlined
-                    size = Size.small
+      title?.also {
+        TextField {
+          variant = FormControlVariant.outlined
+          size = Size.small
 
-                    value = it
-                    onChange = { event ->
-                        content = content.copy(title = event.target.asDynamic().value as String)
-                    }
-                }
-            }
+          value = it
+          onChange = { event ->
+            content = content.copy(title = event.target.asDynamic().value as String)
+          }
+        }
+      }
 
-            DetailsToggleButton {
-                this.details = details
-                setDetails = { next -> content = content.copy(details = next) }
-            }
+      DetailsToggleButton {
+        this.details = details
+        setDetails = { next -> content = content.copy(details = next) }
+      }
 
-            ToggleIconButton {
-                toggle = expanded
-                setToggle = { next -> content = content.copy(expanded = next) }
+      ToggleIconButton {
+        toggle = expanded
+        setToggle = { next -> content = content.copy(expanded = next) }
 
-                titleOn = "Collapse"
-                iconOn = KeyboardDoubleArrowUp
+        titleOn = "Collapse"
+        iconOn = KeyboardDoubleArrowUp
 
-                titleOff = "Expand"
-                iconOff = KeyboardDoubleArrowDown
-            }
+        titleOff = "Expand"
+        iconOff = KeyboardDoubleArrowDown
+      }
 
-            if (expanded) {
-                props.onFlatten?.also { onFlatten ->
-                    TooltipIconButton {
-                        this.title = "Flatten Group"
-                        icon = FormatIndentDecrease
-                        onClick = { onFlatten() }
-                    }
-                }
-
-                ToggleIconButton {
-                    toggle = newGroup == null
-                    setToggle = { confirm ->
-                        if (confirm) {
-                            var next = content
-                            newGroup?.takeUnless { it.isEmpty() }?.also { group ->
-                                val insert = mutableListOf<FactoryNode>()
-                                group.reversed().forEach { i ->
-                                    next = next.removeNode(i)
-                                    insert.add(0, nodes[i])
-                                }
-                                next = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
-                            }
-                            content = next.copy(newGroup = null)
-                        } else {
-                            content = content.copy(newGroup = listOf())
-                        }
-                    }
-
-                    titleOn = "Create Group"
-                    iconOn = LayersOutlined
-
-                    titleOff = "Confirm Group"
-                    iconOff = Layers
-                }
-
-                if (newGroup != null) {
-                    TooltipIconButton {
-                        this.title = "Cancel Group"
-                        icon = LayersClear
-                        onClick = { content = content.copy(newGroup = null) }
-                    }
-                }
-            }
+      if (expanded) {
+        props.onFlatten?.also { onFlatten ->
+          TooltipIconButton {
+            this.title = "Flatten Group"
+            icon = FormatIndentDecrease
+            onClick = { onFlatten() }
+          }
         }
 
-        Stack.takeIf { details }?.invoke {
-            className = ClassName("factory-content__details")
+        ToggleIconButton {
+          toggle = newGroup == null
+          setToggle = { confirm ->
+            if (confirm) {
+              var next = content
+              newGroup?.takeUnless { it.isEmpty() }?.also { group ->
+                val insert = mutableListOf<FactoryNode>()
+                group.reversed().forEach { i ->
+                  next = next.removeNode(i)
+                  insert.add(0, nodes[i])
+                }
+                next = next.splice(group[0], 0, FactoryTree(title = "Factory Group", nodes = insert))
+              }
+              content = next.copy(newGroup = null)
+            } else {
+              content = content.copy(newGroup = listOf())
+            }
+          }
+
+          titleOn = "Create Group"
+          iconOn = LayersOutlined
+
+          titleOff = "Confirm Group"
+          iconOff = Layers
+        }
+
+        if (newGroup != null) {
+          TooltipIconButton {
+            this.title = "Cancel Group"
+            icon = LayersClear
+            onClick = { content = content.copy(newGroup = null) }
+          }
+        }
+      }
+    }
+
+    Stack.takeIf { details }?.invoke {
+      className = ClassName("factory-content__details")
+      direction = responsive(StackDirection.row)
+
+      Stack {
+        spacing = responsive(2.px)
+
+        content.inputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
+          Stack {
+            className = ClassName("factory-content__detail-list")
             direction = responsive(StackDirection.row)
 
-            Stack {
-                spacing = responsive(2.px)
+            Paper {
+              className = ClassName("factory-content__detail-display")
+              variant = PaperVariant.outlined
 
-                content.inputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
-                    Stack {
-                        className = ClassName("factory-content__detail-list")
-                        direction = responsive(StackDirection.row)
-
-                        Paper {
-                            className = ClassName("factory-content__detail-display")
-                            variant = PaperVariant.outlined
-
-                            +"$rate"
-                            Box { sx { flexGrow = number(1.0) } }
-                            +"/ min"
-                        }
-                        +item.displayName
-                    }
-                } ?: run {
-                    Box { +"Nothing" }
-                }
+              +"$rate"
+              Box { sx { flexGrow = number(1.0) } }
+              +"/ min"
             }
-
-            ArrowForward {
-                className = ClassName("factory-content__detail-divider")
-            }
-
-            Stack {
-                spacing = responsive(2.px)
-
-                content.outputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
-                    Stack {
-                        className = ClassName("factory-content__detail-list")
-                        direction = responsive(StackDirection.row)
-
-                        Paper {
-                            className = ClassName("factory-content__detail-display")
-                            variant = PaperVariant.outlined
-
-                            +"$rate"
-                            Box { sx { flexGrow = number(1.0) } }
-                            +"/ min"
-                        }
-                        +item.displayName
-                    }
-                } ?: run {
-                    Box { +"Nothing" }
-                }
-            }
+            +item.displayName
+          }
+        } ?: run {
+          Box { +"Nothing" }
         }
+      }
 
-        Card.takeIf { expanded }?.invoke {
-            className = ClassName("factory-content__card")
-            variant = PaperVariant.outlined
+      ArrowForward {
+        className = ClassName("factory-content__detail-divider")
+      }
 
-            Stack {
-                spacing = responsive(6.px)
+      Stack {
+        spacing = responsive(2.px)
 
-                nodes.withIndex().forEach { (index, node) ->
-                    Box {
-                        className = ClassName("factory-content__item")
+        content.outputs.takeUnless { it.isEmpty() }?.forEach { (item, rate) ->
+          Stack {
+            className = ClassName("factory-content__detail-list")
+            direction = responsive(StackDirection.row)
 
-                        newGroup?.also { group ->
-                            Tooltip {
-                                val helptext =
-                                    "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
-                                this.title = ReactNode(helptext)
-                                placement = TooltipPlacement.right
+            Paper {
+              className = ClassName("factory-content__detail-display")
+              variant = PaperVariant.outlined
 
-                                Checkbox {
-                                    className = ClassName("factory-content__group-checkbox")
-                                    size = Size.small
-
-                                    checked = group.contains(index)
-                                    onChange = { _, include ->
-                                        val nextGroup = if (include) {
-                                            (group + index).sorted()
-                                        } else {
-                                            group - index
-                                        }
-                                        content = content.copy(newGroup = nextGroup)
-                                    }
-                                }
-                            }
-                        } ?: run {
-                            TooltipIconButton {
-                                this.title = "Delete"
-                                icon = Clear
-                                onClick = { content = content.removeNode(index) }
-                            }
-                        }
-
-                        Box {
-                            className = ClassName("factory-content__item__controls")
-
-                            IconButton {
-                                className = ClassName("factory-content__item__controls__button")
-
-                                size = Size.small
-                                ArrowDropUp { fontSize = SvgIconSize.medium }
-
-                                disabled = index == 0 || newGroup != null
-                                onClick = {
-                                    content = content.splice(index - 1, 2, nodes[index], nodes[index - 1])
-                                }
-                            }
-
-                            IconButton {
-                                className = ClassName("factory-content__item__controls__button")
-
-                                size = Size.small
-                                ArrowDropDown { fontSize = SvgIconSize.medium }
-
-                                disabled = index == nodes.size - 1 || newGroup != null
-                                onClick = {
-                                    content = content.splice(index, 2, nodes[index + 1], nodes[index])
-                                }
-                            }
-                        }
-
-                        Divider {
-                            sx { margin = Margin(4.px, 0.px, 4.px, 2.px) }
-
-                            orientation = Orientation.vertical
-                            flexItem = true
-                        }
-
-                        Box {
-                            className = ClassName("factory-content__child")
-
-                            when (node) {
-                                is FactoryTree -> RecursiveFactoryContentComponent {
-                                    this.content = node
-                                    this.setContent = { next -> content = content.setNode(index, next) }
-
-                                    onFlatten = {
-                                        val one = 1.toUInt()
-                                        val children = node.nodes.map { child ->
-                                            child.clone(count = node.count?.takeUnless { it == one }
-                                                ?.let { (child.count ?: one) * it }
-                                                ?: child.count)
-                                        }
-                                        content = content.splice(index, 1, children)
-                                    }
-                                }
-
-                                is FactoryLeaf -> FactoryBuildingComponent {
-                                    settings = node
-                                    setNode = { next -> content = content.setNode(index, next) }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Tooltip {
-                    className = ClassName("factory-content__add-building")
-                    this.title = ReactNode("Add Building")
-
-                    Fab {
-                        color = FabColor.primary
-                        size = Size.small
-                        Add { fontSize = SvgIconSize.medium }
-
-                        disabled = newGroup != null
-                        onClick = { content = content.addNode(FactoryLeaf()) }
-                    }
-                }
+              +"$rate"
+              Box { sx { flexGrow = number(1.0) } }
+              +"/ min"
             }
+            +item.displayName
+          }
+        } ?: run {
+          Box { +"Nothing" }
         }
+      }
     }
+
+    Card.takeIf { expanded }?.invoke {
+      className = ClassName("factory-content__card")
+      variant = PaperVariant.outlined
+
+      Stack {
+        spacing = responsive(6.px)
+
+        nodes.withIndex().forEach { (index, node) ->
+          Box {
+            className = ClassName("factory-content__item")
+
+            newGroup?.also { group ->
+              Tooltip {
+                val helptext =
+                  "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
+                this.title = ReactNode(helptext)
+                placement = TooltipPlacement.right
+
+                Checkbox {
+                  className = ClassName("factory-content__group-checkbox")
+                  size = Size.small
+
+                  checked = group.contains(index)
+                  onChange = { _, include ->
+                    val nextGroup = if (include) {
+                      (group + index).sorted()
+                    } else {
+                      group - index
+                    }
+                    content = content.copy(newGroup = nextGroup)
+                  }
+                }
+              }
+            } ?: run {
+              TooltipIconButton {
+                this.title = "Delete"
+                icon = Clear
+                onClick = { content = content.removeNode(index) }
+              }
+            }
+
+            Box {
+              className = ClassName("factory-content__item__controls")
+
+              IconButton {
+                className = ClassName("factory-content__item__controls__button")
+
+                size = Size.small
+                ArrowDropUp { fontSize = SvgIconSize.medium }
+
+                disabled = index == 0 || newGroup != null
+                onClick = {
+                  content = content.splice(index - 1, 2, nodes[index], nodes[index - 1])
+                }
+              }
+
+              IconButton {
+                className = ClassName("factory-content__item__controls__button")
+
+                size = Size.small
+                ArrowDropDown { fontSize = SvgIconSize.medium }
+
+                disabled = index == nodes.size - 1 || newGroup != null
+                onClick = {
+                  content = content.splice(index, 2, nodes[index + 1], nodes[index])
+                }
+              }
+            }
+
+            Divider {
+              sx { margin = Margin(4.px, 0.px, 4.px, 2.px) }
+
+              orientation = Orientation.vertical
+              flexItem = true
+            }
+
+            Box {
+              className = ClassName("factory-content__child")
+
+              when (node) {
+                is FactoryTree -> RecursiveFactoryContentComponent {
+                  this.content = node
+                  this.setContent = { next -> content = content.setNode(index, next) }
+
+                  onFlatten = {
+                    val one = 1.toUInt()
+                    val children = node.nodes.map { child ->
+                      child.clone(count = node.count?.takeUnless { it == one }
+                        ?.let { (child.count ?: one) * it }
+                        ?: child.count)
+                    }
+                    content = content.splice(index, 1, children)
+                  }
+                }
+
+                is FactoryLeaf -> FactoryBuildingComponent {
+                  settings = node
+                  setNode = { next -> content = content.setNode(index, next) }
+                }
+              }
+            }
+          }
+        }
+
+        Tooltip {
+          className = ClassName("factory-content__add-building")
+          this.title = ReactNode("Add Building")
+
+          Fab {
+            color = FabColor.primary
+            size = Size.small
+            Add { fontSize = SvgIconSize.medium }
+
+            disabled = newGroup != null
+            onClick = { content = content.addNode(FactoryLeaf()) }
+          }
+        }
+      }
+    }
+  }
 }
 
 val RecursiveFactoryContentComponent = FactoryContentComponent

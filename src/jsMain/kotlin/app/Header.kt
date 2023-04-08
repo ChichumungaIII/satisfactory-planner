@@ -17,30 +17,30 @@ import react.FC
 import react.Props
 
 external interface HeaderProps : Props {
-    var title: String
-    var isOpen: Boolean
-    var toggle: () -> Unit
+  var title: String
+  var isOpen: Boolean
+  var toggle: () -> Unit
 }
 
 val Header = FC<HeaderProps>("Header") { props ->
-    AppBar {
-        sx {
-            padding = Padding(12.px, 12.px)
-            zIndex = integer(1300)
+  AppBar {
+    sx {
+      padding = Padding(12.px, 12.px)
+      zIndex = integer(1300)
 
-            display = Display.flex
-            flexDirection = FlexDirection.row
-        }
-
-        IconButton {
-            (if (props.isOpen) MenuOpen else Menu) { sx { color = Colors.white } }
-            onClick = { props.toggle() }
-        }
-
-        Typography {
-            sx { padding = Padding(0.px, 12.px) }
-            variant = TypographyVariant.h1
-            +props.title
-        }
+      display = Display.flex
+      flexDirection = FlexDirection.row
     }
+
+    IconButton {
+      (if (props.isOpen) MenuOpen else Menu) { sx { color = Colors.white } }
+      onClick = { props.toggle() }
+    }
+
+    Typography {
+      sx { padding = Padding(0.px, 12.px) }
+      variant = TypographyVariant.h1
+      +props.title
+    }
+  }
 }

@@ -5,5 +5,5 @@ import util.math.q
 
 @Serializable
 sealed interface ProductionBuilding : Building {
-    override val generation get() = 0.q
+  override val generation get() = 0.q
 }

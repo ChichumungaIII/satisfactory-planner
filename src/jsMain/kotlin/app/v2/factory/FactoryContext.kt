@@ -25,58 +25,58 @@ val FactoryContext = createContext<ReducerInstance<LoadState<ULong, Factory>, Fa
 private var factoryToSave: Factory? = null
 
 val FactoryContextProvider = FC<PropsWithChildren> { props ->
-    val factoryService = useContext(FactoryServiceContext)
-    val (store, updateStore) = useContext(FactoryStoreContext)
+  val factoryService = useContext(FactoryServiceContext)
+  val (store, updateStore) = useContext(FactoryStoreContext)
 
-    fun debouncedSaveFactory(factory: Factory) {
-        factoryToSave = factory
-        AppScope.launch {
-            delay(100)
-            if (factory == factoryToSave) {
-                updateStore(SetFactory(factory))
-                factoryService.updateFactory(factory)
+  fun debouncedSaveFactory(factory: Factory) {
+    factoryToSave = factory
+    AppScope.launch {
+      delay(100)
+      if (factory == factoryToSave) {
+        updateStore(SetFactory(factory))
+        factoryService.updateFactory(factory)
+      }
+    }
+  }
+
+  var updateFactory: (FactoryContextAction) -> Unit = { throw Error("updateFactory callback not bound") }
+  val factoryContext = useReducer<LoadState<ULong, Factory>, FactoryContextAction>(
+    { state, action ->
+      when (action) {
+        is SetFactoryId -> {
+          if (state.id == action.id) state
+          else store[action.id]?.let { LoadState.loaded(action.id, it) }
+            ?: LoadState.loading<ULong, Factory>(action.id).also {
+              AppScope.launch {
+                val next =
+                  try {
+                    val factory = factoryService.getFactory(action.id)
+                    updateStore(SetFactory(factory))
+                    LoadState.loaded(action.id, factory)
+                  } catch (e: IllegalArgumentException) {
+                    LoadState.failure(
+                      action.id,
+                      e.message ?: "There was an error loading Factory #${action.id}"
+                    )
+                  }
+                updateFactory(SetState(next))
+              }
             }
         }
-    }
 
-    var updateFactory: (FactoryContextAction) -> Unit = { throw Error("updateFactory callback not bound") }
-    val factoryContext = useReducer<LoadState<ULong, Factory>, FactoryContextAction>(
-        { state, action ->
-            when (action) {
-                is SetFactoryId -> {
-                    if (state.id == action.id) state
-                    else store[action.id]?.let { LoadState.loaded(action.id, it) }
-                        ?: LoadState.loading<ULong, Factory>(action.id).also {
-                            AppScope.launch {
-                                val next =
-                                    try {
-                                        val factory = factoryService.getFactory(action.id)
-                                        updateStore(SetFactory(factory))
-                                        LoadState.loaded(action.id, factory)
-                                    } catch (e: IllegalArgumentException) {
-                                        LoadState.failure(
-                                            action.id,
-                                            e.message ?: "There was an error loading Factory #${action.id}"
-                                        )
-                                    }
-                                updateFactory(SetState(next))
-                            }
-                        }
-                }
+        is SaveFactory -> {
+          val factory = action.factory
+          debouncedSaveFactory(factory)
 
-                is SaveFactory -> {
-                    val factory = action.factory
-                    debouncedSaveFactory(factory)
+          if (state.id == factory.id) LoadState.loaded(factory.id, factory)
+          else state
+        }
 
-                    if (state.id == factory.id) LoadState.loaded(factory.id, factory)
-                    else state
-                }
+        is SetState -> action.state
+      }
+    }, initialState = LoadState.empty()
+  )
+  updateFactory = factoryContext.component2()
 
-                is SetState -> action.state
-            }
-        }, initialState = LoadState.empty()
-    )
-    updateFactory = factoryContext.component2()
-
-    FactoryContext(factoryContext) { +props.children }
+  FactoryContext(factoryContext) { +props.children }
 }
