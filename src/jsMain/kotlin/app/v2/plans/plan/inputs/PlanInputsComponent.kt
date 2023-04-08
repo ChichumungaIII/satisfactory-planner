@@ -1,14 +1,10 @@
 package app.v2.plans.plan.inputs
 
-import app.common.RationalInput
 import app.util.PropsDelegate
-import app.v2.common.input.ItemAutocomplete
-import app.v2.common.input.TooltipIconButton
 import app.v2.plans.data.model.PlanInput
 import csstype.ClassName
 import csstype.px
 import mui.icons.material.Add
-import mui.icons.material.Clear
 import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
@@ -37,38 +33,18 @@ val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { 
         inputs.withIndex().forEach { (index, input) ->
             fun before() = inputs.subList(0, index)
             fun after() = inputs.subList(index + 1, inputs.size)
-            fun setInput(input: PlanInput?) {
-                inputs = before() + (input?.let { listOf(it) } ?: listOf()) + after()
+            fun setInput(input: PlanInput) {
+                inputs = before() + input + after()
             }
 
-            Stack {
-                className = ClassName("plan-inputs__input")
-                direction = responsive(StackDirection.row)
-                spacing = responsive(4.px)
+            PlanInputComponent {
+                item = input.item
+                setItem = { next -> setInput(input.copy(item = next)) }
 
-                TooltipIconButton {
-                    title = "Delete"
-                    icon = Clear
-                    onClick = { setInput(null) }
-                }
+                amount = input.amount
+                setAmount = { next -> setInput(input.copy(amount = next)) }
 
-                ItemAutocomplete {
-                    model = input.item
-                    setModel = { item -> setInput(input.copy(item = item)) }
-                }
-
-                RationalInput {
-                    label = ReactNode("Amount Available")
-
-                    value = input.amount
-                    setValue = { next -> next?.also { setInput(input.copy(amount = it)) } }
-
-                    validators = listOf()
-
-                    size = Size.small
-                    width = { null }
-                    errorSpacer = 0.px
-                }
+                onDelete = { inputs = before() + after() }
             }
         }
 

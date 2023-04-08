@@ -46,15 +46,12 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
                 },
             ), PlanStepData(
                 title = "Products",
-                summary = ReactNode("Products (summary)"),
                 content = ReactNode("Products (content)"),
             ), PlanStepData(
                 title = "Recipes",
-                summary = ReactNode("Recipes (summary)"),
                 content = ReactNode("Recipes (content)"),
             ), PlanStepData(
                 title = "Results",
-                summary = ReactNode("Results (summary)"),
                 content = ReactNode("Results (content)"),
             )
         ).withIndex().forEach { (index, step) ->
@@ -86,6 +83,6 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
 
 data class PlanStepData(
     var title: String,
-    var summary: ReactNode?,
+    var summary: ReactNode? = null,
     var content: ReactNode,
 )
