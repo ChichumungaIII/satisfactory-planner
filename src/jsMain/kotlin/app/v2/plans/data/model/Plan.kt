@@ -6,4 +6,5 @@ import kotlinx.serialization.Serializable
 data class Plan(
     val id: ULong,
     val title: String,
+    val activeStep: Int = 0,
 )

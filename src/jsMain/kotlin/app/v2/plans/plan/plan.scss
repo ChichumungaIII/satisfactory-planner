@@ -1,0 +1,17 @@
+.plan {
+  margin: 0 4px;
+
+  &__step {
+    &__summary {
+      margin-left: 12px;
+      padding-left: 20px;
+      padding-right: 8px;
+    }
+
+    &:not(:last-child) {
+      .plan__step__summary {
+        border-left: 1px solid rgb(189, 189, 189);
+      }
+    }
+  }
+}

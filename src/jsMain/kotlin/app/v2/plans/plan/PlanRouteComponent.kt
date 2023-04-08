@@ -8,10 +8,9 @@ import app.v2.data.LoadState.Loaded
 import app.v2.data.LoadState.Loading
 import app.v2.plans.data.GetPlan
 import app.v2.plans.data.PlanContext
+import app.v2.plans.data.SavePlan
 import js.core.get
 import mui.material.CircularProgress
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
 import react.create
@@ -36,9 +35,9 @@ val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { pro
                 CircularProgress { size = 80; thickness = 4.8 }
             }
 
-            is Loaded -> Typography {
-                variant = TypographyVariant.h1
-                +plan.data.title
+            is Loaded -> PlanComponent {
+                this.plan = plan.data
+                setPlan = { next -> updatePlan(SavePlan(next)) }
             }
 
             else -> null.also { updatePlan(GetPlan(planId)) }
