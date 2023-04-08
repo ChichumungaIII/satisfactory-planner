@@ -1,0 +1,11 @@
+.plan-inputs {
+  &__input {
+    display: flex;
+  }
+
+  &__add-input {
+    min-height: 34px;
+    max-height: 34px;
+    width: 34px;
+  }
+}

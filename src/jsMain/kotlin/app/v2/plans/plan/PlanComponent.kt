@@ -2,6 +2,7 @@ package app.v2.plans.plan
 
 import app.util.PropsDelegate
 import app.v2.plans.data.model.Plan
+import app.v2.plans.plan.inputs.PlanInputsComponent
 import csstype.ClassName
 import mui.icons.material.Circle
 import mui.material.Box
@@ -39,7 +40,10 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
             PlanStepData(
                 title = "Inputs",
                 summary = ReactNode("Inputs (summary)"),
-                content = ReactNode("Inputs (content)"),
+                content = PlanInputsComponent.create {
+                    this.inputs = plan.inputs
+                    this.setInputs = { next -> plan = plan.copy(inputs = next) }
+                },
             ), PlanStepData(
                 title = "Products",
                 summary = ReactNode("Products (summary)"),
