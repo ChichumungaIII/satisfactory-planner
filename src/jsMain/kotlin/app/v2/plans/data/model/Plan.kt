@@ -13,8 +13,11 @@ data class Plan(
   val activeStep: Int = 0,
   val inputs: List<PlanInput> = listOf(),
   val products: List<PlanProduct> = listOf(),
-  val result: Map<Recipe, Rational>? = null,
-)
+  val results: List<PlanResult>? = null,
+) {
+  private val resultsIndex by lazy { results?.associate { it.recipe to it } }
+  fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)
+}
 
 @Serializable
 data class PlanInput(
@@ -28,4 +31,11 @@ data class PlanProduct(
   val exact: Boolean = false,
   val amount: Rational = 0.q,
   val maximum: Rational? = null,
+)
+
+@Serializable
+data class PlanResult(
+  val recipe: Recipe,
+  val clock: Rational,
+  val details: Boolean,
 )

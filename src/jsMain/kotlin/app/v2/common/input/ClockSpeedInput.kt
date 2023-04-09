@@ -18,6 +18,8 @@ import util.math.q
 external interface ClockSpeedInputProps : Props {
   var model: Rational
   var setModel: (Rational) -> Unit
+
+  var disabled: Boolean?
 }
 
 val ClockSpeedInput = FC<ClockSpeedInputProps>("ClockSpeedInput") { props ->
@@ -34,6 +36,8 @@ val ClockSpeedInput = FC<ClockSpeedInputProps>("ClockSpeedInput") { props ->
     label = ReactNode("Clock Speed")
 
     setValue = { next -> next?.let { model = it / 100.q } }
+
+    disabled = props.disabled ?: false
 
     this.text = text
     setText = { next -> text = next }

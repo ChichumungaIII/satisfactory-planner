@@ -1,22 +1,32 @@
 package app.v2.plans.plan.results
 
-import app.data.recipe.Recipe
+import app.util.PropsDelegate
+import app.v2.plans.data.model.PlanResult
 import mui.material.Box
 import mui.material.Stack
 import react.FC
 import react.Props
-import util.math.Rational
 import util.math.q
 
 external interface PlanResultsComponentProps : Props {
-  var results: Map<Recipe, Rational>?
+  var results: List<PlanResult>?
+  var setResults: (List<PlanResult>?) -> Unit
 }
 
 val PlanResultsComponent = FC<PlanResultsComponentProps>("PlanResultsComponent") { props ->
-  props.results?.also { results ->
+  var results by PropsDelegate(props.results, props.setResults)
+
+  results?.let {
     Stack {
-      results.filterNot { (_, rate) -> rate == 0.q }.forEach { (recipe, rate) ->
-        Box { +"${recipe.displayName} @${rate * 100.q}%" }
+      it.forEachIndexed { index, result ->
+        PlanResultComponent.takeUnless { result.clock == 0.q }?.invoke {
+          recipe = result.recipe
+          clock = result.clock
+          details = result.details
+          setDetails = { next ->
+            results = it.subList(0, index) + result.copy(details = next) + it.subList(index + 1, it.size)
+          }
+        }
       }
     }
   } ?: Box {

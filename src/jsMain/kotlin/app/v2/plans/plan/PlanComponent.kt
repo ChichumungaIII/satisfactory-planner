@@ -7,6 +7,7 @@ import app.data.recipe.ProductionRecipe
 import app.util.PropsDelegate
 import app.v2.AppScope
 import app.v2.plans.data.model.Plan
+import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
 import app.v2.plans.plan.results.PlanResultsComponent
@@ -54,6 +55,7 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
 
   useEffect(plan.inputs, plan.products) {
     val current = OptimizeRequest(
+      // TODO: Use contextual recipes
       recipes = ProductionRecipe.values().toSet(),
       inputs = plan.inputs.mapNotNull { it.item?.let { item -> OptimizeRequest.Input(item, it.amount) } },
       products = plan.products.mapNotNull {
@@ -72,7 +74,14 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
     AppScope.launch {
       delay(200.milliseconds)
       conditionalSend(current)?.also { response ->
-        plan = plan.copy(result = response.outcome)
+        // TODO: Use contextual recipes
+        val results = ProductionRecipe.values()
+          .associateWith { response.outcome[it] }
+          .mapNotNull { (recipe, rate) -> rate?.let { recipe to it } }
+          .map { (recipe, rate) ->
+            PlanResult(recipe, rate, details = plan.getResult(recipe)?.details ?: false)
+          }
+        plan = plan.copy(results = results)
       }
     }
   }
@@ -101,7 +110,10 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
         content = ReactNode("Recipes (content)"),
       ), PlanStepData(
         title = "Results",
-        content = PlanResultsComponent.create { results = plan.result },
+        content = PlanResultsComponent.create {
+          results = plan.results
+          setResults = { next -> plan = plan.copy(results = next) }
+        },
       )
     ).withIndex().forEach { (index, step) ->
       Step {

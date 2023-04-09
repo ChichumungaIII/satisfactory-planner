@@ -16,6 +16,8 @@ external interface RecipeAutocompleteProps : Props {
   var model: Recipe?
   var setModel: (Recipe?) -> Unit
 
+  var disabled: Boolean?
+
   var building: Building?
 }
 
@@ -32,6 +34,8 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
       }
     }
     size = "small"
+
+    disabled = props.disabled ?: false
 
     options = (props.building?.let { listOf(it) }
       ?: BUILDINGS).flatMap { building -> building.recipes.map { RecipeAutocompleteOption(it, building) } }
