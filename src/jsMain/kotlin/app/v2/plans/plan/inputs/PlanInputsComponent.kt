@@ -1,5 +1,6 @@
 package app.v2.plans.plan.inputs
 
+import app.data.Item
 import app.util.PropsDelegate
 import app.v2.plans.data.model.PlanInput
 import csstype.ClassName
@@ -16,10 +17,14 @@ import mui.system.responsive
 import react.FC
 import react.Props
 import react.ReactNode
+import util.math.Rational
 
 external interface PlanInputsComponentProps : Props {
   var inputs: List<PlanInput>
   var setInputs: (List<PlanInput>) -> Unit
+
+  var consumed: Map<Item, Rational>?
+  var minimums: Map<Item, Rational>?
 }
 
 val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { props ->
@@ -45,6 +50,9 @@ val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { 
         setAmount = { next -> setInput(input.copy(amount = next)) }
 
         onDelete = { inputs = before() + after() }
+
+        consumed = props.consumed
+        minimums = props.minimums
       }
     }
 

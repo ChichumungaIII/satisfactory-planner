@@ -5,6 +5,9 @@ import app.util.PropsDelegate
 import app.v2.common.input.ItemAutocomplete
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.input.TooltipIconButton
+import app.v2.common.layout.FauxInputDisplay
+import app.v2.common.layout.FauxInputDisplayVariant
+import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.common.PlanItemAmountInput
 import csstype.ClassName
 import csstype.px
@@ -22,26 +25,18 @@ import react.ReactNode
 import util.math.Rational
 
 external interface PlanProductComponentProps : Props {
-  var item: Item?
-  var setItem: (Item?) -> Unit
-
-  var exact: Boolean
-  var setExact: (Boolean) -> Unit
-
-  var amount: Rational
-  var setAmount: (Rational) -> Unit
-
-  var maximum: Rational?
-  var setMaximum: (Rational?) -> Unit
+  var product: PlanProduct
+  var setProduct: (PlanProduct) -> Unit
 
   var onDelete: () -> Unit
+
+  var produced: Map<Item, Rational>?
+  var maximums: Map<Item, Rational>?
 }
 
 val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent") { props ->
-  var item by PropsDelegate(props.item, props.setItem)
-  var exact by PropsDelegate(props.exact, props.setExact)
-  var amount by PropsDelegate(props.amount, props.setAmount)
-  var maximum by PropsDelegate(props.maximum, props.setMaximum)
+  var product by PropsDelegate(props.product, props.setProduct)
+  val (item, exact, amount, maximum) = product
 
   Stack {
     className = ClassName("plan-products__product")
@@ -56,16 +51,15 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
 
     ItemAutocomplete {
       model = item
-      setModel = { next -> item = next }
+      setModel = { next ->
+        product = product.copy(item = next)
+      }
     }
 
     ToggleIconButton {
       toggle = exact
       setToggle = { next ->
-        exact = next
-        if (!exact) {
-          maximum = null
-        }
+        product = product.copy(exact = next, maximum = maximum?.takeUnless { exact })
       }
 
       titleOn = "Exactly"
@@ -76,15 +70,19 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
     }
 
     PlanItemAmountInput {
-      label = ReactNode(if (exact) "Amount produced" else "Minimum produced")
+      label = ReactNode(if (exact) "Target" else "Minimum")
       model = amount
-      setModel = { next -> amount = next }
+      setModel = { next ->
+        product = product.copy(amount = next)
+      }
     }
 
     if (!exact) {
       ToggleIconButton {
         toggle = maximum != null
-        setToggle = { next -> maximum = amount.takeIf { next } }
+        setToggle = { next ->
+          product = product.copy(maximum = amount.takeIf { next })
+        }
 
         titleOn = "Up to"
         iconOn = LastPage
@@ -95,10 +93,28 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
 
       maximum?.also {
         PlanItemAmountInput {
-          label = ReactNode("Maximum produced")
+          label = ReactNode("Maximum")
           model = it
-          setModel = { next -> maximum = next }
+          setModel = { next ->
+            product = product.copy(maximum = next)
+          }
         }
+      }
+    }
+
+    props.produced?.let { it[item] }?.also {
+      FauxInputDisplay {
+        variant = FauxInputDisplayVariant.RATE
+        label = "Produced"
+        value = it
+      }
+    }
+
+    props.maximums?.let { it[item] }?.also {
+      FauxInputDisplay {
+        variant = FauxInputDisplayVariant.RATE
+        label = "Possible"
+        value = it
       }
     }
   }

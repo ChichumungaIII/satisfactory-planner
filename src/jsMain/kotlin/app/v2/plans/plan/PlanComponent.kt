@@ -58,12 +58,12 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
       // TODO: Use contextual recipes
       recipes = ProductionRecipe.values().toSet(),
       inputs = plan.inputs.mapNotNull { it.item?.let { item -> OptimizeRequest.Input(item, it.amount) } },
-      products = plan.products.mapNotNull {
-        it.item?.let { item ->
+      products = plan.products.mapNotNull { product ->
+        product.item?.let { item ->
           OptimizeRequest.Product(
-            item,
-            it.amount,
-            if (it.exact) it.amount else it.maximum
+            item = item,
+            minimum = product.amount,
+            maximum = product.amount.takeIf { product.exact } ?: product.maximum
           )
         }
       }
@@ -81,7 +81,11 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
           .map { (recipe, rate) ->
             PlanResult(recipe, rate, details = plan.getResult(recipe)?.details ?: false)
           }
-        plan = plan.copy(results = results)
+        plan = plan.copy(
+          results = results,
+          minimums = response.minimums,
+          maximums = response.maximums,
+        )
       }
     }
   }
@@ -98,12 +102,18 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
         content = PlanInputsComponent.create {
           inputs = plan.inputs
           setInputs = { next -> plan = plan.copy(inputs = next) }
+
+          consumed = plan.consumed
+          minimums = plan.minimums
         },
       ), PlanStepData(
         title = "Products",
         content = PlanProductsComponent.create {
           products = plan.products
           setProducts = { next -> plan = plan.copy(products = next) }
+
+          produced = plan.produced
+          maximums = plan.maximums
         },
       ), PlanStepData(
         title = "Recipes",

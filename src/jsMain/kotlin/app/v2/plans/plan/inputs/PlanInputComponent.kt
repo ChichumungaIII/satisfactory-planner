@@ -4,6 +4,8 @@ import app.data.Item
 import app.util.PropsDelegate
 import app.v2.common.input.ItemAutocomplete
 import app.v2.common.input.TooltipIconButton
+import app.v2.common.layout.FauxInputDisplay
+import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.plan.common.PlanItemAmountInput
 import csstype.ClassName
 import csstype.px
@@ -24,6 +26,9 @@ external interface PlanInputComponentProps : Props {
   var setAmount: (Rational) -> Unit
 
   var onDelete: () -> Unit
+
+  var consumed: Map<Item, Rational>?
+  var minimums: Map<Item, Rational>?
 }
 
 val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { props ->
@@ -47,9 +52,25 @@ val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { pro
     }
 
     PlanItemAmountInput {
-      label = ReactNode("Amount available")
+      label = ReactNode("Supplied")
       model = amount
       setModel = { next -> amount = next }
+    }
+
+    props.consumed?.let { it[item] }?.also {
+      FauxInputDisplay {
+        variant = FauxInputDisplayVariant.RATE
+        label = "Consumed"
+        value = it
+      }
+    }
+
+    props.minimums?.let { it[item] }?.also {
+      FauxInputDisplay {
+        variant = FauxInputDisplayVariant.RATE
+        label = "Required"
+        value = it
+      }
     }
   }
 }

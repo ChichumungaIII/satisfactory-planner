@@ -2,6 +2,7 @@ package app.v2.plans.data.model
 
 import app.data.Item
 import app.data.recipe.Recipe
+import app.data.recipe.componentRate
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -14,9 +15,23 @@ data class Plan(
   val inputs: List<PlanInput> = listOf(),
   val products: List<PlanProduct> = listOf(),
   val results: List<PlanResult>? = null,
+  val minimums: Map<Item, Rational>? = null,
+  val maximums: Map<Item, Rational>? = null,
 ) {
   private val resultsIndex by lazy { results?.associate { it.recipe to it } }
   fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)
+
+  val consumed by lazy { components.filterValues { it < 0.q }.mapValues { (_, rate) -> -rate } }
+  val produced by lazy { components.filterValues { it > 0.q } }
+  val components by lazy {
+    val components = mutableMapOf<Item, Rational>()
+    results?.forEach { result ->
+      result.recipe.components.keys.forEach { item ->
+        components[item] = result.recipe.componentRate(item, result.clock) + (components[item] ?: 0.q)
+      }
+    }
+    components.toMap()
+  }
 }
 
 @Serializable
