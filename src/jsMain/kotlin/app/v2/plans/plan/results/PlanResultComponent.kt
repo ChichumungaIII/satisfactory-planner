@@ -4,10 +4,10 @@ import app.data.recipe.Recipe
 import app.data.recipe.inputRate
 import app.data.recipe.outputRate
 import app.util.PropsDelegate
-import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.DetailsToggleButton
-import app.v2.common.input.RecipeAutocomplete
 import app.v2.common.layout.ControlBar
+import app.v2.common.layout.FauxInputDisplay
+import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.common.layout.ThroughputDatum
 import app.v2.common.layout.ThroughputDisplayComponent
 import react.FC
@@ -25,15 +25,14 @@ val PlanResultComponent = FC<PlanResultComponentProps>("PlanResultComponent") { 
   var details by PropsDelegate(props.details, props.setDetails)
 
   ControlBar {
-    // TODO: Disabled inputs are bad display design. Implement real faux-input displays. (Real Fake Inputs!)
-    RecipeAutocomplete {
-      model = props.recipe
-      disabled = true
+    FauxInputDisplay {
+      variant = FauxInputDisplayVariant.RECIPE
+      value = props.recipe
     }
 
-    ClockSpeedInput {
-      model = props.clock
-      disabled = true
+    FauxInputDisplay {
+      variant = FauxInputDisplayVariant.CLOCK
+      value = props.clock
     }
 
     DetailsToggleButton {

@@ -2,15 +2,12 @@ package app.v2.common.layout
 
 import app.data.Item
 import csstype.ClassName
-import csstype.number
+import csstype.px
 import mui.icons.material.ArrowForward
 import mui.material.Box
-import mui.material.Paper
-import mui.material.PaperVariant
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
-import mui.system.sx
 import react.FC
 import react.Props
 import util.math.Rational
@@ -26,6 +23,7 @@ val ThroughputDisplayComponent = FC<ThroughputDisplayComponentProps>("Throughput
   Stack {
     className = ClassName("throughput-display")
     direction = responsive(StackDirection.row)
+    spacing = responsive(2.px)
 
     ThroughputList {
       data = props.inputs
@@ -45,22 +43,28 @@ external interface ThroughputListProps : Props {
 
 private val ThroughputList = FC<ThroughputListProps>("ThroughputList") { props ->
   props.data.takeUnless { it.isEmpty() }
-    ?.also { data -> Stack { data.forEach { ThroughputItem { datum = it } } } }
+    ?.also { data ->
+      Stack {
+        direction = responsive(StackDirection.column)
+        spacing = responsive(8.px)
+
+        data.forEach { datum ->
+          Stack {
+            direction = responsive(StackDirection.row)
+            spacing = responsive(6.px)
+
+            FauxInputDisplay {
+              variant = FauxInputDisplayVariant.RATE
+              value = datum.rate
+            }
+
+            FauxInputDisplay {
+              variant = FauxInputDisplayVariant.ITEM
+              value = datum.item
+            }
+          }
+        }
+      }
+    }
     ?: Box { +"Nothing" }
-}
-
-external interface ThroughputItemProps : Props {
-  var datum: ThroughputDatum
-}
-
-private val ThroughputItem = FC<ThroughputItemProps>("ThroughputItem") { props ->
-  Paper {
-    variant = PaperVariant.outlined
-
-    +"${props.datum.rate}"
-    Box { sx { flexGrow = number(1.0) } }
-    +"/ min"
-  }
-
-  +props.datum.item.displayName
 }

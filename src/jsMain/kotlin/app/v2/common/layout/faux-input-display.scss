@@ -1,0 +1,29 @@
+.faux-input-display {
+  position: relative;
+
+  height: 40px;
+  padding: 8px 13px 8px 11px;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-color: rgba(0, 0, 0, 0.23);
+
+  &--clock { width: 160px; }
+  &--item { width: 288px; }
+  &--rate { width: 160px; }
+  &--recipe { width: 320px; }
+
+  &__label {
+    position: absolute;
+    top: -9.5px;
+    left: 8px;
+    padding: 0 5px;
+
+    background-color: white;
+  }
+
+  &__adornment, &__label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
