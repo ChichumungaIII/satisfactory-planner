@@ -9,7 +9,7 @@ import util.math.Rational
 data class OptimizeRequest(
   val recipes: Set<Recipe>,
   val inputs: List<Input>,
-  val products: List<Product>,
+  val outcomes: List<Outcome>,
 ) {
   @Serializable
   data class Input(
@@ -18,9 +18,16 @@ data class OptimizeRequest(
   )
 
   @Serializable
-  data class Product(
-    val item: Item,
-    val minimum: Rational,
-    val maximum: Rational?,
-  )
+  sealed interface Outcome {
+    val item: Item
+  }
+
+  @Serializable
+  data class Exact(override val item: Item, val amount: Rational) : Outcome
+
+  @Serializable
+  data class Minimum(override val item: Item, val minimum: Rational) : Outcome
+
+  @Serializable
+  data class Range(override val item: Item, val minimum: Rational, val maximum: Rational) : Outcome
 }
