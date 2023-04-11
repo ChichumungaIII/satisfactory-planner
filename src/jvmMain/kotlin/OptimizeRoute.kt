@@ -38,7 +38,7 @@ fun Routing.optimizeRoute() {
         call.respondText { AppJson.encodeToString(optimize(request)) }
       } catch (e: Exception) {
         println(e.message)
-        println(e.stackTrace)
+        e.printStackTrace()
         throw e
       }
     }.join()
@@ -46,29 +46,46 @@ fun Routing.optimizeRoute() {
 }
 
 private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
-  val (recipes, inputs, products) = request
+  val (recipes, inputs, outcomes) = request
 
-  if (inputs.isEmpty() || products.isEmpty()) return@coroutineScope EMPTY
+  if (inputs.isEmpty() || outcomes.isEmpty()) return@coroutineScope EMPTY
 
   val expressions = consider(recipes)
   check(expressions.keys.containsAll(inputs.map { it.item }))
-  check(expressions.keys.containsAll(products.map { it.item }))
+  check(expressions.keys.containsAll(outcomes.map { it.item }))
+  check(outcomes.map { it.item }.toSet().size == outcomes.size) { "Outcome items must be unique." }
 
-  val provisions = inputs.associate { it.item to it.quantity.br }
-  val requirements = products.associate { it.item to it.minimum.br }
-  val limits = products.filterNot { it.maximum == null }.associate { it.item to it.maximum!!.br }
-
-  val planConstraints =
-    expressions.map { (item, expression) ->
-      val result = requirements.getOrElse(item) { 0.br } - provisions.getOrElse(item) { 0.br }
-      Constraint.atLeast(expression, result)
+  val provisions = inputs.groupBy { it.item }
+    .mapValues { (_, inputs) -> inputs.map { it.quantity.br }.reduce(BigRational::plus) }
+  val requirements = outcomes.associate {
+    it.item to when (it) {
+      is OptimizeRequest.Exact -> it.amount.br
+      is OptimizeRequest.Minimum -> it.minimum.br
+      is OptimizeRequest.Range -> it.minimum.br
     }
+  }
+  val limits = outcomes.filterIsInstance<OptimizeRequest.Exact>().associate { it.item to it.amount.br } +
+      outcomes.filterIsInstance<OptimizeRequest.Range>().associate { it.item to it.maximum.br }
+
+  val outcomeConstraints = outcomes.associate {
+    val provision = provisions.getOrDefault(it.item, 0.br)
+    it.item to when (it) {
+      is OptimizeRequest.Exact -> listOf(Constraint.equalTo(expressions[it.item]!!, it.amount.br - provision))
+      is OptimizeRequest.Minimum -> listOf(Constraint.atLeast(expressions[it.item]!!, it.minimum.br - provision))
+      is OptimizeRequest.Range -> listOf(
+        Constraint.atLeast(expressions[it.item]!!, it.minimum.br - provision),
+        Constraint.atMost(expressions[it.item]!!, it.maximum.br - provision)
+      )
+    }
+  }.toMutableMap()
+  val initialConstraints = outcomeConstraints.toMap()
+  val basicConstraints = expressions.filterKeys { !outcomeConstraints.containsKey(it) }
+    .map { (item, expression) -> Constraint.atLeast(expression, -provisions.getOrDefault(item, 0.br)) }
 
   /* PRIMARY PLAN */
 
-  val unlimited = products.filter { it.maximum == null }.map { it.item }
-  val unrealized = products.filterNot { it.maximum == null }.mapTo(mutableSetOf()) { it.item }
-  val realized = mutableSetOf<Item>()
+  val unlimited = outcomes.filterIsInstance<OptimizeRequest.Minimum>().map { it.item }
+  val unrealized = outcomes.filterNot { it is OptimizeRequest.Minimum }.map { it.item }.toMutableSet()
 
   var solution: Map<Recipe, BigRational>
   do {
@@ -77,8 +94,6 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
 
     val limitConstraints =
       unrealized.map { item -> Constraint.atMost(expressions[item]!!, limits[item]!!) }
-    val realizedConstraints =
-      realized.map { item -> Constraint.equalTo(expressions[item]!!, limits[item]!!) }
     val balanceConstraints = (unlimited + unrealized).filterNot { it == principal }.map { item ->
       Constraint.equalTo(
         expressions[item]!! - objective,
@@ -87,15 +102,18 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     }
 
     try {
-      val constraints = planConstraints + limitConstraints + realizedConstraints + balanceConstraints
+      val constraints = outcomeConstraints.values.flatten() + basicConstraints + limitConstraints + balanceConstraints
       solution = maximize(objective, constraints, BigRational.FACTORY)
     } catch (e: InfeasibleSolutionException) {
       return@coroutineScope EMPTY
     }
 
-    val newlyRealized = unrealized.filter { item -> expressions[item]!!(solution) == limits[item]!! }.toSet()
-    unrealized -= newlyRealized
-    realized += newlyRealized
+    val newlyRealized = unrealized.associateWith { expressions[it]!!(solution) }
+      .filter { (item, produced) -> produced == limits[item]!! }
+      .onEach { (item, limit) ->
+        unrealized -= item
+        outcomeConstraints[item] = listOf(Constraint.equalTo(expressions[item]!!, limit))
+      }.keys
   } while (newlyRealized.isNotEmpty() && (unrealized.isNotEmpty() || unlimited.isNotEmpty()))
 
   /* MINIMUMS FOR INPUTS */
@@ -104,18 +122,20 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     .associateWith { item ->
       async {
         (-expressions[item]!!).let {
-          it(minimize(it, planConstraints, BigRational.FACTORY))
+          it(minimize(it, initialConstraints.values.flatten() + basicConstraints, BigRational.FACTORY))
         }
       }
     }
 
   /* MAXIMUMS FOR PRODUCTS */
 
-  val productMaximums = products.map { it.item }
+  val productMaximums = outcomes.map { it.item }
     .associateWith { item ->
       async {
+        val singularConstraints = initialConstraints.toMutableMap()
+        singularConstraints[item] = listOf(Constraint.atLeast(expressions[item]!!, requirements[item]!!))
         (expressions[item]!!).let {
-          it(maximize(it, planConstraints, BigRational.FACTORY))
+          it(maximize(it, singularConstraints.values.flatten() + basicConstraints, BigRational.FACTORY))
         }
       }
     }
