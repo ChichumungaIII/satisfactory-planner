@@ -58,13 +58,15 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
       // TODO: Use contextual recipes
       recipes = ProductionRecipe.values().toSet(),
       inputs = plan.inputs.mapNotNull { it.item?.let { item -> OptimizeRequest.Input(item, it.amount) } },
-      outcomes = plan.products.mapNotNull { product ->
+      products = plan.products.mapNotNull { product ->
         product.item?.let { item ->
-          if (product.exact) OptimizeRequest.Exact(item, product.amount)
-          else if (product.maximum == null) OptimizeRequest.Minimum(item, product.amount)
-          else OptimizeRequest.Range(item, product.amount, product.maximum)
+          OptimizeRequest.Product(
+            item = item,
+            minimum = product.amount,
+            maximum = product.amount.takeIf { product.exact } ?: product.maximum
+          )
         }
-      },
+      }
     )
     if (current == latest) return@useEffect
 
