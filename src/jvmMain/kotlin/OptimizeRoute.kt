@@ -85,11 +85,11 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
   /* PRIMARY PLAN */
 
   val unlimited = outcomes.filterIsInstance<OptimizeRequest.Minimum>().map { it.item }
-  val unrealized = outcomes.filterNot { it is OptimizeRequest.Minimum }.map { it.item }.toMutableSet()
+  val unrealized = outcomes.filterIsInstance<OptimizeRequest.Range>().map { it.item }.toMutableSet()
 
   var solution: Map<Recipe, BigRational>
   do {
-    val principal = (unlimited + unrealized).first()
+    val principal = (unlimited + unrealized).firstOrNull() ?: outcomes.first().item
     val objective = expressions[principal]!!
 
     val limitConstraints =
