@@ -13,6 +13,7 @@ import csstype.ClassName
 import csstype.Margin
 import csstype.number
 import csstype.px
+import js.core.jso
 import mui.icons.material.Add
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
@@ -27,8 +28,8 @@ import mui.icons.material.LayersOutlined
 import mui.material.Box
 import mui.material.Card
 import mui.material.Checkbox
+import mui.material.CloseReason
 import mui.material.Divider
-import mui.material.Fab
 import mui.material.FabColor
 import mui.material.FormControlVariant
 import mui.material.IconButton
@@ -36,17 +37,22 @@ import mui.material.Orientation
 import mui.material.Paper
 import mui.material.PaperVariant
 import mui.material.Size
+import mui.material.SpeedDial
+import mui.material.SpeedDialAction
+import mui.material.SpeedDialDirection
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.material.SvgIconSize
 import mui.material.TextField
 import mui.material.Tooltip
 import mui.material.TooltipPlacement
+import mui.material.ZoomProps
 import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
+import react.create
 import react.dom.onChange
 
 external interface FactoryContentComponentProps : Props {
@@ -211,8 +217,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
             newGroup?.also { group ->
               Tooltip {
-                val helptext =
-                  "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
+                val helptext = "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
                 this.title = ReactNode(helptext)
                 placement = TooltipPlacement.right
 
@@ -285,8 +290,7 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
                   onFlatten = {
                     val one = 1.toUInt()
                     val children = node.nodes.map { child ->
-                      child.clone(count = node.count?.takeUnless { it == one }
-                        ?.let { (child.count ?: one) * it }
+                      child.clone(count = node.count?.takeUnless { it == one }?.let { (child.count ?: one) * it }
                         ?: child.count)
                     }
                     content = content.splice(index, 1, children)
@@ -302,17 +306,37 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
           }
         }
 
-        Tooltip {
+        SpeedDial {
+          ariaLabel = "Add building"
           className = ClassName("factory-content__add-building")
-          this.title = ReactNode("Add Building")
 
-          Fab {
+          TransitionProps = jso<ZoomProps> { appear = false }
+
+          direction = SpeedDialDirection.right
+          icon = Tooltip.create {
+            this.title = ReactNode("Add Building")
+            placement = TooltipPlacement.top
+
+            Add { fontSize = SvgIconSize.medium }
+          }
+
+          FabProps = jso {
             color = FabColor.primary
             size = Size.small
-            Add { fontSize = SvgIconSize.medium }
+          }
 
-            disabled = newGroup != null
-            onClick = { content = content.addNode(FactoryLeaf()) }
+          onClose = { _, reason ->
+            if (reason == CloseReason.toggle) {
+              content = content.addNode(FactoryLeaf())
+            }
+          }
+
+          SpeedDialAction {
+            key = "group"
+            icon = LayersOutlined.create()
+            tooltipTitle = ReactNode("Add Group")
+
+            onClick = { content = content.addNode(FactoryTree(title = "Factory Group", nodes = listOf())) }
           }
         }
       }

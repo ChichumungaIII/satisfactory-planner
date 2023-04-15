@@ -58,10 +58,11 @@
   }
 
   &__add-building.factory-content__add-building {
-    min-height: 34px;
-    max-height: 34px;
-    width: 34px;
-
+    height: 40px;
     margin: 12px 0 12px 65px;
+
+    & .MuiSpeedDial-actions {
+      padding-left: 32px;
+    }
   }
 }
