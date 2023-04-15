@@ -100,13 +100,13 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
           }
         }
       }
-    }
 
-    props.produced?.let { it[item] }?.also {
-      FauxInputDisplay {
-        variant = FauxInputDisplayVariant.RATE
-        label = "Produced"
-        value = it
+      props.produced?.let { it[item] }?.also {
+        FauxInputDisplay {
+          variant = FauxInputDisplayVariant.RATE
+          label = "Produced"
+          value = it
+        }
       }
     }
 

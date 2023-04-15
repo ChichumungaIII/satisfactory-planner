@@ -121,6 +121,8 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
         content = PlanResultsComponent.create {
           results = plan.results
           setResults = { next -> plan = plan.copy(results = next) }
+
+          products = plan.products
         },
       )
     ).withIndex().forEach { (index, step) ->
