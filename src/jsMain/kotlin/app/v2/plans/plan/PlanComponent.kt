@@ -12,8 +12,10 @@ import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
+import app.v2.plans.plan.results.PlanResultsComponent
 import kotlinx.coroutines.launch
 import mui.icons.material.ArrowRight
+import mui.material.Divider
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
@@ -70,5 +72,9 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
 
       PlanProductsComponent {}
     }
+
+    Divider {}
+
+    PlanResultsComponent {}
   }
 }
