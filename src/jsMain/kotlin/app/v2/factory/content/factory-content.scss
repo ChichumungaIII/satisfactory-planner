@@ -38,15 +38,6 @@
   &__item {
     display: flex;
     align-items: center;
-
-    &__controls {
-      display: flex;
-      flex-direction: column;
-
-      &__button {
-        padding: 0;
-      }
-    }
   }
 
   &__group-checkbox {

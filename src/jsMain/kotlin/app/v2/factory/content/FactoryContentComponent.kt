@@ -3,6 +3,7 @@ package app.v2.factory.content
 import app.util.PropsDelegate
 import app.v2.common.input.CountToggleComponent
 import app.v2.common.input.DetailsToggleButton
+import app.v2.common.input.ListItemControls
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.ControlBar
@@ -15,10 +16,7 @@ import csstype.number
 import csstype.px
 import js.core.jso
 import mui.icons.material.Add
-import mui.icons.material.ArrowDropDown
-import mui.icons.material.ArrowDropUp
 import mui.icons.material.ArrowForward
-import mui.icons.material.Clear
 import mui.icons.material.FormatIndentDecrease
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
@@ -32,7 +30,6 @@ import mui.material.CloseReason
 import mui.material.Divider
 import mui.material.FabColor
 import mui.material.FormControlVariant
-import mui.material.IconButton
 import mui.material.Orientation
 import mui.material.Paper
 import mui.material.PaperVariant
@@ -215,61 +212,36 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
           Box {
             className = ClassName("factory-content__item")
 
-            newGroup?.also { group ->
-              Tooltip {
-                val helptext = "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
-                this.title = ReactNode(helptext)
-                placement = TooltipPlacement.right
+            ListItemControls {
+              primaryItemControl = newGroup?.let { group ->
+                Tooltip.create {
+                  val helptext = "Add to Group".takeUnless { group.contains(index) } ?: "Remove from Group"
+                  this.title = ReactNode(helptext)
+                  placement = TooltipPlacement.right
 
-                Checkbox {
-                  className = ClassName("factory-content__group-checkbox")
-                  size = Size.small
+                  Checkbox {
+                    className = ClassName("factory-content__group-checkbox")
+                    size = Size.small
 
-                  checked = group.contains(index)
-                  onChange = { _, include ->
-                    val nextGroup = if (include) {
-                      (group + index).sorted()
-                    } else {
-                      group - index
+                    checked = group.contains(index)
+                    onChange = { _, include ->
+                      val nextGroup = if (include) {
+                        (group + index).sorted()
+                      } else {
+                        group - index
+                      }
+                      content = content.copy(newGroup = nextGroup)
                     }
-                    content = content.copy(newGroup = nextGroup)
                   }
                 }
               }
-            } ?: run {
-              TooltipIconButton {
-                this.title = "Delete"
-                icon = Clear
-                onClick = { content = content.removeNode(index) }
-              }
-            }
+              onDelete = { content = content.removeNode(index) }
 
-            Box {
-              className = ClassName("factory-content__item__controls")
+              onMoveUp = { content = content.splice(index - 1, 2, node, nodes[index - 1]) }
+              disableMoveUp = index == 0 || newGroup != null
 
-              IconButton {
-                className = ClassName("factory-content__item__controls__button")
-
-                size = Size.small
-                ArrowDropUp { fontSize = SvgIconSize.medium }
-
-                disabled = index == 0 || newGroup != null
-                onClick = {
-                  content = content.splice(index - 1, 2, nodes[index], nodes[index - 1])
-                }
-              }
-
-              IconButton {
-                className = ClassName("factory-content__item__controls__button")
-
-                size = Size.small
-                ArrowDropDown { fontSize = SvgIconSize.medium }
-
-                disabled = index == nodes.size - 1 || newGroup != null
-                onClick = {
-                  content = content.splice(index, 2, nodes[index + 1], nodes[index])
-                }
-              }
+              onMoveDown = { content = content.splice(index, 2, nodes[index + 1], node) }
+              disableMoveDown = index == nodes.size - 1 || newGroup != null
             }
 
             Divider {
