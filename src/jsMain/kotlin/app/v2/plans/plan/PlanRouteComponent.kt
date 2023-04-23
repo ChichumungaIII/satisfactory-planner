@@ -35,9 +35,11 @@ val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { pro
         CircularProgress { size = 80; thickness = 4.8 }
       }
 
-      is Loaded -> PlanComponent {
-        this.plan = plan.data
-        setPlan = { next -> updatePlan(SavePlan(next)) }
+      is Loaded -> ComputeOutcomeContextComponent {
+        PlanComponent {
+          this.plan = plan.data
+          setPlan = { next -> updatePlan(SavePlan(next)) }
+        }
       }
 
       else -> null.also { updatePlan(GetPlan(planId)) }
