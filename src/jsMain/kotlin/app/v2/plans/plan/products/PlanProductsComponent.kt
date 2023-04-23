@@ -62,6 +62,8 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
         PlanByproductComponent {
           this.byproduct = byproduct
           setByproduct = { next -> plan = plan.setByproduct(i, next) }
+
+          onConvert = { plan = plan.addProduct(byproduct.toProduct()).removeByproduct(i) }
         }
       }
     }

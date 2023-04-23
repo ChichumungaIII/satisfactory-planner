@@ -6,7 +6,7 @@ import app.v2.plans.data.model.Plan
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
 import app.v2.plans.plan.results.PlanResultsComponent
-import mui.icons.material.ArrowRight
+import mui.icons.material.ArrowForward
 import mui.material.Divider
 import mui.material.Stack
 import mui.material.StackDirection
@@ -38,7 +38,7 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
 
       TooltipIconButton {
         title = "Select recipes"
-        icon = ArrowRight
+        icon = ArrowForward
         onClick = {}
       }
 

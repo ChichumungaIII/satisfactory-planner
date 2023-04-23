@@ -42,6 +42,9 @@ data class Plan(
   fun setByproduct(index: Int, byproduct: PlanByproduct) =
     copy(byproducts = byproducts.subList(0, index) + byproduct + byproducts.subList(index + 1, byproducts.size))
 
+  fun removeByproduct(index: Int) =
+    copy(byproducts = byproducts.subList(0, index) + byproducts.subList(index + 1, byproducts.size))
+
   private val resultsIndex by lazy { results?.associate { it.recipe to it } }
   fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)
 
@@ -117,6 +120,12 @@ data class PlanByproduct(
   val item: Item,
   val banned: Boolean = false,
 ) {
+  fun toProduct() = PlanProduct(
+    item,
+    requirement = if (banned) PlanProduct.Exactly(0.q) else PlanProduct.AtLeast(0.q),
+    details = true
+  )
+
   fun toOutcome() = OptimizeRequest.Exact(item, 0.q).takeIf { banned }
 }
 

@@ -1,10 +1,12 @@
 package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
+import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.data.model.PlanByproduct
 import app.v2.plans.plan.PlanComponentContext
+import mui.icons.material.AddTask
 import mui.material.Checkbox
 import mui.material.Size
 import mui.material.Stack
@@ -19,6 +21,8 @@ import react.useContext
 external interface PlanByproductComponentProps : Props {
   var byproduct: PlanByproduct
   var setByproduct: (PlanByproduct) -> Unit
+
+  var onConvert: () -> Unit
 }
 
 val PlanByproductComponent = FC<PlanByproductComponentProps>("PlanByproductComponent") { props ->
@@ -36,6 +40,12 @@ val PlanByproductComponent = FC<PlanByproductComponentProps>("PlanByproductCompo
         checked = byproduct.banned
         onChange = { _, next -> byproduct = byproduct.copy(banned = next) }
       }
+    }
+
+    TooltipIconButton {
+      title = "Convert to product"
+      icon = AddTask
+      onClick = props.onConvert
     }
 
     FauxInputDisplay {
