@@ -4,6 +4,7 @@ import app.v2.common.input.ListItemControls
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
 import mui.icons.material.Add
+import mui.material.Divider
 import mui.material.Fab
 import mui.material.FabColor
 import mui.material.Size
@@ -51,6 +52,17 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
         Add { fontSize = SvgIconSize.medium }
 
         onClick = { plan = plan.addProduct(PlanProduct()) }
+      }
+    }
+
+    plan.byproducts.takeIf { it.isNotEmpty() }?.also { byproducts ->
+      Divider {}
+
+      byproducts.forEachIndexed { i, byproduct ->
+        PlanByproductComponent {
+          this.byproduct = byproduct
+          setByproduct = { next -> plan = plan.setByproduct(i, next) }
+        }
       }
     }
   }

@@ -7,6 +7,7 @@ import app.v2.AppScope
 import app.v2.plans.data.PlanContext
 import app.v2.plans.data.SavePlan
 import app.v2.plans.data.model.Plan
+import app.v2.plans.data.model.PlanByproduct
 import app.v2.plans.data.model.PlanInput
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.data.model.PlanResult
@@ -46,7 +47,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           val request = OptimizeRequest(
             recipes = ProductionRecipe.values().toSet(),
             inputs = plan.inputs.mapNotNull(PlanInput::toInput),
-            outcomes = plan.products.mapNotNull(PlanProduct::toOutcome),
+            outcomes = plan.products.mapNotNull(PlanProduct::toOutcome) + plan.byproducts.mapNotNull(PlanByproduct::toOutcome),
           )
           if (request == latest) return@launch
           latest = request
@@ -65,7 +66,17 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
             minimums = response.minimums,
             maximums = response.maximums,
           )
-          updatePlan(SavePlan(computedPlan))
+
+          val expected = computedPlan.products.map { it.item }.toSet()
+          val newByproducts =
+            computedPlan.produced.keys.filterNot { expected.contains(it) }.associateWith { PlanByproduct(it) }
+          val oldByproducts = computedPlan.byproducts.associateBy { it.item }
+          val byproducts =
+            (oldByproducts.keys + newByproducts.keys).mapNotNull { item ->
+              oldByproducts[item]?.takeIf { it.banned } ?: newByproducts[item]
+            }
+
+          updatePlan(SavePlan(computedPlan.copy(byproducts = byproducts)))
         }
       }
     }

@@ -14,6 +14,7 @@ data class Plan(
   val title: String,
   val inputs: List<PlanInput> = listOf(),
   val products: List<PlanProduct> = listOf(),
+  val byproducts: List<PlanByproduct> = listOf(),
   val results: List<PlanResult>? = null,
   val minimums: Map<Item, Rational>? = null,
   val maximums: Map<Item, Rational>? = null,
@@ -36,7 +37,10 @@ data class Plan(
 
   fun removeProduct(index: Int) = spliceProducts(index, 1)
   fun spliceProducts(index: Int, length: Int, vararg insert: PlanProduct) =
-    copy(products = products.subList(0, index) + insert + products.subList(index + length, inputs.size))
+    copy(products = products.subList(0, index) + insert + products.subList(index + length, products.size))
+
+  fun setByproduct(index: Int, byproduct: PlanByproduct) =
+    copy(byproducts = byproducts.subList(0, index) + byproduct + byproducts.subList(index + 1, byproducts.size))
 
   private val resultsIndex by lazy { results?.associate { it.recipe to it } }
   fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)
@@ -106,6 +110,14 @@ data class PlanProduct(
 
     override fun toOutcome(item: Item) = OptimizeRequest.Range(item, minimum, maximum)
   }
+}
+
+@Serializable
+data class PlanByproduct(
+  val item: Item,
+  val banned: Boolean = false,
+) {
+  fun toOutcome() = OptimizeRequest.Exact(item, 0.q).takeIf { banned }
 }
 
 @Serializable
