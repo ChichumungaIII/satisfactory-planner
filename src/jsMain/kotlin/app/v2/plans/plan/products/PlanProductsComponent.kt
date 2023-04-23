@@ -1,5 +1,6 @@
 package app.v2.plans.plan.products
 
+import app.v2.common.input.ListItemControls
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
 import mui.icons.material.Add
@@ -28,7 +29,16 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
       PlanProductComponent {
         this.product = product
         setProduct = { next -> plan = plan.setProduct(i, next) }
-        onDelete = { plan = plan.removeProduct(i) }
+
+        ListItemControls {
+          onDelete = { plan = plan.removeProduct(i) }
+
+          onMoveUp = { plan = plan.spliceProducts(i - 1, 2, product, plan.products[i - 1]) }
+          disableMoveUp = i == 0
+
+          onMoveDown = { plan = plan.spliceProducts(i, 2, plan.products[i + 1], product) }
+          disableMoveDown = i == (plan.products.size - 1)
+        }
       }
     }
 

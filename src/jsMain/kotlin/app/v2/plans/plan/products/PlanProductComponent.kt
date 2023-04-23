@@ -3,12 +3,10 @@ package app.v2.plans.plan.products
 import app.util.PropsDelegate
 import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ItemAutocomplete
-import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
-import mui.icons.material.Cancel
 import mui.material.Chip
 import mui.material.ChipColor
 import mui.material.ChipVariant
@@ -19,15 +17,14 @@ import mui.material.StackDirection
 import mui.material.TextField
 import mui.system.responsive
 import react.FC
-import react.Props
+import react.PropsWithChildren
 import react.ReactNode
 import react.dom.onChange
 import react.useContext
 
-external interface PlanProductComponentProps : Props {
+external interface PlanProductComponentProps : PropsWithChildren {
   var product: PlanProduct
   var setProduct: (PlanProduct) -> Unit
-  var onDelete: () -> Unit
 }
 
 val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent") { props ->
@@ -40,11 +37,7 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
     Stack {
       direction = responsive(StackDirection.row)
 
-      TooltipIconButton {
-        title = "Delete product"
-        icon = Cancel
-        onClick = props.onDelete
-      }
+      +props.children
 
       FauxInputDisplay {
         variant = FauxInputDisplayVariant.RATE

@@ -24,8 +24,9 @@ data class Plan(
   fun setInput(index: Int, input: PlanInput) =
     copy(inputs = inputs.subList(0, index) + input + inputs.subList(index + 1, inputs.size))
 
-  fun removeInput(index: Int) =
-    copy(inputs = inputs.subList(0, index) + inputs.subList(index + 1, inputs.size))
+  fun removeInput(index: Int) = spliceInputs(index, 1)
+  fun spliceInputs(index: Int, length: Int, vararg insert: PlanInput) =
+    copy(inputs = inputs.subList(0, index) + insert + inputs.subList(index + length, inputs.size))
 
   fun addProduct(product: PlanProduct) =
     copy(products = products + product)
@@ -33,8 +34,9 @@ data class Plan(
   fun setProduct(index: Int, product: PlanProduct) =
     copy(products = products.subList(0, index) + product + products.subList(index + 1, products.size))
 
-  fun removeProduct(index: Int) =
-    copy(products = products.subList(0, index) + products.subList(index + 1, products.size))
+  fun removeProduct(index: Int) = spliceProducts(index, 1)
+  fun spliceProducts(index: Int, length: Int, vararg insert: PlanProduct) =
+    copy(products = products.subList(0, index) + insert + products.subList(index + length, inputs.size))
 
   private val resultsIndex by lazy { results?.associate { it.recipe to it } }
   fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)

@@ -3,11 +3,9 @@ package app.v2.plans.plan.inputs
 import app.util.PropsDelegate
 import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ItemAutocomplete
-import app.v2.common.input.TooltipIconButton
 import app.v2.plans.data.model.PlanInput
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanItemAmountInput
-import mui.icons.material.Cancel
 import mui.material.Chip
 import mui.material.ChipColor
 import mui.material.ChipVariant
@@ -15,14 +13,13 @@ import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
 import react.FC
-import react.Props
+import react.PropsWithChildren
 import react.ReactNode
 import react.useContext
 
-external interface PlanInputComponentProps : Props {
+external interface PlanInputComponentProps : PropsWithChildren {
   var input: PlanInput
   var setInput: (PlanInput) -> Unit
-  var onDelete: () -> Unit
 }
 
 val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { props ->
@@ -35,11 +32,7 @@ val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { pro
     Stack {
       direction = responsive(StackDirection.row)
 
-      TooltipIconButton {
-        title = "Delete input"
-        icon = Cancel
-        onClick = props.onDelete
-      }
+      +props.children
 
       PlanItemAmountInput {
         label = ReactNode("Available")
@@ -61,7 +54,7 @@ val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { pro
     Stack.takeIf { input.details }?.invoke {
       direction = responsive(StackDirection.row)
 
-      (plan.consumed[input.item]?.toString() ?: "?").also { consumed ->
+      (plan.components[input.item]?.let { -it }?.toString() ?: "?").also { consumed ->
         Chip {
           variant = ChipVariant.filled
           color = ChipColor.secondary
