@@ -37,8 +37,8 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
 
     disabled = props.disabled ?: false
 
-    options = (props.building?.let { listOf(it) }
-      ?: BUILDINGS).flatMap { building -> building.recipes.map { RecipeAutocompleteOption(it, building) } }
+    options = (props.building?.let { listOf(it) } ?: BUILDINGS)
+      .flatMap { building -> building.recipes.map { RecipeAutocompleteOption(it, building) } }
       .toTypedArray()
     getOptionLabel = { it.recipe.displayName }
 

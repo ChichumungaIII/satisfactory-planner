@@ -2,9 +2,11 @@ package app.data.recipe
 
 import app.data.Item
 import app.data.building.Generator
+import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
 
+@Serializable
 enum class GenerationRecipe(
   val generator: Generator,
   fuel: Item,

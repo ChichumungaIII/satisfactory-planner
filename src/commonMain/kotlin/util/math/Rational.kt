@@ -139,7 +139,7 @@ class Rational private constructor(
     val remainder = (this - integer.toRational()).norm()
     val fixedScale = getFixedScale(remainder.d)
     val fixed = remainder.n * fixedScale / remainder.d
-    val fixedOut = fixed.takeIf { it > 0L }
+    val fixedOut = fixed.takeIf { it > 0L || fixedScale > 1.q }
       ?.toString()?.padStart("$fixedScale".length - 1, '0')
       ?: ""
 

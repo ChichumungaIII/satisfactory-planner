@@ -2,13 +2,16 @@ package app.data.recipe
 
 import app.data.Item
 import app.data.building.Extractor
+import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
 
+@Serializable
 enum class ExtractionRecipe(
   val extractor: Extractor,
   item: Item,
   purity: Purity,
+  customDisplayName: String? = null,
 ) : Recipe {
   MK_1_IRON_ORE_PURE(Extractor.MINER_MK_1, Item.IRON_ORE, Purity.PURE),
   MK_1_IRON_ORE_NORMAL(Extractor.MINER_MK_1, Item.IRON_ORE, Purity.NORMAL),
@@ -54,9 +57,7 @@ enum class ExtractionRecipe(
   MK_2_SULFUR_NORMAL(Extractor.MINER_MK_2, Item.SULFUR, Purity.NORMAL),
   MK_2_SULFUR_IMPURE(Extractor.MINER_MK_2, Item.SULFUR, Purity.IMPURE),
 
-  WATER(Extractor.WATER_EXTRACTOR, Item.WATER, Purity.NORMAL) {
-    override val displayName = "Water"
-  },
+  WATER(Extractor.WATER_EXTRACTOR, Item.WATER, Purity.NORMAL, "Water"),
 
   CRUDE_OIL_PURE(Extractor.OIL_EXTRACTOR, Item.CRUDE_OIL, Purity.PURE),
   CRUDE_OIL_NORMAL(Extractor.OIL_EXTRACTOR, Item.CRUDE_OIL, Purity.NORMAL),
@@ -68,7 +69,7 @@ enum class ExtractionRecipe(
     PURE("Pure", 2.q);
   }
 
-  override val displayName = "${item.displayName} (${purity.displayName})"
+  override val displayName = customDisplayName ?: "${item.displayName} (${purity.displayName})"
   override val time = 60.q
   override val inputs = mapOf<Item, Rational>()
   override val outputs = mapOf(item to extractor.rate * purity.modifier)

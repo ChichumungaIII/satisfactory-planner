@@ -1,9 +1,11 @@
 package app.data.recipe
 
 import app.data.Item
+import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
 
+@Serializable
 enum class ProductionRecipe(
   override val displayName: String,
   override val time: Rational,
