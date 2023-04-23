@@ -52,5 +52,5 @@ class LocalStoragePlanService : PlanService {
   override suspend fun list() = ids.map { get(it) }.also { lag() }
 
   private fun storageName(id: ULong) = "$PLANS_STORAGE/$id"
-  private suspend fun lag() = delay(Random.nextInt(500, 2000).milliseconds)
+  private suspend fun lag() = delay(Random.nextInt(100, 250).milliseconds)
 }
