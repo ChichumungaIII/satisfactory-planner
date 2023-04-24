@@ -39,6 +39,16 @@ data class FactoryTree(
   override val inputs by lazy { components.filterValues { it < 0.q }.mapValues { (_, rate) -> -rate } }
   override val outputs by lazy { components.filterValues { it > 0.q } }
 
+  override val buildings by lazy {
+    nodes.map { it.buildings }
+      .fold(mutableMapOf<Building, UInt>()) { result, counts ->
+        counts.forEach { (building, count) ->
+          result[building] = (result[building] ?: 0.toUInt()) + count
+        }
+        result
+      }
+  }
+
   override fun clone(count: UInt?) = copy(count = count)
 }
 
@@ -56,6 +66,8 @@ data class FactoryLeaf(
   private fun scale(rates: Map<Item, Rational>?) =
     rates?.mapValues { (_, rate) -> count.q * clock * rate } ?: mapOf()
 
+  override val buildings by lazy { building?.let { mapOf(it to (count ?: 1.toUInt())) } ?: mapOf() }
+
   override fun clone(count: UInt?) = copy(count = count)
 }
 
@@ -65,6 +77,8 @@ sealed interface FactoryNode {
 
   val inputs: Map<Item, Rational>
   val outputs: Map<Item, Rational>
+
+  val buildings: Map<Building, UInt>
 
   fun clone(count: UInt?): FactoryNode
 }

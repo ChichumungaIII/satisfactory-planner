@@ -18,6 +18,7 @@ import js.core.jso
 import mui.icons.material.Add
 import mui.icons.material.ArrowForward
 import mui.icons.material.FormatIndentDecrease
+import mui.icons.material.FormatListNumbered
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
 import mui.icons.material.Layers
@@ -51,6 +52,7 @@ import react.Props
 import react.ReactNode
 import react.create
 import react.dom.onChange
+import react.useState
 
 external interface FactoryContentComponentProps : Props {
   var content: FactoryTree
@@ -62,6 +64,8 @@ external interface FactoryContentComponentProps : Props {
 val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryContentComponent") { props ->
   var content by PropsDelegate(props.content, props.setContent)
   val (count, title, nodes, details, expanded, newGroup) = content
+
+  var manifest by useState(false)
 
   Stack {
     className = ClassName("factory-content")
@@ -99,6 +103,17 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
 
         titleOff = "Expand"
         iconOff = KeyboardDoubleArrowDown
+      }
+
+      ToggleIconButton {
+        toggle = manifest
+        setToggle = { next -> manifest = next }
+
+        titleOn = "Hide manifest"
+        iconOn = FormatListNumbered
+
+        titleOff = "Show manifest"
+        iconOff = FormatListNumbered
       }
 
       if (expanded) {
@@ -313,6 +328,13 @@ val FactoryContentComponent: FC<FactoryContentComponentProps> = FC("FactoryConte
         }
       }
     }
+  }
+
+  ManifestDialog {
+    open = manifest
+    onClose = { manifest = false }
+
+    node = content
   }
 }
 
