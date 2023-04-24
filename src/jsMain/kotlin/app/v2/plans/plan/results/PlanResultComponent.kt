@@ -9,6 +9,8 @@ import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.common.layout.ThroughputDatum
 import app.v2.common.layout.ThroughputDisplayComponent
 import app.v2.plans.data.model.PlanResult
+import app.v2.plans.plan.common.PlanContentRow
+import csstype.ClassName
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
@@ -23,9 +25,7 @@ external interface PlanResultComponentProps : Props {
 val PlanResultComponent = FC<PlanResultComponentProps>("PlanResultComponent") { props ->
   var result by PropsDelegate(props.result, props.setResult)
 
-  Stack {
-    direction = responsive(StackDirection.row)
-
+  PlanContentRow {
     FauxInputDisplay {
       variant = FauxInputDisplayVariant.RECIPE
       value = result.recipe
@@ -42,12 +42,16 @@ val PlanResultComponent = FC<PlanResultComponentProps>("PlanResultComponent") { 
     }
   }
 
-  ThroughputDisplayComponent.takeIf { result.details }?.invoke {
-    inputs = result.recipe.inputs.keys.map { item ->
-      ThroughputDatum(item, result.recipe.inputRate(item, result.clock))
-    }
-    outputs = result.recipe.outputs.keys.map { item ->
-      ThroughputDatum(item, result.recipe.outputRate(item, result.clock))
+  PlanContentRow.takeIf { result.details }?.invoke {
+    ThroughputDisplayComponent {
+      className = ClassName("plan-result__throughput")
+
+      inputs = result.recipe.inputs.keys.map { item ->
+        ThroughputDatum(item, result.recipe.inputRate(item, result.clock))
+      }
+      outputs = result.recipe.outputs.keys.map { item ->
+        ThroughputDatum(item, result.recipe.outputRate(item, result.clock))
+      }
     }
   }
 }

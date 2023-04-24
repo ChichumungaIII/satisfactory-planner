@@ -3,14 +3,10 @@ package app.v2.plans.plan.inputs
 import app.v2.common.input.ListItemControls
 import app.v2.plans.data.model.PlanInput
 import app.v2.plans.plan.PlanComponentContext
-import mui.icons.material.Add
-import mui.material.Fab
-import mui.material.FabColor
-import mui.material.Size
+import app.v2.plans.plan.common.AddElementButton
+import app.v2.plans.plan.common.PlanContentRow
 import mui.material.Stack
 import mui.material.StackDirection
-import mui.material.SvgIconSize
-import mui.material.Tooltip
 import mui.system.responsive
 import react.FC
 import react.Props
@@ -42,14 +38,9 @@ val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { 
       }
     }
 
-    Tooltip {
-      title = ReactNode("Add Input")
-
-      Fab {
-        color = FabColor.primary
-        size = Size.small
-        Add { fontSize = SvgIconSize.medium }
-
+    PlanContentRow {
+      AddElementButton {
+        title = ReactNode("Add Input")
         onClick = { plan = plan.addInput(PlanInput()) }
       }
     }

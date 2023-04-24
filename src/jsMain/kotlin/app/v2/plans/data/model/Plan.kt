@@ -120,9 +120,9 @@ data class PlanByproduct(
   val item: Item,
   val banned: Boolean = false,
 ) {
-  fun toProduct() = PlanProduct(
+  fun toProduct(amount: Rational) = PlanProduct(
     item,
-    requirement = if (banned) PlanProduct.Exactly(0.q) else PlanProduct.AtLeast(0.q),
+    requirement = PlanProduct.Exactly(amount),
     details = true
   )
 

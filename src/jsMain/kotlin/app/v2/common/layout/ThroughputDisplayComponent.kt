@@ -10,9 +10,10 @@ import mui.material.StackDirection
 import mui.system.responsive
 import react.FC
 import react.Props
+import react.PropsWithClassName
 import util.math.Rational
 
-external interface ThroughputDisplayComponentProps : Props {
+external interface ThroughputDisplayComponentProps : PropsWithClassName {
   var inputs: List<ThroughputDatum>
   var outputs: List<ThroughputDatum>
 }
@@ -21,7 +22,7 @@ data class ThroughputDatum(val item: Item, val rate: Rational)
 
 val ThroughputDisplayComponent = FC<ThroughputDisplayComponentProps>("ThroughputDisplayComponent") { props ->
   Stack {
-    className = ClassName("throughput-display")
+    className = ClassName("throughput-display ${props.className}")
     direction = responsive(StackDirection.row)
     spacing = responsive(2.px)
 

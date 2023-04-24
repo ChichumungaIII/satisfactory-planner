@@ -6,6 +6,8 @@ import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.data.model.PlanByproduct
 import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanContentRow
+import csstype.ClassName
 import mui.icons.material.AddTask
 import mui.material.Checkbox
 import mui.material.Size
@@ -29,23 +31,16 @@ val PlanByproductComponent = FC<PlanByproductComponentProps>("PlanByproductCompo
   val plan by useContext(PlanComponentContext)
   var byproduct by PropsDelegate(props.byproduct, props.setByproduct)
 
-  Stack {
-    direction = responsive(StackDirection.row)
-
+  PlanContentRow {
     Tooltip {
       title = ReactNode("Banned".takeIf { byproduct.banned } ?: "Allowed")
 
       Checkbox {
+        className = ClassName("plan-byproduct__ban-checkbox")
         size = Size.small
         checked = byproduct.banned
         onChange = { _, next -> byproduct = byproduct.copy(banned = next) }
       }
-    }
-
-    TooltipIconButton {
-      title = "Convert to product"
-      icon = AddTask
-      onClick = props.onConvert
     }
 
     FauxInputDisplay {
@@ -57,6 +52,13 @@ val PlanByproductComponent = FC<PlanByproductComponentProps>("PlanByproductCompo
     FauxInputDisplay {
       variant = FauxInputDisplayVariant.ITEM
       value = byproduct.item
+    }
+
+    TooltipIconButton {
+      className = ClassName("plan-byproduct__convert-button")
+      title = "Convert to product"
+      icon = AddTask
+      onClick = props.onConvert
     }
   }
 }

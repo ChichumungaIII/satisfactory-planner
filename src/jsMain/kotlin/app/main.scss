@@ -15,6 +15,7 @@
 @import 'v2/common/input/building-autocomplete';
 @import 'v2/common/input/clock-speed-input';
 @import 'v2/common/input/count-input';
+@import 'v2/common/input/expand-collapse-toggle';
 @import 'v2/common/input/factory-item-rate-input';
 @import 'v2/common/input/item-autocomplete';
 @import 'v2/common/input/list-item-controls';
@@ -29,5 +30,10 @@
 @import 'v2/factory/content/factory-building';
 @import 'v2/factory/content/factory-content';
 @import 'v2/factory/factory-route';
+@import 'v2/plans/plan/common/add-element-button';
+@import 'v2/plans/plan/common/plan-content-row';
 @import 'v2/plans/plan/common/plan-item-amount-input';
 @import 'v2/plans/plan/plan';
+@import 'v2/plans/plan/products/plan-byproduct';
+@import 'v2/plans/plan/results/plan-result';
+@import 'v2/plans/plan/results/plan-results';

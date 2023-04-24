@@ -1,17 +1,11 @@
 .plan {
-  margin: 0 4px;
+  &__section {
+    padding: 0 8px;
 
-  &__step {
-    &__summary {
-      margin-left: 12px;
-      padding-left: 20px;
-      padding-right: 8px;
-    }
+    align-items: flex-start;
+  }
 
-    &:not(:last-child) {
-      .plan__step__summary {
-        border-left: 1px solid rgb(189, 189, 189);
-      }
-    }
+  &__select-recipes {
+    align-self: center;
   }
 }

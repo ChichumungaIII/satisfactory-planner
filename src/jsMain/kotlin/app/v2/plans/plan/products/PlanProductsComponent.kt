@@ -3,6 +3,10 @@ package app.v2.plans.plan.products
 import app.v2.common.input.ListItemControls
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.AddElementButton
+import app.v2.plans.plan.common.PlanContentRow
+import csstype.Margin
+import csstype.px
 import mui.icons.material.Add
 import mui.material.Divider
 import mui.material.Fab
@@ -13,10 +17,12 @@ import mui.material.StackDirection
 import mui.material.SvgIconSize
 import mui.material.Tooltip
 import mui.system.responsive
+import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
 import react.useContext
+import util.math.q
 
 external interface PlanProductsComponentProps : Props
 
@@ -43,27 +49,25 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
       }
     }
 
-    Tooltip {
-      title = ReactNode("Add Product")
-
-      Fab {
-        color = FabColor.primary
-        size = Size.small
-        Add { fontSize = SvgIconSize.medium }
-
+    PlanContentRow {
+      AddElementButton {
+        title = ReactNode("Add Product")
         onClick = { plan = plan.addProduct(PlanProduct()) }
       }
     }
 
     plan.byproducts.takeIf { it.isNotEmpty() }?.also { byproducts ->
-      Divider {}
+      Divider { sx { margin = Margin(2.px, 0.px) } }
 
       byproducts.forEachIndexed { i, byproduct ->
         PlanByproductComponent {
           this.byproduct = byproduct
           setByproduct = { next -> plan = plan.setByproduct(i, next) }
 
-          onConvert = { plan = plan.addProduct(byproduct.toProduct()).removeByproduct(i) }
+          onConvert = {
+            val product = byproduct.toProduct(plan.produced[byproduct.item] ?: 0.q)
+            plan = plan.addProduct(product).removeByproduct(i)
+          }
         }
       }
     }

@@ -28,6 +28,7 @@ external interface ListItemControlsProps : Props {
 
 val ListItemControls = FC<ListItemControlsProps>("ListItemControls") { props ->
   +(props.primaryItemControl ?: TooltipIconButton.create {
+    className = ClassName("list-item-controls__delete-button")
     title = "Delete"
     icon = Clear
     onClick = { props.onDelete() }

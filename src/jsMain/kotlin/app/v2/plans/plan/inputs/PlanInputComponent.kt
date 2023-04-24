@@ -2,9 +2,12 @@ package app.v2.plans.plan.inputs
 
 import app.util.PropsDelegate
 import app.v2.common.input.DetailsToggleButton
+import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
+import app.v2.common.input.ToggleIconButton
 import app.v2.plans.data.model.PlanInput
 import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanContentRow
 import app.v2.plans.plan.common.PlanItemAmountInput
 import mui.material.Chip
 import mui.material.ChipColor
@@ -29,9 +32,7 @@ val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { pro
   Stack {
     direction = responsive(StackDirection.column)
 
-    Stack {
-      direction = responsive(StackDirection.row)
-
+    PlanContentRow {
       +props.children
 
       PlanItemAmountInput {
@@ -45,14 +46,14 @@ val PlanInputComponent = FC<PlanInputComponentProps>("PlanInputComponent") { pro
         setModel = { next -> input = input.copy(item = next) }
       }
 
-      DetailsToggleButton {
-        details = input.details
-        setDetails = { next -> input = input.copy(details = next) }
+      ExpandCollapseToggle {
+        expanded = input.details
+        setExpanded = { next -> input = input.copy(details = next) }
       }
     }
 
-    Stack.takeIf { input.details }?.invoke {
-      direction = responsive(StackDirection.row)
+    PlanContentRow.takeIf { input.details }?.invoke {
+      indent = true
 
       (plan.components[input.item]?.let { -it }?.toString() ?: "?").also { consumed ->
         Chip {

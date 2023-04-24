@@ -1,3 +1,7 @@
 .plan-item-amount-input {
   width: 160px;
+
+  & .MuiFormHelperText-root {
+    line-height: 1;
+  }
 }

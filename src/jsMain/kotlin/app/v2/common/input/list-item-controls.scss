@@ -1,5 +1,12 @@
 .list-item-controls {
+  &__delete-button {
+    width: 32px;
+    height: 32px;
+  }
+
   &__position-control {
+    width: 20px;
+    height: 20px;
     padding: 0;
   }
 }

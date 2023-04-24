@@ -2,11 +2,13 @@ package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
 import app.v2.common.input.DetailsToggleButton
+import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
 import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanContentRow
 import mui.material.Chip
 import mui.material.ChipColor
 import mui.material.ChipVariant
@@ -34,9 +36,7 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
   Stack {
     direction = responsive(StackDirection.column)
 
-    Stack {
-      direction = responsive(StackDirection.row)
-
+    PlanContentRow {
       +props.children
 
       FauxInputDisplay {
@@ -50,14 +50,14 @@ val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent")
         setModel = { next -> product = product.copy(item = next) }
       }
 
-      DetailsToggleButton {
-        details = product.details
-        setDetails = { next -> product = product.copy(details = next) }
+      ExpandCollapseToggle {
+        expanded = product.details
+        setExpanded = { next -> product = product.copy(details = next) }
       }
     }
 
-    Stack.takeIf { product.details }?.invoke {
-      direction = responsive(StackDirection.row)
+    PlanContentRow.takeIf { product.details }?.invoke {
+      indent = true
 
       TextField {
         size = Size.small

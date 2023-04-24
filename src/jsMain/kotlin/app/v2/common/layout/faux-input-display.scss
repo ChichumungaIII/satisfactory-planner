@@ -17,10 +17,12 @@
 
   &__label {
     position: absolute;
-    top: -9.5px;
+    top: -7.5px;
     left: 8px;
     padding: 0 5px;
 
     background-color: white;
+
+    line-height: 1;
   }
 }
