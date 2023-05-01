@@ -1,8 +1,10 @@
 package app.v2.plans.plan
 
-import app.themes.ThemeContext
 import app.util.PropsDelegate
 import app.v2.common.input.TooltipIconButton
+import app.v2.common.layout.AppTitleComponent
+import app.v2.common.layout.FrameComponent
+import app.v2.common.layout.TitleBarComponent
 import app.v2.plans.data.model.Plan
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
@@ -19,6 +21,7 @@ import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
+import react.create
 import react.createContext
 import react.useContext
 
@@ -38,32 +41,38 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
   val plan by delegate
 
   PlanComponentContext(delegate) {
-    Box {
-      className = ClassName("plan")
-
-      Stack {
-        className = ClassName("plan__section")
-        direction = responsive(StackDirection.row)
-        spacing = responsive(4.px)
-
-        PlanInputsComponent {}
-
-        TooltipIconButton {
-          className = ClassName("plan__select-recipes")
-          title = "Select recipes"
-          icon = ArrowForward
-          onClick = {}
-        }
-
-        PlanProductsComponent {}
+    FrameComponent {
+      titleBar = TitleBarComponent.create {
+        title = AppTitleComponent.create { title = plan.title }
       }
 
-      plan.results?.also { results ->
-        Divider { sx { margin = Margin(2.px, 0.px) } }
+      Box {
+        className = ClassName("plan")
 
-        PlanResultsComponent {
+        Stack {
           className = ClassName("plan__section")
-          this.results = results
+          direction = responsive(StackDirection.row)
+          spacing = responsive(4.px)
+
+          PlanInputsComponent {}
+
+          TooltipIconButton {
+            className = ClassName("plan__select-recipes")
+            title = "Select recipes"
+            icon = ArrowForward
+            onClick = {}
+          }
+
+          PlanProductsComponent {}
+        }
+
+        plan.results?.also { results ->
+          Divider { sx { margin = Margin(2.px, 0.px) } }
+
+          PlanResultsComponent {
+            className = ClassName("plan__section")
+            this.results = results
+          }
         }
       }
     }

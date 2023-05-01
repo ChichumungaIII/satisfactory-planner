@@ -25,21 +25,19 @@ val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { pro
 
   useEffectOnce { updatePlan(GetPlan(planId)) }
 
-  FrameComponent {
-    titleBar = TitleBarComponent.create {
-      title = AppTitleComponent.create {
-        title = if (plan is Loaded) plan.data.title else "Plans"
+  if (plan is Loaded && plan.data.id == planId) {
+    ComputeOutcomeContextComponent {
+      PlanComponent {
+        this.plan = plan.data
+        setPlan = { next -> updatePlan(SavePlan(next)) }
       }
     }
-
-    if (plan is Loaded && plan.data.id == planId) {
-      ComputeOutcomeContextComponent {
-        PlanComponent {
-          this.plan = plan.data
-          setPlan = { next -> updatePlan(SavePlan(next)) }
-        }
+  } else {
+    FrameComponent {
+      titleBar = TitleBarComponent.create {
+        title = AppTitleComponent.create { title = "Plans" }
       }
-    } else {
+
       ZeroStateComponent {
         CircularProgress { size = 80; thickness = 4.8 }
       }
