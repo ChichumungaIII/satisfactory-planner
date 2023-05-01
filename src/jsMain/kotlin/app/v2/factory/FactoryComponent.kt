@@ -2,6 +2,7 @@ package app.v2.factory
 
 import app.AppRoute
 import app.util.PropsDelegate
+import app.v2.common.input.EditDisplayNameDialog
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
@@ -86,7 +87,8 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
   }
 
   displayName?.also {
-    EditFactoryNameDialog {
+    EditDisplayNameDialog {
+      title = "Rename Factory"
       this.displayName = it
       onCancel = { displayName = null }
       onAccept = {

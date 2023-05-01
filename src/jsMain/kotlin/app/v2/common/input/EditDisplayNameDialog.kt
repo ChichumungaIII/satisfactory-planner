@@ -1,4 +1,4 @@
-package app.v2.factory
+package app.v2.common.input
 
 import mui.material.Button
 import mui.material.ButtonVariant
@@ -10,21 +10,24 @@ import mui.material.TextField
 import react.FC
 import react.Props
 import react.dom.onChange
+import react.useEffect
 import react.useState
 
-external interface EditFactoryNameDialogProps : Props {
+external interface EditDisplayNameDialogProps : Props {
+  var title: String
   var displayName: String
   var onCancel: () -> Unit
   var onAccept: (String) -> Unit
 }
 
-val EditFactoryNameDialog = FC<EditFactoryNameDialogProps>("EditFactoryNameDialog") { props ->
+val EditDisplayNameDialog = FC<EditDisplayNameDialogProps>("EditDisplayNameDialog") { props ->
   var displayName by useState(props.displayName)
+  useEffect(props.displayName) { displayName = props.displayName }
 
   Dialog {
     open = true
 
-    DialogTitle { +"Rename Factory" }
+    DialogTitle { +props.title }
 
     DialogContent {
       TextField {

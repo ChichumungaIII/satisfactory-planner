@@ -17,6 +17,7 @@ import mui.material.TableHead
 import mui.material.TableRow
 import react.FC
 import react.Props
+import react.dom.html.TdAlign
 
 external interface ManifestDialogProps : Props {
   var open: Boolean
@@ -50,7 +51,10 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
               TableBody {
                 extractors.forEach { (extractor, count) ->
                   TableRow {
-                    TableCell { +"$count" }
+                    TableCell {
+                      align = TdAlign.center
+                      +"$count"
+                    }
                     TableCell { +extractor.displayName }
                   }
                 }
@@ -72,7 +76,10 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
               TableBody {
                 manufacturers.forEach { (manufacturer, count) ->
                   TableRow {
-                    TableCell { +"$count" }
+                    TableCell {
+                      align = TdAlign.center
+                      +"$count"
+                    }
                     TableCell { +manufacturer.displayName }
                   }
                 }
