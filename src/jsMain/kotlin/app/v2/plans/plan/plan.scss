@@ -5,7 +5,14 @@
     align-items: flex-start;
   }
 
+  &__select-recipes-container {
+    align-self: stretch;
+    padding-top: 34px;
+    display: flex;
+  }
+
   &__select-recipes {
     align-self: center;
+    margin-top: 8px;
   }
 }

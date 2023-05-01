@@ -5,6 +5,7 @@ import app.v2.plans.data.model.PlanInput
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.AddElementButton
 import app.v2.plans.plan.common.PlanContentRow
+import app.v2.plans.plan.common.PlanHeading
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
@@ -20,6 +21,8 @@ val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { 
 
   Stack {
     direction = responsive(StackDirection.column)
+
+    PlanHeading { +"Inputs" }
 
     plan.inputs.forEachIndexed { i, input ->
       PlanInputComponent {

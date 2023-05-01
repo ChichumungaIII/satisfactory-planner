@@ -85,11 +85,15 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
 
           PlanInputsComponent {}
 
-          TooltipIconButton {
-            className = ClassName("plan__select-recipes")
-            title = "Select recipes"
-            icon = ArrowForward
-            onClick = {}
+          Box {
+            className = ClassName("plan__select-recipes-container")
+
+            TooltipIconButton {
+              className = ClassName("plan__select-recipes")
+              title = "Select recipes"
+              icon = ArrowForward
+              onClick = {}
+            }
           }
 
           PlanProductsComponent {}

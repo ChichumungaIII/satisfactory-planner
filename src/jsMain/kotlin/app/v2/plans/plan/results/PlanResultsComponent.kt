@@ -2,12 +2,10 @@ package app.v2.plans.plan.results
 
 import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanHeading
 import csstype.ClassName
-import csstype.px
 import mui.material.Stack
-import mui.system.responsive
 import react.FC
-import react.Props
 import react.PropsWithClassName
 import react.useContext
 import util.math.q
@@ -22,6 +20,8 @@ val PlanResultsComponent = FC<PlanResultsComponentProps>("PlanResultsComponent")
 
   Stack {
     className = ClassName("plan-results ${props.className}")
+
+    PlanHeading { +"Result" }
 
     results.forEachIndexed { i, result ->
       PlanResultComponent.takeUnless { result.clock == 0.q }?.invoke {

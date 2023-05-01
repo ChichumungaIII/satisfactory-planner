@@ -46,7 +46,7 @@ val PlansListContextProvider = FC<PropsWithChildren>("PlansListContextProvider")
 
       is ReplacePlan -> when (state) {
         is Loaded -> LoadState.loaded(Unit, state.data.map { it.takeUnless { it.id == action.plan.id } ?: action.plan })
-        else -> throw IllegalStateException("Cannot replace a plan in the list prior to loading.")
+        else -> state
       }
 
       is RemovePlan -> when (state) {

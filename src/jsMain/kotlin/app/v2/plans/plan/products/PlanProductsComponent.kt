@@ -5,17 +5,12 @@ import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.AddElementButton
 import app.v2.plans.plan.common.PlanContentRow
+import app.v2.plans.plan.common.PlanHeading
 import csstype.Margin
 import csstype.px
-import mui.icons.material.Add
 import mui.material.Divider
-import mui.material.Fab
-import mui.material.FabColor
-import mui.material.Size
 import mui.material.Stack
 import mui.material.StackDirection
-import mui.material.SvgIconSize
-import mui.material.Tooltip
 import mui.system.responsive
 import mui.system.sx
 import react.FC
@@ -31,6 +26,8 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
 
   Stack {
     direction = responsive(StackDirection.column)
+
+    PlanHeading { +"Products" }
 
     plan.products.forEachIndexed { i, product ->
       PlanProductComponent {
@@ -58,6 +55,8 @@ val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponen
 
     plan.byproducts.takeIf { it.isNotEmpty() }?.also { byproducts ->
       Divider { sx { margin = Margin(2.px, 0.px) } }
+
+      PlanHeading { +"Byproducts" }
 
       byproducts.forEachIndexed { i, byproduct ->
         PlanByproductComponent {
