@@ -25,6 +25,7 @@ private var planToSave: Plan? = null
 val PlanContextProvider = FC<PropsWithChildren>("PlanContextProvider") { props ->
   val planService = useContext(PlanServiceContext)
   val (store, updateStore) = useContext(PlanStoreContext)
+  val (_, updatePlans) = useContext(PlansListContext)
 
   var updatePlan: (PlanContextAction) -> Unit = { throw Error("updatePlan callback not bound") }
   val planContext = useReducer<LoadState<ULong, Plan>, PlanContextAction>(
@@ -46,8 +47,9 @@ val PlanContextProvider = FC<PropsWithChildren>("PlanContextProvider") { props -
             AppScope.launch {
               delay(100)
               if (plan == planToSave) {
-                updateStore(StorePlan(plan))
                 planService.update(plan)
+                updateStore(StorePlan(plan))
+                updatePlans(ReplacePlan(plan))
               }
             }
           }

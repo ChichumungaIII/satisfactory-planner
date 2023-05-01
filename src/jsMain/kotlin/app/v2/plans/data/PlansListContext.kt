@@ -17,6 +17,7 @@ import react.useReducer
 sealed interface PlansListContextAction
 object LoadPlansList : PlansListContextAction
 data class AppendPlan(val plan: Plan) : PlansListContextAction
+data class ReplacePlan(val plan: Plan) : PlansListContextAction
 data class RemovePlan(val id: ULong) : PlansListContextAction
 private data class SetPlansList(val plans: List<Plan>) : PlansListContextAction
 
@@ -41,6 +42,11 @@ val PlansListContextProvider = FC<PropsWithChildren>("PlansListContextProvider")
       is AppendPlan -> when (state) {
         is Loaded -> LoadState.loaded(Unit, state.data + action.plan)
         else -> throw IllegalStateException("Cannot append a plan to the list prior to loading.")
+      }
+
+      is ReplacePlan -> when (state) {
+        is Loaded -> LoadState.loaded(Unit, state.data.map { it.takeUnless { it.id == action.plan.id } ?: action.plan })
+        else -> throw IllegalStateException("Cannot replace a plan in the list prior to loading.")
       }
 
       is RemovePlan -> when (state) {
