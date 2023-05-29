@@ -42,8 +42,9 @@ data class FactoryTree(
   override val buildings by lazy {
     nodes.map { it.buildings }
       .fold(mutableMapOf<Building, UInt>()) { result, counts ->
-        counts.forEach { (building, count) ->
-          result[building] = (result[building] ?: 0.toUInt()) + count
+        counts.forEach { (building, childCount) ->
+          val additional = childCount * (count ?: 1.toUInt())
+          result[building] = (result[building] ?: 0.toUInt()) + additional
         }
         result
       }
