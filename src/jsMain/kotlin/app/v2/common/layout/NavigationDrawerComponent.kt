@@ -2,9 +2,9 @@ package app.v2.common.layout
 
 import app.AppRoute
 import app.v2.AppScope
+import app.v2.api.factory.FactoryServiceContext
 import app.v2.data.FactoryStoreContext
 import app.v2.data.SetFactory
-import app.v2.data.service.FactoryServiceContext
 import app.v2.factories.AddFactory
 import app.v2.factories.FactoriesContext
 import csstype.ClassName

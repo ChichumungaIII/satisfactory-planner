@@ -1,4 +1,4 @@
-package app.v2.data.service
+package app.v2.api.factory
 
 import app.serialization.AppJson
 import app.v2.data.Factory

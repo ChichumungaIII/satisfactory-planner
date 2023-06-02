@@ -2,6 +2,7 @@ package app.v2.factories
 
 import app.AppRoute
 import app.v2.AppScope
+import app.v2.api.factory.FactoryServiceContext
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
@@ -10,7 +11,6 @@ import app.v2.data.Factory
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
-import app.v2.data.service.FactoryServiceContext
 import csstype.ClassName
 import kotlinx.coroutines.launch
 import mui.material.Backdrop

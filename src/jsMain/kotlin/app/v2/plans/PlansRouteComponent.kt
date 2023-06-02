@@ -2,6 +2,7 @@ package app.v2.plans
 
 import app.AppRoute
 import app.v2.AppScope
+import app.v2.api.plan.PlanServiceContext
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
@@ -14,7 +15,6 @@ import app.v2.plans.data.PlanStoreContext
 import app.v2.plans.data.PlansListContext
 import app.v2.plans.data.RemovePlan
 import app.v2.plans.data.StorePlan
-import app.v2.plans.data.model.PlanServiceContext
 import kotlinx.coroutines.launch
 import mui.material.Backdrop
 import mui.material.CircularProgress

@@ -1,28 +1,13 @@
-package app.v2.plans.data.model
+package app.v2.api.plan
 
 import app.serialization.AppJson
+import app.v2.plans.data.model.Plan
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import react.FC
-import react.PropsWithChildren
-import react.createContext
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
-
-val PlanServiceContext = createContext<PlanService>()
-val PlanServiceContextProvider = FC<PropsWithChildren>("PlanServiceContextProvider") {
-  PlanServiceContext(LocalStoragePlanService()) { +it.children }
-}
-
-interface PlanService {
-  suspend fun create(plan: Plan)
-  suspend fun get(id: ULong): Plan
-  suspend fun update(plan: Plan)
-  suspend fun delete(id: ULong)
-  suspend fun list(): List<Plan>
-}
 
 class LocalStoragePlanService : PlanService {
   private val PLANS_STORAGE = "//satisfactory.chichumunga.com/plans"
