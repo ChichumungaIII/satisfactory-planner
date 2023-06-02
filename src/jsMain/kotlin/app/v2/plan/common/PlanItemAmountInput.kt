@@ -1,4 +1,4 @@
-package app.v2.plans.plan.common
+package app.v2.plan.common
 
 import app.common.RationalInput
 import app.common.RationalValidation.Companion.fail

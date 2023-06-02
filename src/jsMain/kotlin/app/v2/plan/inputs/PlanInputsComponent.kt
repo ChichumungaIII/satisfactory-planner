@@ -1,11 +1,11 @@
-package app.v2.plans.plan.inputs
+package app.v2.plan.inputs
 
 import app.v2.common.input.ListItemControls
 import app.v2.data.plan.PlanInput
-import app.v2.plans.plan.PlanComponentContext
-import app.v2.plans.plan.common.AddElementButton
-import app.v2.plans.plan.common.PlanContentRow
-import app.v2.plans.plan.common.PlanHeading
+import app.v2.plan.PlanComponentContext
+import app.v2.plan.common.AddElementButton
+import app.v2.plan.common.PlanContentRow
+import app.v2.plan.common.PlanHeading
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive

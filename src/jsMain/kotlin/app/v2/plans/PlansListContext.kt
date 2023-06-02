@@ -1,4 +1,4 @@
-package app.v2.plans.data
+package app.v2.plans
 
 import app.v2.AppScope
 import app.v2.api.plan.PlanServiceContext

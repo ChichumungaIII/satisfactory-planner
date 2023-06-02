@@ -8,8 +8,8 @@ import app.v2.data.factory.FactoryStoreContextProvider
 import app.v2.data.plan.PlanStoreContextProvider
 import app.v2.factories.FactoriesContextProvider
 import app.v2.factory.FactoryContextProvider
-import app.v2.plans.data.PlanContextProvider
-import app.v2.plans.data.PlansListContextProvider
+import app.v2.plan.PlanContextProvider
+import app.v2.plans.PlansListContextProvider
 import kotlinx.coroutines.MainScope
 import react.FC
 import react.Props

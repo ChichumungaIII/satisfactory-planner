@@ -1,19 +1,19 @@
-package app.v2.plans.plan
+package app.v2.plan
 
 import app.AppRoute
 import app.util.PropsDelegate
+import app.v2.common.input.DeletePlanDialog
 import app.v2.common.input.EditDisplayNameDialog
 import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
 import app.v2.data.plan.Plan
-import app.v2.plans.common.DeletePlanDialog
-import app.v2.plans.data.PlansListContext
-import app.v2.plans.data.RemovePlan
-import app.v2.plans.plan.inputs.PlanInputsComponent
-import app.v2.plans.plan.products.PlanProductsComponent
-import app.v2.plans.plan.results.PlanResultsComponent
+import app.v2.plan.inputs.PlanInputsComponent
+import app.v2.plan.products.PlanProductsComponent
+import app.v2.plan.results.PlanResultsComponent
+import app.v2.plans.PlansListContext
+import app.v2.plans.RemovePlan
 import csstype.ClassName
 import csstype.Margin
 import csstype.px

@@ -1,4 +1,4 @@
-package app.v2.plans.plan.results
+package app.v2.plan.results
 
 import app.data.recipe.inputRate
 import app.data.recipe.outputRate
@@ -9,7 +9,7 @@ import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.common.layout.ThroughputDatum
 import app.v2.common.layout.ThroughputDisplayComponent
 import app.v2.data.plan.PlanResult
-import app.v2.plans.plan.common.PlanContentRow
+import app.v2.plan.common.PlanContentRow
 import csstype.ClassName
 import react.FC
 import react.Props

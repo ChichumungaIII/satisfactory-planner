@@ -4,8 +4,8 @@ import app.common.layout.RootComponent
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
 import app.v2.factory.FactoryRouteComponent
+import app.v2.plan.PlanRouteComponent
 import app.v2.plans.PlansRouteComponent
-import app.v2.plans.plan.PlanRouteComponent
 import react.FC
 import react.Props
 import react.ReactElement
