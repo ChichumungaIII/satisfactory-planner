@@ -1,6 +1,6 @@
 package app.v2.factories
 
-import app.v2.data.Factory
+import app.v2.data.factory.Factory
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.Dialog

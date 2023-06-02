@@ -6,7 +6,7 @@ import app.v2.common.input.EditDisplayNameDialog
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
-import app.v2.data.Factory
+import app.v2.data.factory.Factory
 import app.v2.factories.DeleteFactory
 import app.v2.factories.DeleteFactoryDialog
 import app.v2.factories.FactoriesContext

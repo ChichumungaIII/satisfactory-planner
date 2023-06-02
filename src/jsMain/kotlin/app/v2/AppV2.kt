@@ -4,11 +4,11 @@ import app.themes.ThemeModule
 import app.v2.api.factory.FactoryServiceContextProvider
 import app.v2.api.plan.PlanServiceContextProvider
 import app.v2.common.layout.DrawerContextProvider
-import app.v2.data.FactoryStoreContextProvider
+import app.v2.data.factory.FactoryStoreContextProvider
+import app.v2.data.plan.PlanStoreContextProvider
 import app.v2.factories.FactoriesContextProvider
 import app.v2.factory.FactoryContextProvider
 import app.v2.plans.data.PlanContextProvider
-import app.v2.plans.data.PlanStoreContextProvider
 import app.v2.plans.data.PlansListContextProvider
 import kotlinx.coroutines.MainScope
 import react.FC

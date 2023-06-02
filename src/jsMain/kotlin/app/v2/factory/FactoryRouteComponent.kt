@@ -5,9 +5,9 @@ import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
 import app.v2.common.layout.ZeroStateComponent
-import app.v2.data.LoadState.Failure
-import app.v2.data.LoadState.Loaded
-import app.v2.data.LoadState.Loading
+import app.v2.data.common.LoadState.Failure
+import app.v2.data.common.LoadState.Loaded
+import app.v2.data.common.LoadState.Loading
 import csstype.ClassName
 import js.core.get
 import mui.material.Button

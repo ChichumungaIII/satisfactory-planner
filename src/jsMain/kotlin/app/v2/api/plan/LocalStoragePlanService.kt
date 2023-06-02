@@ -1,7 +1,7 @@
 package app.v2.api.plan
 
 import app.serialization.AppJson
-import app.v2.plans.data.model.Plan
+import app.v2.data.plan.Plan
 import kotlinx.browser.window
 import kotlinx.coroutines.delay
 import kotlinx.serialization.decodeFromString

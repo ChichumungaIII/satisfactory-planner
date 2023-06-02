@@ -1,4 +1,4 @@
-package app.v2.plans.data.model
+package app.v2.data.plan
 
 import app.api.OptimizeRequest
 import app.data.Item

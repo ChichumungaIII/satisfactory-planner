@@ -1,6 +1,6 @@
 package app.v2.api.factory
 
-import app.v2.data.Factory
+import app.v2.data.factory.Factory
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds

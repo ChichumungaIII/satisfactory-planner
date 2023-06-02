@@ -8,12 +8,9 @@ import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.common.layout.ThroughputDatum
 import app.v2.common.layout.ThroughputDisplayComponent
-import app.v2.plans.data.model.PlanResult
+import app.v2.data.plan.PlanResult
 import app.v2.plans.plan.common.PlanContentRow
 import csstype.ClassName
-import mui.material.Stack
-import mui.material.StackDirection
-import mui.system.responsive
 import react.FC
 import react.Props
 

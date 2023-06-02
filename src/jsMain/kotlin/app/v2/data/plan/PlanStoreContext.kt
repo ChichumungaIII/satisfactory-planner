@@ -1,6 +1,5 @@
-package app.v2.plans.data
+package app.v2.data.plan
 
-import app.v2.plans.data.model.Plan
 import react.FC
 import react.PropsWithChildren
 import react.ReducerInstance

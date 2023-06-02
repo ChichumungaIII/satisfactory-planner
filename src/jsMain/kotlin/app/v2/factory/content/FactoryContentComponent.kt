@@ -7,9 +7,9 @@ import app.v2.common.input.ListItemControls
 import app.v2.common.input.ToggleIconButton
 import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.ControlBar
-import app.v2.data.FactoryLeaf
-import app.v2.data.FactoryNode
-import app.v2.data.FactoryTree
+import app.v2.data.factory.FactoryLeaf
+import app.v2.data.factory.FactoryNode
+import app.v2.data.factory.FactoryTree
 import csstype.ClassName
 import csstype.Margin
 import csstype.number

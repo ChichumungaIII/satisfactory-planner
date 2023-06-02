@@ -7,10 +7,10 @@ import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
+import app.v2.data.plan.Plan
 import app.v2.plans.common.DeletePlanDialog
 import app.v2.plans.data.PlansListContext
 import app.v2.plans.data.RemovePlan
-import app.v2.plans.data.model.Plan
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
 import app.v2.plans.plan.results.PlanResultsComponent
