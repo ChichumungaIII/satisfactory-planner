@@ -1,8 +1,8 @@
-package app.v2.plan.products
+package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
 import app.v2.data.plan.PlanProduct
-import app.v2.plan.common.PlanItemAmountInput
+import app.v2.plans.plan.common.PlanItemAmountInput
 import react.FC
 import react.Props
 import react.ReactNode

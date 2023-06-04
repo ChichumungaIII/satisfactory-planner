@@ -1,12 +1,12 @@
-package app.v2.plan.products
+package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
 import app.v2.common.input.TooltipIconButton
 import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.data.plan.PlanByproduct
-import app.v2.plan.PlanComponentContext
-import app.v2.plan.common.PlanContentRow
+import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanContentRow
 import csstype.ClassName
 import mui.icons.material.AddTask
 import mui.material.Checkbox

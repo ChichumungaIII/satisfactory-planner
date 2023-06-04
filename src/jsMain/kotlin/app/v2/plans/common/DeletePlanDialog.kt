@@ -1,4 +1,4 @@
-package app.v2.common.input
+package app.v2.plans.common
 
 import app.v2.data.plan.Plan
 import mui.material.Button

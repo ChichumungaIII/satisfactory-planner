@@ -1,8 +1,8 @@
-package app.v2.plan.results
+package app.v2.plans.plan.results
 
 import app.v2.data.plan.PlanResult
-import app.v2.plan.PlanComponentContext
-import app.v2.plan.common.PlanHeading
+import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanHeading
 import csstype.ClassName
 import mui.material.Stack
 import react.FC

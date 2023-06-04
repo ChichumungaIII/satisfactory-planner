@@ -1,11 +1,11 @@
-package app.v2.plan.products
+package app.v2.plans.plan.products
 
 import app.v2.common.input.ListItemControls
 import app.v2.data.plan.PlanProduct
-import app.v2.plan.PlanComponentContext
-import app.v2.plan.common.AddElementButton
-import app.v2.plan.common.PlanContentRow
-import app.v2.plan.common.PlanHeading
+import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.AddElementButton
+import app.v2.plans.plan.common.PlanContentRow
+import app.v2.plans.plan.common.PlanHeading
 import csstype.Margin
 import csstype.px
 import mui.material.Divider

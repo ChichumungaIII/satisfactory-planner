@@ -1,12 +1,12 @@
-package app.v2.plan.inputs
+package app.v2.plans.plan.inputs
 
 import app.util.PropsDelegate
 import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
 import app.v2.data.plan.PlanInput
-import app.v2.plan.PlanComponentContext
-import app.v2.plan.common.PlanContentRow
-import app.v2.plan.common.PlanItemAmountInput
+import app.v2.plans.plan.PlanComponentContext
+import app.v2.plans.plan.common.PlanContentRow
+import app.v2.plans.plan.common.PlanItemAmountInput
 import mui.material.Chip
 import mui.material.ChipColor
 import mui.material.ChipVariant
