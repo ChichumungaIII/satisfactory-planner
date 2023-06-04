@@ -1,8 +1,8 @@
 package app.v2.plans
 
 import app.AppRoute
-import app.v2.data.plan.Plan
 import app.v2.plans.common.DeletePlanDialog
+import app.v2.plans.data.model.Plan
 import mui.icons.material.AccountTree
 import mui.icons.material.Add
 import mui.icons.material.Delete

@@ -2,11 +2,11 @@ package app.v2.factories
 
 import app.v2.AppScope
 import app.v2.api.factory.FactoryServiceContext
-import app.v2.data.common.LoadState
-import app.v2.data.common.LoadState.Loading
-import app.v2.data.factory.Factory
-import app.v2.data.factory.FactoryStoreContext
-import app.v2.data.factory.SetFactories
+import app.v2.data.Factory
+import app.v2.data.FactoryStoreContext
+import app.v2.data.LoadState
+import app.v2.data.LoadState.Loading
+import app.v2.data.SetFactories
 import kotlinx.coroutines.launch
 import react.FC
 import react.PropsWithChildren

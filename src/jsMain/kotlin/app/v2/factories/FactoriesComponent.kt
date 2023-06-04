@@ -7,10 +7,10 @@ import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
 import app.v2.common.layout.ZeroStateComponent
-import app.v2.data.common.LoadState
-import app.v2.data.factory.Factory
-import app.v2.data.factory.FactoryStoreContext
-import app.v2.data.factory.SetFactory
+import app.v2.data.Factory
+import app.v2.data.FactoryStoreContext
+import app.v2.data.LoadState
+import app.v2.data.SetFactory
 import csstype.ClassName
 import kotlinx.coroutines.launch
 import mui.material.Backdrop

@@ -1,6 +1,6 @@
 package app.v2.plans.plan.results
 
-import app.v2.data.plan.PlanResult
+import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanHeading
 import csstype.ClassName

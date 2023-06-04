@@ -1,4 +1,4 @@
-package app.v2.data.factory
+package app.v2.data
 
 import kotlinx.serialization.Serializable
 

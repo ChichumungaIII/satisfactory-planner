@@ -1,6 +1,6 @@
 package app.v2.plans.common
 
-import app.v2.data.plan.Plan
+import app.v2.plans.data.model.Plan
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.Dialog

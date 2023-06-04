@@ -4,7 +4,7 @@ import app.v2.common.layout.AppTitleComponent
 import app.v2.common.layout.FrameComponent
 import app.v2.common.layout.TitleBarComponent
 import app.v2.common.layout.ZeroStateComponent
-import app.v2.data.common.LoadState.Loaded
+import app.v2.data.LoadState.Loaded
 import app.v2.plans.data.GetPlan
 import app.v2.plans.data.PlanContext
 import app.v2.plans.data.SavePlan

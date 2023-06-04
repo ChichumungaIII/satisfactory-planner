@@ -3,8 +3,8 @@ package app.v2.common.layout
 import app.AppRoute
 import app.v2.AppScope
 import app.v2.api.factory.FactoryServiceContext
-import app.v2.data.factory.FactoryStoreContext
-import app.v2.data.factory.SetFactory
+import app.v2.data.FactoryStoreContext
+import app.v2.data.SetFactory
 import app.v2.factories.AddFactory
 import app.v2.factories.FactoriesContext
 import csstype.ClassName
@@ -77,7 +77,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
             onClick = {
               creating = true
               AppScope.launch {
-                val factory = app.v2.data.factory.Factory(Random.nextULong(), "New Factory")
+                val factory = app.v2.data.Factory(Random.nextULong(), "New Factory")
                 updateStore(SetFactory(factoryService.createFactory(factory)))
                 updateFactories(AddFactory(factory))
                 creating = false

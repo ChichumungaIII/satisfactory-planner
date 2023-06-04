@@ -1,9 +1,11 @@
 package app.v2.plans.plan.inputs
 
 import app.util.PropsDelegate
+import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
-import app.v2.data.plan.PlanInput
+import app.v2.common.input.ToggleIconButton
+import app.v2.plans.data.model.PlanInput
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanContentRow
 import app.v2.plans.plan.common.PlanItemAmountInput

@@ -1,11 +1,12 @@
 package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
+import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
 import app.v2.common.layout.FauxInputDisplay
 import app.v2.common.layout.FauxInputDisplayVariant
-import app.v2.data.plan.PlanProduct
+import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanContentRow
 import mui.material.Chip

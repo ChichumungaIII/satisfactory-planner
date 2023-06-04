@@ -1,6 +1,6 @@
 package app.v2.api.factory
 
-import app.v2.data.factory.Factory
+import app.v2.data.Factory
 
 interface FactoryService {
   suspend fun createFactory(factory: Factory): Factory

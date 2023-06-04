@@ -1,6 +1,6 @@
 package app.v2.api.plan
 
-import app.v2.data.plan.Plan
+import app.v2.plans.data.model.Plan
 
 interface PlanService {
   suspend fun create(plan: Plan)

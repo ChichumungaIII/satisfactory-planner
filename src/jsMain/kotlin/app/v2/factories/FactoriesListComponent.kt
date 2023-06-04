@@ -1,7 +1,7 @@
 package app.v2.factories
 
 import app.AppRoute
-import app.v2.data.factory.Factory
+import app.v2.data.Factory
 import mui.icons.material.Delete
 import mui.icons.material.Factory
 import mui.material.Avatar

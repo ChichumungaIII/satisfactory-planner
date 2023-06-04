@@ -2,7 +2,7 @@ package app.v2.factory.content
 
 import app.data.building.Extractor
 import app.data.building.Manufacturer
-import app.v2.data.factory.FactoryNode
+import app.v2.data.FactoryNode
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.Dialog

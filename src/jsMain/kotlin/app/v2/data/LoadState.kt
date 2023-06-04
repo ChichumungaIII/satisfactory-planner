@@ -1,4 +1,4 @@
-package app.v2.data.common
+package app.v2.data
 
 interface LoadState<I, T> {
   data class Loading<I, T>(override val id: I) : LoadState<I, T>

@@ -1,7 +1,7 @@
 package app.v2.plans.plan.products
 
 import app.v2.common.input.ListItemControls
-import app.v2.data.plan.PlanProduct
+import app.v2.plans.data.model.PlanProduct
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.AddElementButton
 import app.v2.plans.plan.common.PlanContentRow
