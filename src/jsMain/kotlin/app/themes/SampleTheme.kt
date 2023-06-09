@@ -3,6 +3,7 @@ package app.themes
 import csstype.px
 import js.core.jso
 import mui.material.PaletteMode
+import mui.material.styles.Theme
 import mui.material.styles.createTheme
 
 val SampleTheme = createTheme(jso {
@@ -39,9 +40,7 @@ val SampleTheme = createTheme(jso {
     }
   }
 
-  spacing = { level: Double ->
-    (level * 4).px
-  }
+  spacing = 4
 
   typography = jso {
     /* Typography variant defaults. {
