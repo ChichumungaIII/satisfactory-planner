@@ -16,7 +16,7 @@ import react.useContext
 
 external interface PlanInputsComponentProps : Props
 
-val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { props ->
+val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { _ ->
   var plan by useContext(PlanComponentContext)!!
 
   Stack {

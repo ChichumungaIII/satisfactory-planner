@@ -18,7 +18,7 @@ import react.useEffectOnce
 
 external interface PlanRouteComponentProps : Props
 
-val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { props ->
+val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { _ ->
   val planId = useParams()["planId"]!!.toULong()
   val (plan, updatePlan) = useContext(PlanContext)!!
 

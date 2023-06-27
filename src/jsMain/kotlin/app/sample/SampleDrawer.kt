@@ -25,7 +25,7 @@ import web.cssom.pct
 
 external interface SampleDrawerProps : Props
 
-val SampleDrawer = FC<SampleDrawerProps>("SampleDrawer") { props ->
+val SampleDrawer = FC<SampleDrawerProps>("SampleDrawer") { _ ->
   val theme by useContext(ThemeContext)!!
 
   Drawer {

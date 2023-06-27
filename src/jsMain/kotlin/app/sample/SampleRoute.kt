@@ -6,7 +6,7 @@ import react.Props
 
 external interface SampleRouteProps : Props
 
-val SampleRoute = FC<SampleRouteProps>("SampleRoute") { props ->
+val SampleRoute = FC<SampleRouteProps>("SampleRoute") { _ ->
   ThemeModule {
     SamplePage {}
   }
