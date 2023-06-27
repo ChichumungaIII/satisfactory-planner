@@ -1,8 +1,8 @@
 package app.sample
 
 import app.themes.ThemeContext
+import app.themes.getAppBarHeight
 import csstype.pct
-import csstype.px
 import mui.icons.material.AccountTree
 import mui.icons.material.Add
 import mui.icons.material.ExpandMore
@@ -32,7 +32,7 @@ val SampleDrawer = FC<SampleDrawerProps>("SampleDrawer") { props ->
     variant = DrawerVariant.persistent
     open = true
 
-    Box { sx { paddingTop = 64.px } }
+    Box { sx { paddingTop = theme.getAppBarHeight() } }
 
     mui.material.List {
       sx { width = 100.pct }

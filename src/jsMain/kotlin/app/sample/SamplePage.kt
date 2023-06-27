@@ -2,12 +2,10 @@ package app.sample
 
 import app.themes.SampleTheme
 import app.themes.ThemeContext
-import csstype.None
 import csstype.number
 import mui.icons.material.MenuOpen
 import mui.icons.material.Settings
 import mui.material.AppBar
-import mui.material.AppBarPosition
 import mui.material.Box
 import mui.material.IconButton
 import mui.material.Toolbar
@@ -29,9 +27,6 @@ val SamplePage = FC<SamplePageProps>("SamplePage") {
   var settings by useState(false)
 
   AppBar {
-    sx { backgroundImage = None.none }
-    position = AppBarPosition.sticky
-
     Toolbar {
       IconButton {
         MenuOpen {}

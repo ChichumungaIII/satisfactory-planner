@@ -1,5 +1,6 @@
 package app.themes
 
+import csstype.Length
 import csstype.px
 import js.core.jso
 import mui.material.PaletteMode
@@ -21,8 +22,12 @@ val SampleTheme = createTheme(jso {
      *   var contrastText
      * }
      */
-    // primary = jso {}
-    // secondary = jso {}
+    primary = jso {
+      main = "#f2c800"
+    }
+    secondary = jso {
+      main = "#26d3ec"
+    }
     // error = jso {}
     // warning = jso {}
     // info = jso {}
@@ -35,8 +40,8 @@ val SampleTheme = createTheme(jso {
     text = jso {}
 
     background = jso {
-      paper = "#202125"
       default = "#141518"
+      paper = "#202125"
     }
   }
 
@@ -74,4 +79,31 @@ val SampleTheme = createTheme(jso {
     appBar = 1200
     drawer = 1100
   }
+
+  components = jso {
+    MuiAppBar = jso {
+      defaultProps = jso {
+        position = "sticky"
+      }
+      styleOverrides = jso {
+        root = jso {
+          backgroundImage = "none"
+        }
+      }
+    }
+
+    MuiSvgIcon = jso {
+      defaultProps = jso {
+        color = "primary"
+      }
+    }
+  }
 })
+
+val NUMERIC = Regex("""^\d+(\.\d+)?""")
+fun Length.toNumber() = NUMERIC.find(toString())?.value?.toDouble() ?: throw Error("Length [$this] is not numeric.")
+
+fun Theme.getAppBarHeight() = (
+    typography.h1.lineHeight.unsafeCast<Length>().toNumber()
+        + 2 * spacing(3).unsafeCast<Length>().toNumber()
+    ).px
