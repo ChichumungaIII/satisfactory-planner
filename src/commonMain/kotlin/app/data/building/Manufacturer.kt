@@ -40,6 +40,7 @@ enum class Manufacturer(
       ProductionRecipe.STEEL_BEAM,
       ProductionRecipe.STEEL_PIPE,
       ProductionRecipe.EMPTY_CANISTER,
+      ProductionRecipe.ALUMINUM_CASING,
       // Research
       ProductionRecipe.HOG_PROTEIN,
       ProductionRecipe.HATCHER_PROTEIN,
@@ -72,6 +73,7 @@ enum class Manufacturer(
       ProductionRecipe.MOTOR,
       ProductionRecipe.AUTOMATED_WIRING,
       ProductionRecipe.CIRCUIT_BOARD,
+      ProductionRecipe.ALCLAD_ALUMINUM_SHEET,
       // Research
       ProductionRecipe.AI_LIMITER,
       ProductionRecipe.BLACK_POWDER,
@@ -93,6 +95,7 @@ enum class Manufacturer(
     consumption = 16.q,
     recipes = listOf(
       ProductionRecipe.STEEL_INGOT,
+      ProductionRecipe.ALUMINUM_INGOT,
       // Research
       ProductionRecipe.COPPER_FICSMAS_ORNAMENT,
       ProductionRecipe.IRON_FICSMAS_ORNAMENT,
@@ -110,6 +113,8 @@ enum class Manufacturer(
       ProductionRecipe.FUEL,
       ProductionRecipe.RESIDUAL_FUEL,
       ProductionRecipe.LIQUID_BIOFUEL,
+      ProductionRecipe.ALUMINA_SOLUTION,
+      ProductionRecipe.ALUMINUM_SCRAP,
       // Research
       ProductionRecipe.HEAVY_OIL_RESIDUE,
       ProductionRecipe.POLYESTER_FABRIC,
@@ -126,6 +131,7 @@ enum class Manufacturer(
       ProductionRecipe.MODULAR_ENGINE,
       ProductionRecipe.ADAPTIVE_CONTROL_UNIT,
       ProductionRecipe.GAS_FILTER,
+      ProductionRecipe.RADIO_CONTROL_UNIT,
       // Research
       ProductionRecipe.CRYSTAL_OSCILLATOR,
       ProductionRecipe.EXPLOSIVE_REBAR,
@@ -142,13 +148,22 @@ enum class Manufacturer(
       ProductionRecipe.PACKAGE_FUEL,
       ProductionRecipe.PACKAGE_HEAVY_OIL_RESIDUE,
       ProductionRecipe.PACKAGE_LIQUID_BIOFUEL,
+      ProductionRecipe.PACKAGE_ALUMINA_SOLUTION,
       ProductionRecipe.PACKAGE_TURBOFUEL,
       ProductionRecipe.UNPACKAGE_WATER,
       ProductionRecipe.UNPACKAGE_OIL,
       ProductionRecipe.UNPACKAGE_FUEL,
       ProductionRecipe.UNPACKAGE_HEAVY_OIL_RESIDUE,
       ProductionRecipe.UNPACKAGE_LIQUID_BIOFUEL,
+      ProductionRecipe.UNPACKAGE_ALUMINA_SOLUTION,
       ProductionRecipe.UNPACKAGE_TURBOFUEL,
+    ),
+  ),
+  BLENDER(
+    "Blender",
+    consumption = 75.q,
+    recipes = listOf(
+
     ),
   );
 }

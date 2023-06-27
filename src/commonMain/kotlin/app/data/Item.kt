@@ -119,6 +119,17 @@ enum class Item(
   /* Tier 6 -- Jetpack */
   JETPACK("Jetpack"),
 
+  /* Tier 7 -- Bauxite Refinement */
+  ALUMINA_SOLUTION("Alumina Solution"),
+  PACKAGED_ALUMINA_SOLUTION("Packaged Alumina Solution"),
+  ALUMINUM_SCRAP("Aluminum Scrap"),
+  ALUMINUM_INGOT("Aluminum Ingot"),
+  ALCLAD_ALUMINUM_SHEET("Alclad Aluminum Sheet"),
+  ALUMINUM_CASING("Aluminum Casing"),
+  RADIO_CONTROL_UNIT("Radio Control Unit"),
+  BAUXITE("Bauxite"),
+  RAW_QUARTZ("Raw Quartz"),
+
   /* FICSMAS */
   FICSMAS_GIFT("FICSMAS Gift"),
   FICSMAS_TREE_BRANCH("FICSMAS Tree Branch"),
@@ -138,7 +149,6 @@ enum class Item(
   QUICKWIRE("Quickwire"),
   AI_LIMITER("AI Limiter"),
   ZIPLINE("Zipline"),
-  RAW_QUARTZ("Raw Quartz"),
   QUARTZ_CRYSTAL("Quartz Crystal"),
   SULFUR("Sulfur"),
 

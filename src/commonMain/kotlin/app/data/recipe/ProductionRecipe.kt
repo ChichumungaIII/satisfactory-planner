@@ -511,6 +511,84 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.JETPACK to 1.q),
   ),
 
+  /* Tier 7 -- Bauxite Refinement */
+  ALUMINA_SOLUTION(
+    "Alumina Solution",
+    time = 6.q,
+    inputs = mapOf(
+      Item.BAUXITE to 12.q,
+      Item.WATER to 18.q,
+    ),
+    outputs = mapOf(
+      Item.ALUMINA_SOLUTION to 12.q,
+      Item.SILICA to 5.q,
+    ),
+  ),
+  UNPACKAGE_ALUMINA_SOLUTION(
+    "Unpackage Alumina Solution",
+    time = 1.q,
+    inputs = mapOf(Item.PACKAGED_ALUMINA_SOLUTION to 2.q),
+    outputs = mapOf(
+      Item.ALUMINA_SOLUTION to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+  ),
+  PACKAGE_ALUMINA_SOLUTION(
+    "Package Alumina Solution",
+    time = 1.q,
+    inputs = mapOf(
+      Item.ALUMINA_SOLUTION to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_ALUMINA_SOLUTION to 2.q),
+  ),
+  ALUMINUM_SCRAP(
+    "Aluminum Scrap",
+    time = 1.q,
+    inputs = mapOf(
+      Item.ALUMINA_SOLUTION to 4.q,
+      Item.COAL to 2.q,
+    ),
+    outputs = mapOf(
+      Item.ALUMINUM_SCRAP to 6.q,
+      Item.WATER to 2.q,
+    ),
+  ),
+  ALUMINUM_INGOT(
+    "Aluminum Ingot",
+    time = 4.q,
+    inputs = mapOf(
+      Item.ALUMINUM_SCRAP to 6.q,
+      Item.SILICA to 5.q,
+    ),
+    outputs = mapOf(Item.ALUMINUM_INGOT to 4.q),
+  ),
+  ALCLAD_ALUMINUM_SHEET(
+    "Alclad Aluminum Sheet",
+    time = 6.q,
+    inputs = mapOf(
+      Item.ALUMINUM_INGOT to 3.q,
+      Item.COPPER_INGOT to 1.q,
+    ),
+    outputs = mapOf(Item.ALCLAD_ALUMINUM_SHEET to 3.q),
+  ),
+  ALUMINUM_CASING(
+    "Aluminum Casing",
+    time = 2.q,
+    inputs = mapOf(Item.ALUMINUM_INGOT to 3.q),
+    outputs = mapOf(Item.ALUMINUM_CASING to 2.q),
+  ),
+  RADIO_CONTROL_UNIT(
+    "Radio Control Unit",
+    time = 48.q,
+    inputs = mapOf(
+      Item.ALUMINUM_CASING to 32.q,
+      Item.CRYSTAL_OSCILLATOR to 1.q,
+      Item.COMPUTER to 1.q,
+    ),
+    outputs = mapOf(Item.RADIO_CONTROL_UNIT to 2.q),
+  ),
+
   /* Research -- Alien Organisms */
   HOG_PROTEIN(
     "Hog Protein",
@@ -552,20 +630,14 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.MEDICINAL_INHALER to 1.q),
   ),
   REBAR_GUN(
-    "Rebar Gun",
-    time = 60.q,
-    inputs = mapOf(
+    "Rebar Gun", time = 60.q, inputs = mapOf(
       Item.REINFORCED_IRON_PLATE to 6.q,
       Item.IRON_ROD to 16.q,
       Item.SCREW to 100.q,
-    ),
-    outputs = mapOf(Item.REBAR_GUN to 1.q)
+    ), outputs = mapOf(Item.REBAR_GUN to 1.q)
   ),
   IRON_REBAR(
-    "Iron Rebar",
-    time = 4.q,
-    inputs = mapOf(Item.IRON_ROD to 1.q),
-    outputs = mapOf(Item.IRON_REBAR to 1.q)
+    "Iron Rebar", time = 4.q, inputs = mapOf(Item.IRON_ROD to 1.q), outputs = mapOf(Item.IRON_REBAR to 1.q)
   ),
 
   /* Research -- Caterium */
@@ -668,13 +740,10 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.FABRIC to 1.q),
   ),
   PARACHUTE(
-    "Parachute",
-    time = 20.q,
-    inputs = mapOf(
+    "Parachute", time = 20.q, inputs = mapOf(
       Item.FABRIC to 10.q,
       Item.CABLE to 5.q,
-    ),
-    outputs = mapOf(Item.PARACHUTE to 5.q)
+    ), outputs = mapOf(Item.PARACHUTE to 5.q)
   ),
   POLYESTER_FABRIC(
     "Polyester Fabric",
@@ -748,10 +817,7 @@ enum class ProductionRecipe(
 
   /* Research -- Quartz */
   QUARTZ_CRYSTAL(
-    "Quartz Crystal",
-    time = 8.q,
-    inputs = mapOf(Item.RAW_QUARTZ to 5.q),
-    outputs = mapOf(Item.QUARTZ_CRYSTAL to 3.q)
+    "Quartz Crystal", time = 8.q, inputs = mapOf(Item.RAW_QUARTZ to 5.q), outputs = mapOf(Item.QUARTZ_CRYSTAL to 3.q)
   ),
   SILICA(
     "Silica",
@@ -931,8 +997,7 @@ enum class ProductionRecipe(
     "Copper FICSMAS Ornament",
     time = 12.q,
     inputs = mapOf(
-      Item.RED_FICSMAS_ORNAMENT to 2.q,
-      Item.COPPER_INGOT to 2.q
+      Item.RED_FICSMAS_ORNAMENT to 2.q, Item.COPPER_INGOT to 2.q
     ),
     outputs = mapOf(Item.COPPER_FICSMAS_ORNAMENT to 1.q),
   ),
