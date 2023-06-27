@@ -24,10 +24,25 @@ enum class Extractor(
     consumption = 12.q,
     rate = 120.q,
   ),
+  MINER_MK_3(
+    "Miner Mk. 3",
+    consumption = 30.q,
+    rate = 240.q,
+  ),
   OIL_EXTRACTOR(
     "Oil Extractor",
     consumption = 40.q,
     rate = 120.q,
+  ),
+  RESOURCE_WELL_PRESSURIZER(
+    "Resource Well Pressurizer",
+    consumption = 150.q,
+    rate = 0.q,
+  ),
+  RESOURCE_WELL_EXTRACTOR(
+    "Resource Well Extractor",
+    consumption = 0.q,
+    rate = 60.q,
   );
 
   override val recipes by lazy { ExtractionRecipe.values().filter { it.extractor == this } }

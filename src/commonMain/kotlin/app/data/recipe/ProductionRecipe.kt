@@ -589,6 +589,204 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.RADIO_CONTROL_UNIT to 2.q),
   ),
 
+  /* Tier 7 -- Hazmat Suit */
+  HAZMAT_SUIT(
+    "Hazmat Suit",
+    time = 120.q,
+    inputs = mapOf(
+      Item.RUBBER to 50.q,
+      Item.PLASTIC to 50.q,
+      Item.ALCLAD_ALUMINUM_SHEET to 50.q,
+      Item.FABRIC to 50.q,
+    ),
+    outputs = mapOf(Item.HAZMAT_SUIT to 1.q),
+  ),
+  IODINE_INFUSED_FILTER(
+    "Iodine Infused Filter",
+    time = 16.q,
+    inputs = mapOf(
+      Item.GAS_FILTER to 1.q,
+      Item.QUICKWIRE to 8.q,
+      Item.ALUMINUM_CASING to 1.q,
+    ),
+    outputs = mapOf(Item.IODINE_INFUSED_FILTER to 1.q),
+  ),
+
+  /* Tier 7 -- Aeronautical Engineering */
+  SULFURIC_ACID(
+    "Sulfuric Acid",
+    time = 6.q,
+    inputs = mapOf(
+      Item.SULFUR to 5.q,
+      Item.WATER to 5.q,
+    ),
+    outputs = mapOf(Item.SULFURIC_ACID to 5.q),
+  ),
+  PACKAGE_SULFURIC_ACID(
+    "Package Sulfuric Acid",
+    time = 3.q,
+    inputs = mapOf(
+      Item.SULFURIC_ACID to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_SULFURIC_ACID to 2.q),
+  ),
+  UNPACKAGE_SULFURIC_ACID(
+    "Unpackage Sulfuric Acid",
+    time = 1.q,
+    inputs = mapOf(Item.PACKAGED_SULFURIC_ACID to 1.q),
+    outputs = mapOf(
+      Item.SULFURIC_ACID to 1.q,
+      Item.EMPTY_CANISTER to 1.q,
+    ),
+  ),
+  BATTERY(
+    "Battery",
+    time = 3.q,
+    inputs = mapOf(
+      Item.SULFURIC_ACID to 5.q / 2.q,
+      Item.ALUMINA_SOLUTION to 2.q,
+      Item.ALUMINUM_CASING to 1.q,
+    ),
+    outputs = mapOf(
+      Item.BATTERY to 1.q,
+      Item.WATER to 3.q / 2.q,
+    ),
+  ),
+  ASSEMBLY_DIRECTOR_SYSTEM(
+    "Assembly Director System",
+    time = 80.q,
+    inputs = mapOf(
+      Item.ADAPTIVE_CONTROL_UNIT to 2.q,
+      Item.SUPERCOMPUTER to 1.q,
+    ),
+    outputs = mapOf(Item.ASSEMBLY_DIRECTOR_SYSTEM to 1.q),
+  ),
+
+  /* Tier 8 -- Nuclear Power */
+  ENCASED_URANIUM_CELL(
+    "Encased Uranium Cell",
+    time = 12.q,
+    inputs = mapOf(
+      Item.URANIUM to 10.q,
+      Item.CONCRETE to 3.q,
+      Item.SULFURIC_ACID to 8.q,
+    ),
+    outputs = mapOf(
+      Item.ENCASED_URANIUM_CELL to 5.q,
+      Item.SULFURIC_ACID to 2.q,
+    ),
+  ),
+  ELECTROMAGNETIC_CONTROL_ROD(
+    "Electromagnetic Control Rod",
+    time = 30.q,
+    inputs = mapOf(
+      Item.STATOR to 3.q,
+      Item.AI_LIMITER to 2.q,
+    ),
+    outputs = mapOf(Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q),
+  ),
+  URANIUM_FUEL_ROD(
+    "Uranium Fuel Rod",
+    time = 150.q,
+    inputs = mapOf(
+      Item.ENCASED_URANIUM_CELL to 50.q,
+      Item.ENCASED_INDUSTRIAL_BEAM to 3.q,
+      Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q,
+    ),
+    outputs = mapOf(Item.URANIUM_FUEL_ROD to 1.q),
+  ),
+  MAGNETIC_FIELD_GENERATOR(
+    "Magnetic Field Generator",
+    time = 120.q,
+    inputs = mapOf(
+      Item.VERSATILE_FRAMEWORK to 5.q,
+      Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q,
+      Item.BATTERY to 10.q,
+    ),
+    outputs = mapOf(Item.MAGNETIC_FIELD_GENERATOR to 2.q),
+  ),
+
+  /* Tier 8 -- Advanced Aluminum Production */
+  EMPTY_FLUID_TANK(
+    "Empty Fluid Tank",
+    time = 1.q,
+    inputs = mapOf(Item.ALUMINUM_INGOT to 1.q),
+    outputs = mapOf(Item.EMPTY_FLUID_TANK to 1.q),
+  ),
+  PACKAGE_NITROGEN_GAS(
+    "Package Nitrogen Gas",
+    time = 1.q,
+    inputs = mapOf(
+      Item.NITROGEN_GAS to 4.q,
+      Item.EMPTY_FLUID_TANK to 1.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_NITROGEN_GAS to 1.q),
+  ),
+  UNPACKAGE_NITROGEN_GAS(
+    "Unpackage Nitrogen Gas",
+    time = 1.q,
+    inputs = mapOf(Item.PACKAGED_NITROGEN_GAS to 1.q),
+    outputs = mapOf(
+      Item.NITROGEN_GAS to 4.q,
+      Item.EMPTY_FLUID_TANK to 1.q,
+    ),
+  ),
+  HEAT_SINK(
+    "Heat Sink",
+    time = 8.q,
+    inputs = mapOf(
+      Item.ALCLAD_ALUMINUM_SHEET to 5.q,
+      Item.COPPER_SHEET to 3.q,
+    ),
+    outputs = mapOf(Item.HEAT_SINK to 1.q),
+  ),
+  COOLING_SYSTEM(
+    "Cooling System",
+    time = 10.q,
+    inputs = mapOf(
+      Item.HEAT_SINK to 2.q,
+      Item.RUBBER to 2.q,
+      Item.WATER to 5.q,
+      Item.NITROGEN_GAS to 25.q,
+    ),
+    outputs = mapOf(Item.COOLING_SYSTEM to 1.q),
+  ),
+  FUSED_MODULAR_FRAME(
+    "Fused Modular Frame",
+    time = 40.q,
+    inputs = mapOf(
+      Item.HEAVY_MODULAR_FRAME to 1.q,
+      Item.ALUMINUM_CASING to 50.q,
+      Item.NITROGEN_GAS to 25.q,
+    ),
+    outputs = mapOf(Item.FUSED_MODULAR_FRAME to 1.q),
+  ),
+
+  /* Tier 8 -- Leading Edge Production */
+  TURBO_MOTOR(
+    "Turbo Motor",
+    time = 32.q,
+    inputs = mapOf(
+      Item.COOLING_SYSTEM to 4.q,
+      Item.RADIO_CONTROL_UNIT to 2.q,
+      Item.MOTOR to 4.q,
+      Item.RUBBER to 24.q,
+    ),
+    outputs = mapOf(Item.TURBO_MOTOR to 1.q),
+  ),
+  THERMAL_PROPULSION_ROCKET(
+    "Thermal Propulsion Rocket",
+    time = 120.q,
+    inputs = mapOf(
+      Item.MODULAR_ENGINE to 5.q,
+      Item.TURBO_MOTOR to 2.q,
+      Item.COOLING_SYSTEM to 6.q,
+      Item.FUSED_MODULAR_FRAME to 2.q,
+    ),
+    outputs = mapOf(Item.THERMAL_PROPULSION_ROCKET to 2.q),
+  ),
+
   /* Research -- Alien Organisms */
   HOG_PROTEIN(
     "Hog Protein",

@@ -21,6 +21,11 @@ enum class Generator(
   FUEL_GENERATOR(
     "Fuel Generator",
     generation = 150.q,
+  ),
+  NUCLEAR_POWER_PLANT(
+    "Nuclear Power Plant",
+    generation = 2500.q,
+    water = 240.q,
   );
 
   override val consumption = 0.q;

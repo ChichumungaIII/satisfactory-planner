@@ -41,6 +41,7 @@ enum class Manufacturer(
       ProductionRecipe.STEEL_PIPE,
       ProductionRecipe.EMPTY_CANISTER,
       ProductionRecipe.ALUMINUM_CASING,
+      ProductionRecipe.EMPTY_FLUID_TANK,
       // Research
       ProductionRecipe.HOG_PROTEIN,
       ProductionRecipe.HATCHER_PROTEIN,
@@ -74,6 +75,8 @@ enum class Manufacturer(
       ProductionRecipe.AUTOMATED_WIRING,
       ProductionRecipe.CIRCUIT_BOARD,
       ProductionRecipe.ALCLAD_ALUMINUM_SHEET,
+      ProductionRecipe.ELECTROMAGNETIC_CONTROL_ROD,
+      ProductionRecipe.HEAT_SINK,
       // Research
       ProductionRecipe.AI_LIMITER,
       ProductionRecipe.BLACK_POWDER,
@@ -115,6 +118,7 @@ enum class Manufacturer(
       ProductionRecipe.LIQUID_BIOFUEL,
       ProductionRecipe.ALUMINA_SOLUTION,
       ProductionRecipe.ALUMINUM_SCRAP,
+      ProductionRecipe.SULFURIC_ACID,
       // Research
       ProductionRecipe.HEAVY_OIL_RESIDUE,
       ProductionRecipe.POLYESTER_FABRIC,
@@ -132,6 +136,11 @@ enum class Manufacturer(
       ProductionRecipe.ADAPTIVE_CONTROL_UNIT,
       ProductionRecipe.GAS_FILTER,
       ProductionRecipe.RADIO_CONTROL_UNIT,
+      ProductionRecipe.IODINE_INFUSED_FILTER,
+      ProductionRecipe.URANIUM_FUEL_ROD,
+      ProductionRecipe.MAGNETIC_FIELD_GENERATOR,
+      ProductionRecipe.TURBO_MOTOR,
+      ProductionRecipe.THERMAL_PROPULSION_ROCKET,
       // Research
       ProductionRecipe.CRYSTAL_OSCILLATOR,
       ProductionRecipe.EXPLOSIVE_REBAR,
@@ -149,21 +158,28 @@ enum class Manufacturer(
       ProductionRecipe.PACKAGE_HEAVY_OIL_RESIDUE,
       ProductionRecipe.PACKAGE_LIQUID_BIOFUEL,
       ProductionRecipe.PACKAGE_ALUMINA_SOLUTION,
+      ProductionRecipe.PACKAGE_SULFURIC_ACID,
       ProductionRecipe.PACKAGE_TURBOFUEL,
+      ProductionRecipe.PACKAGE_NITROGEN_GAS,
       ProductionRecipe.UNPACKAGE_WATER,
       ProductionRecipe.UNPACKAGE_OIL,
       ProductionRecipe.UNPACKAGE_FUEL,
       ProductionRecipe.UNPACKAGE_HEAVY_OIL_RESIDUE,
       ProductionRecipe.UNPACKAGE_LIQUID_BIOFUEL,
       ProductionRecipe.UNPACKAGE_ALUMINA_SOLUTION,
+      ProductionRecipe.UNPACKAGE_SULFURIC_ACID,
       ProductionRecipe.UNPACKAGE_TURBOFUEL,
+      ProductionRecipe.UNPACKAGE_NITROGEN_GAS,
     ),
   ),
   BLENDER(
     "Blender",
     consumption = 75.q,
     recipes = listOf(
-
+      ProductionRecipe.BATTERY,
+      ProductionRecipe.ENCASED_URANIUM_CELL,
+      ProductionRecipe.COOLING_SYSTEM,
+      ProductionRecipe.FUSED_MODULAR_FRAME,
     ),
   );
 }

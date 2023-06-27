@@ -130,6 +130,40 @@ enum class Item(
   BAUXITE("Bauxite"),
   RAW_QUARTZ("Raw Quartz"),
 
+  /* Tier 7 -- Hazmat Suit */
+  HAZMAT_SUIT("Hazmat Suit"),
+  IODINE_INFUSED_FILTER("Iodine Infused Filter"),
+
+  /* Tier 7 -- Aeronautical Engineering */
+  SULFUR("Sulfur"),
+  SULFURIC_ACID("Sulfuric Acid"),
+  PACKAGED_SULFURIC_ACID("Packaged Sulfuric Acid"),
+  BATTERY("Battery"),
+  SUPERCOMPUTER("Supercomputer"),
+  ASSEMBLY_DIRECTOR_SYSTEM("Assembly Director System"),
+
+  /* Tier 7 -- Hover Pack*/
+  HOVER_PACK("Hover Pack"),
+
+  /* Tier 8 -- Nuclear Power */
+  URANIUM("Uranium"),
+  ENCASED_URANIUM_CELL("Encased Uranium Cell"),
+  ELECTROMAGNETIC_CONTROL_ROD("Electromagnetic Control Rod"),
+  URANIUM_FUEL_ROD("Uranium Fuel Rod", energy = 750_000.q),
+  MAGNETIC_FIELD_GENERATOR("Magnetic Field Generator"),
+
+  /* Tier 8 -- Advanced Aluminum Production */
+  NITROGEN_GAS("Nitrogen Gas"),
+  EMPTY_FLUID_TANK("Empty Fluid Tank"),
+  PACKAGED_NITROGEN_GAS("Packaged Nitrogen Gas"),
+  HEAT_SINK("Heat Sink"),
+  COOLING_SYSTEM("Cooling System"),
+  FUSED_MODULAR_FRAME("Fused Modular Frame"),
+
+  /* Tier 8 -- Leading Edge Production */
+  TURBO_MOTOR("Turbo Motor"),
+  THERMAL_PROPULSION_ROCKET("Thermal Propulsion Rocket"),
+
   /* FICSMAS */
   FICSMAS_GIFT("FICSMAS Gift"),
   FICSMAS_TREE_BRANCH("FICSMAS Tree Branch"),
@@ -150,7 +184,6 @@ enum class Item(
   AI_LIMITER("AI Limiter"),
   ZIPLINE("Zipline"),
   QUARTZ_CRYSTAL("Quartz Crystal"),
-  SULFUR("Sulfur"),
 
   /* Research */
   ALIEN_DNA_CAPSULE("Alien DNA Capsule"),
@@ -180,6 +213,5 @@ enum class Item(
   SMOKELESS_POWDER("Smokeless Powder"),
   SILICA("Silica"),
   STUN_REBAR("Stun Rebar"),
-  SUPERCOMPUTER("Supercomputer"),
   TURBOFUEL("Turbofuel", energy = 2000.q),
 }
