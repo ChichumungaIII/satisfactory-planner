@@ -1,8 +1,6 @@
 package app.v2.common.layout
 
 import app.v2.common.input.ToggleIconButton
-import csstype.ClassName
-import csstype.number
 import mui.icons.material.Menu
 import mui.icons.material.MenuOpen
 import mui.material.Box
@@ -12,6 +10,8 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.useContext
+import web.cssom.ClassName
+import web.cssom.number
 
 external interface TitleBarComponentProps : Props {
   var title: ReactNode
@@ -19,7 +19,7 @@ external interface TitleBarComponentProps : Props {
 }
 
 val TitleBarComponent = FC<TitleBarComponentProps>("TitleBarComponent") { props ->
-  var drawer by useContext(DrawerContext)
+  var drawer by useContext(DrawerContext)!!
 
   Toolbar {
     ToggleIconButton {

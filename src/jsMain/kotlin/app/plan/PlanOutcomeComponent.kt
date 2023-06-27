@@ -2,9 +2,6 @@ package app.plan
 
 import app.data.recipe.ProductionRecipe
 import app.model.PlanOutcomeModel
-import csstype.ClassName
-import csstype.Margin
-import csstype.px
 import mui.material.Box
 import mui.material.Chip
 import mui.material.ChipColor
@@ -19,6 +16,9 @@ import react.FC
 import react.Props
 import react.ReactNode
 import util.math.q
+import web.cssom.ClassName
+import web.cssom.Margin
+import web.cssom.px
 
 external interface PlanOutcomeComponentProps : Props {
   var outcome: PlanOutcomeModel

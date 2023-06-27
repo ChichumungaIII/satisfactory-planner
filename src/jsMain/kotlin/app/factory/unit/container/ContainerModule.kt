@@ -4,7 +4,6 @@ import app.factory.model.FactoryUnit
 import app.factory.model.FactoryUnitContainer
 import app.factory.selectunit.SelectUnitSpeedDial
 import app.factory.unit.factoryUnit
-import csstype.ClassName
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
 import mui.material.Box
@@ -12,6 +11,7 @@ import mui.material.IconButton
 import mui.material.Size
 import react.FC
 import react.Props
+import web.cssom.ClassName
 
 external interface ContainerModuleProps : Props {
   var container: FactoryUnitContainer

@@ -3,8 +3,6 @@ package app.v2.common.input
 import app.common.RationalInput
 import app.common.RationalValidation
 import app.util.PropsDelegate
-import csstype.ClassName
-import csstype.px
 import mui.material.Size
 import react.FC
 import react.Props
@@ -12,6 +10,8 @@ import react.useEffect
 import react.useState
 import util.math.Rational
 import util.math.q
+import web.cssom.ClassName
+import web.cssom.px
 
 external interface FactoryItemRateInputProps : Props {
   var clock: Rational

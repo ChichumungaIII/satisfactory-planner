@@ -52,15 +52,16 @@ kotlin {
         "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
       dependencies {
-        implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.495")))
+        implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.575")))
 
+        implementation(kotlinw("cssom-core"))
         implementation(kotlinw("emotion"))
         implementation(kotlinw("mui"))
         implementation(kotlinw("mui-icons"))
         implementation(kotlinw("react"))
         implementation(kotlinw("react-dom"))
         implementation(kotlinw("react-router"))
-        implementation(kotlinw("react-router-dom-legacy"))
+        implementation(kotlinw("react-router-dom"))
       }
     }
     val jsTest by getting

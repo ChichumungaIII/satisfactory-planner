@@ -4,8 +4,6 @@ import app.common.RationalInput
 import app.common.RationalValidation.Companion.fail
 import app.common.RationalValidation.Companion.pass
 import app.util.PropsDelegate
-import csstype.ClassName
-import csstype.px
 import mui.material.Size
 import react.FC
 import react.Props
@@ -14,6 +12,8 @@ import react.useEffect
 import react.useState
 import util.math.Rational
 import util.math.q
+import web.cssom.ClassName
+import web.cssom.px
 
 external interface ClockSpeedInputProps : Props {
   var model: Rational

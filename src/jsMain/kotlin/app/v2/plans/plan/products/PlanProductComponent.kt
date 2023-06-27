@@ -1,7 +1,6 @@
 package app.v2.plans.plan.products
 
 import app.util.PropsDelegate
-import app.v2.common.input.DetailsToggleButton
 import app.v2.common.input.ExpandCollapseToggle
 import app.v2.common.input.ItemAutocomplete
 import app.v2.common.layout.FauxInputDisplay
@@ -30,7 +29,7 @@ external interface PlanProductComponentProps : PropsWithChildren {
 }
 
 val PlanProductComponent = FC<PlanProductComponentProps>("PlanProductComponent") { props ->
-  val plan by useContext(PlanComponentContext)
+  val plan by useContext(PlanComponentContext)!!
   var product by PropsDelegate(props.product, props.setProduct)
 
   Stack {

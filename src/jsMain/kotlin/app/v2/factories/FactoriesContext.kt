@@ -24,8 +24,8 @@ private data class SetState(val state: LoadState<Unit, List<Factory>>) : Factori
 val FactoriesContext = createContext<ReducerInstance<LoadState<Unit, List<Factory>>, FactoriesContextAction>>()
 
 val FactoriesContextProvider = FC<PropsWithChildren> { props ->
-  val factoryService = useContext(FactoryServiceContext)
-  val (_, updateStore) = useContext(FactoryStoreContext)
+  val factoryService = useContext(FactoryServiceContext)!!
+  val (_, updateStore) = useContext(FactoryStoreContext)!!
 
   var updateFactories: (FactoriesContextAction) -> Unit = { throw Error("updateFactories callback not bound") }
   val factoriesContext = useReducer<LoadState<Unit, List<Factory>>, FactoriesContextAction>({ state, action ->

@@ -1,9 +1,6 @@
 package app.common
 
 import app.util.PropsDelegate
-import csstype.Length
-import csstype.Margin
-import csstype.px
 import js.core.jso
 import mui.material.BaseSize
 import mui.material.FormControlVariant
@@ -18,6 +15,9 @@ import react.create
 import react.dom.onChange
 import react.useState
 import util.math.Rational
+import web.cssom.Length
+import web.cssom.Margin
+import web.cssom.px
 
 external interface RationalInputProps : PropsWithClassName {
   var label: ReactNode?

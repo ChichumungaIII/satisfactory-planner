@@ -3,19 +3,19 @@ package app.v2.plans.plan.results
 import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanHeading
-import csstype.ClassName
 import mui.material.Stack
 import react.FC
 import react.PropsWithClassName
 import react.useContext
 import util.math.q
+import web.cssom.ClassName
 
 external interface PlanResultsComponentProps : PropsWithClassName {
   var results: List<PlanResult>
 }
 
 val PlanResultsComponent = FC<PlanResultsComponentProps>("PlanResultsComponent") { props ->
-  var plan by useContext(PlanComponentContext)
+  var plan by useContext(PlanComponentContext)!!
   val results = props.results
 
   Stack {

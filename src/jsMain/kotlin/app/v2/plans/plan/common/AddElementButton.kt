@@ -1,6 +1,5 @@
 package app.v2.plans.plan.common
 
-import csstype.ClassName
 import mui.icons.material.Add
 import mui.material.Fab
 import mui.material.FabColor
@@ -10,6 +9,7 @@ import mui.material.Tooltip
 import react.FC
 import react.Props
 import react.ReactNode
+import web.cssom.ClassName
 
 external interface AddElementButtonProps : Props {
   var title: ReactNode

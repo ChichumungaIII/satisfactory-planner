@@ -6,10 +6,6 @@ import app.common.RationalValidation
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
-import csstype.ClassName
-import csstype.Display
-import csstype.Margin
-import csstype.px
 import mui.icons.material.Close
 import mui.material.Box
 import mui.material.Chip
@@ -24,6 +20,10 @@ import react.Props
 import react.ReactNode
 import react.useState
 import util.math.q
+import web.cssom.ClassName
+import web.cssom.Display
+import web.cssom.Margin
+import web.cssom.px
 
 external interface PlanProductProps : Props {
   var plan: PlanModel

@@ -1,10 +1,10 @@
 package app.v2.plans.plan.common
 
-import csstype.ClassName
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.PropsWithChildren
+import web.cssom.ClassName
 
 external interface PlanHeadingProps : PropsWithChildren
 

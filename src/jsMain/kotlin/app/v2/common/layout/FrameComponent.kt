@@ -1,8 +1,6 @@
 package app.v2.common.layout
 
 import app.themes.ThemeContext
-import csstype.ClassName
-import csstype.integer
 import mui.material.AppBar
 import mui.material.AppBarPosition
 import mui.material.Box
@@ -12,14 +10,16 @@ import react.FC
 import react.PropsWithChildren
 import react.ReactNode
 import react.useContext
+import web.cssom.ClassName
+import web.cssom.integer
 
 external interface FrameComponentProps : PropsWithChildren {
   var titleBar: ReactNode
 }
 
 val FrameComponent = FC<FrameComponentProps>("FrameComponent") { props ->
-  val theme by useContext(ThemeContext)
-  var drawer by useContext(DrawerContext)
+  val theme by useContext(ThemeContext)!!
+  val drawer by useContext(DrawerContext)!!
 
   AppBar {
     sx { zIndex = integer(theme.zIndex.drawer.toInt() + 1) }

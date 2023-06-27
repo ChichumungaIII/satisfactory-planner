@@ -7,18 +7,15 @@ import app.v2.common.layout.FauxInputDisplayVariant
 import app.v2.plans.data.model.PlanByproduct
 import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.PlanContentRow
-import csstype.ClassName
 import mui.icons.material.AddTask
 import mui.material.Checkbox
 import mui.material.Size
-import mui.material.Stack
-import mui.material.StackDirection
 import mui.material.Tooltip
-import mui.system.responsive
 import react.FC
 import react.Props
 import react.ReactNode
 import react.useContext
+import web.cssom.ClassName
 
 external interface PlanByproductComponentProps : Props {
   var byproduct: PlanByproduct
@@ -28,7 +25,7 @@ external interface PlanByproductComponentProps : Props {
 }
 
 val PlanByproductComponent = FC<PlanByproductComponentProps>("PlanByproductComponent") { props ->
-  val plan by useContext(PlanComponentContext)
+  val plan by useContext(PlanComponentContext)!!
   var byproduct by PropsDelegate(props.byproduct, props.setByproduct)
 
   PlanContentRow {

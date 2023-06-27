@@ -10,11 +10,6 @@ import app.model.PlanInputModel
 import app.model.PlanModel
 import app.model.PlanProductModel
 import app.util.PropsDelegate
-import csstype.Color
-import csstype.FlexDirection
-import csstype.Margin
-import csstype.Padding
-import csstype.px
 import kotlinx.coroutines.launch
 import mui.icons.material.Add
 import mui.icons.material.ExpandMore
@@ -33,6 +28,11 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.create
+import web.cssom.Color
+import web.cssom.FlexDirection
+import web.cssom.Margin
+import web.cssom.Padding
+import web.cssom.px
 
 external interface PlanProps : Props {
   var plan: PlanModel

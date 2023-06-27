@@ -1,7 +1,6 @@
 package app.v2.common.input
 
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.material.FormControlVariant
 import mui.material.Size
 import mui.material.TextField
@@ -11,6 +10,7 @@ import react.ReactNode
 import react.dom.onChange
 import react.useEffect
 import react.useState
+import web.cssom.ClassName
 
 external interface CountInputProps : Props {
   var model: UInt

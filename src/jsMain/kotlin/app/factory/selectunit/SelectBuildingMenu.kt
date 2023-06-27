@@ -3,13 +3,13 @@ package app.factory.selectunit
 import app.data.building.Manufacturer
 import app.factory.model.FactoryUnit
 import app.factory.model.ProductionBuilding
-import csstype.ClassName
 import mui.material.Divider
 import mui.material.Menu
 import mui.material.MenuItem
 import mui.material.PopoverOrigin
 import react.FC
 import react.Props
+import web.cssom.ClassName
 import web.dom.Element
 
 external interface SelectBuildingMenuProps : Props {

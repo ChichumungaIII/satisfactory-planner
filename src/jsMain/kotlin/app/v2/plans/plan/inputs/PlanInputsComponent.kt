@@ -17,7 +17,7 @@ import react.useContext
 external interface PlanInputsComponentProps : Props
 
 val PlanInputsComponent = FC<PlanInputsComponentProps>("PlanInputsComponent") { props ->
-  var plan by useContext(PlanComponentContext)
+  var plan by useContext(PlanComponentContext)!!
 
   Stack {
     direction = responsive(StackDirection.column)

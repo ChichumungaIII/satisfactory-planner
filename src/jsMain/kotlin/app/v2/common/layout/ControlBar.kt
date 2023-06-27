@@ -1,12 +1,12 @@
 package app.v2.common.layout
 
-import csstype.ClassName
-import csstype.px
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
 import react.FC
 import react.PropsWithChildren
+import web.cssom.ClassName
+import web.cssom.px
 
 external interface ControlBarProps : PropsWithChildren
 

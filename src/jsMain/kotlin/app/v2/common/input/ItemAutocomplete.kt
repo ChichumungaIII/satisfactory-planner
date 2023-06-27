@@ -2,7 +2,6 @@ package app.v2.common.input
 
 import app.data.Item
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
 import mui.material.TextField
@@ -10,6 +9,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import web.cssom.ClassName
 
 external interface ItemAutocompleteProps : Props {
   var model: Item?

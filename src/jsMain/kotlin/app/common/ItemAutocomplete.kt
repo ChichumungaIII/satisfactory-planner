@@ -2,8 +2,6 @@ package app.common
 
 import app.data.Item
 import app.util.PropsDelegate
-import csstype.Margin
-import csstype.px
 import js.core.jso
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
@@ -13,6 +11,8 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import web.cssom.Margin
+import web.cssom.px
 
 external interface ItemAutocompleteProps : Props {
   var item: Item

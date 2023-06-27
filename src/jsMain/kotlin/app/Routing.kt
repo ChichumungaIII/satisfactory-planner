@@ -12,7 +12,7 @@ import react.Props
 import react.ReactElement
 import react.create
 import react.router.Navigate
-import react.router.Route
+import react.router.PathRoute
 import react.router.Routes
 import react.router.dom.BrowserRouter
 
@@ -61,11 +61,11 @@ val Routing = FC<Props>("Routing") {
   BrowserRouter { Routes { +render(AppRoute.ROOT) } }
 }
 
-private fun render(route: AppRoute): ReactElement<*> = Route.create {
+private fun render(route: AppRoute): ReactElement<*> = PathRoute.create {
   path = route.path
   route.element?.also { element = it() }
-  route.default?.also { +Route.create { path = ""; element = it() } }
-  route.redirect?.also { +Route.create { path = ""; element = Navigate.create { to = it() } } }
+  route.default?.also { +PathRoute.create { path = ""; element = it() } }
+  route.redirect?.also { +PathRoute.create { path = ""; element = Navigate.create { to = it() } } }
 
-  AppRoute.values().filter { it.parent == route }.map { render(it) }.forEach { +it }
+  AppRoute.values().filter { it.parent == route }.forEach { +render(it) }
 }

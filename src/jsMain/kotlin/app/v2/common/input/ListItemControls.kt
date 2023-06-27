@@ -1,6 +1,5 @@
 package app.v2.common.input
 
-import csstype.ClassName
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
 import mui.icons.material.Clear
@@ -14,6 +13,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import web.cssom.ClassName
 
 external interface ListItemControlsProps : Props {
   var primaryItemControl: ReactNode?

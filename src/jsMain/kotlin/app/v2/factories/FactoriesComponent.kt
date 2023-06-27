@@ -11,7 +11,6 @@ import app.v2.data.Factory
 import app.v2.data.FactoryStoreContext
 import app.v2.data.LoadState
 import app.v2.data.SetFactory
-import csstype.ClassName
 import kotlinx.coroutines.launch
 import mui.material.Backdrop
 import mui.material.Button
@@ -25,13 +24,14 @@ import react.create
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.cssom.ClassName
 import kotlin.random.Random
 import kotlin.random.nextULong
 
 external interface FactoriesComponentProps : Props
 
 val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ ->
-  val (factories, updateFactories) = useContext(FactoriesContext)
+  val (factories, updateFactories) = useContext(FactoriesContext)!!
 
   FrameComponent {
     titleBar = TitleBarComponent.create {
@@ -56,9 +56,9 @@ val FactoriesComponent = FC<FactoriesComponentProps>("FactoriesComponent") { _ -
 
 private val ZeroFactoriesPlaceholderComponent = FC<Props>("ZeroFactoriesPlaceholderComponent") { _ ->
   val navigate = useNavigate()
-  val factoryService = useContext(FactoryServiceContext)
-  val (_, updateStore) = useContext(FactoryStoreContext)
-  val (_, updateFactories) = useContext(FactoriesContext)
+  val factoryService = useContext(FactoryServiceContext)!!
+  val (_, updateStore) = useContext(FactoryStoreContext)!!
+  val (_, updateFactories) = useContext(FactoriesContext)!!
 
   var creating by useState(false)
 

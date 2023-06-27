@@ -25,8 +25,8 @@ val FactoryContext = createContext<ReducerInstance<LoadState<ULong, Factory>, Fa
 private var factoryToSave: Factory? = null
 
 val FactoryContextProvider = FC<PropsWithChildren> { props ->
-  val factoryService = useContext(FactoryServiceContext)
-  val (store, updateStore) = useContext(FactoryStoreContext)
+  val factoryService = useContext(FactoryServiceContext)!!
+  val (store, updateStore) = useContext(FactoryStoreContext)!!
 
   fun debouncedSaveFactory(factory: Factory) {
     factoryToSave = factory

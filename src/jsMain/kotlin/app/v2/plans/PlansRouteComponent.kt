@@ -29,9 +29,9 @@ external interface PlansRouteComponentProps : Props
 
 val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") {
   val navigate = useNavigate()
-  val planService = useContext(PlanServiceContext)
-  val (_, updatePlanStore) = useContext(PlanStoreContext)
-  val (plans, updatePlans) = useContext(PlansListContext)
+  val planService = useContext(PlanServiceContext)!!
+  val (_, updatePlanStore) = useContext(PlanStoreContext)!!
+  val (plans, updatePlans) = useContext(PlansListContext)!!
 
   var creating by useState(false)
 

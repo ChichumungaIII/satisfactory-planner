@@ -3,7 +3,6 @@ package app.v2.common.input
 import app.data.building.Building
 import app.data.recipe.Recipe
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
 import mui.material.TextField
@@ -11,6 +10,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import web.cssom.ClassName
 
 external interface RecipeAutocompleteProps : Props {
   var model: Recipe?

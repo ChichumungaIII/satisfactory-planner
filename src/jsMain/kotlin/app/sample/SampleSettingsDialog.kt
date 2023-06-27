@@ -24,7 +24,7 @@ external interface SampleSettingsDialogProps : Props {
 }
 
 val SampleSettingsDialog = FC<SampleSettingsDialogProps>("SampleSettingsDialog") { props ->
-  var theme by useContext(ThemeContext)
+  var theme by useContext(ThemeContext)!!
 
   var spacing by useState("4")
 

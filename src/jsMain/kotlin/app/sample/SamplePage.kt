@@ -2,7 +2,6 @@ package app.sample
 
 import app.themes.SampleTheme
 import app.themes.ThemeContext
-import csstype.number
 import mui.icons.material.MenuOpen
 import mui.icons.material.Settings
 import mui.material.AppBar
@@ -17,11 +16,12 @@ import react.Props
 import react.useContext
 import react.useLayoutEffectOnce
 import react.useState
+import web.cssom.number
 
 external interface SamplePageProps : Props
 
 val SamplePage = FC<SamplePageProps>("SamplePage") {
-  var theme by useContext(ThemeContext)
+  var theme by useContext(ThemeContext)!!
   useLayoutEffectOnce { theme = SampleTheme }
 
   var settings by useState(false)

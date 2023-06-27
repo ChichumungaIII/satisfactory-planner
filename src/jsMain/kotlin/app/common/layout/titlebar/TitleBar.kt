@@ -1,7 +1,6 @@
 package app.common.layout.titlebar
 
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.icons.material.Delete
 import mui.icons.material.Edit
 import mui.material.Box
@@ -16,6 +15,7 @@ import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
 import react.useState
+import web.cssom.ClassName
 
 external interface TitleBarProps : Props {
   var editDescription: String

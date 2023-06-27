@@ -1,6 +1,6 @@
 package app.themes
 
-import csstype.rgb
+import web.cssom.rgb
 
 class Colors {
   companion object {

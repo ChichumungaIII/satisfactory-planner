@@ -2,10 +2,6 @@ package app.plan
 
 import app.model.PlanModel
 import app.serialization.AppJson
-import csstype.Display
-import csstype.FlexDirection
-import csstype.Padding
-import csstype.px
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -23,6 +19,10 @@ import react.ReactNode
 import react.create
 import react.useEffect
 import react.useState
+import web.cssom.Display
+import web.cssom.FlexDirection
+import web.cssom.Padding
+import web.cssom.px
 import kotlin.math.min
 
 const val NEW_PLAN_ID = "new"

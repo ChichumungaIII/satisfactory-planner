@@ -32,7 +32,7 @@ private var current: Plan? = null
 private var latest: OptimizeRequest? = null
 
 val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContextComponent") {
-  val (_, updatePlan) = useContext(PlanContext)
+  val (_, updatePlan) = useContext(PlanContext)!!
 
   val outcome = useReducer<Unit, ComputeOutcomeContextAction>({ _, action ->
     when (action) {

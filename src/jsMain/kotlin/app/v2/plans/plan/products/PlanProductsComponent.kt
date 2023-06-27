@@ -6,8 +6,6 @@ import app.v2.plans.plan.PlanComponentContext
 import app.v2.plans.plan.common.AddElementButton
 import app.v2.plans.plan.common.PlanContentRow
 import app.v2.plans.plan.common.PlanHeading
-import csstype.Margin
-import csstype.px
 import mui.material.Divider
 import mui.material.Stack
 import mui.material.StackDirection
@@ -18,11 +16,13 @@ import react.Props
 import react.ReactNode
 import react.useContext
 import util.math.q
+import web.cssom.Margin
+import web.cssom.px
 
 external interface PlanProductsComponentProps : Props
 
 val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponent") { props ->
-  var plan by useContext(PlanComponentContext)
+  var plan by useContext(PlanComponentContext)!!
 
   Stack {
     direction = responsive(StackDirection.column)

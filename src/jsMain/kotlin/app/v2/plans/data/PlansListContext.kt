@@ -24,8 +24,8 @@ private data class SetPlansList(val plans: List<Plan>) : PlansListContextAction
 val PlansListContext = createContext<ReducerInstance<LoadState<Unit, List<Plan>>, PlansListContextAction>>()
 
 val PlansListContextProvider = FC<PropsWithChildren>("PlansListContextProvider") { props ->
-  val planService = useContext(PlanServiceContext)
-  val (_, updateStore) = useContext(PlanStoreContext)
+  val planService = useContext(PlanServiceContext)!!
+  val (_, updateStore) = useContext(PlanStoreContext)!!
 
   var updatePlans: (PlansListContextAction) -> Unit = { throw Error("Can't get away with it.") }
   val plansListContext = useReducer<LoadState<Unit, List<Plan>>, PlansListContextAction>({ state, action ->

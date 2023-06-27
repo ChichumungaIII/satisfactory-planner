@@ -24,7 +24,7 @@ external interface FactoriesListComponentProps : Props {
 
 val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListComponent") { props ->
   val navigate = useNavigate()
-  val (_, updateFactories) = useContext(FactoriesContext)
+  val (_, updateFactories) = useContext(FactoriesContext)!!
 
   var factoryToDelete by useState<Factory?>(null)
 

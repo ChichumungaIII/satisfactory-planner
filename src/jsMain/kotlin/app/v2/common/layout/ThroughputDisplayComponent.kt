@@ -1,8 +1,6 @@
 package app.v2.common.layout
 
 import app.data.Item
-import csstype.ClassName
-import csstype.px
 import mui.icons.material.ArrowForward
 import mui.material.Box
 import mui.material.Stack
@@ -12,6 +10,8 @@ import react.FC
 import react.Props
 import react.PropsWithClassName
 import util.math.Rational
+import web.cssom.ClassName
+import web.cssom.px
 
 external interface ThroughputDisplayComponentProps : PropsWithClassName {
   var inputs: List<ThroughputDatum>

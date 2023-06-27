@@ -3,7 +3,6 @@ package app.factory.selectunit
 import app.factory.model.FactoryUnit
 import app.factory.model.FactoryUnitArray
 import app.factory.model.FactoryUnitContainer
-import csstype.ClassName
 import mui.icons.material.ElectricBolt
 import mui.icons.material.Factory
 import mui.icons.material.Loop
@@ -18,6 +17,7 @@ import react.FC
 import react.Props
 import react.create
 import react.useState
+import web.cssom.ClassName
 import web.dom.Element
 
 external interface SelectUnitSpeedDialProps : Props {

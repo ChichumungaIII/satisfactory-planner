@@ -2,7 +2,6 @@ package app.sample
 
 import app.themes.ThemeContext
 import app.themes.getAppBarHeight
-import csstype.pct
 import mui.icons.material.AccountTree
 import mui.icons.material.Add
 import mui.icons.material.ExpandMore
@@ -22,11 +21,12 @@ import react.FC
 import react.Props
 import react.create
 import react.useContext
+import web.cssom.pct
 
 external interface SampleDrawerProps : Props
 
 val SampleDrawer = FC<SampleDrawerProps>("SampleDrawer") { props ->
-  val theme by useContext(ThemeContext)
+  val theme by useContext(ThemeContext)!!
 
   Drawer {
     variant = DrawerVariant.persistent

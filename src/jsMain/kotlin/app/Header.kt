@@ -1,11 +1,6 @@
 package app
 
 import app.themes.Colors
-import csstype.Display
-import csstype.FlexDirection
-import csstype.Padding
-import csstype.integer
-import csstype.px
 import mui.icons.material.Menu
 import mui.icons.material.MenuOpen
 import mui.material.AppBar
@@ -15,6 +10,11 @@ import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
 import react.Props
+import web.cssom.Display
+import web.cssom.FlexDirection
+import web.cssom.Padding
+import web.cssom.integer
+import web.cssom.px
 
 external interface HeaderProps : Props {
   var title: String

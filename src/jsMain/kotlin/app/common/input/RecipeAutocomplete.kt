@@ -3,8 +3,6 @@ package app.common.input
 import app.data.building.Building
 import app.data.recipe.Recipe
 import app.util.PropsDelegate
-import csstype.Margin
-import csstype.px
 import js.core.jso
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
@@ -14,6 +12,8 @@ import react.FC
 import react.PropsWithClassName
 import react.ReactNode
 import react.create
+import web.cssom.Margin
+import web.cssom.px
 
 external interface RecipeAutocompleteProps : PropsWithClassName {
   var recipe: Recipe?

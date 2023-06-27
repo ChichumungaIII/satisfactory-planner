@@ -1,9 +1,9 @@
 package app.v2.common.layout
 
-import csstype.ClassName
 import mui.material.Box
 import react.FC
 import react.PropsWithChildren
+import web.cssom.ClassName
 
 external interface ZeroStateComponentProps : PropsWithChildren
 

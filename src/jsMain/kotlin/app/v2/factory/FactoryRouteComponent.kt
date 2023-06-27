@@ -8,8 +8,6 @@ import app.v2.common.layout.ZeroStateComponent
 import app.v2.data.LoadState.Failure
 import app.v2.data.LoadState.Loaded
 import app.v2.data.LoadState.Loading
-import csstype.ClassName
-import js.core.get
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.CircularProgress
@@ -23,13 +21,14 @@ import react.router.useNavigate
 import react.router.useParams
 import react.useContext
 import react.useEffectOnce
+import web.cssom.ClassName
 
 external interface FactoryRouteComponentProps : Props
 
 val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponent") { _ ->
   val factoryId = useParams()["factoryId"]!!.toULong()
   val navigate = useNavigate()
-  val (factory, updateFactory) = useContext(FactoryContext)
+  val (factory, updateFactory) = useContext(FactoryContext)!!
   useEffectOnce { updateFactory(SetFactoryId(factoryId)) }
 
   when (factory) {

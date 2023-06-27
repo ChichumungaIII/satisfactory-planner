@@ -10,10 +10,6 @@ import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
 import app.v2.data.FactoryTree
-import csstype.ClassName
-import csstype.Margin
-import csstype.number
-import csstype.px
 import js.core.jso
 import mui.icons.material.Add
 import mui.icons.material.ArrowForward
@@ -53,6 +49,10 @@ import react.ReactNode
 import react.create
 import react.dom.onChange
 import react.useState
+import web.cssom.ClassName
+import web.cssom.Margin
+import web.cssom.number
+import web.cssom.px
 
 external interface FactoryContentComponentProps : Props {
   var content: FactoryTree

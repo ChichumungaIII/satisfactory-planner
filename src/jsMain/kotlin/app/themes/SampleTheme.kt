@@ -1,11 +1,11 @@
 package app.themes
 
-import csstype.Length
-import csstype.px
 import js.core.jso
 import mui.material.PaletteMode
 import mui.material.styles.Theme
 import mui.material.styles.createTheme
+import web.cssom.Length
+import web.cssom.px
 
 val SampleTheme = createTheme(jso {
   palette = jso {

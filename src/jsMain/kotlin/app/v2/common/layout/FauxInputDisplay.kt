@@ -2,7 +2,6 @@ package app.v2.common.layout
 
 import app.data.Item
 import app.data.recipe.Recipe
-import csstype.ClassName
 import mui.material.Paper
 import mui.material.PaperVariant
 import mui.material.Typography
@@ -11,6 +10,7 @@ import react.FC
 import react.Props
 import util.math.Rational
 import util.math.q
+import web.cssom.ClassName
 
 external interface FauxInputDisplayProps : Props {
   var variant: FauxInputDisplayVariant

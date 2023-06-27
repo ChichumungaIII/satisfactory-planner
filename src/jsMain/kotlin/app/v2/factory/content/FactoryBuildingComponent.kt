@@ -11,8 +11,6 @@ import app.v2.common.input.RecipeAutocomplete
 import app.v2.common.layout.ControlBar
 import app.v2.data.FactoryLeaf
 import app.v2.data.FactoryNode
-import csstype.ClassName
-import csstype.px
 import mui.icons.material.ArrowForward
 import mui.material.Box
 import mui.material.Stack
@@ -20,6 +18,8 @@ import mui.system.responsive
 import react.FC
 import react.Props
 import util.math.q
+import web.cssom.ClassName
+import web.cssom.px
 
 external interface FactoryBuildingComponentProps : Props {
   var settings: FactoryLeaf

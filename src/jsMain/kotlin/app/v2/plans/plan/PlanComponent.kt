@@ -14,9 +14,6 @@ import app.v2.plans.data.model.Plan
 import app.v2.plans.plan.inputs.PlanInputsComponent
 import app.v2.plans.plan.products.PlanProductsComponent
 import app.v2.plans.plan.results.PlanResultsComponent
-import csstype.ClassName
-import csstype.Margin
-import csstype.px
 import js.core.jso
 import mui.icons.material.ArrowForward
 import mui.icons.material.Delete
@@ -40,6 +37,9 @@ import react.createContext
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.cssom.ClassName
+import web.cssom.Margin
+import web.cssom.px
 import web.dom.Element
 
 external interface PlanComponentProps : Props {
@@ -51,9 +51,9 @@ val PlanComponentContext = createContext<PropsDelegate<Plan>>()
 
 val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
   val navigate = useNavigate()
-  val (_, updatePlans) = useContext(PlansListContext)
+  val (_, updatePlans) = useContext(PlansListContext)!!
 
-  val (_, computeOutcome) = useContext(ComputeOutcomeContext)
+  val (_, computeOutcome) = useContext(ComputeOutcomeContext)!!
   val delegate = PropsDelegate(props.plan) { next ->
     props.setPlan(next)
     computeOutcome(ForPlan(next))

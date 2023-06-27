@@ -2,7 +2,6 @@ package app.factory.unit.info
 
 import app.factory.model.FactoryUnit
 import app.util.math.toFixed
-import csstype.ClassName
 import mui.icons.material.Bolt
 import mui.icons.material.OfflineBolt
 import mui.icons.material.OfflineBoltOutlined
@@ -22,6 +21,7 @@ import react.FC
 import react.Props
 import react.dom.html.TdAlign
 import util.math.q
+import web.cssom.ClassName
 
 external interface FactoryUnitInfoComponentProps : Props {
   var unit: FactoryUnit

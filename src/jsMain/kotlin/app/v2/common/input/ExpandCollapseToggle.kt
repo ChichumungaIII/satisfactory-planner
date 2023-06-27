@@ -1,11 +1,11 @@
 package app.v2.common.input
 
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.icons.material.KeyboardDoubleArrowDown
 import mui.icons.material.KeyboardDoubleArrowUp
 import react.FC
 import react.Props
+import web.cssom.ClassName
 
 external interface ExpandCollapseToggleProps : Props {
   var expanded: Boolean

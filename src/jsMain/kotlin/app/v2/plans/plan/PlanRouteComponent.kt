@@ -8,7 +8,6 @@ import app.v2.data.LoadState.Loaded
 import app.v2.plans.data.GetPlan
 import app.v2.plans.data.PlanContext
 import app.v2.plans.data.SavePlan
-import js.core.get
 import mui.material.CircularProgress
 import react.FC
 import react.Props
@@ -21,7 +20,7 @@ external interface PlanRouteComponentProps : Props
 
 val PlanRouteComponent = FC<PlanRouteComponentProps>("PlanRouteComponent") { props ->
   val planId = useParams()["planId"]!!.toULong()
-  val (plan, updatePlan) = useContext(PlanContext)
+  val (plan, updatePlan) = useContext(PlanContext)!!
 
   useEffectOnce { updatePlan(GetPlan(planId)) }
 

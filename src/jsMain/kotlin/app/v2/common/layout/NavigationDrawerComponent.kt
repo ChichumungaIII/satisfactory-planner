@@ -7,7 +7,6 @@ import app.v2.data.FactoryStoreContext
 import app.v2.data.SetFactory
 import app.v2.factories.AddFactory
 import app.v2.factories.FactoriesContext
-import csstype.ClassName
 import js.core.jso
 import kotlinx.coroutines.launch
 import mui.icons.material.AccountTree
@@ -30,6 +29,7 @@ import react.create
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.cssom.ClassName
 import kotlin.random.Random
 import kotlin.random.nextULong
 
@@ -39,9 +39,9 @@ external interface NavigationDrawerComponentProps : PropsWithClassName {
 
 val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDrawerComponent") { props ->
   val navigate = useNavigate()
-  val factoryService = useContext(FactoryServiceContext)
-  val (_, updateStore) = useContext(FactoryStoreContext)
-  val (_, updateFactories) = useContext(FactoriesContext)
+  val factoryService = useContext(FactoryServiceContext)!!
+  val (_, updateStore) = useContext(FactoryStoreContext)!!
+  val (_, updateFactories) = useContext(FactoriesContext)!!
 
   // TODO: Extract "creating" to a common context.
   var creating by useState(false)

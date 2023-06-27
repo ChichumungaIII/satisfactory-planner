@@ -6,10 +6,10 @@ import app.factory.selectunit.SelectUnitSpeedDial
 import app.factory.unit.factoryUnit
 import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.material.Box
 import react.FC
 import react.Props
+import web.cssom.ClassName
 
 external interface FactoryComponentProps : Props {
   var model: Factory

@@ -5,12 +5,12 @@ import app.common.RationalValidation
 import app.common.input.RecipeAutocomplete
 import app.factory.model.FactoryUnit
 import app.factory.model.ProductionBuilding
-import csstype.ClassName
 import mui.material.Box
 import react.FC
 import react.Props
 import react.ReactNode
 import util.math.q
+import web.cssom.ClassName
 
 private val CLOCK_INPUT_SCALE = 100.q
 private val MAX_CLOCK_VALUE = 250.q

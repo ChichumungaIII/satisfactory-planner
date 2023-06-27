@@ -5,7 +5,6 @@ import app.factory.model.FactoryUnitArray
 import app.factory.model.FactoryUnitContainer
 import app.factory.unit.info.FactoryUnitInfoComponent
 import app.util.PropsDelegate
-import csstype.ClassName
 import mui.icons.material.MoreVert
 import mui.material.Accordion
 import mui.material.AccordionDetails
@@ -17,6 +16,7 @@ import react.FC
 import react.PropsWithChildren
 import react.create
 import react.useState
+import web.cssom.ClassName
 import web.dom.Element
 
 external interface FactoryUnitComponentProps : PropsWithChildren {

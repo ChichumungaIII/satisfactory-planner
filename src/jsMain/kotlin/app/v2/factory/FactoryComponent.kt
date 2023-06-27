@@ -11,7 +11,6 @@ import app.v2.factories.DeleteFactory
 import app.v2.factories.DeleteFactoryDialog
 import app.v2.factories.FactoriesContext
 import app.v2.factory.content.FactoryContentComponent
-import csstype.ClassName
 import js.core.jso
 import mui.icons.material.Delete
 import mui.icons.material.Edit
@@ -27,6 +26,7 @@ import react.create
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.cssom.ClassName
 import web.dom.Element
 
 external interface FactoryComponentProps : Props {
@@ -36,7 +36,7 @@ external interface FactoryComponentProps : Props {
 
 val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
   val navigate = useNavigate()
-  val (_, updateFactories) = useContext(FactoriesContext)
+  val (_, updateFactories) = useContext(FactoriesContext)!!
 
   var factory by PropsDelegate(props.factory, props.setFactory)
 

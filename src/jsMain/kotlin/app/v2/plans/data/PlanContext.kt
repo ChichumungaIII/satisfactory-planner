@@ -23,9 +23,9 @@ val PlanContext = createContext<ReducerInstance<LoadState<ULong, Plan>, PlanCont
 private var planToSave: Plan? = null
 
 val PlanContextProvider = FC<PropsWithChildren>("PlanContextProvider") { props ->
-  val planService = useContext(PlanServiceContext)
-  val (store, updateStore) = useContext(PlanStoreContext)
-  val (_, updatePlans) = useContext(PlansListContext)
+  val planService = useContext(PlanServiceContext)!!
+  val (store, updateStore) = useContext(PlanStoreContext)!!
+  val (_, updatePlans) = useContext(PlansListContext)!!
 
   var updatePlan: (PlanContextAction) -> Unit = { throw Error("updatePlan callback not bound") }
   val planContext = useReducer<LoadState<ULong, Plan>, PlanContextAction>(
