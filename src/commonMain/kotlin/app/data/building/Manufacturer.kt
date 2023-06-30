@@ -77,6 +77,8 @@ enum class Manufacturer(
       ProductionRecipe.ALCLAD_ALUMINUM_SHEET,
       ProductionRecipe.ELECTROMAGNETIC_CONTROL_ROD,
       ProductionRecipe.HEAT_SINK,
+      // Alternate
+      ProductionRecipe.ALCLAD_CASING,
       // Research
       ProductionRecipe.AI_LIMITER,
       ProductionRecipe.BLACK_POWDER,
@@ -111,6 +113,7 @@ enum class Manufacturer(
       ProductionRecipe.PLASTIC,
       ProductionRecipe.RESIDUAL_PLASTIC,
       ProductionRecipe.RUBBER,
+      ProductionRecipe.RECYCLED_RUBBER,
       ProductionRecipe.RESIDUAL_RUBBER,
       ProductionRecipe.PETROLEUM_COKE,
       ProductionRecipe.FUEL,
@@ -119,6 +122,9 @@ enum class Manufacturer(
       ProductionRecipe.ALUMINA_SOLUTION,
       ProductionRecipe.ALUMINUM_SCRAP,
       ProductionRecipe.SULFURIC_ACID,
+      // Alternate
+      ProductionRecipe.PURE_IRON_INGOT,
+      ProductionRecipe.PURE_COPPER_INGOT,
       // Research
       ProductionRecipe.HEAVY_OIL_RESIDUE,
       ProductionRecipe.POLYESTER_FABRIC,
@@ -136,6 +142,7 @@ enum class Manufacturer(
       ProductionRecipe.ADAPTIVE_CONTROL_UNIT,
       ProductionRecipe.GAS_FILTER,
       ProductionRecipe.RADIO_CONTROL_UNIT,
+      ProductionRecipe.RADIO_CONTROL_SYSTEM,
       ProductionRecipe.IODINE_INFUSED_FILTER,
       ProductionRecipe.URANIUM_FUEL_ROD,
       ProductionRecipe.MAGNETIC_FIELD_GENERATOR,

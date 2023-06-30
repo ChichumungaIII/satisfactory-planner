@@ -19,6 +19,15 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.IRON_ORE to 1.q),
     outputs = mapOf(Item.IRON_INGOT to 1.q),
   ),
+  PURE_IRON_INGOT(
+    "Pure Iron Ingot",
+    time = 12.q,
+    inputs = mapOf(
+      Item.IRON_ORE to 7.q,
+      Item.WATER to 4.q,
+    ),
+    outputs = mapOf(Item.IRON_INGOT to 13.q),
+  ),
   IRON_PLATE(
     "Iron Plate",
     time = 6.q,
@@ -60,6 +69,15 @@ enum class ProductionRecipe(
     time = 2.q,
     inputs = mapOf(Item.COPPER_ORE to 1.q),
     outputs = mapOf(Item.COPPER_INGOT to 1.q),
+  ),
+  PURE_COPPER_INGOT(
+    "Pure Copper Ingot",
+    time = 24.q,
+    inputs = mapOf(
+      Item.COPPER_ORE to 6.q,
+      Item.WATER to 4.q,
+    ),
+    outputs = mapOf(Item.COPPER_INGOT to 15.q),
   ),
   WIRE(
     "Wire",
@@ -294,6 +312,15 @@ enum class ProductionRecipe(
       Item.RUBBER to 2.q,
       Item.HEAVY_OIL_RESIDUE to 2.q,
     ),
+  ),
+  RECYCLED_RUBBER(
+    "Recycled Rubber",
+    time = 12.q,
+    inputs = mapOf(
+      Item.PLASTIC to 6.q,
+      Item.FUEL to 6.q,
+    ),
+    outputs = mapOf(Item.RUBBER to 12.q),
   ),
   RESIDUAL_RUBBER(
     "Residual Rubber",
@@ -578,6 +605,15 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.ALUMINUM_INGOT to 3.q),
     outputs = mapOf(Item.ALUMINUM_CASING to 2.q),
   ),
+  ALCLAD_CASING(
+    "Alclad Casing",
+    time = 8.q,
+    inputs = mapOf(
+      Item.ALUMINUM_INGOT to 20.q,
+      Item.COPPER_INGOT to 10.q,
+    ),
+    outputs = mapOf(Item.ALUMINUM_CASING to 15.q),
+  ),
   RADIO_CONTROL_UNIT(
     "Radio Control Unit",
     time = 48.q,
@@ -587,6 +623,17 @@ enum class ProductionRecipe(
       Item.COMPUTER to 1.q,
     ),
     outputs = mapOf(Item.RADIO_CONTROL_UNIT to 2.q),
+  ),
+  RADIO_CONTROL_SYSTEM(
+    "Radio Control System",
+    time = 40.q,
+    inputs = mapOf(
+      Item.CRYSTAL_OSCILLATOR to 1.q,
+      Item.CIRCUIT_BOARD to 10.q,
+      Item.ALUMINUM_CASING to 60.q,
+      Item.RUBBER to 30.q,
+    ),
+    outputs = mapOf(Item.RADIO_CONTROL_UNIT to 3.q),
   ),
 
   /* Tier 7 -- Hazmat Suit */
