@@ -10,6 +10,7 @@ import react.FC
 import react.Props
 import react.ReactElement
 import react.create
+import react.router.IndexRoute
 import react.router.Navigate
 import react.router.PathRoute
 import react.router.Routes
@@ -19,15 +20,14 @@ enum class AppRoute(
   val path: String,
   val parent: AppRoute?,
   val element: (() -> ReactElement<*>)? = null,
-  val default: (() -> ReactElement<*>)? = null,
-  val redirect: (() -> String)? = null,
+  val index: (() -> ReactElement<*>)? = null,
 ) {
-  ROOT("", parent = null, redirect = { V2.url }),
+  ROOT("", parent = null, index = { redirect(V2) }),
 
-  V2("v2", ROOT, { AppV2.create {} }, redirect = { FACTORIES.url }),
-  FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
+  V2("v2", ROOT, { AppV2.create {} }, index = { redirect(FACTORIES) }),
+  FACTORIES("factories", V2, index = { FactoriesComponent.create {} }),
   FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
-  PLANS("plans", V2, default = { PlansRouteComponent.create {} }),
+  PLANS("plans", V2, index = { PlansRouteComponent.create {} }),
   PLAN(":planId", PLANS, { PlanRouteComponent.create {} }),
 
   SAMPLE("sample", ROOT, { SampleRoute.create {} });
@@ -49,8 +49,9 @@ val Routing = FC<Props>("Routing") {
 private fun render(route: AppRoute): ReactElement<*> = PathRoute.create {
   path = route.path
   route.element?.also { element = it() }
-  route.default?.also { +PathRoute.create { path = ""; element = it() } }
-  route.redirect?.also { +PathRoute.create { path = ""; element = Navigate.create { to = it() } } }
 
+  route.index?.also { +IndexRoute.create { element = it(); index = true } }
   AppRoute.values().filter { it.parent == route }.forEach { +render(it) }
 }
+
+private fun redirect(route: AppRoute) = Navigate.create { to = route.url }
