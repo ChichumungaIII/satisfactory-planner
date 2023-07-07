@@ -19,18 +19,18 @@ import react.router.dom.BrowserRouter
 enum class AppRoute(
   val path: String,
   val parent: AppRoute?,
-  val element: (() -> ReactElement<*>)? = null,
+  val element: ReactElement<*>? = null,
   val index: (() -> ReactElement<*>)? = null,
 ) {
   ROOT("", parent = null, index = { redirect(V2) }),
 
-  V2("v2", ROOT, { AppV2.create {} }, index = { redirect(FACTORIES) }),
+  V2("v2", ROOT, AppV2.create {}, index = { redirect(FACTORIES) }),
   FACTORIES("factories", V2, index = { FactoriesComponent.create {} }),
-  FACTORY(":factoryId", FACTORIES, { FactoryRouteComponent.create {} }),
+  FACTORY(":factoryId", FACTORIES, FactoryRouteComponent.create {}),
   PLANS("plans", V2, index = { PlansRouteComponent.create {} }),
-  PLAN(":planId", PLANS, { PlanRouteComponent.create {} }),
+  PLAN(":planId", PLANS, PlanRouteComponent.create {}),
 
-  SAMPLE("sample", ROOT, { SampleRoute.create {} });
+  SAMPLE("sample", ROOT, SampleRoute.create {});
 
   val url = url()
   fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))
@@ -48,7 +48,7 @@ val Routing = FC<Props>("Routing") {
 
 private fun render(route: AppRoute): ReactElement<*> = PathRoute.create {
   path = route.path
-  route.element?.also { element = it() }
+  route.element?.also { element = it }
 
   route.index?.also { +IndexRoute.create { element = it(); index = true } }
   AppRoute.values().filter { it.parent == route }.forEach { +render(it) }
