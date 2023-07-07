@@ -10,7 +10,7 @@ import react.PropsWithChildren
 import react.createContext
 
 object OptimizeServiceJs : OptimizeService {
-  val Context = createContext<OptimizeServiceJs>()
+  val Context = createContext<OptimizeService>()
   val Provider = FC<PropsWithChildren> { props ->
     Context.Provider(value = OptimizeServiceJs) {
       +props.children

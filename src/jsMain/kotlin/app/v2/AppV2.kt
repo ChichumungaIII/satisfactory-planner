@@ -1,6 +1,7 @@
 package app.v2
 
 import app.api.optimize.v1.OptimizeServiceJs
+import app.api.save.v1.SaveServiceJs
 import app.themes.ThemeModule
 import app.v2.api.factory.FactoryServiceContextProvider
 import app.v2.api.plan.PlanServiceContextProvider
@@ -27,6 +28,7 @@ val AppV2 = FC<AppV2Props>("AppV2") {
   +listOf(
     // Services
     OptimizeServiceJs.Provider,
+    SaveServiceJs.Provider,
     // Global theme
     ThemeModule,
     // Global data
