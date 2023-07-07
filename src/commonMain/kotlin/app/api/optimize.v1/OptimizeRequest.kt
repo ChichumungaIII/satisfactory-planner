@@ -1,4 +1,4 @@
-package app.api
+package app.api.optimize.v1
 
 import app.data.Item
 import app.data.recipe.Recipe

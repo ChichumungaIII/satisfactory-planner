@@ -1,7 +1,7 @@
 package app.v2.plans.plan
 
-import app.api.OptimizeRequest
-import app.api.client.optimize
+import app.api.optimize.v1.OptimizeRequest
+import app.api.optimize.v1.OptimizeServiceJs
 import app.data.recipe.ProductionRecipe
 import app.v2.AppScope
 import app.v2.plans.data.PlanContext
@@ -32,6 +32,7 @@ private var current: Plan? = null
 private var latest: OptimizeRequest? = null
 
 val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContextComponent") {
+  val optimizeService = useContext(OptimizeServiceJs.Context)!!
   val (_, updatePlan) = useContext(PlanContext)!!
 
   val outcome = useReducer<Unit, ComputeOutcomeContextAction>({ _, action ->
@@ -52,7 +53,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           if (request == latest) return@launch
           latest = request
 
-          val response = optimize(request)
+          val response = optimizeService.optimize(request)
           if (plan != current) return@launch
 
           val results = ProductionRecipe.values()

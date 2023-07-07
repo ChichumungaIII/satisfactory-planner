@@ -1,7 +1,7 @@
 package com.chichumunga.satisfactory
 
-import app.api.OptimizeRequest
-import app.api.OptimizeResponse
+import app.api.optimize.v1.OptimizeRequest
+import app.api.optimize.v1.OptimizeResponse
 import app.data.Item
 import app.data.recipe.Recipe
 import app.serialization.AppJson
