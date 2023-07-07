@@ -1,16 +1,3 @@
-// v1
-@import 'common/layout/titlebar/title-bar';
-@import 'factory/factory';
-@import 'factory/unit/factory-unit';
-@import 'factory/unit/container/container';
-@import 'factory/unit/info/factory-info';
-@import 'factory/unit/production/production-building';
-@import 'factory/selectunit/select-building-menu';
-@import 'factory/selectunit/select-unit-speed-dial';
-@import 'plan/plan-input';
-@import 'plan/plan-outcome';
-@import 'plan/plan-product';
-
 // v2
 @import 'v2/common/input/building-autocomplete';
 @import 'v2/common/input/clock-speed-input';

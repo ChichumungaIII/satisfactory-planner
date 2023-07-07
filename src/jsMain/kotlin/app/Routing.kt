@@ -1,6 +1,5 @@
 package app
 
-import app.common.layout.RootComponent
 import app.sample.SampleRoute
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
@@ -23,21 +22,7 @@ enum class AppRoute(
   val default: (() -> ReactElement<*>)? = null,
   val redirect: (() -> String)? = null,
 ) {
-  ROOT("", parent = null, redirect = { V1.url }),
-
-  V1("v1", ROOT, { App.create {} }, redirect = { V2.url }),
-  V1_FACTORIES("factories", V1, {
-    RootComponent.create {
-      title = "Factories"
-      app.factory.FactoriesComponent {}
-    }
-  }),
-  V1_PRODUCTION("production", V1, {
-    RootComponent.create {
-      title = "Production Plans"
-      app.plan.Plans {}
-    }
-  }),
+  ROOT("", parent = null, redirect = { V2.url }),
 
   V2("v2", ROOT, { AppV2.create {} }, redirect = { FACTORIES.url }),
   FACTORIES("factories", V2, default = { FactoriesComponent.create {} }),
