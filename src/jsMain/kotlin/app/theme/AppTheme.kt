@@ -10,8 +10,16 @@ import mui.system.Direction
 import mui.system.Shape
 import mui.system.Spacing
 import mui.system.SxProps
+import web.cssom.Length
 
-class AppTheme(delegate: Theme) : ForwardingTheme(delegate)
+class AppTheme(
+  delegate: Theme,
+  val constants: AppThemeConstants,
+) : ForwardingTheme(delegate)
+
+interface AppThemeConstants {
+  val toolbarHeight: Length
+}
 
 open class ForwardingTheme(
   val delegate: Theme,

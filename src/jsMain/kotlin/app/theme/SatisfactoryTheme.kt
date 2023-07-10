@@ -56,4 +56,6 @@ private val SatisfactoryMuiTheme = createTheme(jso {
   }
 })
 
-val SatisfactoryAppTheme = AppTheme(SatisfactoryMuiTheme)
+val SatisfactoryAppTheme = AppTheme(SatisfactoryMuiTheme, object : AppThemeConstants {
+  override val toolbarHeight = 64.px
+})
