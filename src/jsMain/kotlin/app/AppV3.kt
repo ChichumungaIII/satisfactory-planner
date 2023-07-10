@@ -2,6 +2,7 @@ package app
 
 import app.api.optimize.v1.OptimizeServiceJs
 import app.api.save.v1.SaveServiceJs
+import app.data.save.SaveCache
 import app.theme.AppThemeContextProvider
 import react.FC
 import react.Props
@@ -19,6 +20,8 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     SaveServiceJs.Provider,
     // Global theme
     AppThemeContextProvider,
+    // App Data
+    SaveCache.Provider,
   ).nest(Outlet.create {})
 }
 
