@@ -1,4 +1,4 @@
-package app.themes
+package app.theme
 
 import js.core.jso
 import mui.material.AppBarPosition
@@ -8,7 +8,7 @@ import mui.material.styles.createTheme
 import web.cssom.None
 import web.cssom.px
 
-val SatisfactoryTheme = createTheme(jso {
+private val SatisfactoryMuiTheme = createTheme(jso {
   palette = jso {
     mode = PaletteMode.dark
 
@@ -55,3 +55,5 @@ val SatisfactoryTheme = createTheme(jso {
     }
   }
 })
+
+val SatisfactoryAppTheme = AppTheme(SatisfactoryMuiTheme)

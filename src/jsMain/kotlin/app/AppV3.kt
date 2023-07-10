@@ -2,7 +2,7 @@ package app
 
 import app.api.optimize.v1.OptimizeServiceJs
 import app.api.save.v1.SaveServiceJs
-import app.themes.ThemeModule
+import app.theme.AppThemeContextProvider
 import react.FC
 import react.Props
 import react.PropsWithChildren
@@ -18,7 +18,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     OptimizeServiceJs.Provider,
     SaveServiceJs.Provider,
     // Global theme
-    ThemeModule,
+    AppThemeContextProvider,
   ).nest(Outlet.create {})
 }
 
