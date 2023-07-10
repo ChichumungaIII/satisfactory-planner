@@ -14,7 +14,7 @@ import react.useLayoutEffectOnce
 
 external interface HomeRouteProps : Props
 
-val HomeRoute = FC<HomeRouteProps>("HomeRoute") { props ->
+val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
   var theme by useContext(ThemeContext)!!
   useLayoutEffectOnce { theme = SatisfactoryTheme }
 
