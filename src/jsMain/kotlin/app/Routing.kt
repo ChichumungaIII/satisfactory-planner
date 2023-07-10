@@ -1,5 +1,6 @@
 package app
 
+import app.home.HomeRoute
 import app.sample.SampleRoute
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
@@ -29,6 +30,9 @@ enum class AppRoute(
   FACTORY(":factoryId", FACTORIES, FactoryRouteComponent.create {}),
   PLANS("plans", V2, index = { PlansRouteComponent.create {} }),
   PLAN(":planId", PLANS, PlanRouteComponent.create {}),
+
+  V3("v3", ROOT, AppV3.create {}),
+  HOME("", V3, HomeRoute.create {}),
 
   SAMPLE("sample", ROOT, SampleRoute.create {});
 
