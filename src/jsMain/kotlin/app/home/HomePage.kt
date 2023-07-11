@@ -6,6 +6,7 @@ import app.api.save.v1.Save
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.LoadingIndicator
+import app.data.save.SavesListService
 import app.theme.AppThemeContext
 import app.util.launchMain
 import kotlinx.coroutines.delay
@@ -25,12 +26,11 @@ import kotlin.time.Duration.Companion.milliseconds
 
 external interface HomePageProps : Props {
   var saves: List<Save>
-  var addSave: (Save) -> Unit
-  var removeSave: (Save) -> Unit
 }
 
 val HomePage = FC<HomePageProps>("HomePage") { props ->
   val saveService = useContext(SaveServiceJs.Context)!!
+  val savesListService = useContext(SavesListService.Context)!!
 
   val appTheme by useContext(AppThemeContext)!!
 
@@ -56,10 +56,8 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
               launchMain {
                 saveService.deleteSave(DeleteSaveRequest(save.name))
               }
-
-              props.removeSave(save)
+              savesListService.remove(save)
             }
-
             Delete {}
           }
         }
@@ -84,7 +82,8 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
               listOf(),
               listOf(),
             )
-            props.addSave(saveService.createSave(CreateSaveRequest(save)))
+            saveService.createSave(CreateSaveRequest(save))
+            savesListService.add(save)
             creating = false
           }
 

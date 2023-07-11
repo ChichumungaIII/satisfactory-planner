@@ -1,5 +1,7 @@
 package app.common.layout
 
+import app.data.common.RemoteData
+import app.data.save.SavesListService
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
 import mui.material.Collapse
@@ -12,11 +14,14 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import react.useContext
 import react.useState
 
 external interface NavigationListProps : Props
 
 val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
+  val (savesData, savesListService) = useContext(SavesListService.Context)!!
+
   var allSaves by useState(false)
 
   mui.material.List {
@@ -41,7 +46,14 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       this.asDynamic().unmountOnExit = true
 
       mui.material.List {
+        when (savesData) {
+          is RemoteData.Empty -> savesListService.load()
+          is RemoteData.Loading -> ListItem { LoadingIndicator {} }
 
+          is RemoteData.Loaded -> savesData.data.forEach { save -> }
+
+          is RemoteData.Error -> TODO()
+        }
       }
     }
   }
