@@ -29,6 +29,9 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       fontSize = 36.px
       lineHeight = 40.px
     }
+    h2 = jso {
+
+    }
   }
 
   zIndex = jso {
@@ -45,6 +48,12 @@ private val SatisfactoryMuiTheme = createTheme(jso {
         root = jso {
           backgroundImage = None.none
         }
+      }
+    }
+
+    MuiContainer = jso {
+      defaultProps = jso {
+        maxWidth = false
       }
     }
 

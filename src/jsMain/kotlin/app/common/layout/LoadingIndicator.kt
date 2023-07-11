@@ -1,13 +1,11 @@
 package app.common.layout
 
-import app.theme.AppThemeContext
 import mui.material.Box
 import mui.material.CircularProgress
 import mui.system.sx
 import react.FC
 import react.Props
 import react.create
-import react.useContext
 import web.cssom.Auto
 import web.cssom.Margin
 import web.cssom.px
@@ -32,14 +30,14 @@ external interface LoadingIndicatorProps : Props {
 }
 
 val LoadingIndicator = FC<LoadingIndicatorProps>("LoadingIndicator") { props ->
-  var appTheme by useContext(AppThemeContext)!!
+  val variant = (props.variant ?: LoadingIndicatorVariant.Default)
 
   Box {
     sx {
-      width = 0.px
-      margin = Margin(appTheme.spacing(24), Auto.auto)
+      width = variant.size.px
+      margin = Margin(0.px, Auto.auto)
     }
 
-    +(props.variant ?: LoadingIndicatorVariant.Default).component
+    +variant.component
   }
 }

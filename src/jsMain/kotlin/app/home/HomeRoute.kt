@@ -4,8 +4,7 @@ import app.api.save.v1.ListSavesRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.AppFrame
-import app.common.layout.LoadingIndicator
-import app.common.layout.LoadingIndicatorVariant
+import app.common.layout.RouteLoadingIndicator
 import app.data.common.RemoteData
 import app.data.common.ResourceCache.InsertAll
 import app.data.save.SaveCache
@@ -15,7 +14,6 @@ import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
-import react.ReactNode
 import react.create
 import react.useContext
 import react.useState
@@ -27,7 +25,7 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
   val saveService = useContext(SaveServiceJs.Context)!!
   val (saveCache, updateSaveCache) = useContext(SaveCache.Context)!!
 
-  var saves by useState<RemoteData<Unit, List<SaveName>>>(RemoteData.empty())
+  val (savesData, setSavesData) = useState<RemoteData<Unit, List<SaveName>>>(RemoteData.empty())
 
   AppFrame {
     title = Typography.create {
@@ -35,26 +33,27 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
       +"Satisfactory Planner"
     }
 
-    content = when (saves) {
+    when (savesData) {
       is RemoteData.Empty -> {
         launchMain {
-          delay(2500.milliseconds)
+          delay(1000.milliseconds)
 
-          val response = saveService.listSaves(ListSavesRequest())
-          updateSaveCache(InsertAll(response.saves))
-          saves = RemoteData.loaded(Unit, response.saves.map { it.name })
+          val saves = saveService.listSaves(ListSavesRequest()).saves
+          updateSaveCache(InsertAll(saves))
+          setSavesData(RemoteData.loaded(Unit, saves.map { it.name }))
         }
 
-        saves = RemoteData.loading(Unit)
-        ReactNode("")
+        setSavesData(RemoteData.loading(Unit))
       }
 
       is RemoteData.Loading -> {
-        LoadingIndicator.create { variant = LoadingIndicatorVariant.Large }
+        content = RouteLoadingIndicator.create {}
       }
 
       is RemoteData.Loaded -> {
-        ReactNode("Complete")
+        content = HomePage.create {
+          saves = savesData.data.mapNotNull { saveCache[it] }
+        }
       }
 
       is RemoteData.Error -> TODO()
