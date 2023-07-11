@@ -6,9 +6,14 @@ import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.random.Random
 
 @Serializable(with = SaveNameSerializer::class)
 data class SaveName(val id: Int) {
+  companion object {
+    fun createRandom() = SaveName(Random.nextInt())
+  }
+
   fun getResourceName() = "saves/${id.toUInt()}"
 }
 

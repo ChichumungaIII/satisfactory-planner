@@ -6,6 +6,7 @@ import app.api.save.v1.SaveServiceJs
 import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
 import app.data.common.RemoteData
+import app.data.common.ResourceCache.Insert
 import app.data.common.ResourceCache.InsertAll
 import app.data.save.SaveCache
 import app.util.launchMain
@@ -53,6 +54,10 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
       is RemoteData.Loaded -> {
         content = HomePage.create {
           saves = savesData.data.mapNotNull { saveCache[it] }
+          addSave = { save ->
+            updateSaveCache(Insert(save))
+            setSavesData(RemoteData.loaded(Unit, savesData.data + save.name))
+          }
         }
       }
 

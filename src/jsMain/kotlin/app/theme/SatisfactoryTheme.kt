@@ -30,7 +30,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       lineHeight = 40.px
     }
     h2 = jso {
-
+      fontSize = 48.px
     }
   }
 
@@ -60,6 +60,11 @@ private val SatisfactoryMuiTheme = createTheme(jso {
     MuiSvgIcon = jso {
       defaultProps = jso {
         color = SvgIconColor.primary
+      }
+      styleOverrides = jso {
+        fontSizeLarge = jso {
+          fontSize = 64.px
+        }
       }
     }
   }

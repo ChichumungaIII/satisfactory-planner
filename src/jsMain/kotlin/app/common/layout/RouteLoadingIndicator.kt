@@ -9,7 +9,7 @@ import react.useContext
 
 external interface RouteLoadingIndicatorProps : Props
 
-val RouteLoadingIndicator = FC<RouteLoadingIndicatorProps>("RouteLoadingIndicator") { props ->
+val RouteLoadingIndicator = FC<RouteLoadingIndicatorProps>("RouteLoadingIndicator") {
   val appTheme by useContext(AppThemeContext)!!
 
   Container {
