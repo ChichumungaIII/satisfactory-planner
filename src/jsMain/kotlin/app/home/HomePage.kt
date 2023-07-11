@@ -9,6 +9,8 @@ import app.theme.AppThemeContext
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import mui.material.Container
+import mui.material.Grid
+import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
@@ -31,45 +33,50 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
   Container {
     sx { paddingTop = appTheme.spacing(3) }
 
-    props.saves.forEach { save ->
+    Grid {
+      container = true
+      spacing = responsive(4)
+
+      props.saves.forEach { save ->
+        HomePageCard {
+          onClick = {
+            println("Navigate to ${save.name}")
+          }
+
+          SaveCardContent {
+            this.save = save
+          }
+        }
+      }
+
+      HomePageCard.takeIf { creating }?.invoke {
+        disabled = true
+        LoadingIndicator {}
+      }
+
       HomePageCard {
+        disabled = creating
         onClick = {
-          println("Navigate to ${save.name}")
+          launchMain {
+            delay(2000.milliseconds)
+
+            val save = Save(
+              SaveName.createRandom(),
+              "New Save",
+              listOf(),
+              listOf(),
+              listOf(),
+              listOf(),
+            )
+            props.addSave(saveService.createSave(CreateSaveRequest(save)))
+            creating = false
+          }
+
+          creating = true
         }
 
-        SaveCardContent {
-          this.save = save
-        }
+        NewSaveCardContent {}
       }
-    }
-
-    HomePageCard.takeIf { creating }?.invoke {
-      disabled = true
-      LoadingIndicator {}
-    }
-
-    HomePageCard {
-      disabled = creating
-      onClick = {
-        launchMain {
-          delay(2000.milliseconds)
-
-          val save = Save(
-            SaveName.createRandom(),
-            "New Save",
-            listOf(),
-            listOf(),
-            listOf(),
-            listOf(),
-          )
-          props.addSave(saveService.createSave(CreateSaveRequest(save)))
-          creating = false
-        }
-
-        creating = true
-      }
-
-      NewSaveCardContent {}
     }
   }
 }

@@ -4,6 +4,7 @@ import mui.material.ButtonBaseProps
 import mui.material.Card
 import mui.material.CardActionArea
 import mui.material.CardContent
+import mui.material.Grid
 import mui.system.sx
 import react.FC
 import react.PropsWithChildren
@@ -19,26 +20,30 @@ external interface HomePageCardProps : PropsWithChildren {
 }
 
 val HomePageCard = FC<HomePageCardProps>("HomePageCard") { props ->
-  Card {
-    sx {
-      height = 320.px // 256 + 64
-      width = 256.px
-    }
+  Grid {
+    item = true
 
-    CardActionArea {
+    Card {
       sx {
-        height = 100.pct
-        display = Display.flex
-        justifyContent = JustifyContent.center
-        alignItems = AlignItems.center
-      }
-      this.unsafeCast<ButtonBaseProps>().run {
-        disabled = props.disabled
-        onClick = { props.onClick() }
+        height = 320.px // 256 + 64
+        width = 256.px
       }
 
-      CardContent {
-        +props.children
+      CardActionArea {
+        sx {
+          height = 100.pct
+          display = Display.flex
+          justifyContent = JustifyContent.center
+          alignItems = AlignItems.center
+        }
+        this.unsafeCast<ButtonBaseProps>().run {
+          disabled = props.disabled
+          onClick = { props.onClick() }
+        }
+
+        CardContent {
+          +props.children
+        }
       }
     }
   }
