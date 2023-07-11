@@ -19,6 +19,7 @@ import react.ReactNode
 import react.create
 import react.useContext
 import react.useState
+import web.cssom.px
 
 external interface NavigationListProps : Props
 
@@ -38,9 +39,10 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       }
 
       secondaryAction = IconButton.create {
+        sx { padding = 6.px }
         onClick = { allSaves = !allSaves }
         edge = IconButtonEdge.end
-        (ExpandLess.takeIf { allSaves } ?: ExpandMore) {}
+        (ExpandLess.takeIf { allSaves } ?: ExpandMore) { }
       }
     }
 
@@ -48,12 +50,16 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       `in` = allSaves
       this.asDynamic().unmountOnExit = true
 
-      mui.material.List {
+      mui.material.List.takeIf { allSaves }?.invoke() {
         disablePadding = true
 
         when (savesData) {
           is RemoteData.Empty -> savesListService.load()
-          is RemoteData.Loading -> ListItem { LoadingIndicator {} }
+
+          is RemoteData.Loading -> ListItem {
+            dense = true
+            LoadingIndicator { variant = LoadingIndicatorVariant.Small }
+          }
 
           is RemoteData.Loaded -> savesData.data.forEach { save ->
             ListItemButton {

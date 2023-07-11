@@ -10,12 +10,14 @@ import app.data.common.ResourceCache
 import app.data.common.ResourceCache.InsertAll
 import app.data.common.ResourceCache.ResourceCacheAction
 import app.util.launchMain
+import kotlinx.coroutines.delay
 import react.FC
 import react.PropsWithChildren
 import react.StateSetter
 import react.createContext
 import react.useContext
 import react.useState
+import kotlin.time.Duration.Companion.milliseconds
 
 class SavesListService(
   private val saveService: SaveService,
@@ -39,6 +41,7 @@ class SavesListService(
 
   fun load() {
     launchMain {
+      delay(1500.milliseconds)
       val saves = saveService.listSaves(ListSavesRequest()).saves
       updateCache(InsertAll(saves))
       setNames(RemoteData.loaded(Unit, saves.map { it.name }))
