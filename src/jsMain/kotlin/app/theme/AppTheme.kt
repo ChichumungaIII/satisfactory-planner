@@ -18,6 +18,7 @@ class AppTheme(
 ) : ForwardingTheme(delegate)
 
 interface AppThemeConstants {
+  val navigationDrawerWidth: Length
   val toolbarHeight: Length
 }
 

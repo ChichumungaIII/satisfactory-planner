@@ -2,14 +2,17 @@ package app.common.layout
 
 import app.data.common.RemoteData
 import app.data.save.SavesListService
+import app.theme.AppThemeContext
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
 import mui.material.Collapse
+import mui.material.Divider
 import mui.material.IconButton
 import mui.material.IconButtonEdge
 import mui.material.ListItem
 import mui.material.ListItemButton
 import mui.material.ListItemText
+import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
@@ -20,6 +23,7 @@ import react.useState
 external interface NavigationListProps : Props
 
 val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
+  val appTheme by useContext(AppThemeContext)!!
   val (savesData, savesListService) = useContext(SavesListService.Context)!!
 
   var allSaves by useState(false)
@@ -30,7 +34,6 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
 
       ListItemButton {
         dense = true
-
         ListItemText { primary = ReactNode("All Saves") }
       }
 
@@ -46,15 +49,27 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       this.asDynamic().unmountOnExit = true
 
       mui.material.List {
+        disablePadding = true
+
         when (savesData) {
           is RemoteData.Empty -> savesListService.load()
           is RemoteData.Loading -> ListItem { LoadingIndicator {} }
 
-          is RemoteData.Loaded -> savesData.data.forEach { save -> }
+          is RemoteData.Loaded -> savesData.data.forEach { save ->
+            ListItemButton {
+              dense = true
+              ListItemText {
+                sx { paddingLeft = appTheme.spacing(4) }
+                +save.displayName
+              }
+            }
+          }
 
           is RemoteData.Error -> TODO()
         }
       }
     }
   }
+
+  Divider {}
 }
