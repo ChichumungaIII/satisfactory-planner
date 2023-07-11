@@ -1,6 +1,7 @@
 package app.home
 
 import app.api.save.v1.CreateSaveRequest
+import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
@@ -8,19 +9,24 @@ import app.common.layout.LoadingIndicator
 import app.theme.AppThemeContext
 import app.util.launchMain
 import kotlinx.coroutines.delay
+import mui.icons.material.Delete
 import mui.material.Container
 import mui.material.Grid
+import mui.material.IconButton
 import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
+import react.create
 import react.useContext
 import react.useState
+import web.cssom.Auto.Companion.auto
 import kotlin.time.Duration.Companion.milliseconds
 
 external interface HomePageProps : Props {
   var saves: List<Save>
   var addSave: (Save) -> Unit
+  var removeSave: (Save) -> Unit
 }
 
 val HomePage = FC<HomePageProps>("HomePage") { props ->
@@ -43,15 +49,25 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
             println("Navigate to ${save.name}")
           }
 
-          SaveCardContent {
-            this.save = save
+          content = SaveCardContent.create { this.save = save }
+          actions = IconButton.create {
+            sx { marginLeft = auto }
+            onClick = {
+              launchMain {
+                saveService.deleteSave(DeleteSaveRequest(save.name))
+              }
+
+              props.removeSave(save)
+            }
+
+            Delete {}
           }
         }
       }
 
       HomePageCard.takeIf { creating }?.invoke {
         disabled = true
-        LoadingIndicator {}
+        content = LoadingIndicator.create {}
       }
 
       HomePageCard {
@@ -75,7 +91,7 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
           creating = true
         }
 
-        NewSaveCardContent {}
+        content = NewSaveCardContent.create {}
       }
     }
   }

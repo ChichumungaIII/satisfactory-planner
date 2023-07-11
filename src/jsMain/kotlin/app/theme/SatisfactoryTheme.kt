@@ -63,7 +63,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       }
       styleOverrides = jso {
         fontSizeLarge = jso {
-          fontSize = 64.px
+          fontSize = 56.px
         }
       }
     }

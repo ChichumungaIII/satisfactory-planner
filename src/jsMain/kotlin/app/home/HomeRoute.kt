@@ -58,6 +58,9 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
             updateSaveCache(Insert(save))
             setSavesData(RemoteData.loaded(Unit, savesData.data + save.name))
           }
+          removeSave = { save ->
+            setSavesData(RemoteData.loaded(Unit, savesData.data - save.name))
+          }
         }
       }
 
