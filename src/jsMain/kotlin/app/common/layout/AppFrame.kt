@@ -46,6 +46,8 @@ val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
     PaperProps = jso {
       sx { paddingTop = appTheme.constants.toolbarHeight }
     }
+
+    NavigationList {}
   }
 
   Box {
