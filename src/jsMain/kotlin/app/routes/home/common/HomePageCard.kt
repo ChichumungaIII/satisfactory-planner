@@ -1,4 +1,4 @@
-package app.home.common
+package app.routes.home.common
 
 import mui.material.ButtonBaseProps
 import mui.material.Card

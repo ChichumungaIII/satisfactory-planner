@@ -1,4 +1,4 @@
-package app.home.savecard
+package app.routes.home.savecard
 
 import app.api.save.v1.Save
 import mui.material.Typography

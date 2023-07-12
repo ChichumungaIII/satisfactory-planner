@@ -1,6 +1,7 @@
 package app
 
-import app.home.HomeRoute
+import app.routes.createsave.CreateSaveRoute
+import app.routes.home.HomeRoute
 import app.sample.SampleRoute
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
@@ -31,8 +32,9 @@ enum class AppRoute(
   PLANS("plans", V2, index = { PlansRouteComponent.create {} }),
   PLAN(":planId", PLANS, PlanRouteComponent.create {}),
 
-  V3("v3", ROOT, AppV3.create {}),
-  HOME("", V3, HomeRoute.create {}),
+  V3("v3", ROOT, AppV3.create {}, index = { HomeRoute.create {} }),
+  SAVES("saves", V3),
+  CREATE_SAVE("create", SAVES, CreateSaveRoute.create {}),
 
   SAMPLE("sample", ROOT, SampleRoute.create {});
 

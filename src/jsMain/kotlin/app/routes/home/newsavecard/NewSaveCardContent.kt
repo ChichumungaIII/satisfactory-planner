@@ -1,4 +1,4 @@
-package app.home.newsavecard
+package app.routes.home.newsavecard
 
 import mui.icons.material.Add
 import mui.material.Stack

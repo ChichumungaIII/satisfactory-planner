@@ -1,10 +1,10 @@
-package app.home.savecard
+package app.routes.home.savecard
 
 import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveServiceJs
 import app.data.save.SavesListService
-import app.home.common.HomePageCard
+import app.routes.home.common.HomePageCard
 import app.util.launchMain
 import mui.icons.material.Delete
 import mui.material.IconButton

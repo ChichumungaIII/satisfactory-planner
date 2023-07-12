@@ -1,5 +1,6 @@
 package app.common.layout
 
+import app.AppRoute
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
 import app.data.common.RemoteData
@@ -19,6 +20,7 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import react.router.useNavigate
 import react.useContext
 import react.useState
 import web.cssom.px
@@ -27,6 +29,7 @@ external interface NavigationListProps : Props
 
 val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
   val appTheme by useContext(AppThemeContext)!!
+  val navigate = useNavigate()
   val (savesData, savesListService) = useContext(SavesListService.Context)!!
 
   var allSaves by useState(false)
@@ -38,6 +41,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       ListItemButton {
         dense = true
         ListItemText { primary = ReactNode("All Saves") }
+        onClick = { navigate(to = AppRoute.V3.url) }
       }
 
       secondaryAction = IconButton.create {

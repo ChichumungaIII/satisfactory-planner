@@ -1,10 +1,10 @@
-package app.home
+package app.routes.home
 
 import app.api.save.v1.Save
 import app.common.util.LoadingIndicator
-import app.home.common.HomePageCard
-import app.home.newsavecard.NewSaveCard
-import app.home.savecard.SaveCard
+import app.routes.home.common.HomePageCard
+import app.routes.home.newsavecard.NewSaveCard
+import app.routes.home.savecard.SaveCard
 import app.theme.AppThemeContext
 import mui.material.Container
 import mui.material.Grid
@@ -42,7 +42,7 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
         content = LoadingIndicator.create {}
       }
 
-      NewSaveCard { this.creating = creatingState }
+      NewSaveCard {}
     }
   }
 }

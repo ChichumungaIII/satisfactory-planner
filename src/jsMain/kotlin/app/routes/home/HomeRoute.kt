@@ -1,11 +1,10 @@
-package app.home
+package app.routes.home
 
 import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
+import app.common.util.AppTitle
 import app.data.common.RemoteData
 import app.data.save.SavesListService
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
 import react.create
@@ -17,10 +16,7 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
   val (savesData, savesListService) = useContext(SavesListService.Context)!!
 
   AppFrame {
-    title = Typography.create {
-      variant = TypographyVariant.h1
-      +"Satisfactory Planner"
-    }
+    title = AppTitle.create { +"Satisfactory Planner" }
 
     when (savesData) {
       is RemoteData.Empty -> savesListService.load()
