@@ -10,9 +10,9 @@ import react.FC
 import react.Props
 import web.cssom.AlignItems
 
-external interface NewSaveCardProps : Props
+external interface NewSaveCardContentProps : Props
 
-val NewSaveCardContent = FC<NewSaveCardProps>("NewSaveCard") { props ->
+val NewSaveCardContent = FC<NewSaveCardContentProps>("NewSaveCard") {
   Stack {
     sx { alignItems = AlignItems.center }
 
