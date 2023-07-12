@@ -1,4 +1,4 @@
-package app.common.layout
+package app.common.util
 
 import mui.material.Box
 import mui.material.CircularProgress

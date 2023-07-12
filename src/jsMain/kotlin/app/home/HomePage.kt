@@ -5,7 +5,7 @@ import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
-import app.common.layout.LoadingIndicator
+import app.common.util.LoadingIndicator
 import app.data.save.SavesListService
 import app.theme.AppThemeContext
 import app.util.launchMain
