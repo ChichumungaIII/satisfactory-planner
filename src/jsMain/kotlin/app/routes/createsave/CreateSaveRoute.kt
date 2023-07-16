@@ -11,5 +11,6 @@ external interface CreateSaveRouteProps : Props
 val CreateSaveRoute = FC<CreateSaveRouteProps>("CreateSaveRoute") {
   AppFrame {
     title = AppTitle.create { +"Create Save" }
+    content = CreateSavePage.create {}
   }
 }

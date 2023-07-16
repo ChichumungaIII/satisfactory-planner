@@ -2,11 +2,21 @@ package app.theme
 
 import js.core.jso
 import mui.material.AppBarPosition
+import mui.material.AppBarProps
+import mui.material.ButtonProps
+import mui.material.ButtonVariant
+import mui.material.ContainerProps
+import mui.material.FormControlMargin
 import mui.material.PaletteMode
+import mui.material.Size
 import mui.material.SvgIconColor
+import mui.material.SvgIconProps
+import mui.material.TextFieldProps
 import mui.material.styles.createTheme
 import web.cssom.None
 import web.cssom.px
+
+private val small = Size.small
 
 private val SatisfactoryMuiTheme = createTheme(jso {
   palette = jso {
@@ -41,7 +51,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
 
   components = jso {
     MuiAppBar = jso {
-      defaultProps = jso {
+      defaultProps = jso<AppBarProps> {
         position = AppBarPosition.sticky
       }
       styleOverrides = jso {
@@ -51,14 +61,33 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       }
     }
 
+    MuiButton = jso {
+      defaultProps = jso<ButtonProps> {
+        variant = ButtonVariant.contained
+      }
+    }
+
     MuiContainer = jso {
-      defaultProps = jso {
+      defaultProps = jso<ContainerProps> {
         maxWidth = false
       }
     }
 
+    MuiLoadingButton = jso {
+      defaultProps = jso<ButtonProps> {
+        variant = ButtonVariant.contained
+      }
+    }
+
+    MuiTextField = jso {
+      defaultProps = jso<TextFieldProps> {
+        size = small
+        margin = FormControlMargin.dense
+      }
+    }
+
     MuiSvgIcon = jso {
-      defaultProps = jso {
+      defaultProps = jso<SvgIconProps> {
         color = SvgIconColor.primary
       }
       styleOverrides = jso {

@@ -49,6 +49,9 @@ class SavesListService(
     setNames(RemoteData.loading(Unit))
   }
 
+  fun <T> ifLoaded(action: (SavesListService) -> T): T? =
+    takeIf { names is RemoteData.Loaded }?.let(action)
+
   fun add(save: Save) {
     check(names is RemoteData.Loaded) { "Cannot add Save prior to initial load." }
 
