@@ -50,7 +50,9 @@ val CreateSavePage = FC<CreateSavePageProps>("CreateSavePage") {
           Step {
             StepLabel { +"Name" }
             StepContent {
-              DisplayNameStep {}
+              CreateSaveStep {
+                DisplayNameStep {}
+              }
             }
           }
         }
