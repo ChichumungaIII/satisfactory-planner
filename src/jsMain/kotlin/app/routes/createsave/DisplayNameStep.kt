@@ -14,14 +14,13 @@ external interface DisplayNameStepProps : Props
 
 val DisplayNameStep = FC<DisplayNameStepProps>("DisplayNameStep") {
   var newSave by useContext(NewSaveContext)!!
-  val creating by useContext(NewSaveCreatingContext)!!
 
   TextField {
     sx { width = 384.px }
 
     label = ReactNode("Save name")
+    autoFocus = true
     required = true
-    disabled = creating
 
     value = newSave.displayName
     onChange = { event ->

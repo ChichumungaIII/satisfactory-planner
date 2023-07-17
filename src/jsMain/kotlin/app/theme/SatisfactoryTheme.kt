@@ -7,7 +7,9 @@ import mui.material.ButtonProps
 import mui.material.ButtonVariant
 import mui.material.ContainerProps
 import mui.material.FormControlMargin
+import mui.material.InputBaseMargin
 import mui.material.PaletteMode
+import mui.material.SelectProps
 import mui.material.Size
 import mui.material.SvgIconColor
 import mui.material.SvgIconProps
@@ -76,6 +78,13 @@ private val SatisfactoryMuiTheme = createTheme(jso {
     MuiLoadingButton = jso {
       defaultProps = jso<ButtonProps> {
         variant = ButtonVariant.contained
+      }
+    }
+
+    MuiSelect = jso {
+      defaultProps = jso<SelectProps<*>> {
+        size = small
+        margin = InputBaseMargin.dense
       }
     }
 

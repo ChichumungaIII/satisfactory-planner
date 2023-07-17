@@ -51,7 +51,20 @@ val CreateSavePage = FC<CreateSavePageProps>("CreateSavePage") {
             StepLabel { +"Name" }
             StepContent {
               CreateSaveStep {
-                DisplayNameStep {}
+                initial = true
+
+                DisplayNameStep { }
+              }
+            }
+          }
+
+          Step {
+            StepLabel { +"Phase" }
+            StepContent {
+              CreateSaveStep {
+                final = true
+
+                PhaseStep {}
               }
             }
           }
