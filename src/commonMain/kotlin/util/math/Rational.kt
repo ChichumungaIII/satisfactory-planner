@@ -156,7 +156,10 @@ class Rational private constructor(
           """[$n / $d] exceeded the limit for maximum repeated digits in a Rational string 
                     |representation ($MAX_REPEATED_DIGITS).""".trimMargin()
         )
-        return "$n / $d"
+
+        val text = "${n.toDouble() / d.toDouble()}"
+        val end = text.lastIndexOf('.')
+        return "~${text.substring(0, end + 6)}"
       }
     }
     val repeated = trailing.n * nines / trailing.d
