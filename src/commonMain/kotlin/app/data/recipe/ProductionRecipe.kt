@@ -28,6 +28,15 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.IRON_INGOT to 13.q),
   ),
+  IRON_ALLOY_INGOT(
+    "Iron Alloy Ingot",
+    time = 6.q,
+    inputs = mapOf(
+      Item.IRON_ORE to 2.q,
+      Item.COPPER_ORE to 2.q,
+    ),
+    outputs = mapOf(Item.IRON_INGOT to 5.q),
+  ),
   IRON_PLATE(
     "Iron Plate",
     time = 6.q,
@@ -85,6 +94,18 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.COPPER_INGOT to 1.q),
     outputs = mapOf(Item.WIRE to 2.q),
   ),
+  IRON_WIRE(
+    "Iron Wire",
+    time = 24.q,
+    inputs = mapOf(Item.IRON_INGOT to 5.q),
+    outputs = mapOf(Item.WIRE to 9.q),
+  ),
+  CATERIUM_WIRE(
+    "Caterium Wire",
+    time = 4.q,
+    inputs = mapOf(Item.CATERIUM_INGOT to 1.q),
+    outputs = mapOf(Item.WIRE to 8.q),
+  ),
   CABLE(
     "Cable",
     time = 2.q,
@@ -99,11 +120,32 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.LIMESTONE to 3.q),
     outputs = mapOf(Item.CONCRETE to 1.q),
   ),
+  WET_CONCRETE(
+    "Wet Concrete",
+    time = 3.q,
+    inputs = mapOf(
+      Item.LIMESTONE to 6.q,
+      Item.WATER to 5.q,
+    ),
+    outputs = mapOf(Item.CONCRETE to 4.q),
+  ),
   SCREW(
     "Screw",
     time = 6.q,
     inputs = mapOf(Item.IRON_ROD to 1.q),
     outputs = mapOf(Item.SCREW to 4.q),
+  ),
+  CAST_SCREW(
+    "Cast Screw",
+    time = 24.q,
+    inputs = mapOf(Item.IRON_INGOT to 5.q),
+    outputs = mapOf(Item.SCREW to 20.q),
+  ),
+  STEEL_SCREW(
+    "Steel Screw",
+    time = 12.q,
+    inputs = mapOf(Item.STEEL_BEAM to 1.q),
+    outputs = mapOf(Item.SCREW to 52.q),
   ),
   REINFORCED_IRON_PLATE(
     "Reinforced Iron Plate",
@@ -113,6 +155,15 @@ enum class ProductionRecipe(
       Item.SCREW to 12.q,
     ),
     outputs = mapOf(Item.REINFORCED_IRON_PLATE to 1.q),
+  ),
+  STITCHED_IRON_PLATE(
+    "Stitched Iron Plate",
+    time = 32.q,
+    inputs = mapOf(
+      Item.IRON_PLATE to 10.q,
+      Item.WIRE to 20.q,
+    ),
+    outputs = mapOf(Item.REINFORCED_IRON_PLATE to 3.q),
   ),
 
   /* Onboarding -- HUB Upgrade 6 */
@@ -136,6 +187,15 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.COPPER_INGOT to 2.q),
     outputs = mapOf(Item.COPPER_SHEET to 1.q),
   ),
+  STEAMED_COPPER_SHEET(
+    "Steamed Copper Sheet",
+    time = 8.q,
+    inputs = mapOf(
+      Item.COPPER_INGOT to 3.q,
+      Item.WATER to 3.q,
+    ),
+    outputs = mapOf(Item.COPPER_SHEET to 3.q),
+  ),
   ROTOR(
     "Rotor",
     time = 15.q,
@@ -153,6 +213,15 @@ enum class ProductionRecipe(
       Item.IRON_ROD to 12.q,
     ),
     outputs = mapOf(Item.MODULAR_FRAME to 2.q),
+  ),
+  STEELED_FRAME(
+    "Steeled Frame",
+    time = 60.q,
+    inputs = mapOf(
+      Item.REINFORCED_IRON_PLATE to 2.q,
+      Item.STEEL_PIPE to 10.q,
+    ),
+    outputs = mapOf(Item.MODULAR_FRAME to 3.q),
   ),
   SMART_PLATING(
     "Smart Plating",
@@ -201,6 +270,15 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.STEEL_INGOT to 3.q),
   ),
+  SOLID_STEEL_INGOT(
+    "Solid Steel Ingot",
+    time = 3.q,
+    inputs = mapOf(
+      Item.IRON_INGOT to 2.q,
+      Item.COAL to 2.q,
+    ),
+    outputs = mapOf(Item.STEEL_INGOT to 3.q),
+  ),
   STEEL_BEAM(
     "Steel Beam",
     time = 4.q,
@@ -229,6 +307,15 @@ enum class ProductionRecipe(
     time = 10.q,
     inputs = mapOf(
       Item.STEEL_BEAM to 4.q,
+      Item.CONCRETE to 5.q,
+    ),
+    outputs = mapOf(Item.ENCASED_INDUSTRIAL_BEAM to 1.q),
+  ),
+  ENCASED_INDUSTRIAL_PIPE(
+    "Encased Industrial Pipe",
+    time = 15.q,
+    inputs = mapOf(
+      Item.STEEL_PIPE to 7.q,
       Item.CONCRETE to 5.q,
     ),
     outputs = mapOf(Item.ENCASED_INDUSTRIAL_BEAM to 1.q),
@@ -271,6 +358,17 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
   ),
+  HEAVY_FLEXIBLE_FRAME(
+    "Heavy Flexible Frame",
+    time = 16.q,
+    inputs = mapOf(
+      Item.MODULAR_FRAME to 5.q,
+      Item.ENCASED_INDUSTRIAL_BEAM to 3.q,
+      Item.RUBBER to 20.q,
+      Item.SCREW to 104.q,
+    ),
+    outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
+  ),
 
   /* Tier 4 -- Improved Melee Combat */
   XENO_BASHER(
@@ -303,6 +401,15 @@ enum class ProductionRecipe(
       Item.WATER to 2.q,
     ),
     outputs = mapOf(Item.PLASTIC to 2.q),
+  ),
+  RECYCLED_PLASTIC(
+    "Recycled Plastic",
+    time = 12.q,
+    inputs = mapOf(
+      Item.RUBBER to 6.q,
+      Item.FUEL to 6.q,
+    ),
+    outputs = mapOf(Item.PLASTIC to 12.q),
   ),
   RUBBER(
     "Rubber",
@@ -360,6 +467,15 @@ enum class ProductionRecipe(
       Item.PLASTIC to 4.q,
     ),
     outputs = mapOf(Item.CIRCUIT_BOARD to 1.q),
+  ),
+  SILICON_CIRCUIT_BOARD(
+    "Silicon Circuit Board",
+    time = 24.q,
+    inputs = mapOf(
+      Item.COPPER_SHEET to 11.q,
+      Item.SILICA to 11.q,
+    ),
+    outputs = mapOf(Item.CIRCUIT_BOARD to 5.q),
   ),
 
   /* Tier 5 -- Industrial Manufacturing */
@@ -551,6 +667,15 @@ enum class ProductionRecipe(
       Item.SILICA to 5.q,
     ),
   ),
+  SLOPPY_ALUMINA(
+    "Sloppy Alumina",
+    time = 3.q,
+    inputs = mapOf(
+      Item.BAUXITE to 10.q,
+      Item.WATER to 10.q,
+    ),
+    outputs = mapOf(Item.ALUMINA_SOLUTION to 12.q),
+  ),
   UNPACKAGE_ALUMINA_SOLUTION(
     "Unpackage Alumina Solution",
     time = 1.q,
@@ -635,6 +760,16 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.RADIO_CONTROL_UNIT to 3.q),
   ),
+  RADIO_CONNECTION_UNIT(
+    "Radio Connection Unit",
+    time = 16.q,
+    inputs = mapOf(
+      Item.HEAT_SINK to 4.q,
+      Item.HIGH_SPEED_CONNECTOR to 2.q,
+      Item.QUARTZ_CRYSTAL to 12.q,
+    ),
+    outputs = mapOf(Item.RADIO_CONTROL_UNIT to 1.q),
+  ),
 
   /* Tier 7 -- Hazmat Suit */
   HAZMAT_SUIT(
@@ -700,6 +835,17 @@ enum class ProductionRecipe(
       Item.WATER to 3.q / 2.q,
     ),
   ),
+  CLASSIC_BATTERY(
+    "Classic Battery",
+    time = 8.q,
+    inputs = mapOf(
+      Item.SULFUR to 6.q,
+      Item.ALCLAD_ALUMINUM_SHEET to 7.q,
+      Item.PLASTIC to 8.q,
+      Item.WIRE to 12.q,
+    ),
+    outputs = mapOf(Item.BATTERY to 4.q),
+  ),
   ASSEMBLY_DIRECTOR_SYSTEM(
     "Assembly Director System",
     time = 80.q,
@@ -724,12 +870,32 @@ enum class ProductionRecipe(
       Item.SULFURIC_ACID to 2.q,
     ),
   ),
+  INFUSED_URANIUM_CELL(
+    "Infused Uranium Cell",
+    time = 12.q,
+    inputs = mapOf(
+      Item.URANIUM to 5.q,
+      Item.SILICA to 3.q,
+      Item.SULFUR to 5.q,
+      Item.QUICKWIRE to 15.q,
+    ),
+    outputs = mapOf(Item.ENCASED_URANIUM_CELL to 4.q),
+  ),
   ELECTROMAGNETIC_CONTROL_ROD(
     "Electromagnetic Control Rod",
     time = 30.q,
     inputs = mapOf(
       Item.STATOR to 3.q,
       Item.AI_LIMITER to 2.q,
+    ),
+    outputs = mapOf(Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q),
+  ),
+  ELECTROMAGNETIC_CONNECTION_ROD(
+    "Electromagnetic Connection Rod",
+    time = 15.q,
+    inputs = mapOf(
+      Item.STATOR to 2.q,
+      Item.HIGH_SPEED_CONNECTOR to 1.q,
     ),
     outputs = mapOf(Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q),
   ),
@@ -798,6 +964,16 @@ enum class ProductionRecipe(
       Item.NITROGEN_GAS to 25.q,
     ),
     outputs = mapOf(Item.COOLING_SYSTEM to 1.q),
+  ),
+  COOLING_DEVICE(
+    "Cooling Device",
+    time = 32.q,
+    inputs = mapOf(
+      Item.HEAT_SINK to 5.q,
+      Item.MOTOR to 1.q,
+      Item.NITROGEN_GAS to 24.q,
+    ),
+    outputs = mapOf(Item.COOLING_SYSTEM to 2.q),
   ),
   FUSED_MODULAR_FRAME(
     "Fused Modular Frame",
@@ -892,6 +1068,15 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.CATERIUM_ORE to 3.q),
     outputs = mapOf(Item.CATERIUM_INGOT to 1.q),
   ),
+  PURE_CATERIUM_INGOT(
+    "Pure Caterium Ingot",
+    time = 5.q,
+    inputs = mapOf(
+      Item.CATERIUM_ORE to 2.q,
+      Item.WATER to 2.q,
+    ),
+    outputs = mapOf(Item.CATERIUM_INGOT to 1.q),
+  ),
   QUICKWIRE(
     "Quickwire",
     time = 5.q,
@@ -955,6 +1140,26 @@ enum class ProductionRecipe(
       Item.AI_LIMITER to 2.q,
       Item.HIGH_SPEED_CONNECTOR to 3.q,
       Item.PLASTIC to 28.q,
+    ),
+    outputs = mapOf(Item.SUPERCOMPUTER to 1.q),
+  ),
+  SUPER_STATE_COMPUTER(
+    "Super-State Computer",
+    time = 50.q,
+    inputs = mapOf(
+      Item.COMPUTER to 3.q,
+      Item.ELECTROMAGNETIC_CONTROL_ROD to 2.q,
+      Item.BATTERY to 20.q,
+      Item.WIRE to 45.q,
+    ),
+    outputs = mapOf(Item.SUPERCOMPUTER to 2.q),
+  ),
+  OC_SUPERCOMPUTER(
+    "OC Supercomputer",
+    time = 20.q,
+    inputs = mapOf(
+      Item.RADIO_CONTROL_UNIT to 3.q,
+      Item.COOLING_SYSTEM to 3.q,
     ),
     outputs = mapOf(Item.SUPERCOMPUTER to 1.q),
   ),
@@ -1064,11 +1269,29 @@ enum class ProductionRecipe(
   QUARTZ_CRYSTAL(
     "Quartz Crystal", time = 8.q, inputs = mapOf(Item.RAW_QUARTZ to 5.q), outputs = mapOf(Item.QUARTZ_CRYSTAL to 3.q)
   ),
+  PURE_QUARTZ_CRYSTAL(
+    "Pure Quartz Crystal",
+    time = 8.q,
+    inputs = mapOf(
+      Item.RAW_QUARTZ to 9.q,
+      Item.WATER to 5.q,
+    ),
+    outputs = mapOf(Item.QUARTZ_CRYSTAL to 7.q),
+  ),
   SILICA(
     "Silica",
     time = 8.q,
     inputs = mapOf(Item.RAW_QUARTZ to 3.q),
     outputs = mapOf(Item.SILICA to 5.q),
+  ),
+  CHEAP_SILICA(
+    "Cheap Silica",
+    time = 16.q,
+    inputs = mapOf(
+      Item.RAW_QUARTZ to 3.q,
+      Item.LIMESTONE to 5.q,
+    ),
+    outputs = mapOf(Item.SILICA to 7.q),
   ),
   SHATTER_REBAR(
     "Shatter Rebar",
@@ -1292,5 +1515,15 @@ enum class ProductionRecipe(
       Item.HEAVY_OIL_RESIDUE to 4.q,
       Item.POLYMER_RESIN to 2.q,
     ),
-  );
+  ),
+  POLYMER_RESIN(
+    "Polymer Resin",
+    time = 6.q,
+    inputs = mapOf(Item.CRUDE_OIL to 6.q),
+    outputs = mapOf(
+      Item.POLYMER_RESIN to 13.q,
+      Item.HEAVY_OIL_RESIDUE to 2.q,
+    ),
+  ),
+  ;
 }

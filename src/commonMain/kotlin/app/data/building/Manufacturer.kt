@@ -32,6 +32,7 @@ enum class Manufacturer(
       ProductionRecipe.CABLE,
       ProductionRecipe.CONCRETE,
       ProductionRecipe.SCREW,
+      ProductionRecipe.CAST_SCREW,
       ProductionRecipe.BIOMASS_WOOD,
       ProductionRecipe.BIOMASS_LEAVES,
       ProductionRecipe.COPPER_SHEET,
@@ -65,11 +66,13 @@ enum class Manufacturer(
     consumption = 15.q,
     recipes = listOf(
       ProductionRecipe.REINFORCED_IRON_PLATE,
+      ProductionRecipe.STITCHED_IRON_PLATE,
       ProductionRecipe.ROTOR,
       ProductionRecipe.MODULAR_FRAME,
       ProductionRecipe.SMART_PLATING,
       ProductionRecipe.VERSATILE_FRAMEWORK,
       ProductionRecipe.ENCASED_INDUSTRIAL_BEAM,
+      ProductionRecipe.ENCASED_INDUSTRIAL_PIPE,
       ProductionRecipe.STATOR,
       ProductionRecipe.MOTOR,
       ProductionRecipe.AUTOMATED_WIRING,
@@ -100,7 +103,10 @@ enum class Manufacturer(
     consumption = 16.q,
     recipes = listOf(
       ProductionRecipe.STEEL_INGOT,
+      ProductionRecipe.SOLID_STEEL_INGOT,
       ProductionRecipe.ALUMINUM_INGOT,
+      // Alternate
+      ProductionRecipe.IRON_ALLOY_INGOT,
       // Research
       ProductionRecipe.COPPER_FICSMAS_ORNAMENT,
       ProductionRecipe.IRON_FICSMAS_ORNAMENT,
@@ -125,6 +131,7 @@ enum class Manufacturer(
       // Alternate
       ProductionRecipe.PURE_IRON_INGOT,
       ProductionRecipe.PURE_COPPER_INGOT,
+      ProductionRecipe.PURE_CATERIUM_INGOT,
       // Research
       ProductionRecipe.HEAVY_OIL_RESIDUE,
       ProductionRecipe.POLYESTER_FABRIC,
@@ -148,6 +155,9 @@ enum class Manufacturer(
       ProductionRecipe.MAGNETIC_FIELD_GENERATOR,
       ProductionRecipe.TURBO_MOTOR,
       ProductionRecipe.THERMAL_PROPULSION_ROCKET,
+      // Alternate
+      ProductionRecipe.CLASSIC_BATTERY,
+      ProductionRecipe.SUPER_STATE_COMPUTER,
       // Research
       ProductionRecipe.CRYSTAL_OSCILLATOR,
       ProductionRecipe.EXPLOSIVE_REBAR,
