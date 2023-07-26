@@ -5,9 +5,13 @@ import mui.material.AppBarPosition
 import mui.material.AppBarProps
 import mui.material.ButtonProps
 import mui.material.ButtonVariant
+import mui.material.CheckboxProps
 import mui.material.ContainerProps
 import mui.material.FormControlMargin
 import mui.material.InputBaseMargin
+import mui.material.ListItemButtonProps
+import mui.material.ListItemProps
+import mui.material.ListProps
 import mui.material.PaletteMode
 import mui.material.SelectProps
 import mui.material.Size
@@ -69,9 +73,35 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       }
     }
 
+    MuiCheckbox = jso {
+      defaultProps = jso<CheckboxProps> {
+        size = small
+      }
+    }
+
     MuiContainer = jso {
       defaultProps = jso<ContainerProps> {
         maxWidth = false
+      }
+    }
+
+    MuiList = jso {
+      defaultProps = jso<ListProps> {
+        dense = true
+        disablePadding = true
+      }
+    }
+
+    MuiListItem = jso {
+      defaultProps = jso<ListItemProps> {
+        dense = true
+        disablePadding = true
+      }
+    }
+
+    MuiListItemButton = jso {
+      defaultProps = jso<ListItemButtonProps> {
+        dense = true
       }
     }
 

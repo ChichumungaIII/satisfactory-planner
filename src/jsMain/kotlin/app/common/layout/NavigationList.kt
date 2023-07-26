@@ -27,7 +27,7 @@ import web.cssom.px
 
 external interface NavigationListProps : Props
 
-val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
+val NavigationList = FC<NavigationListProps>("NavigationList") {
   val appTheme by useContext(AppThemeContext)!!
   val navigate = useNavigate()
   val (savesData, savesListService) = useContext(SavesListService.Context)!!
@@ -36,10 +36,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
 
   mui.material.List {
     ListItem {
-      disablePadding = true
-
       ListItemButton {
-        dense = true
         ListItemText { primary = ReactNode("All Saves") }
         onClick = { navigate(to = AppRoute.V3.url) }
       }
@@ -56,20 +53,16 @@ val NavigationList = FC<NavigationListProps>("NavigationList") { props ->
       `in` = allSaves
       this.asDynamic().unmountOnExit = true
 
-      mui.material.List.takeIf { allSaves }?.invoke() {
-        disablePadding = true
-
+      mui.material.List.takeIf { allSaves }?.invoke {
         when (savesData) {
           is RemoteData.Empty -> savesListService.load()
 
           is RemoteData.Loading -> ListItem {
-            dense = true
             LoadingIndicator { variant = LoadingIndicatorVariant.Small }
           }
 
           is RemoteData.Loaded -> savesData.data.forEach { save ->
             ListItemButton {
-              dense = true
               ListItemText {
                 sx { paddingLeft = appTheme.spacing(4) }
                 +save.displayName

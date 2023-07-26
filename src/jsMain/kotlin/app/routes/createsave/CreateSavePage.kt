@@ -2,6 +2,10 @@ package app.routes.createsave
 
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
+import app.game.data.Phase
+import app.routes.createsave.steps.displayname.DisplayNameStep
+import app.routes.createsave.steps.milestones.MilestonesStep
+import app.routes.createsave.steps.phase.PhaseStep
 import mui.material.Orientation
 import mui.material.Step
 import mui.material.StepContent
@@ -25,7 +29,7 @@ val NewSaveCreatingContext = createContext<StateInstance<Boolean>>()
 private val DEFAULT_SAVE = Save(
   name = SaveName(0),
   displayName = "",
-  phases = listOf(),
+  phases = listOf(Phase.GAME_START),
   tiers = listOf(),
   milestones = listOf(),
   research = listOf(),
@@ -62,9 +66,18 @@ val CreateSavePage = FC<CreateSavePageProps>("CreateSavePage") {
             StepLabel { +"Phase" }
             StepContent {
               CreateSaveStep {
+                PhaseStep {}
+              }
+            }
+          }
+
+          Step {
+            StepLabel { +"Milestones" }
+            StepContent {
+              CreateSaveStep {
                 final = true
 
-                PhaseStep {}
+                MilestonesStep {}
               }
             }
           }
