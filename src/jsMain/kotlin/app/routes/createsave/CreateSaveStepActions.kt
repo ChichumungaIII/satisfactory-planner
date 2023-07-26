@@ -59,7 +59,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
             savesListService.ifLoaded { it.add(save) }
 
             creating = false
-            navigate(to = AppRoute.V3.url)
+            navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
           }
 
           creating = true

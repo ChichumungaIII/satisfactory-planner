@@ -1,8 +1,6 @@
 package app.routes.home
 
 import app.api.save.v1.Save
-import app.common.util.LoadingIndicator
-import app.routes.home.common.HomePageCard
 import app.routes.home.newsavecard.NewSaveCard
 import app.routes.home.savecard.SaveCard
 import app.theme.AppThemeContext
@@ -12,9 +10,7 @@ import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
-import react.create
 import react.useContext
-import react.useState
 
 external interface HomePageProps : Props {
   var saves: List<Save>
@@ -23,9 +19,6 @@ external interface HomePageProps : Props {
 val HomePage = FC<HomePageProps>("HomePage") { props ->
   val appTheme by useContext(AppThemeContext)!!
 
-  val creatingState = useState(false)
-  var creating by creatingState
-
   Container {
     sx { paddingTop = appTheme.spacing(3) }
 
@@ -33,15 +26,7 @@ val HomePage = FC<HomePageProps>("HomePage") { props ->
       container = true
       spacing = responsive(4)
 
-      props.saves.forEach {
-        SaveCard { save = it }
-      }
-
-      HomePageCard.takeIf { creating }?.invoke {
-        disabled = true
-        content = LoadingIndicator.create {}
-      }
-
+      props.saves.forEach { SaveCard { save = it } }
       NewSaveCard {}
     }
   }

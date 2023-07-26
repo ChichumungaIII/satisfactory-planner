@@ -61,11 +61,26 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
             LoadingIndicator { variant = LoadingIndicatorVariant.Small }
           }
 
-          is RemoteData.Loaded -> savesData.data.forEach { save ->
-            ListItemButton {
-              ListItemText {
-                sx { paddingLeft = appTheme.spacing(4) }
-                +save.displayName
+          is RemoteData.Loaded -> {
+            if (savesData.data.isEmpty()) {
+              ListItem {
+                ListItemText {
+                  sx { padding = appTheme.spacing(1, 4) }
+                  +"No saves"
+                }
+              }
+            }
+
+            savesData.data.forEach { save ->
+              ListItemButton {
+                onClick = {
+                  navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
+                }
+
+                ListItemText {
+                  sx { paddingLeft = appTheme.spacing(4) }
+                  +save.displayName
+                }
               }
             }
           }

@@ -3,6 +3,7 @@ package app
 import app.api.optimize.v1.OptimizeServiceJs
 import app.api.save.v1.SaveServiceJs
 import app.data.save.SaveCache
+import app.data.save.SaveLoader
 import app.data.save.SavesListService
 import app.theme.AppThemeContextProvider
 import react.FC
@@ -24,6 +25,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     // App Data
     SaveCache.Provider,
     SavesListService.Provider,
+    SaveLoader.Provider,
   ).nest(Outlet.create {})
 }
 

@@ -1,5 +1,6 @@
 package app.routes.home.savecard
 
+import app.AppRoute
 import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveServiceJs
@@ -12,6 +13,7 @@ import mui.system.sx
 import react.FC
 import react.Props
 import react.create
+import react.router.useNavigate
 import react.useContext
 import web.cssom.Auto
 
@@ -20,6 +22,8 @@ external interface SaveCardProps : Props {
 }
 
 val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
+  val navigate = useNavigate()
+
   val saveService = useContext(SaveServiceJs.Context)!!
   val savesListService = useContext(SavesListService.Context)!!
 
@@ -27,7 +31,7 @@ val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
 
   HomePageCard {
     onClick = {
-      println("Navigate to ${save.name}")
+      navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
     }
 
     content = SaveCardContent.create { this.save = save }
