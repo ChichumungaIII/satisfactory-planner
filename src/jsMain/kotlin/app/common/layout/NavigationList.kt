@@ -66,7 +66,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
               ListItem {
                 ListItemText {
                   sx { padding = appTheme.spacing(1, 4) }
-                  +"No saves"
+                  +"No saves found"
                 }
               }
             }
