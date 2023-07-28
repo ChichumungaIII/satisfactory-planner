@@ -1,6 +1,6 @@
 plugins {
-  kotlin("multiplatform") version "1.8.10"
-  kotlin("plugin.serialization") version "1.8.10"
+  kotlin("multiplatform") version "1.9.0"
+  kotlin("plugin.serialization") version "1.9.0"
   application
 }
 
@@ -95,7 +95,7 @@ task("compileScss") {
   doLast {
     exec {
       val root = """src\jsMain\kotlin\app\main.scss"""
-      val resource = """build\distributions\satisfactory-planner.css"""
+      val resource = """build\dist\js\productionExecutable\satisfactory-planner.css"""
       commandLine("cmd", "/c", "sass", root, resource)
     }
   }
