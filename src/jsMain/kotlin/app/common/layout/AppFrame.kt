@@ -16,7 +16,6 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.useContext
-import react.useState
 import web.cssom.px
 
 external interface AppFrameProps : Props {
@@ -26,8 +25,7 @@ external interface AppFrameProps : Props {
 
 val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
   val appTheme by useContext(AppThemeContext)!!
-
-  val drawerOpenState = useState(true)
+  val drawerOpenState = useContext(AppFrameDrawerOpenContext)!!
   val drawerOpen by drawerOpenState
 
   AppBar {

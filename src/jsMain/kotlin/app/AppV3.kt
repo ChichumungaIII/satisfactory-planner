@@ -2,6 +2,7 @@ package app
 
 import app.api.optimize.v1.OptimizeServiceJs
 import app.api.save.v1.SaveServiceJs
+import app.common.layout.AppFrameDrawerOpenContextProvider
 import app.data.save.SaveCache
 import app.data.save.SaveLoader
 import app.data.save.SavesListService
@@ -22,6 +23,8 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     SaveServiceJs.Provider,
     // Global theme
     AppThemeContextProvider,
+    // App State
+    AppFrameDrawerOpenContextProvider,
     // App Data
     SaveCache.Provider,
     SavesListService.Provider,
