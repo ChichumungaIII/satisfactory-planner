@@ -22,17 +22,17 @@ import react.ReactNode
 import react.create
 import react.router.useNavigate
 import react.useContext
-import react.useState
 import web.cssom.px
 
 external interface NavigationListProps : Props
 
 val NavigationList = FC<NavigationListProps>("NavigationList") {
-  val appTheme by useContext(AppThemeContext)!!
   val navigate = useNavigate()
+  val appTheme by useContext(AppThemeContext)!!
+
   val (savesData, savesListService) = useContext(SavesListService.Context)!!
 
-  var allSaves by useState(false)
+  var allSaves by useContext(NavigationListContext)!!
 
   mui.material.List {
     ListItem {
