@@ -12,6 +12,12 @@ import kotlin.random.Random
 data class SaveName(val id: Int) {
   companion object {
     fun createRandom() = SaveName(Random.nextInt())
+
+    private val PATTERN = Regex("""saves/(\d+)""")
+    fun parse(name: String) =
+      PATTERN.matchEntire(name)?.let {
+        SaveName(it.groups[1]!!.value.toUInt().toInt())
+      } ?: throw IllegalArgumentException("[$name] is not a valid Save name.")
   }
 
   fun getResourceName() = "saves/${id.toUInt()}"
@@ -23,6 +29,5 @@ object SaveNameSerializer : KSerializer<SaveName> {
   override fun serialize(encoder: Encoder, value: SaveName) =
     encoder.encodeString(value.getResourceName())
 
-  override fun deserialize(decoder: Decoder) =
-    SaveName(decoder.decodeString().substringAfter('/').toUInt().toInt())
+  override fun deserialize(decoder: Decoder) = SaveName.parse(decoder.decodeString())
 }
