@@ -22,7 +22,8 @@ abstract class ResourceCache<N, R> {
         cache
       }, initialState = this@ResourceCache)
 
-    Context.Provider(reducer) {
+    Context.Provider {
+      value = reducer
       +props.children
     }
   }

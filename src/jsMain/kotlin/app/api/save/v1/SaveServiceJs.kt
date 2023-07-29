@@ -7,7 +7,8 @@ import react.createContext
 object SaveServiceJs {
   val Context = createContext<SaveService>()
   val Provider = FC<PropsWithChildren> { props ->
-    Context.Provider(value = SaveServiceLocalStorage) {
+    Context.Provider {
+      value = SaveServiceLocalStorage
       +props.children
     }
   }

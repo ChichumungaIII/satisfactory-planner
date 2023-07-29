@@ -14,7 +14,9 @@ val AppThemeContextProvider = FC<PropsWithChildren> { props ->
   val appThemeState = useState(SatisfactoryAppTheme)
   val appTheme by appThemeState
 
-  AppThemeContext.Provider(appThemeState) {
+  AppThemeContext.Provider {
+    value = appThemeState
+
     ThemeProvider {
       theme = appTheme.delegate
       CssBaseline {}

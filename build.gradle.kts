@@ -52,7 +52,7 @@ kotlin {
         "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
       dependencies {
-        implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.575")))
+        implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.602")))
 
         implementation(kotlinw("cssom-core"))
         implementation(kotlinw("emotion"))
