@@ -46,7 +46,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       lineHeight = 40.px
     }
     h2 = jso {
-      fontSize = 48.px
+      fontSize = 20.px
     }
   }
 

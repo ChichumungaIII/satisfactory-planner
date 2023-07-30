@@ -5,6 +5,9 @@ import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.AppFrameDrawerOpenContextProvider
 import app.common.layout.NavigationListContextProvider
+import app.data.plan.PlanCache
+import app.data.plan.PlanCollectionCache
+import app.data.plan.PlanCollectionLoader
 import app.data.save.SaveCache
 import app.data.save.SaveLoader
 import app.data.save.SavesListService
@@ -30,6 +33,9 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     SaveCache.Provider,
     SavesListService.Provider,
     SaveLoader.Provider,
+    PlanCache.Provider,
+    PlanCollectionCache.Provider,
+    PlanCollectionLoader.Provider,
     // App State
     AppFrameDrawerOpenContextProvider,
     NavigationListContextProvider,
