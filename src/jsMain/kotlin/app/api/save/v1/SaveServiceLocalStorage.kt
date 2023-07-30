@@ -18,9 +18,7 @@ object SaveServiceLocalStorage : SaveService {
 
   override suspend fun createSave(request: CreateSaveRequest): Save {
     val save = request.save
-    if (saves.containsKey(save.name)) {
-      throw Error("Save [${save.name.getResourceName()}] already exists.")
-    }
+    check(!saves.containsKey(save.name)) { "Save [${save.name.getResourceName()}] already exists." }
 
     saves = saves + (save.name to save)
     return save
@@ -54,11 +52,11 @@ object SaveServiceLocalStorage : SaveService {
 
   override suspend fun listSaves(request: ListSavesRequest): ListSavesResponse {
     val afterToken = saves.values.toList()
-      .dropWhile { save -> request.pageToken?.let { it == save.name.getResourceName() } ?: false }
+      .dropWhile { save -> request.pageToken?.let { it != save.name.getResourceName() } ?: false }
     val pageSize = request.pageSize ?: 100
     return ListSavesResponse(
       afterToken.take(pageSize),
-      afterToken.drop(pageSize).firstOrNull()?.name?.getResourceName()
+      afterToken.drop(pageSize).firstOrNull()?.name?.getResourceName(),
     )
   }
 }

@@ -1,6 +1,7 @@
 package app
 
 import app.api.optimize.v1.OptimizeServiceJs
+import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.AppFrameDrawerOpenContextProvider
 import app.common.layout.NavigationListContextProvider
@@ -22,6 +23,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     // Services
     OptimizeServiceJs.Provider,
     SaveServiceJs.Provider,
+    PlanServiceJs.Provider,
     // Global theme
     AppThemeContextProvider,
     // App Data
