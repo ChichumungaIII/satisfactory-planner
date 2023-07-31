@@ -4,7 +4,7 @@ import app.AppRoute
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
 import app.data.common.RemoteData
-import app.data.save.SavesListService
+import app.data.save.SaveCollectionLoader
 import app.theme.AppThemeContext
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
@@ -30,7 +30,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
   val navigate = useNavigate()
   val appTheme by useContext(AppThemeContext)!!
 
-  val (savesData, savesListService) = useContext(SavesListService.Context)!!
+  val (saveCollection, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
 
   var allSaves by useContext(NavigationListContext)!!
 
@@ -54,15 +54,15 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
       this.asDynamic().unmountOnExit = true
 
       mui.material.List.takeIf { allSaves }?.invoke {
-        when (savesData) {
-          is RemoteData.Empty -> savesListService.load()
+        when (saveCollection) {
+          is RemoteData.Empty -> saveCollectionLoader.load()
 
           is RemoteData.Loading -> ListItem {
             LoadingIndicator { variant = LoadingIndicatorVariant.Small }
           }
 
           is RemoteData.Loaded -> {
-            if (savesData.data.isEmpty()) {
+            if (saveCollection.data.isEmpty()) {
               ListItem {
                 ListItemText {
                   sx { padding = appTheme.spacing(1, 4) }
@@ -71,7 +71,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
               }
             }
 
-            savesData.data.forEach { save ->
+            saveCollection.data.forEach { save ->
               ListItemButton {
                 onClick = {
                   navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))

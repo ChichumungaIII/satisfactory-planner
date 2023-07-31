@@ -19,7 +19,7 @@ import react.useContext
 import react.useState
 import kotlin.time.Duration.Companion.milliseconds
 
-class SavesListService(
+class SaveCollectionLoader(
   private val saveService: SaveService,
   private val cache: ResourceCache<SaveName, Save>,
   private val updateCache: (action: ResourceCacheAction<Save>) -> Unit,
@@ -27,13 +27,13 @@ class SavesListService(
   private val setNames: StateSetter<RemoteData<Unit, List<SaveName>>>,
 ) {
   companion object {
-    val Context = createContext<SavesListService>()
+    val Context = createContext<SaveCollectionLoader>()
     val Provider = FC<PropsWithChildren> {
       val saveService = useContext(SaveServiceJs.Context)!!
       val (cache, updateCache) = useContext(SaveCache.Context)!!
       val (names, setNames) = useState(RemoteData.empty<Unit, List<SaveName>>())
 
-      Context(SavesListService(saveService, cache, updateCache, names, setNames)) {
+      Context(SaveCollectionLoader(saveService, cache, updateCache, names, setNames)) {
         +it.children
       }
     }
@@ -49,7 +49,7 @@ class SavesListService(
     setNames(RemoteData.loading(Unit))
   }
 
-  fun <T> ifLoaded(action: (SavesListService) -> T): T? =
+  fun <T> ifLoaded(action: (SaveCollectionLoader) -> T): T? =
     takeIf { names is RemoteData.Loaded }?.let(action)
 
   fun add(save: Save) {

@@ -4,7 +4,7 @@ import app.AppRoute
 import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
-import app.data.save.SavesListService
+import app.data.save.SaveCollectionLoader
 import app.theme.AppThemeContext
 import app.util.launchMain
 import kotlinx.coroutines.delay
@@ -32,7 +32,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
 
   val navigate = useNavigate()
   val saveService = useContext(SaveServiceJs.Context)!!
-  val (_, savesListService) = useContext(SavesListService.Context)!!
+  val (_, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
 
   var step by useContext(CreateSaveStepContext)!!
   val newSave by useContext(NewSaveContext)!!
@@ -56,7 +56,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
               save = newSave.copy(name = SaveName.createRandom())
             )
             val save = saveService.createSave(request)
-            savesListService.ifLoaded { it.add(save) }
+            saveCollectionLoader.ifLoaded { it.add(save) }
 
             creating = false
             navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
