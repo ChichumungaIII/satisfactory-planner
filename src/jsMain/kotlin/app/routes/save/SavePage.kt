@@ -5,13 +5,15 @@ import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
 import app.data.common.RemoteData
 import app.data.plan.PlanCollectionLoader
-import app.theme.AppThemeContext
+import mui.icons.material.Add
 import mui.icons.material.ExpandMore
+import mui.icons.material.Schema
 import mui.material.Accordion
 import mui.material.AccordionDetails
 import mui.material.AccordionSummary
 import mui.material.ListItem
 import mui.material.ListItemButton
+import mui.material.ListItemIcon
 import mui.material.ListItemText
 import mui.material.Paper
 import mui.material.PaperVariant
@@ -28,7 +30,6 @@ external interface SavePageProps : Props {
 }
 
 val SavePage = FC<SavePageProps>("SavePage") { props ->
-  val appTheme by useContext(AppThemeContext)!!
   val (planCollection, planCollectionLoader) = useContext(PlanCollectionLoader.Context)!!
 
   var showPlans by useState(false)
@@ -65,11 +66,13 @@ val SavePage = FC<SavePageProps>("SavePage") { props ->
             is RemoteData.Loaded -> {
               planCollection.data.forEach { plan ->
                 ListItemButton {
+                  ListItemIcon { Schema {} }
                   ListItemText { +plan.displayName }
                 }
               }
 
               ListItemButton {
+                ListItemIcon { Add {} }
                 ListItemText { +"Create Plan" }
               }
             }
