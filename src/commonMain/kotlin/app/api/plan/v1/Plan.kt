@@ -9,12 +9,18 @@ import util.math.Rational
 data class Plan(
   val name: PlanName,
   val displayName: String,
-  val inputs: List<Input>,
-  val products: List<Product>,
-  val byproducts: List<Byproduct>,
-  val targets: List<Target>,
+  val partition: Partition,
 ) {
   val parent = name.save
+
+  @Serializable
+  data class Partition(
+    val inputs: List<Input>,
+    val products: List<Product>,
+    val byproducts: List<Byproduct>,
+    val partitions: List<Partition>,
+    val targets: List<Target>,
+  )
 
   @Serializable
   data class Input(
