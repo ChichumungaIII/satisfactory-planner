@@ -21,7 +21,7 @@ import web.cssom.px
 
 external interface PlanProductsComponentProps : Props
 
-val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponent") { props ->
+val PlanProductsComponent = FC<PlanProductsComponentProps>("PlanProductsComponent") {
   var plan by useContext(PlanComponentContext)!!
 
   Stack {

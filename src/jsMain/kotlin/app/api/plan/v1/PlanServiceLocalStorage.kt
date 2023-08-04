@@ -34,15 +34,9 @@ object PlanServiceLocalStorage : PlanService {
   override suspend fun updatePlan(request: UpdatePlanRequest): Plan {
     val existing = getPlan(GetPlanRequest(request.plan.name))
 
-    val choose = { field: String ->
-      request.plan.takeIf { request.updateMask.contains(field) } ?: existing
-    }
     val plan = existing.copy(
-      displayName = choose("displayName").displayName,
-      inputs = choose("inputs").inputs,
-      products = choose("products").products,
-      byproducts = choose("byproducts").byproducts,
-      targets = choose("targets").targets,
+      displayName = request.plan.displayName,
+      partition = request.plan.partition,
     )
 
     plans = plans + (plan.name to plan)
