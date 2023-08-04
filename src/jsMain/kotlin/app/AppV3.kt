@@ -8,6 +8,7 @@ import app.common.layout.NavigationListContextProvider
 import app.data.plan.PlanCache
 import app.data.plan.PlanCollectionCache
 import app.data.plan.PlanCollectionLoader
+import app.data.plan.PlanLoader
 import app.data.save.SaveCache
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoader
@@ -36,6 +37,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     PlanCache.Provider,
     PlanCollectionCache.Provider,
     PlanCollectionLoader.Provider,
+    PlanLoader.Provider,
     // App State
     AppFrameDrawerOpenContextProvider,
     NavigationListContextProvider,

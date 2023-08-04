@@ -1,5 +1,6 @@
 package app.routes.save
 
+import app.AppRoute
 import app.api.plan.v1.CreatePlanRequest
 import app.api.plan.v1.DeletePlanRequest
 import app.api.plan.v1.Plan
@@ -29,6 +30,7 @@ import mui.material.SvgIconSize
 import react.FC
 import react.Props
 import react.create
+import react.router.useNavigate
 import react.useContext
 import react.useState
 import kotlin.time.Duration.Companion.milliseconds
@@ -38,6 +40,8 @@ external interface PlanListProps : Props {
 }
 
 val PlanList = FC<PlanListProps>("PlanList") { props ->
+  val navigate = useNavigate()
+
   val planService = useContext(PlanServiceJs.Context)!!
   val (planCollection, planCollectionLoader) = useContext(PlanCollectionLoader.Context)!!
 
@@ -48,8 +52,9 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
   Paper {
     variant = PaperVariant.outlined
 
+    val collection = planCollection.takeIf { it.name == props.save.name } ?: RemoteData.empty()
     mui.material.List {
-      when (planCollection) {
+      when (collection) {
         is RemoteData.Empty -> planCollectionLoader.load(props.save.name)
 
         is RemoteData.Loading -> {
@@ -61,9 +66,16 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
         }
 
         is RemoteData.Loaded -> {
-          planCollection.data.forEach { plan ->
+          collection.data.forEach { plan ->
             ListItem {
               ListItemButton {
+                onClick = {
+                  val url = AppRoute.SAVE_PLAN.url(
+                    "saveId" to plan.parent.id.toUInt().toString(),
+                    "planId" to plan.name.id.toUInt().toString(),
+                  )
+                  navigate(to = url)
+                }
                 ListItemIcon { Schema {} }
                 ListItemText { +plan.displayName }
               }

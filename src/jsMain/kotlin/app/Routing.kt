@@ -2,6 +2,7 @@ package app
 
 import app.routes.createsave.CreateSaveRoute
 import app.routes.home.HomeRoute
+import app.routes.plan.PlanRoute
 import app.routes.save.SaveRoute
 import app.sample.SampleRoute
 import app.v2.AppV2
@@ -36,7 +37,9 @@ enum class AppRoute(
   V3("v3", ROOT, AppV3.create(), index = { HomeRoute.create() }),
   SAVES("saves", V3),
   CREATE_SAVE("create", SAVES, CreateSaveRoute.create()),
-  SAVE(":saveId", SAVES, SaveRoute.create()),
+  SAVE(":saveId", SAVES, index = { SaveRoute.create() }),
+  SAVE_PLANS("plans", SAVE),
+  SAVE_PLAN(":planId", SAVE_PLANS, PlanRoute.create()),
 
   SAMPLE("sample", ROOT, SampleRoute.create());
 
