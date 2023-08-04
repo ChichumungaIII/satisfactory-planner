@@ -1,6 +1,7 @@
 package app.routes.save
 
 import app.api.plan.v1.CreatePlanRequest
+import app.api.plan.v1.DeletePlanRequest
 import app.api.plan.v1.Plan
 import app.api.plan.v1.PlanName
 import app.api.plan.v1.PlanServiceJs
@@ -13,15 +14,21 @@ import app.data.plan.PlanCollectionLoader
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import mui.icons.material.Add
+import mui.icons.material.Delete
 import mui.icons.material.Schema
+import mui.material.IconButton
+import mui.material.IconButtonEdge
 import mui.material.ListItem
 import mui.material.ListItemButton
 import mui.material.ListItemIcon
 import mui.material.ListItemText
 import mui.material.Paper
 import mui.material.PaperVariant
+import mui.material.Size
+import mui.material.SvgIconSize
 import react.FC
 import react.Props
+import react.create
 import react.useContext
 import react.useState
 import kotlin.time.Duration.Companion.milliseconds
@@ -55,9 +62,24 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
 
         is RemoteData.Loaded -> {
           planCollection.data.forEach { plan ->
-            ListItemButton {
-              ListItemIcon { Schema {} }
-              ListItemText { +plan.displayName }
+            ListItem {
+              ListItemButton {
+                ListItemIcon { Schema {} }
+                ListItemText { +plan.displayName }
+              }
+
+              secondaryAction = IconButton.create {
+                size = Size.small
+                edge = IconButtonEdge.end
+                onClick = {
+                  launchMain {
+                    planService.deletePlan(DeletePlanRequest(name = plan.name))
+                  }
+                  planCollectionLoader.remove(plan)
+                }
+
+                Delete { fontSize = SvgIconSize.small }
+              }
             }
           }
 

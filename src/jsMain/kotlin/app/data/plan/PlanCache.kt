@@ -9,7 +9,12 @@ object PlanCache : ResourceCache<PlanName, Plan>() {
   override fun getName(resource: Plan) = resource.name
 }
 
-data class PlanCollection(val save: SaveName, val plans: List<PlanName>)
+data class PlanCollection(val save: SaveName, val plans: List<PlanName>) {
+  fun add(plan: PlanName) = copy(plans = plans + plan)
+
+  fun remove(plan: PlanName) = copy(plans = plans - plan)
+}
+
 object PlanCollectionCache : ResourceCache<SaveName, PlanCollection>() {
   override fun getName(resource: PlanCollection) = resource.save
 }
