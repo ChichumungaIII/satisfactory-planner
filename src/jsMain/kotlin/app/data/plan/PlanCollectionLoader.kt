@@ -70,6 +70,16 @@ class PlanCollectionLoader(
     setNames(RemoteData.loading(name))
   }
 
+  fun add(plan: Plan) {
+    check(names is RemoteData.Loaded) { "Cannot add Plan prior to initial load." }
+    check(plan.parent == names.name) { "Plan [${plan.name.getResourceName()}] cannot be added to save [${names.name.getResourceName()}]." }
+
+    updateCache(ResourceCache.Insert(plan))
+    val collection = PlanCollection(names.name, names.data.plans + plan.name)
+    updateCollectionCache(ResourceCache.Insert(collection))
+    setNames(RemoteData.loaded(names.name, collection))
+  }
+
   operator fun component1(): RemoteData<SaveName, List<Plan>> = when (names) {
     is RemoteData.Empty -> RemoteData.empty()
     is RemoteData.Loading -> RemoteData.loading(names.name)

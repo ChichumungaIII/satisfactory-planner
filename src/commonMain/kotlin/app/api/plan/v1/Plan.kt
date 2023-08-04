@@ -20,7 +20,19 @@ data class Plan(
     val byproducts: List<Byproduct>,
     val partitions: List<Partition>,
     val targets: List<Target>,
-  )
+  ) {
+    companion object {
+      private val EMPTY = Partition(
+        inputs = listOf(),
+        products = listOf(),
+        byproducts = listOf(),
+        partitions = listOf(),
+        targets = listOf(),
+      )
+
+      fun empty() = EMPTY
+    }
+  }
 
   @Serializable
   data class Input(
