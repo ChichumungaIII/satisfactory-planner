@@ -1,5 +1,6 @@
 package app.api.save.v1
 
+import app.api.plan.v1.PlanServiceLocalStorage
 import kotlinx.browser.window
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -48,6 +49,7 @@ object SaveServiceLocalStorage : SaveService {
   override suspend fun deleteSave(request: DeleteSaveRequest) {
     getSave(GetSaveRequest(request.name))
     saves = saves - request.name
+    PlanServiceLocalStorage.deleteCollection(request.name)
   }
 
   override suspend fun listSaves(request: ListSavesRequest): ListSavesResponse {
