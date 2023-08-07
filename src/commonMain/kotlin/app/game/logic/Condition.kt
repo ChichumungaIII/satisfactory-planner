@@ -21,7 +21,10 @@ sealed class Condition {
   }
 
   class TierCondition(private val tier: Tier) : Condition() {
-    override fun compute(progress: Progress) = progress.tiers.contains(tier)
+    override fun compute(progress: Progress) =
+      Milestone.entries.filter { it.tier == tier }
+        .map { MilestoneCondition(it) }
+        .all { it.test(progress) }
   }
 
   class MilestoneCondition(private val milestone: Milestone) : Condition() {
