@@ -30,7 +30,7 @@ val ItemAutocomplete = FC<ItemAutocompleteProps>("ItemAutocomplete") { props ->
     }
     size = "small"
 
-    options = Item.values()
+    options = Item.entries.toTypedArray()
     getOptionLabel = { it.displayName }
 
     value = model

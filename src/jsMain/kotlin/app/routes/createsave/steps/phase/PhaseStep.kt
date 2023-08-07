@@ -30,9 +30,9 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
 
       value = newSave.phases.size - 1
       onChange = { event, _ ->
-        val phases = Phase.values().take(event.target.value.unsafeCast<Int>() + 1)
+        val phases = Phase.entries.toTypedArray().take(event.target.value.unsafeCast<Int>() + 1)
         val tiers = phases.mapNotNull(STARTING_PHASE_TO_COMPLETED_TIERS::get).flatten()
-        val milestones = Milestone.values().filter { tiers.contains(it.tier) }
+        val milestones = Milestone.entries.filter { tiers.contains(it.tier) }
         newSave = newSave.copy(
           phases = phases,
           tiers = tiers,
@@ -40,7 +40,7 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
         )
       }
 
-      Phase.values().withIndex().forEach { (i, phase) ->
+      Phase.entries.withIndex().forEach { (i, phase) ->
         MenuItem {
           value = i
           +phase.displayName

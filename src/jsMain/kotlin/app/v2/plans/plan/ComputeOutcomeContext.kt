@@ -46,7 +46,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           if (plan != current) return@launch
 
           val request = OptimizeRequest(
-            recipes = ProductionRecipe.values().toSet(),
+            recipes = ProductionRecipe.entries.toSet(),
             inputs = plan.inputs.mapNotNull(PlanInput::toInput),
             outcomes = plan.products.mapNotNull(PlanProduct::toOutcome) + plan.byproducts.mapNotNull(PlanByproduct::toOutcome),
           )
@@ -56,7 +56,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           val response = optimizeService.optimize(request)
           if (plan != current) return@launch
 
-          val results = ProductionRecipe.values()
+          val results = ProductionRecipe.entries
             .associateWith { response.outcome[it] }
             .mapNotNull { (recipe, rate) -> rate?.let { recipe to it } }
             .map { (recipe, rate) ->

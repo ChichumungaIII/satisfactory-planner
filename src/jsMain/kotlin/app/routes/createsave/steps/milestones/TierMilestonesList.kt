@@ -32,7 +32,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
   val appTheme by useContext(AppThemeContext)!!
 
   var newSave by useContext(NewSaveContext)!!
-  val milestones = Milestone.values().filter { it.tier == props.tier }
+  val milestones = Milestone.entries.filter { it.tier == props.tier }
   val allSelected = newSave.milestones.containsAll(milestones)
   val anySelected = milestones.any { newSave.milestones.contains(it) }
 

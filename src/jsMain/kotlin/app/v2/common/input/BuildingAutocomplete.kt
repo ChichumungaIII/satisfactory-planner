@@ -19,7 +19,8 @@ external interface BuildingAutocompleteProps : Props {
   var setModel: (Building?) -> Unit
 }
 
-val BUILDINGS: List<Building> = (Manufacturer.values() + Generator.values() + Extractor.values()).toList()
+val BUILDINGS: List<Building> =
+  (Manufacturer.entries.toTypedArray() + Generator.entries.toTypedArray() + Extractor.entries.toTypedArray()).toList()
 
 val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete") { props ->
   var model by PropsDelegate(props.model, props.setModel)

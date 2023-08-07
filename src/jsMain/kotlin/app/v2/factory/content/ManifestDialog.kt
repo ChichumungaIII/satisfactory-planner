@@ -36,7 +36,7 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
       TableContainer {
         Table {
 
-          Extractor.values()
+          Extractor.entries
             .associateWith { props.node.buildings[it] ?: 0.toUInt() }
             .filter { (_, count) -> count > 0.toUInt() }
             .takeIf { it.isNotEmpty() }
@@ -61,7 +61,7 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
               }
             }
 
-          Manufacturer.values()
+          Manufacturer.entries
             .associateWith { props.node.buildings[it] ?: 0.toUInt() }
             .filter { (_, count) -> count > 0.toUInt() }
             .takeIf { it.isNotEmpty() }

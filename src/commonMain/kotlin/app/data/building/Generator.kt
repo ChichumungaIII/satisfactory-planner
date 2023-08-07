@@ -30,5 +30,5 @@ enum class Generator(
 
   override val consumption = 0.q;
 
-  override val recipes by lazy { GenerationRecipe.values().filter { it.generator == this } }
+  override val recipes by lazy { GenerationRecipe.entries.filter { it.generator == this } }
 }

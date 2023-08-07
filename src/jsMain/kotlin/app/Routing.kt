@@ -62,7 +62,7 @@ private fun render(route: AppRoute): ReactElement<*> = PathRoute.create {
   route.element?.also { element = it }
 
   route.index?.also { +IndexRoute.create { element = it(); index = true } }
-  AppRoute.values().filter { it.parent == route }.forEach { +render(it) }
+  AppRoute.entries.filter { it.parent == route }.forEach { +render(it) }
 }
 
 private fun redirect(route: AppRoute) = Navigate.create { to = route.url }

@@ -45,5 +45,5 @@ enum class Extractor(
     rate = 60.q,
   );
 
-  override val recipes by lazy { ExtractionRecipe.values().filter { it.extractor == this } }
+  override val recipes by lazy { ExtractionRecipe.entries.filter { it.extractor == this } }
 }
