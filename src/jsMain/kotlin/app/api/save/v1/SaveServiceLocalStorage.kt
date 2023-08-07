@@ -36,10 +36,7 @@ object SaveServiceLocalStorage : SaveService {
     }
     val save = existing.copy(
       displayName = choose("displayName").displayName,
-      phases = choose("phases").phases,
-      tiers = choose("tiers").tiers,
-      milestones = choose("milestones").milestones,
-      research = choose("research").research,
+      progress = choose("progress").progress,
     )
 
     saves = saves + (save.name to save)

@@ -34,9 +34,10 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
         val tiers = phases.mapNotNull(STARTING_PHASE_TO_COMPLETED_TIERS::get).flatten()
         val milestones = Milestone.entries.filter { tiers.contains(it.tier) }
         newSave = newSave.copy(
-          phases = phases,
-          tiers = tiers,
-          milestones = milestones,
+          progress = newSave.progress.copy(
+            phases = phases,
+            milestones = milestones,
+          )
         )
       }
 

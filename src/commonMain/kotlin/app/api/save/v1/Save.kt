@@ -1,17 +1,18 @@
 package app.api.save.v1
 
 import app.game.data.Milestone
-import app.game.data.Phase
-import app.game.data.Research
-import app.game.data.Tier
+import app.game.logic.Progress
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Save(
   val name: SaveName,
   val displayName: String,
-  val phases: List<Phase>,
-  val tiers: List<Tier>,
-  val milestones: List<Milestone>,
-  val research: List<Research>,
-)
+  val progress: Progress,
+) {
+  val phases = progress.phases
+  val milestones = progress.milestones
+  val research = progress.research
+
+  fun setMilestones(milestones: List<Milestone>) = copy(progress = progress.copy(milestones = milestones))
+}

@@ -2,6 +2,7 @@ package app.routes.createsave.steps.milestones
 
 import app.game.data.Milestone
 import app.game.data.Tier
+import app.game.logic.Condition.TierCondition
 import app.routes.createsave.NewSaveContext
 import app.theme.AppThemeContext
 import mui.icons.material.ExpandLess
@@ -36,7 +37,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
   val allSelected = newSave.milestones.containsAll(milestones)
   val anySelected = milestones.any { newSave.milestones.contains(it) }
 
-  var expanded by useState(!newSave.tiers.contains(props.tier))
+  var expanded by useState(!TierCondition(props.tier).test(newSave.progress))
 
   ListItem {
     ListItemButton {
@@ -58,7 +59,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
         val next =
           if (allSelected) newSave.milestones - milestones.toSet()
           else newSave.milestones.toSet() + milestones
-        newSave = newSave.copy(milestones = next.toList())
+        newSave = newSave.setMilestones(next.toList())
       }
     }
 
@@ -95,7 +96,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
             val next =
               if (included) newSave.milestones - milestone
               else newSave.milestones + milestone
-            newSave = newSave.copy(milestones = next)
+            newSave = newSave.setMilestones(next)
           }
         }
       }
