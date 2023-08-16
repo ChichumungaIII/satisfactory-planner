@@ -32,9 +32,11 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
   val appTheme by useContext(AppThemeContext)!!
 
   var newSave by useContext(NewSaveContext)!!
+  val progress = newSave.progress
+
   val milestones = Milestone.entries.filter { it.tier == props.tier }
-  val allSelected = newSave.milestones.containsAll(milestones)
-  val anySelected = milestones.any { newSave.milestones.contains(it) }
+  val allSelected = progress.milestones.containsAll(milestones)
+  val anySelected = milestones.any { progress.milestones.contains(it) }
 
   var expanded by useState(!allSelected)
 
@@ -56,8 +58,8 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
       ListItemText { primary = ReactNode(props.tier.displayName) }
       onClick = {
         val next =
-          if (allSelected) newSave.milestones - milestones.toSet()
-          else newSave.milestones.toSet() + milestones
+          if (allSelected) progress.milestones - milestones.toSet()
+          else progress.milestones.toSet() + milestones
         newSave = newSave.setMilestones(next.toList())
       }
     }
@@ -75,7 +77,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
 
     mui.material.List {
       milestones.forEach { milestone ->
-        val included = newSave.milestones.contains(milestone)
+        val included = progress.milestones.contains(milestone)
 
         ListItemButton {
           ListItemIcon {
@@ -93,8 +95,8 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
           ListItemText { +milestone.displayName }
           onClick = {
             val next =
-              if (included) newSave.milestones - milestone
-              else newSave.milestones + milestone
+              if (included) progress.milestones - milestone
+              else progress.milestones + milestone
             newSave = newSave.setMilestones(next)
           }
         }

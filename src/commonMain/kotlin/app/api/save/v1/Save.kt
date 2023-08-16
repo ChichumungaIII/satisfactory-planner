@@ -10,7 +10,5 @@ data class Save(
   val displayName: String,
   val progress: Progress,
 ) {
-  val milestones = progress.milestones
-
   fun setMilestones(milestones: List<Milestone>) = copy(progress = progress.copy(milestones = milestones))
 }
