@@ -4,7 +4,6 @@ import app.game.data.Item
 import app.game.data.Milestone
 import app.game.data.Phase
 import app.game.data.Research
-import app.game.data.Tier
 
 sealed class Condition {
   private val cache = mutableMapOf<Progress, Boolean>()
@@ -18,13 +17,6 @@ sealed class Condition {
 
   class PhaseCondition(private val phase: Phase) : Condition() {
     override fun compute(progress: Progress) = phase <= progress.phase
-  }
-
-  class TierCondition(private val tier: Tier) : Condition() {
-    override fun compute(progress: Progress) =
-      Milestone.entries.filter { it.tier == tier }
-        .map { MilestoneCondition(it) }
-        .all { it.test(progress) }
   }
 
   class MilestoneCondition(private val milestone: Milestone) : Condition() {
@@ -43,7 +35,6 @@ sealed class Condition {
     protected val conditions = mutableListOf<Condition>()
 
     operator fun Phase.unaryPlus() = +PhaseCondition(this)
-    operator fun Tier.unaryPlus() = +TierCondition(this)
     operator fun Milestone.unaryPlus() = +MilestoneCondition(this)
     operator fun Research.unaryPlus() = +ResearchCondition(this)
     operator fun Item.unaryPlus() = +ItemCondition(this)

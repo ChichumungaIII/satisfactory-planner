@@ -2,7 +2,6 @@ package app.routes.createsave.steps.milestones
 
 import app.game.data.Milestone
 import app.game.data.Tier
-import app.game.logic.Condition.TierCondition
 import app.routes.createsave.NewSaveContext
 import app.theme.AppThemeContext
 import mui.icons.material.ExpandLess
@@ -37,7 +36,7 @@ val TierMilestonesList = FC<TierMilestonesListProps>("TierMilestonesList") { pro
   val allSelected = newSave.milestones.containsAll(milestones)
   val anySelected = milestones.any { newSave.milestones.contains(it) }
 
-  var expanded by useState(!TierCondition(props.tier).test(newSave.progress))
+  var expanded by useState(!allSelected)
 
   ListItem {
     ListItemButton {
