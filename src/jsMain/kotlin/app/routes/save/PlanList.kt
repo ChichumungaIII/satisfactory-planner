@@ -17,6 +17,8 @@ import kotlinx.coroutines.delay
 import mui.icons.material.Add
 import mui.icons.material.Delete
 import mui.icons.material.Schema
+import mui.material.CircularProgress
+import mui.material.Icon
 import mui.material.IconButton
 import mui.material.IconButtonEdge
 import mui.material.ListItem
@@ -27,12 +29,15 @@ import mui.material.Paper
 import mui.material.PaperVariant
 import mui.material.Size
 import mui.material.SvgIconSize
+import mui.system.sx
 import react.FC
 import react.Props
 import react.create
 import react.router.useNavigate
 import react.useContext
 import react.useState
+import web.cssom.Position
+import web.cssom.px
 import kotlin.time.Duration.Companion.milliseconds
 
 external interface PlanListProps : Props {
@@ -95,19 +100,33 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
             }
           }
 
-          createPlanDisplayName?.also { displayName ->
-            ListItem {
-              ListItemIcon { LoadingIndicator { variant = LoadingIndicatorVariant.Small } }
-              ListItemText { +displayName }
+          if (createPlanDisplayName == null) {
+            ListItemButton {
+              disabled = createPlanDisplayName != null
+              onClick = { createPlanDialog = true }
+
+              ListItemIcon { Add {} }
+              ListItemText { +"Create Plan" }
             }
-          }
+          } else {
+            ListItem {
+              disablePadding = false
+              ListItemIcon {
+                Icon {
+                  sx { position = Position.relative }
+                  CircularProgress {
+                    sx {
+                      position = Position.absolute
+                      left = 0.px
+                    }
+                    size = 24.px
+                    thickness = 3.0
+                  }
+                }
+              }
+              ListItemText { +"Creating $createPlanDisplayName..." }
 
-          ListItemButton {
-            disabled = createPlanDisplayName != null
-            onClick = { createPlanDialog = true }
-
-            ListItemIcon { Add {} }
-            ListItemText { +"Create Plan" }
+            }
           }
         }
 
@@ -133,7 +152,12 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
         )
         val plan = planService.createPlan(request)
         planCollectionLoader.add(plan)
-        createPlanDisplayName = null
+
+        val url = AppRoute.SAVE_PLAN.url(
+          "saveId" to plan.parent.id.toUInt().toString(),
+          "planId" to plan.name.id.toUInt().toString(),
+        )
+        navigate(to = url)
       }
       createPlanDisplayName = name
     }
