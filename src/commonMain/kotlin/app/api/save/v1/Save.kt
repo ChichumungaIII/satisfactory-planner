@@ -10,9 +10,7 @@ data class Save(
   val displayName: String,
   val progress: Progress,
 ) {
-  val phase = progress.phase
   val milestones = progress.milestones
-  val research = progress.research
 
   fun setMilestones(milestones: List<Milestone>) = copy(progress = progress.copy(milestones = milestones))
 }

@@ -28,7 +28,7 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
       label = ReactNode("Starting Phase")
       autoFocus = true
 
-      value = newSave.phase.name
+      value = newSave.progress.phase.name
       onChange = { event, _ ->
         val phase = Phase.valueOf(event.target.value.unsafeCast<String>())
         val milestones = phase.previous?.let { Progress(phase = it) }
