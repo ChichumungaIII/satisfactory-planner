@@ -2,7 +2,6 @@ package app.routes.createsave
 
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
-import app.game.data.Phase
 import app.game.logic.Progress
 import app.routes.createsave.steps.displayname.DisplayNameStep
 import app.routes.createsave.steps.milestones.MilestonesStep
@@ -30,11 +29,7 @@ val NewSaveCreatingContext = createContext<StateInstance<Boolean>>()
 private val DEFAULT_SAVE = Save(
   name = SaveName(0),
   displayName = "",
-  progress = Progress(
-    phases = listOf(Phase.GAME_START),
-    milestones = listOf(),
-    research = listOf(),
-  )
+  progress = Progress()
 )
 
 val CreateSavePage = FC<CreateSavePageProps>("CreateSavePage") {

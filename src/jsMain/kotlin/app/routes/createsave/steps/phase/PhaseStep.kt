@@ -2,7 +2,7 @@ package app.routes.createsave.steps.phase
 
 import app.game.data.Milestone
 import app.game.data.Phase
-import app.game.data.Tier
+import app.game.logic.Progress
 import app.routes.createsave.NewSaveContext
 import mui.material.FormControl
 import mui.material.InputLabel
@@ -28,33 +28,26 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
       label = ReactNode("Starting Phase")
       autoFocus = true
 
-      value = newSave.phases.size - 1
+      value = newSave.phase.name
       onChange = { event, _ ->
-        val phases = Phase.entries.toTypedArray().take(event.target.value.unsafeCast<Int>() + 1)
-        val tiers = phases.mapNotNull(STARTING_PHASE_TO_COMPLETED_TIERS::get).flatten()
-        val milestones = Milestone.entries.filter { tiers.contains(it.tier) }
+        val phase = Phase.valueOf(event.target.value.unsafeCast<String>())
+        val milestones = phase.previous?.let { Progress(phase = it) }
+          ?.let { progress -> Milestone.entries.filter { it.tier.requirement.test(progress) } }
+          ?: listOf()
         newSave = newSave.copy(
           progress = newSave.progress.copy(
-            phases = phases,
+            phase = phase,
             milestones = milestones,
           )
         )
       }
 
-      Phase.entries.withIndex().forEach { (i, phase) ->
+      Phase.entries.forEach { phase ->
         MenuItem {
-          value = i
+          value = phase.name
           +phase.displayName
         }
       }
     }
   }
 }
-
-private val STARTING_PHASE_TO_COMPLETED_TIERS = mapOf(
-  Phase.ONBOARDING to listOf(Tier.TIER_0),
-  Phase.PHASE_1 to listOf(Tier.TIER_1, Tier.TIER_2),
-  Phase.PHASE_2 to listOf(Tier.TIER_3, Tier.TIER_4),
-  Phase.PHASE_3 to listOf(Tier.TIER_5, Tier.TIER_6),
-  Phase.PHASE_4 to listOf(Tier.TIER_7, Tier.TIER_8),
-)

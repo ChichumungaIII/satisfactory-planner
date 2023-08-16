@@ -10,7 +10,7 @@ data class Save(
   val displayName: String,
   val progress: Progress,
 ) {
-  val phases = progress.phases
+  val phase = progress.phase
   val milestones = progress.milestones
   val research = progress.research
 

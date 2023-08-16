@@ -17,7 +17,7 @@ sealed class Condition {
   }
 
   class PhaseCondition(private val phase: Phase) : Condition() {
-    override fun compute(progress: Progress) = progress.phases.contains(phase)
+    override fun compute(progress: Progress) = phase <= progress.phase
   }
 
   class TierCondition(private val tier: Tier) : Condition() {

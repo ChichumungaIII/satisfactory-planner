@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Progress(
-  val phases: List<Phase>,
-  val milestones: List<Milestone>,
-  val research: List<Research>,
+  val phase: Phase = Phase.GAME_START,
+  val milestones: List<Milestone> = listOf(),
+  val research: List<Research> = listOf(),
 )

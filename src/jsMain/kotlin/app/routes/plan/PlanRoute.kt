@@ -14,11 +14,9 @@ import react.create
 import react.router.useParams
 import react.useContext
 
-external interface PlanRouteProps : Props {
+external interface PlanRouteProps : Props
 
-}
-
-val PlanRoute = FC<PlanRouteProps>("PlanRoute") { props ->
+val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
   val params = useParams()
   val saveIdParam = params["saveId"]
   val planIdParam = params["planId"]
