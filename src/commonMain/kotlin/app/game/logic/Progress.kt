@@ -7,7 +7,17 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Progress(
-  val phase: Phase = Phase.GAME_START,
-  val milestones: List<Milestone> = listOf(),
-  val research: List<Research> = listOf(),
-)
+  val phase: Phase,
+  val milestones: List<Milestone>,
+  val research: List<Research>,
+) {
+  companion object {
+    private val EMPTY = Progress(
+      phase = Phase.GAME_START,
+      milestones = listOf(),
+      research = listOf(),
+    )
+
+    fun empty() = EMPTY
+  }
+}
