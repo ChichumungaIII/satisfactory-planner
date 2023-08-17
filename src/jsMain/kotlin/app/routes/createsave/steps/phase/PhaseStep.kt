@@ -31,7 +31,7 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
       value = newSave.progress.phase.name
       onChange = { event, _ ->
         val phase = Phase.valueOf(event.target.value.unsafeCast<String>())
-        val milestones = phase.previous?.let { Progress(phase = it) }
+        val milestones = phase.previous?.let { Progress.create(phase = it) }
           ?.let { progress -> Milestone.entries.filter { it.tier.requirement.test(progress) } }
           ?: listOf()
         newSave = newSave.copy(

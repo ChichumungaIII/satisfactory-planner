@@ -12,12 +12,10 @@ data class Progress(
   val research: List<Research>,
 ) {
   companion object {
-    private val EMPTY = Progress(
-      phase = Phase.GAME_START,
-      milestones = listOf(),
-      research = listOf(),
-    )
-
-    fun empty() = EMPTY
+    fun create(
+      phase: Phase = Phase.GAME_START,
+      milestones: List<Milestone> = listOf(),
+      research: List<Research> = listOf(),
+    ) = Progress(phase, milestones, research)
   }
 }

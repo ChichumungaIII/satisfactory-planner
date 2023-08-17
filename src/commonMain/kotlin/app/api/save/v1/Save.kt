@@ -14,7 +14,7 @@ data class Save(
     private val EMPTY = Save(
       name = SaveName(0),
       displayName = "",
-      progress = Progress.empty(),
+      progress = Progress.create(),
     )
 
     fun empty() = EMPTY
