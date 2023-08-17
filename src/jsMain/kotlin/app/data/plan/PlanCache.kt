@@ -5,9 +5,7 @@ import app.api.plan.v1.PlanName
 import app.api.save.v1.SaveName
 import app.data.common.ResourceCache
 
-object PlanCache : ResourceCache<PlanName, Plan>() {
-  override fun getName(resource: Plan) = resource.name
-}
+val PlanCache = ResourceCache(Plan::name)
 
 data class PlanCollection(val save: SaveName, val plans: List<PlanName>) {
   fun add(plan: PlanName) = copy(plans = plans + plan)
@@ -15,6 +13,4 @@ data class PlanCollection(val save: SaveName, val plans: List<PlanName>) {
   fun remove(plan: PlanName) = copy(plans = plans - plan)
 }
 
-object PlanCollectionCache : ResourceCache<SaveName, PlanCollection>() {
-  override fun getName(resource: PlanCollection) = resource.save
-}
+val PlanCollectionCache = ResourceCache(PlanCollection::save)

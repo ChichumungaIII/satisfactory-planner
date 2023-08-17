@@ -6,7 +6,7 @@ import react.ReducerInstance
 import react.createContext
 import react.useReducer
 
-abstract class ResourceCache<N, R> {
+class ResourceCache<N, R>(private val identifier: ResourceIdentifier<N, R>) {
   sealed interface ResourceCacheAction<R>
   data class Insert<R>(val resource: R) : ResourceCacheAction<R>
   data class InsertAll<R>(val resources: Collection<R>) : ResourceCacheAction<R>
@@ -33,12 +33,10 @@ abstract class ResourceCache<N, R> {
   operator fun get(name: N) = cache[name]
 
   private fun insert(resource: R) {
-    cache[getName(resource)] = resource
+    cache[identifier(resource)] = resource
   }
 
   private fun insertAll(resources: Collection<R>) {
     resources.forEach { insert(it) }
   }
-
-  abstract fun getName(resource: R): N
 }
