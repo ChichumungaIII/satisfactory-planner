@@ -53,6 +53,7 @@ data class Plan(
   @Serializable
   data class Byproduct(
     val item: Item,
+    val amount: Rational,
     val banned: Boolean,
   )
 
@@ -60,6 +61,7 @@ data class Plan(
   data class Target(
     val recipe: Recipe,
     val rate: Rational,
+    val banned: Boolean = false,
     val restriction: Rational? = null,
     val details: Boolean = false,
   )
