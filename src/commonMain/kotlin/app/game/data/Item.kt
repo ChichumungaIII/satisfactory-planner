@@ -2,6 +2,7 @@ package app.game.data
 
 import app.game.logic.Condition
 import app.game.logic.Condition.MilestoneCondition
+import app.game.logic.Condition.PhaseCondition
 import util.math.Rational
 import util.math.q
 
@@ -25,35 +26,35 @@ enum class Item(
     Category.RESOURCES,
     stack = 100.q,
     sink = 1.q,
-    unlock = Condition.TRUE,
+    unlock = PhaseCondition(Phase.GAME_START),
   ),
   IRON_INGOT(
     "Iron Ingot",
     Category.COMPONENTS,
     stack = 100.q,
     sink = 2.q,
-    unlock = Condition.TRUE,
+    unlock = PhaseCondition(Phase.GAME_START),
   ),
   IRON_PLATE(
     "Iron Plate",
     Category.COMPONENTS,
     stack = 200.q,
     sink = 6.q,
-    unlock = Condition.TRUE,
+    unlock = PhaseCondition(Phase.GAME_START),
   ),
   IRON_ROD(
     "Iron Rod",
     Category.COMPONENTS,
     stack = 200.q,
     sink = 4.q,
-    unlock = Condition.TRUE,
+    unlock = PhaseCondition(Phase.GAME_START),
   ),
   XENO_ZAPPER(
     "Xeno-Zapper",
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 1_880.q,
-    unlock = Condition.TRUE,
+    unlock = PhaseCondition(Phase.GAME_START),
   ),
 
   /* HUB Upgrade 1 */
