@@ -19,7 +19,7 @@ val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
   val saveIdParam = useParams()["saveId"]
   val name = saveIdParam?.toIntOrNull()?.let { SaveName(it) }
 
-  val (saveData, saveLoader) = useContext(SaveLoader.Context)!!
+  val (saveData, saveLoader) = useContext(SaveLoader)!!
 
   val save = (saveData.takeIf { it.name == name } ?: RemoteData.empty())
   if (name == null) {

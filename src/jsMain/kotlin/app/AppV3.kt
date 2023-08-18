@@ -11,7 +11,7 @@ import app.data.plan.PlanCollectionLoader
 import app.data.plan.PlanLoaderProvider
 import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
-import app.data.save.SaveLoader
+import app.data.save.SaveLoaderProvider
 import app.theme.AppThemeContextProvider
 import react.FC
 import react.Props
@@ -33,7 +33,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     // App Data
     SaveCacheProvider,
     SaveCollectionLoader.Provider,
-    SaveLoader.Provider,
+    SaveLoaderProvider,
     PlanCacheProvider,
     PlanCollectionCacheProvider,
     PlanCollectionLoader.Provider,
