@@ -7,8 +7,6 @@ import app.api.plan.v1.PlanService
 import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveName
 import app.data.common.RemoteData
-import app.data.common.ResourceCache
-import app.data.common.ResourceCache.ResourceCacheAction
 import app.data.common.ResourceCacheV2
 import app.util.launchMain
 import kotlinx.coroutines.delay
@@ -22,8 +20,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class PlanCollectionLoader(
   private val planService: PlanService,
-  private val collectionCache: ResourceCache<SaveName, PlanCollection>,
-  private val updateCollectionCache: (action: ResourceCacheAction<PlanCollection>) -> Unit,
+  private val collectionCache: ResourceCacheV2<SaveName, PlanCollection>,
   private val cache: ResourceCacheV2<PlanName, Plan>,
   private val names: RemoteData<SaveName, PlanCollection>,
   private val setNames: StateSetter<RemoteData<SaveName, PlanCollection>>,
@@ -32,7 +29,7 @@ class PlanCollectionLoader(
     val Context = createContext<PlanCollectionLoader>()
     val Provider = FC<PropsWithChildren>("PlanCollectionLoader") {
       val planService = useContext(PlanServiceJs.Context)!!
-      val (collectionCache, updateCollectionCache) = useContext(PlanCollectionCache.Context)!!
+      val collectionCache = useContext(PlanCollectionCacheContext)!!
       val cache = useContext(PlanCacheContext)!!
       val (names, setNames) = useState(RemoteData.empty<SaveName, PlanCollection>())
 
@@ -40,7 +37,6 @@ class PlanCollectionLoader(
         PlanCollectionLoader(
           planService,
           collectionCache,
-          updateCollectionCache,
           cache,
           names,
           setNames
@@ -63,7 +59,7 @@ class PlanCollectionLoader(
       cache.insertAll(plans)
 
       val collection = PlanCollection(name, plans.map { it.name })
-      updateCollectionCache(ResourceCache.Insert(collection))
+      collectionCache.insert(collection)
       setNames(RemoteData.loaded(name, collection))
     }
     setNames(RemoteData.loading(name))
@@ -75,7 +71,7 @@ class PlanCollectionLoader(
 
     cache.insert(plan)
     val collection = names.data.add(plan.name)
-    updateCollectionCache(ResourceCache.Insert(collection))
+    collectionCache.insert(collection)
     setNames(RemoteData.loaded(names.name, collection))
   }
 
@@ -83,7 +79,7 @@ class PlanCollectionLoader(
     check(names is RemoteData.Loaded) { "Cannot remove Plan prior to initial load." }
 
     val collection = names.data.remove(plan.name)
-    updateCollectionCache(ResourceCache.Insert(collection))
+    collectionCache.insert(collection)
     setNames(RemoteData.loaded(names.name, collection))
   }
 

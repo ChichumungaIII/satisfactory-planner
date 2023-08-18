@@ -4,9 +4,8 @@ import app.AppRoute
 import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
-import app.data.common.ResourceCache.Insert
 import app.data.plan.PlanCollection
-import app.data.plan.PlanCollectionCache
+import app.data.plan.PlanCollectionCacheContext
 import app.data.save.SaveCollectionLoader
 import app.theme.AppThemeContext
 import app.util.launchMain
@@ -36,7 +35,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
   val navigate = useNavigate()
   val saveService = useContext(SaveServiceJs.Context)!!
   val (_, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
-  val (_, updatePlanCollectionCache) = useContext(PlanCollectionCache.Context)!!
+  val planCollectionCache = useContext(PlanCollectionCacheContext)!!
 
   var step by useContext(CreateSaveStepContext)!!
   val newSave by useContext(NewSaveContext)!!
@@ -61,7 +60,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
             )
             val save = saveService.createSave(request)
             saveCollectionLoader.ifLoaded { it.add(save) }
-            updatePlanCollectionCache(Insert(PlanCollection(save.name, listOf())))
+            planCollectionCache.insert(PlanCollection(save.name, listOf()))
 
             creating = false
             navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
