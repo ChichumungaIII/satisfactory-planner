@@ -5,7 +5,7 @@ import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
 import app.data.plan.PlanCollection
-import app.data.plan.PlanCollectionCacheContext
+import app.data.plan.PlanCollectionCache
 import app.data.save.SaveCollectionLoader
 import app.theme.AppThemeContext
 import app.util.launchMain
@@ -35,7 +35,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
   val navigate = useNavigate()
   val saveService = useContext(SaveServiceJs.Context)!!
   val (_, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
-  val planCollectionCache = useContext(PlanCollectionCacheContext)!!
+  val planCollectionCache = useContext(PlanCollectionCache)!!
 
   var step by useContext(CreateSaveStepContext)!!
   val newSave by useContext(NewSaveContext)!!

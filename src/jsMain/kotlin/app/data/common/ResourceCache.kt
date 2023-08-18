@@ -6,7 +6,7 @@ import react.FC
 import react.PropsWithChildren
 import react.useReducer
 
-class ResourceCacheV2<N, R : Resource<N>> private constructor(
+class ResourceCache<N, R : Resource<N>> private constructor(
   private val cache: Map<N, R>,
   private val updateCache: (ResourceCacheAction<N, R>) -> Unit,
 ) {
@@ -17,7 +17,7 @@ class ResourceCacheV2<N, R : Resource<N>> private constructor(
 
     fun <N, R : Resource<N>> createProvider(
       displayName: String,
-      context: Context<ResourceCacheV2<N, R>?>,
+      context: Context<ResourceCache<N, R>?>,
     ) = FC<PropsWithChildren>(displayName) {
       val (cache, updateCache) = useReducer({ cache: MutableMap<N, R>, action: ResourceCacheAction<N, R> ->
         when (action) {
@@ -27,7 +27,7 @@ class ResourceCacheV2<N, R : Resource<N>> private constructor(
         cache
       }, initialState = mutableMapOf());
 
-      context(ResourceCacheV2(cache, updateCache)) {
+      context(ResourceCache(cache, updateCache)) {
         +it.children
       }
     }

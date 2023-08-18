@@ -6,7 +6,7 @@ import app.api.save.v1.SaveName
 import app.api.save.v1.SaveService
 import app.api.save.v1.SaveServiceJs
 import app.data.common.RemoteData
-import app.data.common.ResourceCacheV2
+import app.data.common.ResourceCache
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class SaveLoader(
   private val saveService: SaveService,
-  private val cache: ResourceCacheV2<SaveName, Save>,
+  private val cache: ResourceCache<SaveName, Save>,
   private val saveData: RemoteData<SaveName, Save>,
   private val setSaveData: StateSetter<RemoteData<SaveName, Save>>,
 ) {
@@ -27,7 +27,7 @@ class SaveLoader(
     val Context = createContext<SaveLoader>()
     val Provider = FC<PropsWithChildren> {
       val saveService = useContext(SaveServiceJs.Context)!!
-      val cache = useContext(SaveCacheContext)!!
+      val cache = useContext(SaveCache)!!
       val (saveData, setSaveData) = useState(RemoteData.empty<SaveName, Save>())
 
       Context(SaveLoader(saveService, cache, saveData, setSaveData)) {

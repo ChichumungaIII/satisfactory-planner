@@ -2,8 +2,8 @@ package app.data.save
 
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
-import app.data.common.ResourceCacheV2
+import app.data.common.ResourceCache
 import react.createContext
 
-val SaveCacheContext = createContext<ResourceCacheV2<SaveName, Save>>()
-val SaveCacheProvider = ResourceCacheV2.createProvider("SaveCacheProvider", SaveCacheContext)
+val SaveCache = createContext<ResourceCache<SaveName, Save>>()
+val SaveCacheProvider = ResourceCache.createProvider("SaveCacheProvider", SaveCache)

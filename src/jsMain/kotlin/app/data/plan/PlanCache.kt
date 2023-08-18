@@ -4,11 +4,11 @@ import app.api.common.Resource
 import app.api.plan.v1.Plan
 import app.api.plan.v1.PlanName
 import app.api.save.v1.SaveName
-import app.data.common.ResourceCacheV2
+import app.data.common.ResourceCache
 import react.createContext
 
-val PlanCacheContext = createContext<ResourceCacheV2<PlanName, Plan>>()
-val PlanCacheProvider = ResourceCacheV2.createProvider("PlanCacheProvider", PlanCacheContext)
+val PlanCache = createContext<ResourceCache<PlanName, Plan>>()
+val PlanCacheProvider = ResourceCache.createProvider("PlanCacheProvider", PlanCache)
 
 data class PlanCollection(
   override val name: SaveName,
@@ -19,6 +19,6 @@ data class PlanCollection(
   fun remove(plan: PlanName) = copy(plans = plans - plan)
 }
 
-val PlanCollectionCacheContext = createContext<ResourceCacheV2<SaveName, PlanCollection>>()
+val PlanCollectionCache = createContext<ResourceCache<SaveName, PlanCollection>>()
 val PlanCollectionCacheProvider =
-  ResourceCacheV2.createProvider("PlanCollectionCacheProvider", PlanCollectionCacheContext)
+  ResourceCache.createProvider("PlanCollectionCacheProvider", PlanCollectionCache)

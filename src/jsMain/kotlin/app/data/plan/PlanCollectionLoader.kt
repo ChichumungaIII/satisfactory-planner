@@ -7,7 +7,7 @@ import app.api.plan.v1.PlanService
 import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveName
 import app.data.common.RemoteData
-import app.data.common.ResourceCacheV2
+import app.data.common.ResourceCache
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
@@ -20,8 +20,8 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class PlanCollectionLoader(
   private val planService: PlanService,
-  private val collectionCache: ResourceCacheV2<SaveName, PlanCollection>,
-  private val cache: ResourceCacheV2<PlanName, Plan>,
+  private val collectionCache: ResourceCache<SaveName, PlanCollection>,
+  private val cache: ResourceCache<PlanName, Plan>,
   private val names: RemoteData<SaveName, PlanCollection>,
   private val setNames: StateSetter<RemoteData<SaveName, PlanCollection>>,
 ) {
@@ -29,8 +29,8 @@ class PlanCollectionLoader(
     val Context = createContext<PlanCollectionLoader>()
     val Provider = FC<PropsWithChildren>("PlanCollectionLoader") {
       val planService = useContext(PlanServiceJs.Context)!!
-      val collectionCache = useContext(PlanCollectionCacheContext)!!
-      val cache = useContext(PlanCacheContext)!!
+      val collectionCache = useContext(PlanCollectionCache)!!
+      val cache = useContext(PlanCache)!!
       val (names, setNames) = useState(RemoteData.empty<SaveName, PlanCollection>())
 
       Context(
