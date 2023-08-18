@@ -83,12 +83,6 @@ class PlanCollectionLoader(
     setNames(RemoteData.loaded(names.name, collection))
   }
 
-  operator fun component1(): RemoteData<SaveName, List<Plan>> = when (names) {
-    is RemoteData.Empty -> RemoteData.empty()
-    is RemoteData.Loading -> RemoteData.loading(names.name)
-    is RemoteData.Loaded -> RemoteData.loaded(names.name, names.data.plans.map { cache[it]!! })
-    is RemoteData.Error -> RemoteData.error(names.name, names.message)
-  }
-
+  operator fun component1() = names.map { c -> c.plans.map { cache[it]!! } }
   operator fun component2() = this
 }

@@ -10,11 +10,20 @@ sealed interface RemoteData<N, R> {
     }
 
     override val name = null
+    override fun <R2> map(mapper: (R) -> R2) = instance<N, R2>()
   }
 
-  class Loading<N, R> internal constructor(override val name: N) : RemoteData<N, R>
-  class Loaded<N, R> internal constructor(override val name: N, val data: R) : RemoteData<N, R>
-  class Error<N, R> internal constructor(override val name: N, val message: String) : RemoteData<N, R>
+  class Loading<N, R> internal constructor(override val name: N) : RemoteData<N, R> {
+    override fun <R2> map(mapper: (R) -> R2) = loading<N, R2>(name)
+  }
+
+  class Loaded<N, R> internal constructor(override val name: N, val data: R) : RemoteData<N, R> {
+    override fun <R2> map(mapper: (R) -> R2) = loaded(name, mapper(data))
+  }
+
+  class Error<N, R> internal constructor(override val name: N, val message: String) : RemoteData<N, R> {
+    override fun <R2> map(mapper: (R) -> R2) = error<N, R2>(name, message)
+  }
 
   companion object {
     fun <N, R> empty() = Empty.instance<N, R>()
@@ -24,4 +33,6 @@ sealed interface RemoteData<N, R> {
   }
 
   val name: N?
+
+  fun <R2> map(mapper: (R) -> R2): RemoteData<N, R2>
 }

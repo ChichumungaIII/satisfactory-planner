@@ -33,6 +33,7 @@ class ResourceCache<N, R : Resource<N>> private constructor(
     }
   }
 
+  fun contains(name: N) = cache.contains(name)
   operator fun get(name: N) = cache[name]
   fun insert(resource: R) = updateCache(Insert(resource))
   fun insertAll(resources: Iterable<R>) = updateCache(InsertAll(resources))

@@ -24,7 +24,7 @@ val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
     planIdParam?.toUIntOrNull()?.toInt()?.let { PlanName(save, it) }
   }
 
-  val (planData, planLoader) = useContext(PlanLoader.Context)!!
+  val (planData, planLoader) = useContext(PlanLoader)!!
 
   val plan = (planData.takeIf { it.name == name }) ?: RemoteData.empty()
   if (name == null) {
