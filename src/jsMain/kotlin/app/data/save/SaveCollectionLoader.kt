@@ -6,9 +6,7 @@ import app.api.save.v1.SaveName
 import app.api.save.v1.SaveService
 import app.api.save.v1.SaveServiceJs
 import app.data.common.RemoteData
-import app.data.common.ResourceCache
-import app.data.common.ResourceCache.InsertAll
-import app.data.common.ResourceCache.ResourceCacheAction
+import app.data.common.ResourceCacheV2
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
@@ -21,8 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class SaveCollectionLoader(
   private val saveService: SaveService,
-  private val cache: ResourceCache<SaveName, Save>,
-  private val updateCache: (action: ResourceCacheAction<Save>) -> Unit,
+  private val cache: ResourceCacheV2<SaveName, Save>,
   private val names: RemoteData<Unit, List<SaveName>>,
   private val setNames: StateSetter<RemoteData<Unit, List<SaveName>>>,
 ) {
@@ -30,10 +27,10 @@ class SaveCollectionLoader(
     val Context = createContext<SaveCollectionLoader>()
     val Provider = FC<PropsWithChildren> {
       val saveService = useContext(SaveServiceJs.Context)!!
-      val (cache, updateCache) = useContext(SaveCache.Context)!!
+      val cache = useContext(SaveCacheContext)!!
       val (names, setNames) = useState(RemoteData.empty<Unit, List<SaveName>>())
 
-      Context(SaveCollectionLoader(saveService, cache, updateCache, names, setNames)) {
+      Context(SaveCollectionLoader(saveService, cache, names, setNames)) {
         +it.children
       }
     }
@@ -43,7 +40,7 @@ class SaveCollectionLoader(
     launchMain {
       delay(1500.milliseconds)
       val saves = saveService.listSaves(ListSavesRequest()).saves
-      updateCache(InsertAll(saves))
+      cache.insertAll(saves)
       setNames(RemoteData.loaded(Unit, saves.map { it.name }))
     }
     setNames(RemoteData.loading(Unit))
@@ -55,7 +52,7 @@ class SaveCollectionLoader(
   fun add(save: Save) {
     check(names is RemoteData.Loaded) { "Cannot add Save prior to initial load." }
 
-    updateCache(ResourceCache.Insert(save))
+    cache.insert(save)
     setNames(RemoteData.loaded(Unit, names.data + save.name))
   }
 

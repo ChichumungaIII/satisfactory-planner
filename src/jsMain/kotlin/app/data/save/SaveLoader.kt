@@ -6,9 +6,7 @@ import app.api.save.v1.SaveName
 import app.api.save.v1.SaveService
 import app.api.save.v1.SaveServiceJs
 import app.data.common.RemoteData
-import app.data.common.ResourceCache
-import app.data.common.ResourceCache.Insert
-import app.data.common.ResourceCache.ResourceCacheAction
+import app.data.common.ResourceCacheV2
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
@@ -21,8 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class SaveLoader(
   private val saveService: SaveService,
-  private val cache: ResourceCache<SaveName, Save>,
-  private val updateCache: (action: ResourceCacheAction<Save>) -> Unit,
+  private val cache: ResourceCacheV2<SaveName, Save>,
   private val saveData: RemoteData<SaveName, Save>,
   private val setSaveData: StateSetter<RemoteData<SaveName, Save>>,
 ) {
@@ -30,10 +27,10 @@ class SaveLoader(
     val Context = createContext<SaveLoader>()
     val Provider = FC<PropsWithChildren> {
       val saveService = useContext(SaveServiceJs.Context)!!
-      val (cache, updateCache) = useContext(SaveCache.Context)!!
+      val cache = useContext(SaveCacheContext)!!
       val (saveData, setSaveData) = useState(RemoteData.empty<SaveName, Save>())
 
-      Context(SaveLoader(saveService, cache, updateCache, saveData, setSaveData)) {
+      Context(SaveLoader(saveService, cache, saveData, setSaveData)) {
         +it.children
       }
     }
@@ -50,7 +47,7 @@ class SaveLoader(
     launchMain {
       delay(1000.milliseconds)
       val save = saveService.getSave(GetSaveRequest(name = name))
-      updateCache(Insert(save))
+      cache.insert(save)
       setSaveData(RemoteData.loaded(name, save))
     }
     setSaveData(RemoteData.loading(name))

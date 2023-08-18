@@ -9,7 +9,7 @@ import app.data.plan.PlanCache
 import app.data.plan.PlanCollectionCache
 import app.data.plan.PlanCollectionLoader
 import app.data.plan.PlanLoader
-import app.data.save.SaveCache
+import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoader
 import app.theme.AppThemeContextProvider
@@ -31,7 +31,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     // Global theme
     AppThemeContextProvider,
     // App Data
-    SaveCache.Provider,
+    SaveCacheProvider,
     SaveCollectionLoader.Provider,
     SaveLoader.Provider,
     PlanCache.Provider,
