@@ -1,5 +1,6 @@
 package app.api.plan.v1
 
+import app.api.common.Resource
 import app.data.recipe.Recipe
 import app.game.data.Item
 import kotlinx.serialization.Serializable
@@ -7,10 +8,10 @@ import util.math.Rational
 
 @Serializable
 data class Plan(
-  val name: PlanName,
+  override val name: PlanName,
   val displayName: String,
   val partition: Partition,
-) {
+) : Resource<PlanName> {
   val parent = name.save
 
   @Serializable

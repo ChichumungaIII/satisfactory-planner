@@ -1,12 +1,13 @@
 package app.data.common
 
+import app.api.common.Resource
 import react.FC
 import react.PropsWithChildren
 import react.ReducerInstance
 import react.createContext
 import react.useReducer
 
-class ResourceCache<N, R>(private val identifier: ResourceIdentifier<N, R>) {
+class ResourceCache<N, R : Resource<N>> {
   sealed interface ResourceCacheAction<R>
   data class Insert<R>(val resource: R) : ResourceCacheAction<R>
   data class InsertAll<R>(val resources: Collection<R>) : ResourceCacheAction<R>
@@ -33,7 +34,7 @@ class ResourceCache<N, R>(private val identifier: ResourceIdentifier<N, R>) {
   operator fun get(name: N) = cache[name]
 
   private fun insert(resource: R) {
-    cache[identifier(resource)] = resource
+    cache[resource.name] = resource
   }
 
   private fun insertAll(resources: Collection<R>) {
