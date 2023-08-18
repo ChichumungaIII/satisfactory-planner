@@ -9,6 +9,7 @@ import app.api.save.v1.SaveName
 import app.data.common.RemoteData
 import app.data.common.ResourceCache
 import app.data.common.ResourceCache.ResourceCacheAction
+import app.data.common.ResourceCacheV2
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
@@ -23,8 +24,7 @@ class PlanCollectionLoader(
   private val planService: PlanService,
   private val collectionCache: ResourceCache<SaveName, PlanCollection>,
   private val updateCollectionCache: (action: ResourceCacheAction<PlanCollection>) -> Unit,
-  private val cache: ResourceCache<PlanName, Plan>,
-  private val updateCache: (action: ResourceCacheAction<Plan>) -> Unit,
+  private val cache: ResourceCacheV2<PlanName, Plan>,
   private val names: RemoteData<SaveName, PlanCollection>,
   private val setNames: StateSetter<RemoteData<SaveName, PlanCollection>>,
 ) {
@@ -33,7 +33,7 @@ class PlanCollectionLoader(
     val Provider = FC<PropsWithChildren>("PlanCollectionLoader") {
       val planService = useContext(PlanServiceJs.Context)!!
       val (collectionCache, updateCollectionCache) = useContext(PlanCollectionCache.Context)!!
-      val (cache, updateCache) = useContext(PlanCache.Context)!!
+      val cache = useContext(PlanCacheContext)!!
       val (names, setNames) = useState(RemoteData.empty<SaveName, PlanCollection>())
 
       Context(
@@ -42,7 +42,6 @@ class PlanCollectionLoader(
           collectionCache,
           updateCollectionCache,
           cache,
-          updateCache,
           names,
           setNames
         )
@@ -61,7 +60,7 @@ class PlanCollectionLoader(
     launchMain {
       delay(1250.milliseconds)
       val plans = planService.listPlans(ListPlansRequest(parent = name)).plans
-      updateCache(ResourceCache.InsertAll(plans))
+      cache.insertAll(plans)
 
       val collection = PlanCollection(name, plans.map { it.name })
       updateCollectionCache(ResourceCache.Insert(collection))
@@ -74,7 +73,7 @@ class PlanCollectionLoader(
     check(names is RemoteData.Loaded) { "Cannot add Plan prior to initial load." }
     check(plan.parent == names.name) { "Plan [${plan.name.getResourceName()}] cannot be added to save [${names.name.getResourceName()}]." }
 
-    updateCache(ResourceCache.Insert(plan))
+    cache.insert(plan)
     val collection = names.data.add(plan.name)
     updateCollectionCache(ResourceCache.Insert(collection))
     setNames(RemoteData.loaded(names.name, collection))
