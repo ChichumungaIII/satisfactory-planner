@@ -28,10 +28,7 @@ class ResourceLoader<N, R : Resource<N>> private constructor(
       val service = useContext(serviceContext)!!
       val cache = useContext(cacheContext)!!
       val (data, setData) = useState<RemoteData<N, N>>(RemoteData.empty())
-
-      context(ResourceLoader({ service.query(it) }, cache, data, setData)) {
-        +it.children
-      }
+      context(ResourceLoader({ service.query(it) }, cache, data, setData)) { +it.children }
     }
   }
 

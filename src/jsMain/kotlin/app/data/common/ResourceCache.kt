@@ -26,10 +26,7 @@ class ResourceCache<N, R : Resource<N>> private constructor(
         }
         cache
       }, initialState = mutableMapOf());
-
-      context(ResourceCache(cache, updateCache)) {
-        +it.children
-      }
+      context(ResourceCache(cache, updateCache)) { +it.children }
     }
   }
 
