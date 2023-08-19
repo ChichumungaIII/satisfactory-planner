@@ -1,23 +1,29 @@
 package app.routes.plan
 
-import app.api.plan.v1.Plan
 import app.theme.AppThemeContext
 import mui.material.Box
+import mui.material.TextField
 import mui.system.sx
 import react.FC
 import react.Props
+import react.dom.onChange
 import react.useContext
 
-external interface PlanPageProps : Props {
-  var plan: Plan
-}
+external interface PlanPageProps : Props
 
-val PlanPage = FC<PlanPageProps>("PlanPage") { props ->
+val PlanPage = FC<PlanPageProps>("PlanPage") {
   val (appTheme) = useContext(AppThemeContext)!!
+  val (plan, manager) = useContext(PlanManager)!!
 
   Box {
     sx { padding = appTheme.spacing(2) }
 
-    +props.plan.displayName
+    TextField {
+      autoFocus = true
+      value = plan.displayName
+      onChange = { event ->
+        manager.update(plan.copy(displayName = event.target.asDynamic().value as String))
+      }
+    }
   }
 }

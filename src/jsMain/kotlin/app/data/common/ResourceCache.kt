@@ -26,13 +26,12 @@ class ResourceCache<N : ResourceName, R : Resource<N>> private constructor(
       displayName: String,
       context: Context<ResourceCache<N, R>?>,
     ) = FC<PropsWithChildren>(displayName) {
-      val (cache, updateCache) = useReducer({ cache: MutableMap<N, R>, action: ResourceCacheAction<N, R> ->
+      val (cache, updateCache) = useReducer({ cache: Map<N, R>, action: ResourceCacheAction<N, R> ->
         when (action) {
-          is Insert<N, R> -> cache[action.resource.name] = action.resource
-          is InsertAll<N, R> -> cache.putAll(action.resources.associateBy { it.name })
+          is Insert<N, R> -> cache + (action.resource.name to action.resource)
+          is InsertAll<N, R> -> cache + (action.resources.associateBy { it.name })
         }
-        cache
-      }, initialState = mutableMapOf());
+      }, initialState = mapOf())
       context(ResourceCache(cache, updateCache)) { +it.children }
     }
   }

@@ -1,20 +1,35 @@
 package app.routes.plan
 
+import app.api.plan.v1.Plan
 import app.api.plan.v1.PlanName
+import app.api.plan.v1.PlanServiceJs
+import app.api.plan.v1.UpdatePlanRequest
 import app.api.save.v1.SaveName
 import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
 import app.common.util.AppTitle
 import app.data.common.RemoteData
+import app.data.common.ResourceManager
+import app.data.plan.PlanCache
 import app.data.plan.PlanLoader
 import react.FC
 import react.Props
 import react.ReactNode
 import react.create
+import react.createContext
 import react.router.useParams
 import react.useContext
 
 external interface PlanRouteProps : Props
+
+val PlanManager = createContext<ResourceManager<PlanName, Plan>>()
+val PlanManagerProvider = ResourceManager.createProvider(
+  "PlanManagerProvider",
+  PlanManager,
+  PlanServiceJs.Context,
+  { plan -> updatePlan(UpdatePlanRequest(plan, listOf("*"))) },
+  PlanCache,
+)
 
 val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
   val params = useParams()
@@ -41,8 +56,13 @@ val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
     }
 
     is RemoteData.Loaded -> AppFrame {
+      println("PlanRoute: loaded")
+
       title = AppTitle.create { +plan.data.displayName }
-      content = PlanPage.create { this.plan = plan.data }
+      content = PlanManagerProvider.create {
+        resource = plan.data
+        PlanPage {}
+      }
     }
 
     is RemoteData.Error -> TODO()
