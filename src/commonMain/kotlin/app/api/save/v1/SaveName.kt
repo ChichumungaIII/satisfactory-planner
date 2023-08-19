@@ -1,5 +1,6 @@
 package app.api.save.v1
 
+import app.api.common.ResourceName
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -9,7 +10,7 @@ import kotlinx.serialization.encoding.Encoder
 import kotlin.random.Random
 
 @Serializable(with = SaveNameSerializer::class)
-data class SaveName(val id: Int) {
+data class SaveName(val id: Int) : ResourceName {
   companion object {
     fun createRandom() = SaveName(Random.nextInt())
 
@@ -20,7 +21,7 @@ data class SaveName(val id: Int) {
       } ?: throw IllegalArgumentException("[$name] is not a valid Save name.")
   }
 
-  fun getResourceName() = "saves/${id.toUInt()}"
+  override fun getResourceName() = "saves/${id.toUInt()}"
 }
 
 object SaveNameSerializer : KSerializer<SaveName> {

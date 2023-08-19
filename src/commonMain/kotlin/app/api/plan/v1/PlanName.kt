@@ -1,5 +1,6 @@
 package app.api.plan.v1
 
+import app.api.common.ResourceName
 import app.api.save.v1.SaveName
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -10,7 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 import kotlin.random.Random
 
 @Serializable(with = PlanNameSerializer::class)
-data class PlanName(val save: SaveName, val id: Int) {
+data class PlanName(val save: SaveName, val id: Int) : ResourceName {
   companion object {
     fun createRandom(save: SaveName) = PlanName(save, Random.nextInt())
 
@@ -21,7 +22,7 @@ data class PlanName(val save: SaveName, val id: Int) {
       } ?: throw IllegalArgumentException("[$name] is not a valid Plan name.")
   }
 
-  fun getResourceName() = "${save.getResourceName()}/plans/${id.toUInt()}"
+  override fun getResourceName() = "${save.getResourceName()}/plans/${id.toUInt()}"
 }
 
 object PlanNameSerializer : KSerializer<PlanName> {

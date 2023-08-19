@@ -1,6 +1,7 @@
 package app.data.common
 
 import app.api.common.Resource
+import app.api.common.ResourceName
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.Context
@@ -11,14 +12,14 @@ import react.useContext
 import react.useState
 import kotlin.time.Duration.Companion.milliseconds
 
-class ResourceLoader<N, R : Resource<N>> private constructor(
+class ResourceLoader<N : ResourceName, R : Resource<N>> private constructor(
   private val query: suspend (name: N) -> R,
   private val cache: ResourceCache<N, R>,
   private val data: RemoteData<N, N>,
   private val setData: StateSetter<RemoteData<N, N>>,
 ) {
   companion object {
-    fun <N, R : Resource<N>, S> createProvider(
+    fun <N : ResourceName, R : Resource<N>, S> createProvider(
       displayName: String,
       context: Context<ResourceLoader<N, R>?>,
       serviceContext: Context<S?>,

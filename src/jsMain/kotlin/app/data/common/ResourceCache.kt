@@ -1,21 +1,28 @@
 package app.data.common
 
 import app.api.common.Resource
+import app.api.common.ResourceName
 import react.Context
 import react.FC
 import react.PropsWithChildren
 import react.useReducer
 
-class ResourceCache<N, R : Resource<N>> private constructor(
+class ResourceCache<N : ResourceName, R : Resource<N>> private constructor(
   private val cache: Map<N, R>,
   private val updateCache: (ResourceCacheAction<N, R>) -> Unit,
 ) {
   companion object {
-    private sealed interface ResourceCacheAction<N, R : Resource<N>>
-    private data class Insert<N, R : Resource<N>>(val resource: R) : ResourceCacheAction<N, R>
-    private data class InsertAll<N, R : Resource<N>>(val resources: Iterable<R>) : ResourceCacheAction<N, R>
+    private sealed interface ResourceCacheAction<N : ResourceName, R : Resource<N>>
 
-    fun <N, R : Resource<N>> createProvider(
+    private data class Insert<N : ResourceName, R : Resource<N>>(
+      val resource: R,
+    ) : ResourceCacheAction<N, R>
+
+    private data class InsertAll<N : ResourceName, R : Resource<N>>(
+      val resources: Iterable<R>,
+    ) : ResourceCacheAction<N, R>
+
+    fun <N : ResourceName, R : Resource<N>> createProvider(
       displayName: String,
       context: Context<ResourceCache<N, R>?>,
     ) = FC<PropsWithChildren>(displayName) {
