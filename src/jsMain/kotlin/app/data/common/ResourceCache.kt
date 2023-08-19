@@ -4,37 +4,37 @@ import app.api.common.Resource
 import react.Context
 import react.FC
 import react.PropsWithChildren
+import react.useEffectOnce
 import react.useReducer
 
 class ResourceCache<N, R : Resource<N>> private constructor(
-  private val cache: Map<N, R>,
-  private val updateCache: (ResourceCacheAction<N, R>) -> Unit,
+  private val cache: MutableMap<N, R>,
+  private var render: () -> Unit = { throw Error("ResourceCache#render") },
 ) {
   companion object {
-    private sealed interface ResourceCacheAction<N, R : Resource<N>>
-    private data class Insert<N, R : Resource<N>>(val resource: R) : ResourceCacheAction<N, R>
-    private data class InsertAll<N, R : Resource<N>>(val resources: Iterable<R>) : ResourceCacheAction<N, R>
-
     fun <N, R : Resource<N>> createProvider(
       displayName: String,
       context: Context<ResourceCache<N, R>?>,
-    ) = FC<PropsWithChildren>(displayName) {
-      val (cache, updateCache) = useReducer({ cache: MutableMap<N, R>, action: ResourceCacheAction<N, R> ->
-        when (action) {
-          is Insert<N, R> -> cache[action.resource.name] = action.resource
-          is InsertAll<N, R> -> cache.putAll(action.resources.associateBy { it.name })
-        }
-        cache
-      }, initialState = mutableMapOf());
-
-      context(ResourceCache(cache, updateCache)) {
-        +it.children
+    ) = FC<PropsWithChildren>(displayName) { provider ->
+      val (cache, render) = useReducer({ cache: ResourceCache<N, R>, _: Unit -> cache }, Unit) {
+        ResourceCache(mutableMapOf())
       }
+      useEffectOnce { cache.render = { render(Unit) } }
+      context(cache) { +provider.children }
     }
   }
 
   fun contains(name: N) = cache.contains(name)
+
   operator fun get(name: N) = cache[name]
-  fun insert(resource: R) = updateCache(Insert(resource))
-  fun insertAll(resources: Iterable<R>) = updateCache(InsertAll(resources))
+
+  fun insert(resource: R) {
+    cache[resource.name] = resource
+    render()
+  }
+
+  fun insertAll(resources: Iterable<R>) {
+    cache.putAll(resources.associateBy { it.name })
+    render()
+  }
 }
