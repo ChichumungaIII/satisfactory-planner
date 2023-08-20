@@ -56,8 +56,6 @@ val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
     }
 
     is RemoteData.Loaded -> AppFrame {
-      println("PlanRoute: loaded")
-
       title = AppTitle.create { +plan.data.displayName }
       content = PlanManagerProvider.create {
         resource = plan.data
