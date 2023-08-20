@@ -2,67 +2,71 @@ package app.routes.plan
 
 import app.api.plan.v1.Plan
 import app.api.plan.v1.PlanName
-import app.api.plan.v1.PlanServiceJs
-import app.api.plan.v1.UpdatePlanRequest
+import app.api.save.v1.Save
 import app.api.save.v1.SaveName
 import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
 import app.common.util.AppTitle
 import app.data.common.RemoteData
-import app.data.common.ResourceManager
-import app.data.plan.PlanCache
 import app.data.plan.PlanLoader
+import app.data.plan.PlanManagerProvider
+import app.data.save.SaveLoader
+import app.data.save.SaveManagerProvider
 import react.FC
 import react.Props
 import react.ReactNode
 import react.create
-import react.createContext
 import react.router.useParams
 import react.useContext
 
 external interface PlanRouteProps : Props
 
-val PlanManager = createContext<ResourceManager<PlanName, Plan>>()
-val PlanManagerProvider = ResourceManager.createProvider(
-  "PlanManagerProvider",
-  PlanManager,
-  PlanServiceJs.Context,
-  { plan -> updatePlan(UpdatePlanRequest(plan, listOf("*"))) },
-  PlanCache,
-)
-
 val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
   val params = useParams()
+
   val saveIdParam = params["saveId"]
+  val saveName = saveIdParam?.toUIntOrNull()?.toInt()?.let { SaveName(it) }
+
   val planIdParam = params["planId"]
-  val name = saveIdParam?.toUIntOrNull()?.toInt()?.let { SaveName(it) }?.let { save ->
+  val planName = saveName?.let { save ->
     planIdParam?.toUIntOrNull()?.toInt()?.let { PlanName(save, it) }
   }
 
-  val (planData, planLoader) = useContext(PlanLoader)!!
+  val (loadedSaveData, saveLoader) = useContext(SaveLoader)!!
+  val (loadedPlanData, planLoader) = useContext(PlanLoader)!!
 
-  val plan = (planData.takeIf { it.name == name }) ?: RemoteData.empty()
-  if (name == null) {
+  val saveData = (loadedSaveData.takeIf { it.name == saveName }) ?: RemoteData.empty()
+  val planData = (loadedPlanData.takeIf { it.name == planName }) ?: RemoteData.empty()
+  val resources = planData.merge(saveData) { plan, save -> PlanRouteData(save, plan) }
+  if (planName == null) {
     AppFrame {
       title = AppTitle.create { +"Malformed Plan ID" }
       content = ReactNode("[saves/$saveIdParam/plans/$planIdParam] is malformed and cannot be loaded.")
     }
-  } else when (plan) {
-    is RemoteData.Empty -> planLoader.load(name)
+  } else when (resources) {
+    is RemoteData.Empty -> {
+      saveLoader.load(saveName)
+      planLoader.load(planName)
+    }
 
     is RemoteData.Loading -> AppFrame {
-      title = AppTitle.create { +"Loading ${name.getResourceName()}..." }
+      title = AppTitle.create { +"Loading ${planName.getResourceName()}..." }
       content = RouteLoadingIndicator.create()
     }
 
     is RemoteData.Loaded -> AppFrame {
-      title = AppTitle.create { +plan.data.displayName }
-      content = PlanManagerProvider.create {
-        resource = plan.data
-        PlanPage {}
+      title = AppTitle.create { +resources.data.plan.displayName }
+      content = SaveManagerProvider.create {
+        resource = resources.data.save
+        PlanManagerProvider {
+          resource = resources.data.plan
+          PlanPage {}
+        }
       }
     }
 
     is RemoteData.Error -> TODO()
   }
 }
+
+data class PlanRouteData(val save: Save, val plan: Plan)
