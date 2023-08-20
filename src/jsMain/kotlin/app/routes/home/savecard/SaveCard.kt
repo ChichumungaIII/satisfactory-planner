@@ -1,6 +1,7 @@
 package app.routes.home.savecard
 
 import app.AppRoute
+import app.RouteParams
 import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveServiceJs
@@ -31,7 +32,7 @@ val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
 
   HomePageCard {
     onClick = {
-      navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
+      navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
     }
 
     content = SaveCardContent.create { this.save = save }

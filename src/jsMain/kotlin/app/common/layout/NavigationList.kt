@@ -1,6 +1,7 @@
 package app.common.layout
 
 import app.AppRoute
+import app.RouteParams
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
 import app.data.common.RemoteData
@@ -74,7 +75,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
             saveCollection.value.forEach { save ->
               ListItemButton {
                 onClick = {
-                  navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
+                  navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
                 }
 
                 ListItemText {

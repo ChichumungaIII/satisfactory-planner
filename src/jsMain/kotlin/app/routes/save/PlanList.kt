@@ -1,6 +1,7 @@
 package app.routes.save
 
 import app.AppRoute
+import app.RouteParams
 import app.api.plan.v1.CreatePlanRequest
 import app.api.plan.v1.DeletePlanRequest
 import app.api.plan.v1.Plan
@@ -76,8 +77,8 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
               ListItemButton {
                 onClick = {
                   val url = AppRoute.SAVE_PLAN.url(
-                    "saveId" to plan.parent.id.toUInt().toString(),
-                    "planId" to plan.name.id.toUInt().toString(),
+                    RouteParams.SAVE_ID to plan.parent.id,
+                    RouteParams.PLAN_ID to plan.name.id,
                   )
                   navigate(to = url)
                 }
@@ -154,8 +155,8 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
         planCollectionLoader.add(plan)
 
         val url = AppRoute.SAVE_PLAN.url(
-          "saveId" to plan.parent.id.toUInt().toString(),
-          "planId" to plan.name.id.toUInt().toString(),
+          RouteParams.SAVE_ID to plan.parent.id,
+          RouteParams.PLAN_ID to plan.name.id,
         )
         navigate(to = url)
       }

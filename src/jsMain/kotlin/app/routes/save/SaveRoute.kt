@@ -1,5 +1,6 @@
 package app.routes.save
 
+import app.RouteParams
 import app.api.save.v1.SaveName
 import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
@@ -16,8 +17,8 @@ import react.useContext
 external interface SaveRouteProps : Props
 
 val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
-  val saveIdParam = useParams()["saveId"]
-  val name = saveIdParam?.toIntOrNull()?.let { SaveName(it) }
+  val saveIdParam = useParams()[RouteParams.SAVE_ID.key]
+  val name = RouteParams.parseInt(saveIdParam) { SaveName(it) }
 
   val (saveData, saveLoader) = useContext(SaveLoader)!!
 

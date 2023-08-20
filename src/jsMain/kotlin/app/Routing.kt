@@ -36,9 +36,9 @@ enum class AppRoute(
   V3("v3", ROOT, AppV3.create(), index = { HomeRoute.create() }),
   SAVES("saves", V3),
   CREATE_SAVE("create", SAVES, CreateSaveRoute.create()),
-  SAVE(":saveId", SAVES, index = { SaveRoute.create() }),
+  SAVE(":${RouteParams.SAVE_ID.key}", SAVES, index = { SaveRoute.create() }),
   SAVE_PLANS("plans", SAVE),
-  SAVE_PLAN(":planId", SAVE_PLANS, PlanRoute.create());
+  SAVE_PLAN(":${RouteParams.PLAN_ID.key}", SAVE_PLANS, PlanRoute.create());
 
   val url = url()
   fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))

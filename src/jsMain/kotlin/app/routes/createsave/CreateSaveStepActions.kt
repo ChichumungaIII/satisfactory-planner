@@ -1,6 +1,7 @@
 package app.routes.createsave
 
 import app.AppRoute
+import app.RouteParams
 import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.SaveServiceJs
@@ -63,7 +64,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
             planCollectionCache.insert(PlanCollection(save.name, listOf()))
 
             creating = false
-            navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))
+            navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
           }
 
           creating = true
