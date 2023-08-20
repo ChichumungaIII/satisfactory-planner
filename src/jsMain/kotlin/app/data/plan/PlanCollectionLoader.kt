@@ -70,7 +70,7 @@ class PlanCollectionLoader(
     check(plan.parent == names.name) { "Plan [${plan.name.getResourceName()}] cannot be added to save [${names.name.getResourceName()}]." }
 
     cache.insert(plan)
-    val collection = names.data.add(plan.name)
+    val collection = names.value.add(plan.name)
     collectionCache.insert(collection)
     setNames(RemoteData.loaded(names.name, collection))
   }
@@ -78,7 +78,7 @@ class PlanCollectionLoader(
   fun remove(plan: Plan) {
     check(names is RemoteData.Loaded) { "Cannot remove Plan prior to initial load." }
 
-    val collection = names.data.remove(plan.name)
+    val collection = names.value.remove(plan.name)
     collectionCache.insert(collection)
     setNames(RemoteData.loaded(names.name, collection))
   }

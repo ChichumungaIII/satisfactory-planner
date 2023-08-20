@@ -25,13 +25,13 @@ sealed interface RemoteData<N, R> {
       }
   }
 
-  class Loaded<N, R> internal constructor(override val name: N, val data: R) : RemoteData<N, R> {
-    override fun <R2> map(mapper: (R) -> R2) = loaded(name, mapper(data))
+  class Loaded<N, R> internal constructor(override val name: N, val value: R) : RemoteData<N, R> {
+    override fun <R2> map(mapper: (R) -> R2) = loaded(name, mapper(value))
     override fun <O, R2> merge(other: RemoteData<*, O>, merger: (R, O) -> R2): RemoteData<N, R2> =
       when (other) {
         is Empty -> empty()
         is Loading -> loading(name)
-        is Loaded -> loaded(name, merger(data, other.data))
+        is Loaded -> loaded(name, merger(value, other.value))
         is Error -> error(name, other.message)
       }
   }
@@ -44,7 +44,7 @@ sealed interface RemoteData<N, R> {
   companion object {
     fun <N, R> empty() = Empty.instance<N, R>()
     fun <N, R> loading(name: N) = Loading<N, R>(name)
-    fun <N, R> loaded(name: N, data: R) = Loaded(name, data)
+    fun <N, R> loaded(name: N, value: R) = Loaded(name, value)
     fun <N, R> error(name: N, message: String) = Error<N, R>(name, message)
   }
 

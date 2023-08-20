@@ -53,19 +53,19 @@ class SaveCollectionLoader(
     check(names is RemoteData.Loaded) { "Cannot add Save prior to initial load." }
 
     cache.insert(save)
-    setNames(RemoteData.loaded(Unit, names.data + save.name))
+    setNames(RemoteData.loaded(Unit, names.value + save.name))
   }
 
   fun remove(save: Save) {
     check(names is RemoteData.Loaded) { "Cannot remove Save prior to initial load." }
 
-    setNames(RemoteData.loaded(Unit, names.data - save.name))
+    setNames(RemoteData.loaded(Unit, names.value - save.name))
   }
 
   operator fun component1(): RemoteData<Unit, List<Save>> = when (names) {
     is RemoteData.Empty -> RemoteData.empty()
     is RemoteData.Loading -> RemoteData.loading(Unit)
-    is RemoteData.Loaded -> RemoteData.loaded(Unit, names.data.map { cache[it]!! })
+    is RemoteData.Loaded -> RemoteData.loaded(Unit, names.value.map { cache[it]!! })
     is RemoteData.Error -> RemoteData.error(Unit, names.message)
   }
 

@@ -71,7 +71,7 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
         }
 
         is RemoteData.Loaded -> {
-          collection.data.forEach { plan ->
+          collection.value.forEach { plan ->
             ListItem {
               ListItemButton {
                 onClick = {

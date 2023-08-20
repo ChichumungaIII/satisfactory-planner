@@ -36,8 +36,8 @@ val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
     }
 
     is RemoteData.Loaded -> AppFrame {
-      title = AppTitle.create { +save.data.displayName }
-      content = SavePage.create { this.save = save.data }
+      title = AppTitle.create { +save.value.displayName }
+      content = SavePage.create { this.save = save.value }
     }
 
     is RemoteData.Error -> TODO()

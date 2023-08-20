@@ -55,11 +55,11 @@ val PlanRoute = FC<PlanRouteProps>("PlanRoute") {
     }
 
     is RemoteData.Loaded -> AppFrame {
-      title = AppTitle.create { +resources.data.plan.displayName }
+      title = AppTitle.create { +resources.value.plan.displayName }
       content = SaveManagerProvider.create {
-        resource = resources.data.save
+        resource = resources.value.save
         PlanManagerProvider {
-          resource = resources.data.plan
+          resource = resources.value.plan
           PlanPage {}
         }
       }

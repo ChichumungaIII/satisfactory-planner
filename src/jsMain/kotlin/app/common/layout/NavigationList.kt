@@ -62,7 +62,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
           }
 
           is RemoteData.Loaded -> {
-            if (saveCollection.data.isEmpty()) {
+            if (saveCollection.value.isEmpty()) {
               ListItem {
                 ListItemText {
                   sx { padding = appTheme.spacing(1, 4) }
@@ -71,7 +71,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
               }
             }
 
-            saveCollection.data.forEach { save ->
+            saveCollection.value.forEach { save ->
               ListItemButton {
                 onClick = {
                   navigate(to = AppRoute.SAVE.url("saveId" to save.name.id.toString()))

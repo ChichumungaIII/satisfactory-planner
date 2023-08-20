@@ -26,7 +26,7 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
       }
 
       is RemoteData.Loaded -> {
-        content = HomePage.create { saves = saveCollection.data }
+        content = HomePage.create { saves = saveCollection.value }
       }
 
       is RemoteData.Error -> TODO()
