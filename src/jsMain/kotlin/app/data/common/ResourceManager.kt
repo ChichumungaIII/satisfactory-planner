@@ -2,7 +2,6 @@ package app.data.common
 
 import app.api.common.Resource
 import app.api.common.ResourceName
-import app.api.plan.v1.Plan
 import app.data.common.LocalData.Debouncing
 import app.data.common.LocalData.Stable
 import app.data.common.LocalData.Throttled
@@ -100,6 +99,4 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
       setData(LocalData.debouncing(resource, newDebouncedSave(resource)))
     }
   }
-
-  private fun R.displayName() = unsafeCast<Plan>().displayName
 }

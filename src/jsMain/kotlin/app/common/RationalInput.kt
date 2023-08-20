@@ -39,6 +39,7 @@ external interface RationalInputProps : PropsWithClassName {
   var errorSpacer: Length?
 }
 
+@Deprecated("V2 RationalInput.")
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
   var managedText by PropsDelegate(props.text) { next -> next?.let { props.setText?.invoke(it) } }
   var stateText by useState(props.value?.toString() ?: "")

@@ -8,6 +8,7 @@ import mui.material.ButtonVariant
 import mui.material.CheckboxProps
 import mui.material.ContainerProps
 import mui.material.FormControlMargin
+import mui.material.IconButtonProps
 import mui.material.InputBaseMargin
 import mui.material.ListItemButtonProps
 import mui.material.ListItemProps
@@ -82,6 +83,12 @@ private val SatisfactoryMuiTheme = createTheme(jso {
     MuiContainer = jso {
       defaultProps = jso<ContainerProps> {
         maxWidth = false
+      }
+    }
+
+    MuiIconButton = jso {
+      defaultProps = jso<IconButtonProps> {
+        size = small
       }
     }
 
