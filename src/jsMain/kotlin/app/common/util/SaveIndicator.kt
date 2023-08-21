@@ -1,4 +1,4 @@
-package app.common.layout
+package app.common.util
 
 import app.data.common.SaveState
 import kotlinx.datetime.TimeZone

@@ -1,8 +1,8 @@
 package app.routes.plan
 
 import app.common.layout.AppFrame
-import app.common.layout.SaveIndicator
 import app.common.util.AppTitle
+import app.common.util.SaveIndicator
 import app.data.plan.PlanManager
 import react.FC
 import react.Props
