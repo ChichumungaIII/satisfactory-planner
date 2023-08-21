@@ -16,10 +16,12 @@ import react.FC
 import react.Props
 import react.ReactNode
 import react.useContext
+import web.cssom.number
 import web.cssom.px
 
 external interface AppFrameProps : Props {
   var title: ReactNode
+  var actions: List<ReactNode>?
   var content: ReactNode
 }
 
@@ -40,6 +42,10 @@ val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
         sx { marginLeft = appTheme.spacing(3) }
         +props.title
       }
+
+      Box { sx { flexGrow = number(1.0) } }
+
+      (props.actions ?: listOf()).forEach { +it }
     }
   }
 

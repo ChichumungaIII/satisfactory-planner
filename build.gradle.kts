@@ -52,6 +52,8 @@ kotlin {
         "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
       dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+
         implementation(project.dependencies.enforcedPlatform(kotlinw("wrappers-bom:1.0.0-pre.602")))
 
         implementation(kotlinw("cssom-core"))

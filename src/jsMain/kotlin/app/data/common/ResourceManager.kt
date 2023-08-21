@@ -10,6 +10,7 @@ import app.util.launchMain
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.datetime.Clock
 import react.Context
 import react.FC
 import react.PropsWithChildren
@@ -28,6 +29,8 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
   private val cache: ResourceCache<N, R>,
   private val data: LocalData<R>,
   private val setData: StateSetter<LocalData<R>>,
+  private val state: SaveState,
+  private val setState: StateSetter<SaveState>
 ) {
   companion object {
     private val DEBOUNCE_TIME = 5.seconds
@@ -42,8 +45,9 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
       val service = useContext(serviceContext)!!
       val cache = useContext(cacheContext)!!
       val (data, setData) = useState<LocalData<R>>(Stable(props.resource))
+      val (state, setState) = useState(SaveState())
 
-      context(ResourceManager({ service.query(it) }, cache, data, setData)) {
+      context(ResourceManager({ service.query(it) }, cache, data, setData, state, setState)) {
         +props.children
       }
     }
@@ -56,6 +60,7 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
     when (data) {
       is Stable -> {
         setData(LocalData.debouncing(resource, newDebouncedSave(resource)))
+        setState(state.copy(saving = true))
       }
 
       is Debouncing -> {
@@ -78,6 +83,8 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
   operator fun component1() = data.resource
   operator fun component2() = this
 
+  fun state() = state
+
   private fun newDebouncedSave(resource: R) = launchMain {
     delay(DEBOUNCE_TIME)
     setData(LocalData.updating(resource, newSave(resource)))
@@ -90,6 +97,7 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
     if (isActive) {
       cache.insert(updated)
       setData(LocalData.stable(updated))
+      setState(SaveState(Clock.System.now(), false))
     }
   }
 
