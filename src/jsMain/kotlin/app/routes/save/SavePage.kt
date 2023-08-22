@@ -10,18 +10,18 @@ import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
 import react.create
-import react.useState
+import react.useContext
 
 external interface SavePageProps : Props {
   var save: Save
 }
 
 val SavePage = FC<SavePageProps>("SavePage") { props ->
-  var showPlans by useState(false)
+  var state by useContext(SavePageState.Manager.Context)!!.scope(props.save.name)
 
   Accordion {
-    expanded = showPlans
-    onChange = { _, next -> showPlans = next }
+    expanded = state.showPlans
+    onChange = { _, next -> state = state.copy(showPlans = next) }
 
     AccordionSummary {
       expandIcon = ExpandMore.create()
@@ -33,7 +33,7 @@ val SavePage = FC<SavePageProps>("SavePage") { props ->
     }
 
     AccordionDetails {
-      PlanList.takeIf { showPlans }?.invoke {
+      PlanList.takeIf { state.showPlans }?.invoke {
         save = props.save
       }
     }

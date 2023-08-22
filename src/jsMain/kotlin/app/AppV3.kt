@@ -12,6 +12,7 @@ import app.data.plan.PlanLoaderProvider
 import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoaderProvider
+import app.routes.save.SavePageState
 import app.theme.AppThemeContextProvider
 import react.FC
 import react.Props
@@ -41,6 +42,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     // App State
     AppFrameState.Provider,
     NavigationListState.Provider,
+    SavePageState.Manager.Provider,
   ).nest(Outlet.create {})
 }
 
