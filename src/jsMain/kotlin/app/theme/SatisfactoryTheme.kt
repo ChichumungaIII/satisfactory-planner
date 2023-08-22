@@ -13,6 +13,8 @@ import mui.material.InputBaseMargin
 import mui.material.ListItemButtonProps
 import mui.material.ListItemProps
 import mui.material.ListProps
+import mui.material.ListSubheaderColor
+import mui.material.ListSubheaderProps
 import mui.material.PaletteMode
 import mui.material.SelectProps
 import mui.material.Size
@@ -103,6 +105,28 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       defaultProps = jso<ListItemProps> {
         dense = true
         disablePadding = true
+      }
+    }
+
+    MuiListSubheader = jso {
+      defaultProps = jso<ListSubheaderProps> {
+        color = ListSubheaderColor.primary
+        disableGutters = true
+      }
+      styleOverrides = jso {
+        root = jso {
+          padding = "11px 14px"
+          fontSize = 14.px
+          lineHeight = 14.px
+        }
+      }
+    }
+
+    MuiInputBase = jso {
+      styleOverrides = jso {
+        root = jso {
+          fontSize = 14.px
+        }
       }
     }
 
