@@ -33,7 +33,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
 
   val (saveCollection, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
 
-  var allSaves by useContext(NavigationListContext)!!
+  var state by useContext(NavigationListState.Context)!!
 
   mui.material.List {
     ListItem {
@@ -44,17 +44,17 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
 
       secondaryAction = IconButton.create {
         sx { padding = 6.px }
-        onClick = { allSaves = !allSaves }
+        onClick = { state = state.copy(showAllSaves = !state.showAllSaves) }
         edge = IconButtonEdge.end
-        (ExpandLess.takeIf { allSaves } ?: ExpandMore) { }
+        (ExpandLess.takeIf { state.showAllSaves } ?: ExpandMore) { }
       }
     }
 
     Collapse {
-      `in` = allSaves
+      `in` = state.showAllSaves
       this.asDynamic().unmountOnExit = true
 
-      mui.material.List.takeIf { allSaves }?.invoke {
+      mui.material.List.takeIf { state.showAllSaves }?.invoke {
         when (saveCollection) {
           is RemoteData.Empty -> saveCollectionLoader.load()
 
