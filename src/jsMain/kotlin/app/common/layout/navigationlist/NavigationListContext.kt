@@ -1,4 +1,4 @@
-package app.common.layout
+package app.common.layout.navigationlist
 
 import react.FC
 import react.PropsWithChildren

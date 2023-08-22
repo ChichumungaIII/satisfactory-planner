@@ -1,6 +1,7 @@
-package app.common.layout
+package app.common.layout.appframe
 
 import app.common.input.Toggle
+import app.common.layout.navigationlist.NavigationList
 import app.theme.AppThemeContext
 import js.core.jso
 import mui.icons.material.Menu

@@ -1,6 +1,6 @@
 package app.routes.createsave
 
-import app.common.layout.AppFrame
+import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
 import react.FC
 import react.Props

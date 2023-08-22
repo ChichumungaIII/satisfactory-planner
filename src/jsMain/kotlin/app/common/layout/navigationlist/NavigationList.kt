@@ -1,4 +1,4 @@
-package app.common.layout
+package app.common.layout.navigationlist
 
 import app.AppRoute
 import app.RouteParams

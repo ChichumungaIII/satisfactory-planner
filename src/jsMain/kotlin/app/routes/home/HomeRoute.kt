@@ -1,7 +1,7 @@
 package app.routes.home
 
-import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
+import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
 import app.data.common.RemoteData
 import app.data.save.SaveCollectionLoader

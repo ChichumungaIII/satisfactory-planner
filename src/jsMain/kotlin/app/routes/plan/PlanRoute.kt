@@ -5,8 +5,8 @@ import app.api.plan.v1.Plan
 import app.api.plan.v1.PlanName
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
-import app.common.layout.AppFrame
 import app.common.layout.RouteLoadingIndicator
+import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
 import app.data.common.RemoteData
 import app.data.plan.PlanLoader
