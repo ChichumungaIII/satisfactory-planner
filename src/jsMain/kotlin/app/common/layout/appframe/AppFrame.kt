@@ -28,13 +28,14 @@ external interface AppFrameProps : Props {
 
 val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
   val appTheme by useContext(AppThemeContext)!!
-  val drawerOpenState = useContext(AppFrameDrawerOpenContext)!!
-  val drawerOpen by drawerOpenState
+  var state by useContext(AppFrameState.Context)!!
 
   AppBar {
     Toolbar {
       Toggle {
-        value = drawerOpenState
+        value = state.drawerOpen
+        setValue = { next -> state = state.copy(drawerOpen = next) }
+
         active = MenuOpen
         inactive = Menu
       }
@@ -52,7 +53,7 @@ val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
 
   Drawer {
     variant = DrawerVariant.persistent
-    open = drawerOpen
+    open = state.drawerOpen
     PaperProps = jso {
       sx {
         paddingTop = appTheme.constants.toolbarHeight
@@ -65,9 +66,9 @@ val AppFrame = FC<AppFrameProps>("AppFrame") { props ->
 
   Box {
     sx {
-      marginLeft = appTheme.constants.navigationDrawerWidth.takeIf { drawerOpen } ?: 0.px
+      marginLeft = appTheme.constants.navigationDrawerWidth.takeIf { state.drawerOpen } ?: 0.px
       transition = appTheme.transitions.create("margin") {
-        if (drawerOpen) {
+        if (state.drawerOpen) {
           easing = appTheme.transitions.easing.easeOut
           duration = appTheme.transitions.duration.enteringScreen
         } else {

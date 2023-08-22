@@ -3,7 +3,7 @@ package app
 import app.api.optimize.v1.OptimizeServiceJs
 import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveServiceJs
-import app.common.layout.appframe.AppFrameDrawerOpenContextProvider
+import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListContextProvider
 import app.data.plan.PlanCacheProvider
 import app.data.plan.PlanCollectionCacheProvider
@@ -39,7 +39,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     PlanCollectionLoader.Provider,
     PlanLoaderProvider,
     // App State
-    AppFrameDrawerOpenContextProvider,
+    AppFrameState.Provider,
     NavigationListContextProvider,
   ).nest(Outlet.create {})
 }
