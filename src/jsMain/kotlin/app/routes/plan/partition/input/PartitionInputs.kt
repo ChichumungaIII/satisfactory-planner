@@ -7,6 +7,7 @@ import app.util.PropsDelegate
 import mui.icons.material.Add
 import mui.material.IconButton
 import mui.material.Stack
+import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.Props
@@ -27,6 +28,8 @@ val PartitionInputs = FC<PartitionInputsProps>("PartitionInputs") { props ->
   var inputs by PropsDelegate(props.inputs, props.setInputs)
 
   Stack {
+    spacing = responsive(2)
+
     inputs.forEachIndexed { i, input ->
       PartitionInput {
         this.input = input

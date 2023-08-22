@@ -7,7 +7,9 @@ import app.data.save.SaveManager
 import app.game.data.Item
 import app.game.logic.Condition.ItemCondition
 import app.util.PropsDelegate
-import mui.material.Box
+import mui.material.Stack
+import mui.material.StackDirection
+import mui.system.responsive
 import react.FC
 import react.Props
 import react.useContext
@@ -18,11 +20,14 @@ external interface PartitionInputProps : Props {
 }
 
 val PartitionInput = FC<PartitionInputProps>("PartitionInput") { props ->
-  var (save) = useContext(SaveManager)!!
+  val (save) = useContext(SaveManager)!!
 
   var input by PropsDelegate(props.input, props.setInput)
 
-  Box {
+  Stack {
+    direction = responsive(StackDirection.row)
+    spacing = responsive(2)
+
     RationalInput {
       model = input.quantity
       setModel = { next -> input = input.copy(quantity = next) }
