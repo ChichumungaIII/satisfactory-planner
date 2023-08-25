@@ -7,6 +7,8 @@ import app.util.PropsDelegate
 import mui.icons.material.Add
 import mui.material.IconButton
 import mui.material.Stack
+import mui.material.Typography
+import mui.material.styles.TypographyVariant
 import mui.system.responsive
 import mui.system.sx
 import react.FC
@@ -29,6 +31,11 @@ val PartitionInputs = FC<PartitionInputsProps>("PartitionInputs") { props ->
 
   Stack {
     spacing = responsive(2)
+
+    Typography {
+      variant = TypographyVariant.subtitle1
+      +"Inputs"
+    }
 
     inputs.forEachIndexed { i, input ->
       PartitionInput {
