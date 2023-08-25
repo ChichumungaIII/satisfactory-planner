@@ -18,6 +18,7 @@ import mui.material.ListSubheaderProps
 import mui.material.PaletteMode
 import mui.material.SelectProps
 import mui.material.Size
+import mui.material.StackProps
 import mui.material.SvgIconColor
 import mui.material.SvgIconProps
 import mui.material.TextFieldProps
@@ -101,6 +102,12 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       defaultProps = jso<IconButtonProps> {
         size = small
       }
+      styleOverrides = jso {
+        sizeSmall = jso {
+          width = 36.px
+          height = 36.px
+        }
+      }
     }
 
     MuiList = jso {
@@ -155,6 +162,12 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       defaultProps = jso<SelectProps<*>> {
         size = small
         margin = InputBaseMargin.dense
+      }
+    }
+
+    MuiStack = jso {
+      defaultProps = jso<StackProps> {
+        useFlexGap = true
       }
     }
 

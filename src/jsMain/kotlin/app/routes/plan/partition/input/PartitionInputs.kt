@@ -41,6 +41,7 @@ val PartitionInputs = FC<PartitionInputsProps>("PartitionInputs") { props ->
       PartitionInput {
         this.input = input
         setInput = { next -> inputs = inputs.toMutableList().also { it[i] = next }.toList() }
+        deleteInput = { inputs = inputs.subList(0, i) + inputs.subList(i + 1, inputs.size) }
       }
     }
 
