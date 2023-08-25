@@ -76,6 +76,63 @@ enum class Research(
       +SPITTER_RESEARCH
     }
   ),
+  PROTEIN_INHALER(
+    "Protein Inhaler",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ALIEN_PROTEIN to 2.q,
+      Item.BERYL_NUT to 20.q,
+      Item.ROTOR to 50.q,
+    ),
+    requirement = ResearchCondition(BIO_ORGANIC_PROPERTIES),
+  ),
+  STRUCTURAL_ANALYSIS(
+    "Structural Analysis",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ALIEN_DNA_CAPSULE to 5.q,
+      Item.IRON_ROD to 100.q,
+    ),
+    requirement = ResearchCondition(BIO_ORGANIC_PROPERTIES),
+  ),
+  THE_REBAR_GUN(
+    "The Rebar Gun",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ROTOR to 25.q,
+      Item.REINFORCED_IRON_PLATE to 50.q,
+      Item.SCREW to 500.q,
+    ),
+    requirement = ResearchCondition(STRUCTURAL_ANALYSIS),
+  ),
+  INFLATED_POCKET_DIMENSION_ALIEN_ORGANISMS(
+    "Inflated Pocket Dimension",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ALIEN_PROTEIN to 3.q,
+      Item.CABLE to 1000.q,
+    ),
+    requirement = ResearchCondition(BIO_ORGANIC_PROPERTIES),
+  ),
+  EXPANDED_TOOLBELT_ALIEN_ORGANISMS(
+    "Expanded Toolbelt",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ALIEN_DNA_CAPSULE to 5.q,
+      Item.STEEL_BEAM to 500.q,
+    ),
+    requirement = ResearchCondition(INFLATED_POCKET_DIMENSION_ALIEN_ORGANISMS),
+  ),
+  HOSTILE_ORGANISM_DETECTION(
+    "Hostile Organism Detection",
+    Category.ALIEN_ORGANISMS,
+    cost = mapOf(
+      Item.ALIEN_DNA_CAPSULE to 10.q,
+      Item.CRYSTAL_OSCILATOR to 5.q,
+      Item.HIGH_SPEED_CONNECTOR to 5.q,
+    ),
+    requirement = ResearchCondition(BIO_ORGANIC_PROPERTIES),
+  ),
 
   /* Caterium */
 
@@ -123,7 +180,7 @@ enum class Research(
     Category.CATERIUM,
     cost = mapOf(
       Item.QUICKWIRE to 50.q,
-      // TODO: Item.IRON_REBAR to 10.q,
+      Item.IRON_REBAR to 10.q,
     ),
     requirement = ResearchCondition(QUICKWIRE),
   ),
@@ -150,6 +207,19 @@ enum class Research(
       Item.PLASTIC to 50.q,
     ),
     requirement = ResearchCondition(CATERIUM_ELECTRONICS),
+  ),
+  SUPERCOMPUTER(
+    "Supercomputer",
+    Category.CATERIUM,
+    cost = mapOf(
+      Item.AI_LIMITER to 50.q,
+      Item.HIGH_SPEED_CONNECTOR to 50.q,
+      Item.COMPUTER to 50.q,
+    ),
+    requirement = all {
+      +AI_LIMITER
+      +HIGH_SPEED_CONNECTOR
+    },
   ),
 
   /* Mycelia */
@@ -198,7 +268,7 @@ enum class Research(
     Category.QUARTZ,
     cost = mapOf(
       Item.QUARTZ_CRYSTAL to 30.q,
-      // TODO: Item.IRON_REBAR to 150.q,
+      Item.IRON_REBAR to 150.q,
     ),
     requirement = ResearchCondition(QUARTZ_CRYSTALS),
   ),
@@ -214,6 +284,114 @@ enum class Research(
 
   /* Sulfur */
 
+  UNKNOWN_CHEMICAL_ELEMENT(
+    "Unknown Chemical Element",
+    Category.SULFUR,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  SULFUR(
+    "Sulfur",
+    Category.SULFUR,
+    cost = mapOf(Item.SULFUR to 10.q),
+    requirement = ResearchCondition(UNKNOWN_CHEMICAL_ELEMENT),
+  ),
+  BLACK_POWDER(
+    "Black Powder",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.SULFUR to 50.q,
+      Item.COAL to 25.q,
+    ),
+    requirement = ResearchCondition(SULFUR),
+  ),
+  EXPERIMENTAL_POWER_GENERATION(
+    "Experimental Power Generation",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.SULFUR to 25.q,
+      Item.MODULAR_FRAME to 50.q,
+      Item.ROTOR to 100.q,
+    ),
+    requirement = ResearchCondition(SULFUR),
+  ),
+  COMPACTED_COAL(
+    "Compacted Coal",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.HARD_DRIVE to 1.q,
+      Item.SULFUR to 25.q,
+      Item.COAL to 25.q,
+    ),
+    requirement = ResearchCondition(EXPERIMENTAL_POWER_GENERATION),
+  ),
+  TURBOFUEL(
+    "Turbofuel",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.HARD_DRIVE to 1.q,
+      Item.COMPACTED_COAL to 15.q,
+      Item.PACKAGED_FUEL to 50.q,
+    ),
+    requirement = ResearchCondition(EXPERIMENTAL_POWER_GENERATION),
+  ),
+  EXPANDED_TOOLBELT_SULFUR(
+    "Expanded Toolbelt",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.BLACK_POWDER to 100.q,
+      Item.ENCASED_INDUSTRIAL_BEAM to 50.q,
+    ),
+    requirement = ResearchCondition(BLACK_POWDER),
+  ),
+  THE_NOBELISK_DETONATOR(
+    "The Nobelisk Detonator",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.BLACK_POWDER to 50.q,
+      Item.STEEL_PIPE to 100.q,
+      Item.CABLE to 200.q,
+    ),
+    requirement = ResearchCondition(BLACK_POWDER),
+  ),
+  SMOKELESS_POWDER(
+    "Smokeless Powder",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.BLACK_POWDER to 100.q,
+      Item.PLASTIC to 50.q,
+    ),
+    requirement = ResearchCondition(BLACK_POWDER),
+  ),
+  CLUSTER_NOBELISK(
+    "Cluster Nobelisk",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.SMOKELESS_POWDER to 100.q,
+      Item.NOBELISK to 200.q,
+    ),
+    requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
+  EXPLOSIVE_REBAR(
+    "Explosive Rebar",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.SMOKELESS_POWDER to 200.q,
+      Item.IRON_REBAR to 200.q,
+      Item.STEEL_BEAM to 200.q,
+    ),
+    requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
+  THE_RIFLE(
+    "The Rifle",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.SMOKELESS_POWDER to 50.q,
+      Item.MOTOR to 100.q,
+      Item.RUBBER to 200.q,
+    ),
+    requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
 
   ;
 

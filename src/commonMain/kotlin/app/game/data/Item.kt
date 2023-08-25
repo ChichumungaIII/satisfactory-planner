@@ -204,7 +204,7 @@ enum class Item(
     "Chainsaw",
     Category.EQUIPMENT,
     stack = 1.q,
-    sink = 2760.q,
+    sink = 2_760.q,
     unlock = MilestoneCondition(Milestone.OBSTACLE_CLEARING),
   ),
   SOLID_BIOFUEL(
@@ -648,11 +648,351 @@ enum class Item(
 
   /* Aeronautical Engineering */
 
-  // TODO: Sulfur
+  SULFUR(
+    "Sulfur",
+    Category.RESOURCES,
+    stack = 100.q,
+    sink = 11.q,
+    unlock = any {
+      +Milestone.AERONAUTICAL_ENGINEERING
+      +Research.UNKNOWN_CHEMICAL_ELEMENT
+    },
+  ),
+  BLACK_POWDER(
+    "Black Powder",
+    Category.PARTS,
+    stack = 200.q,
+    sink = 14.q,
+    unlock = ResearchCondition(Research.BLACK_POWDER),
+  ),
+  COMPACTED_COAL(
+    "Compacted Coal",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 28.q,
+    energy = 630.q,
+    unlock = ResearchCondition(Research.COMPACTED_COAL),
+  ),
+  TURBOFUEL(
+    "Turbofuel",
+    Category.PARTS,
+    energy = 2_000.q,
+    unlock = ResearchCondition(Research.TURBOFUEL),
+  ),
+  PACKAGED_TURBOFUEL(
+    "Packaged Turbofuel",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 570.q,
+    energy = 2_000.q,
+    unlock = ResearchCondition(Research.TURBOFUEL),
+  ),
+  NOBELISK_DETONATOR(
+    "Nobelisk Detonator",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 6_480.q,
+    unlock = ResearchCondition(Research.THE_NOBELISK_DETONATOR),
+  ),
+  NOBELISK(
+    "Nobelisk",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 152.q,
+    unlock = ResearchCondition(Research.THE_NOBELISK_DETONATOR),
+  ),
+  SMOKELESS_POWDER(
+    "Smokeless Powder",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 58.q,
+    unlock = ResearchCondition(Research.SMOKELESS_POWDER),
+  ),
+  CLUSTER_NOBELISK(
+    "Cluster Nobelisk",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 1_376.q,
+    unlock = ResearchCondition(Research.CLUSTER_NOBELISK),
+  ),
+  EXPLOSIVE_REBAR(
+    "Explosive Rebar",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 360.q,
+    unlock = ResearchCondition(Research.EXPLOSIVE_REBAR),
+  ),
+  RIFLE(
+    "Rifle",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 9_480.q,
+    unlock = ResearchCondition(Research.THE_RIFLE),
+  ),
+  RIFLE_AMMO(
+    "Rifle Ammo",
+    Category.PARTS,
+    stack = 500.q,
+    sink = 25.q,
+    unlock = ResearchCondition(Research.THE_RIFLE),
+  ),
+  SULFURIC_ACID(
+    "Sulfuric Acid",
+    Category.PARTS,
+    unlock = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+  PACKAGED_SULFURIC_ACID(
+    "Packaged Sulfuric Acid",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 152.q,
+    unlock = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+  BATTERY(
+    "Battery",
+    Category.PARTS,
+    stack = 200.q,
+    sink = 465.q,
+    energy = 6_000.q,
+    unlock = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+  SUPERCOMPUTER(
+    "Supercomputer",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 99_576.q,
+    unlock = any {
+      +Milestone.AERONAUTICAL_ENGINEERING
+      +Research.SUPERCOMPUTER
+    },
+  ),
+  ASSEMBLY_DIRECTOR_SYSTEM(
+    "Assembly Director System",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 543_632.q,
+    unlock = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+
+  /* Hover Pack */
+
+  HOVER_PACK(
+    "Hover Pack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 413_920.q,
+    unlock = MilestoneCondition(Milestone.HOVER_PACK),
+  ),
+
+  /* ****** */
+  /* TIER 8 */
+  /* ****** */
+
+  /* Nuclear Power */
+
+  URANIUM(
+    "Uranium",
+    Category.RESOURCES,
+    stack = 100.q,
+    sink = 35.q,
+    radiation = 15.q,
+    unlock = MilestoneCondition(Milestone.NUCLEAR_POWER),
+  ),
+  ENCASED_URANIUM_CELL(
+    "Encased Uranium Cell",
+    Category.PARTS,
+    stack = 200.q,
+    sink = 147.q,
+    radiation = 1.q / 2.q,
+    unlock = MilestoneCondition(Milestone.NUCLEAR_POWER),
+  ),
+  ELECTROMAGNETIC_CONTROL_ROD(
+    "Electromagnetic Control Rod",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 2_560.q,
+    unlock = MilestoneCondition(Milestone.NUCLEAR_POWER),
+  ),
+  URANIUM_FUEL_ROD(
+    "Uranium Fuel Rod",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 44_092.q,
+    energy = 750_000.q,
+    radiation = 50.q,
+    unlock = MilestoneCondition(Milestone.NUCLEAR_POWER),
+  ),
+  MAGNETIC_FIELD_GENERATOR(
+    "Magnetic Field Generator",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 15_650.q,
+    unlock = MilestoneCondition(Milestone.NUCLEAR_POWER),
+  ),
+
+  /* Advanced Aluminum Production */
+
+  EMPTY_FLUID_TANK(
+    "Empty Fluid Tank",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 225.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  PACKAGED_NITROGEN_GAS(
+    "Packaged Nitrogen Gas",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 312.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  HEAT_SINK(
+    "Heat Sink",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 2_804.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  COOLING_SYSTEM(
+    "Cooling System",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 12_006.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  FUSED_MODULAR_FRAME(
+    "Fused Modular Frame",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 62_840.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+
+  /* Leading-edge Production */
+
+  TURBO_MOTOR(
+    "Turbo Motor",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 242_720.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  THERMAL_PROPULSION_ROCKET(
+    "Thermal Propulsion Rocket",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 732_956.q,
+    unlock = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
 
   /* ****** */
   /* NATURE */
   /* ****** */
+
+  /* Milestones */
+
+  WOOD(
+    "Wood",
+    Category.NATURE,
+    stack = 200.q,
+    sink = 30.q,
+    energy = 100.q,
+    unlock = Condition.TRUE,
+  ),
+  LEAVES(
+    "Leaves",
+    Category.NATURE,
+    stack = 500.q,
+    sink = 3.q,
+    energy = 15.q,
+    unlock = Condition.TRUE,
+  ),
+  FLOWER_PETALS(
+    "Flower Petals",
+    Category.NATURE,
+    stack = 500.q,
+    sink = 10.q,
+    energy = 100.q,
+    unlock = Condition.TRUE,
+  ),
+
+  /* Alien Organisms */
+
+  HOG_REMAINS(
+    "Hog Remains",
+    Category.NATURE,
+    stack = 50.q,
+    energy = 250.q,
+    unlock = Condition.TRUE,
+  ),
+  HATCHER_REMAINS(
+    "Hatcher Remains",
+    Category.NATURE,
+    stack = 50.q,
+    energy = 250.q,
+    unlock = Condition.TRUE,
+  ),
+  STINGER_REMAINS(
+    "Stinger Remains",
+    Category.NATURE,
+    stack = 50.q,
+    energy = 250.q,
+    unlock = Condition.TRUE,
+  ),
+  SPITTER_REMAINS(
+    "Spitter Remains",
+    Category.NATURE,
+    stack = 50.q,
+    energy = 250.q,
+    unlock = Condition.TRUE,
+  ),
+
+  ALIEN_PROTEIN(
+    "Alien Protein",
+    Category.PARTS,
+    stack = 100.q,
+    unlock = any {
+      +Research.HOG_RESEARCH
+      +Research.HATCHER_RESEARCH
+      +Research.STINGER_RESEARCH
+      +Research.SPITTER_RESEARCH
+    },
+  ),
+  ALIEN_DNA_CAPSULE(
+    "Alien DNA Capsule",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 1_000.q,
+    unlock = ResearchCondition(Research.BIO_ORGANIC_PROPERTIES),
+  ),
+
+  REBAR_GUN(
+    "Rebar Gun",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 1_968.q,
+    unlock = ResearchCondition(Research.THE_REBAR_GUN),
+  ),
+  IRON_REBAR(
+    "Iron Rebar",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 8.q,
+    unlock = ResearchCondition(Research.THE_REBAR_GUN),
+  ),
+
+  /* Mycelia */
+
+  MYCELIA(
+    "Mycelia",
+    Category.NATURE,
+    stack = 200.q,
+    sink = 10.q,
+    energy = 20.q,
+    unlock = Condition.TRUE,
+  ),
+
+  /* Nutrients */
 
   BACON_AGARIC(
     "Bacon Agaric",
@@ -673,67 +1013,18 @@ enum class Item(
     unlock = Condition.TRUE,
   ),
 
-  FLOWER_PETALS(
-    "Flower Petals",
-    Category.NATURE,
-    stack = 500.q,
-    sink = 10.q,
-    energy = 100.q,
-    unlock = Condition.TRUE,
-  ),
-  LEAVES(
-    "Leaves",
-    Category.NATURE,
-    stack = 500.q,
-    sink = 3.q,
-    energy = 15.q,
-    unlock = Condition.TRUE,
-  ),
-  MYCELIA(
-    "Mycelia",
-    Category.NATURE,
-    stack = 200.q,
-    sink = 10.q,
-    energy = 20.q,
-    unlock = Condition.TRUE,
-  ),
-  WOOD(
-    "Wood",
-    Category.NATURE,
-    stack = 200.q,
-    sink = 30.q,
-    energy = 100.q,
-    unlock = Condition.TRUE,
+  MEDICINAL_INHALER(
+    "Medicinal Inhaler",
+    Category.EQUIPMENT,
+    stack = 50.q,
+    sink = 125.q,
+    unlock = any {
+      +Research.PROTEIN_INHALER
+      // TODO
+    },
   ),
 
-  HATCHER_REMAINS(
-    "Hatcher Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
-    unlock = Condition.TRUE,
-  ),
-  HOG_REMAINS(
-    "Hog Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
-    unlock = Condition.TRUE,
-  ),
-  SPITTER_REMAINS(
-    "Spitter Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
-    unlock = Condition.TRUE,
-  ),
-  STINGER_REMAINS(
-    "Stinger Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
-    unlock = Condition.TRUE,
-  ),
+  /* Power Slugs */
 
   BLUE_POWER_SLUG(
     "Blue Power Slug",
@@ -751,6 +1042,14 @@ enum class Item(
     "Purple Power Slug",
     Category.NATURE,
     stack = 50.q,
+    unlock = Condition.TRUE,
+  ),
+
+  /* Hard Drives */
+  HARD_DRIVE(
+    "Hard Drive",
+    Category.NATURE,
+    stack = 100.q,
     unlock = Condition.TRUE,
   );
 
