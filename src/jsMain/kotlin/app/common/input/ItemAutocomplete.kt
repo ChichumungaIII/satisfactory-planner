@@ -10,16 +10,12 @@ private val CATEGORY_ORDER = listOf(
   Item.Category.EQUIPMENT,
   Item.Category.NATURE,
 )
-private val ITEM_COMPARATOR =
-  compareBy<Item> {
-    CATEGORY_ORDER.indexOf(it.category)
-  }.thenBy { it.ordinal }
 
 val ItemAutocomplete = createAppAutocomplete(
   displayName = "ItemAutocomplete",
   label = "Item",
   grouping = { it.category.displayName },
   render = Item::displayName,
-  ordering = ITEM_COMPARATOR,
+  ordering = compareBy<Item> { CATEGORY_ORDER.indexOf(it.category) }.thenBy { it.ordinal },
   width = 238.px,
 )
