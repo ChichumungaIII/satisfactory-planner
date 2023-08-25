@@ -70,6 +70,15 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       }
     }
 
+    MuiAutocomplete = jso {
+      styleOverrides = jso {
+        option = jso {
+          fontSize = 14.px
+          padding = "7.5px 16px"
+        }
+      }
+    }
+
     MuiButton = jso {
       defaultProps = jso<ButtonProps> {
         variant = ButtonVariant.contained
@@ -115,7 +124,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       }
       styleOverrides = jso {
         root = jso {
-          padding = "11px 14px"
+          padding = "11px 16px"
           fontSize = 14.px
           lineHeight = 14.px
         }
