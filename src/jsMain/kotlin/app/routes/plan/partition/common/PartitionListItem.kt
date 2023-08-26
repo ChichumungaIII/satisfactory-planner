@@ -5,8 +5,11 @@ import mui.material.IconButton
 import mui.material.Stack
 import mui.material.StackDirection
 import mui.system.responsive
+import mui.system.sx
 import react.FC
 import react.PropsWithChildren
+import web.cssom.AlignItems
+import web.cssom.px
 
 external interface PartitionListItemProps : PropsWithChildren {
   var deleteItem: () -> Unit
@@ -14,7 +17,9 @@ external interface PartitionListItemProps : PropsWithChildren {
 
 val PartitionListItem = FC<PartitionListItemProps>("PartitionListItem") { props ->
   Stack {
+    sx { alignItems = AlignItems.center }
     direction = responsive(StackDirection.row)
+    spacing = responsive(6.px)
 
     +props.children
 

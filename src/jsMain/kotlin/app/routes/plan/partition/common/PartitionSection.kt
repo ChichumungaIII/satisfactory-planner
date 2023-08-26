@@ -35,7 +35,7 @@ val PartitionSection = FC<PartitionSectionProps>("PartitionSection") { props ->
           orientation = Orientation.vertical
           flexItem = true
         }
-        spacing = responsive(2.px)
+        spacing = responsive(12.px)
 
         +props.children
       }

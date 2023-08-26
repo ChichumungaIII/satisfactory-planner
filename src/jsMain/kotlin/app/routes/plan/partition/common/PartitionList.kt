@@ -10,6 +10,7 @@ import react.Props
 import react.ReactNode
 import react.useContext
 import web.cssom.LineStyle
+import web.cssom.Margin
 import web.cssom.Outline
 import web.cssom.px
 
@@ -26,6 +27,7 @@ val PartitionList = FC<PartitionListProps>("PartitionList") { props ->
     props.onAdd?.also { onAdd ->
       IconButton {
         sx {
+          margin = Margin(8.px, 0.px, 4.px)
           outline = Outline(1.px, LineStyle.solid, appTheme.palette.primary.main)
         }
 
