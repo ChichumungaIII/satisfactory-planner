@@ -18,10 +18,12 @@ import web.cssom.Width
 import web.cssom.px
 
 enum class RationalInputVariant(
-  val adornment: String?,
+  val adornment: String? = null,
   val width: Width = 172.px,
 ) {
-  RATE("/ min")
+  CLOCK_SPEED(adornment = "%"),
+  NUMBER(width = 56.px),
+  RATE(adornment = "/ min")
 }
 
 external interface RationalInputProps : Props {

@@ -3,6 +3,7 @@ package app.routes.plan.partition.product
 import app.api.plan.v1.Plan
 import app.common.input.ItemAutocomplete
 import app.common.input.RationalInput
+import app.common.input.RationalInputVariant
 import app.data.save.SaveManager
 import app.game.data.Item
 import app.routes.plan.partition.common.PartitionListItem
@@ -56,6 +57,7 @@ val PartitionProduct = FC<PartitionProductProps>("PartitionProduct") { props ->
 
     if (product.maximize) {
       RationalInput {
+        variant = RationalInputVariant.NUMBER
         model = product.weight
         setModel = { next -> product = product.copy(weight = next) }
       }
