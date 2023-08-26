@@ -12,11 +12,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.datetime.Clock
 import react.Context
+import react.Dispatch
 import react.FC
 import react.PropsWithChildren
-import react.StateSetter
 import react.useContext
-import react.useState
+import react.useReducer
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -27,13 +27,16 @@ external interface ResourceManagerProps<N : ResourceName, R : Resource<N>> : Pro
 class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
   private val query: suspend (resource: R) -> R,
   private val cache: ResourceCache<N, R>,
-  private val data: LocalData<R>,
-  private val setData: StateSetter<LocalData<R>>,
-  private val state: SaveState,
-  private val setState: StateSetter<SaveState>
+  private val managed: ManagedResource<R>,
+  private val updateManaged: Dispatch<ResourceManagerAction<R>>,
 ) {
   companion object {
     private val DEBOUNCE_TIME = 5.seconds
+
+    private sealed interface ResourceManagerAction<R>
+    private data class Apply<R>(
+      val update: (managed: ManagedResource<R>) -> ManagedResource<R>,
+    ) : ResourceManagerAction<R>
 
     fun <N : ResourceName, R : Resource<N>, S> createProvider(
       displayName: String,
@@ -44,50 +47,53 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
     ) = FC<ResourceManagerProps<N, R>>(displayName) { props ->
       val service = useContext(serviceContext)!!
       val cache = useContext(cacheContext)!!
-      val (data, setData) = useState<LocalData<R>>(Stable(props.resource))
-      val (state, setState) = useState(SaveState())
+      val (managed, updateManaged) = useReducer({ managed: ManagedResource<R>, action: ResourceManagerAction<R> ->
+        when (action) {
+          is Apply -> action.update(managed).also { cache.insert(it.data.resource) }
+        }
+      }, initialState = ManagedResource(Stable(props.resource), SaveState()))
 
-      context(ResourceManager({ service.query(it) }, cache, data, setData, state, setState)) {
+      context(ResourceManager({ service.query(it) }, cache, managed, updateManaged)) {
         +props.children
       }
     }
   }
 
-  fun update(resource: R) {
-    check(resource.name == data.resource.name) { "Cannot update unmanaged resource [${resource.name.getResourceName()}]." }
-
-    cache.insert(resource)
-    when (data) {
-      is Stable -> {
-        setData(LocalData.debouncing(resource, newDebouncedSave(resource)))
-        setState(state.copy(saving = true))
-      }
+  fun update(updater: (resource: R) -> R) = updateManaged(Apply { managed ->
+    val next = updater(managed.data.resource)
+    when (managed.data) {
+      is Stable -> ManagedResource(
+        LocalData.debouncing(next, newDebouncedSave(next)),
+        managed.state.copy(saving = true)
+      )
 
       is Debouncing -> {
-        data.job.cancel()
-        setData(LocalData.debouncing(resource, newDebouncedSave(resource)))
+        managed.data.job.cancel()
+        managed.copy(data = LocalData.debouncing(next, newDebouncedSave(next)))
       }
 
       is Updating -> {
-        data.job.cancel()
-        setData(LocalData.throttled(resource, newThrottledSave(resource, data.job)))
+        managed.data.job.cancel()
+        managed.copy(data = LocalData.throttled(next, newThrottledSave(next, managed.data.job)))
       }
 
       is Throttled -> {
-        data.job.cancel()
-        setData(LocalData.throttled(resource, newThrottledSave(resource, data.job)))
+        managed.data.job.cancel()
+        managed.copy(data = LocalData.throttled(next, newThrottledSave(next, managed.data.job)))
       }
     }
-  }
+  })
 
-  operator fun component1() = data.resource
+  operator fun component1() = managed.data.resource
   operator fun component2() = this
 
-  fun state() = state
+  fun state() = managed.state
 
   private fun newDebouncedSave(resource: R) = launchMain {
     delay(DEBOUNCE_TIME)
-    setData(LocalData.updating(resource, newSave(resource)))
+    updateManaged(Apply { managed ->
+      managed.copy(data = LocalData.updating(resource, newSave(resource)))
+    })
   }
 
   private fun newSave(resource: R) = launchMain {
@@ -96,15 +102,26 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
 
     if (isActive) {
       cache.insert(updated)
-      setData(LocalData.stable(updated))
-      setState(SaveState(Clock.System.now(), false))
+      updateManaged(Apply { _ ->
+        ManagedResource(
+          LocalData.stable(updated),
+          SaveState(Clock.System.now(), false)
+        )
+      })
     }
   }
 
   private fun newThrottledSave(resource: R, previous: Job) = launchMain {
     previous.join()
     if (isActive) {
-      setData(LocalData.debouncing(resource, newDebouncedSave(resource)))
+      updateManaged(Apply { managed ->
+        managed.copy(data = LocalData.debouncing(resource, newDebouncedSave(resource)))
+      })
     }
   }
 }
+
+private data class ManagedResource<R>(
+  val data: LocalData<R>,
+  val state: SaveState,
+)

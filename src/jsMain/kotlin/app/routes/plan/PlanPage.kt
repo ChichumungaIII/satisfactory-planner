@@ -13,6 +13,6 @@ val PlanPage = FC<PlanPageProps>("PlanPage") {
 
   PartitionComponent {
     partition = plan.partition
-    setPartition = { next -> manager.update(plan.copy(partition = next)) }
+    setPartition = { next -> manager.update { it.copy(partition = next) } }
   }
 }
