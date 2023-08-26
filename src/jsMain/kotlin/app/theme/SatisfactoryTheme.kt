@@ -1,6 +1,7 @@
 package app.theme
 
 import js.core.jso
+import mui.material.AccordionProps
 import mui.material.AppBarPosition
 import mui.material.AppBarProps
 import mui.material.ButtonProps
@@ -23,6 +24,7 @@ import mui.material.SvgIconColor
 import mui.material.SvgIconProps
 import mui.material.TextFieldProps
 import mui.material.styles.createTheme
+import web.cssom.Margin
 import web.cssom.None
 import web.cssom.px
 
@@ -63,6 +65,23 @@ private val SatisfactoryMuiTheme = createTheme(jso {
   }
 
   components = jso {
+    MuiAccordion = jso {
+      defaultProps = jso<AccordionProps> {
+        disableGutters = true
+      }
+    }
+
+    MuiAccordionSummary = jso {
+      styleOverrides = jso {
+        root = jso {
+          minHeight = 36.px
+        }
+        content = jso {
+          margin = Margin(0.px, 0.px)
+        }
+      }
+    }
+
     MuiAppBar = jso {
       defaultProps = jso<AppBarProps> {
         position = AppBarPosition.sticky
