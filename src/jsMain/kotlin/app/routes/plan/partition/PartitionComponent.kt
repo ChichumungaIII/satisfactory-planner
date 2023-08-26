@@ -5,7 +5,6 @@ import app.routes.plan.partition.input.PartitionInputs
 import app.routes.plan.partition.product.PartitionProducts
 import mui.material.styles.Theme
 import mui.material.useMediaQuery
-import mui.system.Breakpoint
 import react.FC
 import react.Props
 import react.create
@@ -14,7 +13,7 @@ import react.useContext
 external interface PartitionComponentProps : Props
 
 val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
-  val large = useMediaQuery({ theme: Theme -> theme.breakpoints.up(Breakpoint.lg) })
+  val large = useMediaQuery<Theme>({ "(min-width: 1200px)" })
 
   val (partition, manager) = useContext(PartitionManager.Context)!!
 

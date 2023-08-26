@@ -7,7 +7,6 @@ import mui.material.Typography
 import mui.material.styles.Theme
 import mui.material.styles.TypographyVariant
 import mui.material.useMediaQuery
-import mui.system.Breakpoint
 import react.FC
 import react.Props
 import react.create
@@ -25,7 +24,7 @@ external interface PartitionProductsProps : Props {
 }
 
 val PartitionProducts = FC<PartitionProductsProps>("PartitionProducts") { props ->
-  val large = useMediaQuery({ theme: Theme -> theme.breakpoints.up(Breakpoint.lg) })
+  val large = useMediaQuery<Theme>({ "(min-width: 1200px)" })
 
   var products by PropsDelegate(props.products, props.setProducts)
 

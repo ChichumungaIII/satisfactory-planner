@@ -7,7 +7,6 @@ import mui.material.Typography
 import mui.material.styles.Theme
 import mui.material.styles.TypographyVariant
 import mui.material.useMediaQuery
-import mui.system.Breakpoint
 import react.FC
 import react.Props
 import react.create
@@ -24,7 +23,7 @@ external interface PartitionInputsProps : Props {
 }
 
 val PartitionInputs = FC<PartitionInputsProps>("PartitionInputs") { props ->
-  val large = useMediaQuery({ theme: Theme -> theme.breakpoints.up(Breakpoint.lg) })
+  val large = useMediaQuery<Theme>({ "(min-width: 1200px)" })
 
   var inputs by PropsDelegate(props.inputs, props.setInputs)
 
