@@ -2,6 +2,7 @@ package app.routes.plan.partition
 
 import app.routes.plan.partition.common.PartitionSection
 import app.routes.plan.partition.input.PartitionInputs
+import app.routes.plan.partition.nested.NestedPartitions
 import app.routes.plan.partition.product.PartitionProducts
 import mui.material.styles.Theme
 import mui.material.useMediaQuery
@@ -12,7 +13,7 @@ import react.useContext
 
 external interface PartitionComponentProps : Props
 
-val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
+val PartitionComponent: FC<PartitionComponentProps> = FC("PartitionComponent") {
   val large = useMediaQuery<Theme>({ "(min-width: 1200px)" })
 
   val (partition, manager) = useContext(PartitionManager.Context)!!
@@ -41,5 +42,14 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
       title = "Products"
       +productsComponent
     }
+  }
+
+  PartitionSection {
+    title = "Partitions"
+    NestedPartitions {}
+  }
+
+  PartitionSection {
+    title = "Recipes"
   }
 }

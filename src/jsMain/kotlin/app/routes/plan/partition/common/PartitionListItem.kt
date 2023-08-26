@@ -12,12 +12,13 @@ import web.cssom.AlignItems
 import web.cssom.px
 
 external interface PartitionListItemProps : PropsWithChildren {
+  var alignItems: AlignItems?
   var deleteItem: () -> Unit
 }
 
 val PartitionListItem = FC<PartitionListItemProps>("PartitionListItem") { props ->
   Stack {
-    sx { alignItems = AlignItems.center }
+    sx { alignItems = props.alignItems ?: AlignItems.center }
     direction = responsive(StackDirection.row)
     spacing = responsive(6.px)
 

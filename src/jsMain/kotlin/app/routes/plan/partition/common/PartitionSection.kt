@@ -7,10 +7,10 @@ import mui.material.AccordionDetails
 import mui.material.AccordionSummary
 import mui.material.Divider
 import mui.material.Orientation
+import mui.material.Stack
+import mui.material.StackDirection
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
-import mui.system.Stack
-import mui.system.StackDirection
 import mui.system.responsive
 import mui.system.sx
 import react.FC
@@ -18,6 +18,7 @@ import react.PropsWithChildren
 import react.create
 import react.useContext
 import web.cssom.Color
+import web.cssom.Padding
 import web.cssom.px
 
 external interface PartitionSectionProps : PropsWithChildren {
@@ -29,7 +30,7 @@ val PartitionSection = FC<PartitionSectionProps>("PartitionSection") { props ->
 
   Accordion {
     AccordionSummary {
-      expandIcon = ExpandMore.create {}
+      expandIcon = ExpandMore.create()
       Typography {
         variant = TypographyVariant.subtitle1
         +props.title
@@ -37,7 +38,10 @@ val PartitionSection = FC<PartitionSectionProps>("PartitionSection") { props ->
     }
 
     AccordionDetails {
-      sx { backgroundColor = Color(appTheme.palette.background.default) }
+      sx {
+        backgroundColor = Color(appTheme.palette.background.default)
+        padding = Padding(8.px, 8.px)
+      }
       Stack {
         direction = responsive(StackDirection.row)
         divider = Divider.create {
