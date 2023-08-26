@@ -69,6 +69,11 @@ private val SatisfactoryMuiTheme = createTheme(jso {
       defaultProps = jso<AccordionProps> {
         disableGutters = true
       }
+      styleOverrides = jso {
+        root = jso {
+          boxShadow = None.none
+        }
+      }
     }
 
     MuiAccordionSummary = jso {
