@@ -27,10 +27,9 @@ enum class RationalInputVariant(
 }
 
 external interface RationalInputProps : Props {
+  var variant: RationalInputVariant?
   var model: Rational?
   var setModel: (Rational?) -> Unit
-
-  var variant: RationalInputVariant?
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->

@@ -130,8 +130,8 @@ class Rational private constructor(
 
   override fun hashCode() = (normN * 31 + normD).toInt()
 
-  override fun toString(): String {
-    if (n < 0) return "-${abs()}"
+  fun exact(): String? {
+    if (n < 0) return (-this).exact()?.let { "-$it" }
 
     val integer = n / d
     if (n % d == 0L) return "$integer"
@@ -151,19 +151,18 @@ class Rational private constructor(
     var digits = 1
     while (nines % trailing.d != 0L) {
       nines = nines * 10L + 9L
-      if (++digits > MAX_REPEATED_DIGITS) {
-        println(
-          """[$n / $d] exceeded the limit for maximum repeated digits in a Rational string 
-                    |representation ($MAX_REPEATED_DIGITS).""".trimMargin()
-        )
-
-        val text = "${n.toDouble() / d.toDouble()}"
-        val end = text.lastIndexOf('.')
-        return "~${text.substring(0, end + 6)}"
-      }
+      if (++digits > MAX_REPEATED_DIGITS) return null
     }
     val repeated = trailing.n * nines / trailing.d
     return "$integer.${fixedOut}_${"$repeated".padStart(digits, '0')}"
+  }
+
+  override fun toString(): String {
+    return exact() ?: run {
+      val text = "${n.toDouble() / d.toDouble()}"
+      val end = text.lastIndexOf('.')
+      return "~${text.substring(0, end + 6)}"
+    }
   }
 
   private fun getFixedScale(n: Long): Long {
