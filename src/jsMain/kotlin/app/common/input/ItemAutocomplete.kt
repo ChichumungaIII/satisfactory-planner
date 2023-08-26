@@ -17,5 +17,5 @@ val ItemAutocomplete = createAppAutocomplete(
   grouping = { it.category.displayName },
   render = Item::displayName,
   ordering = compareBy<Item> { CATEGORY_ORDER.indexOf(it.category) }.thenBy { it.ordinal },
-  width = 240.px,
+  width = 264.px,
 )

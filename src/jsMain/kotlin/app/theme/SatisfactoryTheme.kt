@@ -80,6 +80,14 @@ private val SatisfactoryMuiTheme = createTheme(jso {
           fontSize = 14.px
           padding = "7.5px 16px"
         }
+        clearIndicator = jso {
+          width = 26.px
+          height = 26.px
+        }
+        popupIndicator = jso {
+          width = 26.px
+          height = 26.px
+        }
       }
     }
 
