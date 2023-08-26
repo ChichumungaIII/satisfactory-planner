@@ -33,7 +33,7 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") { pro
 
   if (large) {
     PartitionSection {
-      title = "Inputs and Products"
+      title = "Items"
       +inputsComponent
       +productsComponent
     }
