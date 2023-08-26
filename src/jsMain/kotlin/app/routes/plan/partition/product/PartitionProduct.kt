@@ -60,6 +60,7 @@ val PartitionProduct = FC<PartitionProductProps>("PartitionProduct") { props ->
     if (product.maximize) {
       RationalInput {
         variant = RationalInputVariant.NUMBER
+        label = "Weight"
         model = product.weight
         setModel = { next -> product = product.copy(weight = next) }
       }

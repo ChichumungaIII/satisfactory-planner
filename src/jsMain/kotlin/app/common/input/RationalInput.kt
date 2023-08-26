@@ -9,6 +9,7 @@ import mui.material.TextField
 import mui.system.sx
 import react.FC
 import react.Props
+import react.ReactNode
 import react.create
 import react.dom.onChange
 import react.useEffect
@@ -22,12 +23,14 @@ enum class RationalInputVariant(
   val width: Width = 172.px,
 ) {
   CLOCK_SPEED(adornment = "%"),
-  NUMBER(width = 56.px),
+  NUMBER(width = 64.px),
   RATE(adornment = "/ min")
 }
 
 external interface RationalInputProps : Props {
   var variant: RationalInputVariant?
+  var label: String?
+
   var model: Rational?
   var setModel: (Rational?) -> Unit
 }
@@ -54,6 +57,8 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
         endAdornment = InputAdornment.create { +it }
       }
     }
+
+    props.label?.also { label = ReactNode(it) }
 
     value = text
     onChange = { event ->
