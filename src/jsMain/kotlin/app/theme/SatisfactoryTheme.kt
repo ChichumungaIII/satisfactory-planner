@@ -52,6 +52,9 @@ private val SatisfactoryMuiTheme = createTheme(jso {
     h2 = jso {
       fontSize = 20.px
     }
+    body1 = jso {
+      fontSize = 14.px
+    }
   }
 
   zIndex = jso {
