@@ -37,16 +37,16 @@ data class Plan(
 
   @Serializable
   data class Input(
-    val item: Item,
-    val quantity: Rational,
+    val item: Item?,
+    val quantity: Rational?,
     val requirement: Rational? = null,
   )
 
   @Serializable
   data class Product(
-    val item: Item,
+    val item: Item?,
     val maximize: Boolean,
-    val weight: Rational,
+    val weight: Rational?,
     val amount: Rational? = null,
     val potential: Rational? = null,
   )

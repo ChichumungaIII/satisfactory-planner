@@ -17,8 +17,8 @@ import web.cssom.Width
 import web.cssom.px
 
 external interface AppAutocompleteProps<T> : Props {
-  var model: T
-  var setModel: (T) -> Unit
+  var model: T?
+  var setModel: (T?) -> Unit
 
   var options: List<T>
 }
@@ -58,10 +58,10 @@ fun <T> createAppAutocomplete(
     getOptionLabel = render
 
     value = model
-    onChange = { _, next: T?, _, _ -> next?.also { model = it } }
+    onChange = { _, next: T?, _, _ -> model = next }
 
     autoComplete = true
     autoHighlight = true
-    disableClearable = true
+    clearOnEscape = true
   }
 }

@@ -10,15 +10,15 @@ import react.useState
 import util.math.Rational
 
 external interface RationalInputProps : Props {
-  var model: Rational
-  var setModel: (Rational) -> Unit
+  var model: Rational?
+  var setModel: (Rational?) -> Unit
 }
 
 val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
   var model by PropsDelegate(props.model, props.setModel)
 
-  var text by useState(model.toString())
-  var error by useState(false)
+  var text by useState(model?.toString() ?: "")
+  var error by useState(model == null)
   useEffect(model) {
     model.takeIf { it != Rational.parse(text) }?.also {
       text = it.toString()
@@ -32,10 +32,10 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
       val next = event.target.asDynamic().value as String
       text = next
 
-      Rational.parse(next)?.also {
+      Rational.parse(next).also {
         model = it
-        error = false
-      } ?: run { error = true }
+        error = it == null
+      }
     }
 
     this.error = error
