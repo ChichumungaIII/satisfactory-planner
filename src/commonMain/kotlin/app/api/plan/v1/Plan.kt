@@ -39,7 +39,7 @@ data class Plan(
   data class Input(
     val item: Item?,
     val quantity: Rational?,
-    val requirement: Rational? = null,
+    val demand: Rational? = null,
   )
 
   @Serializable
