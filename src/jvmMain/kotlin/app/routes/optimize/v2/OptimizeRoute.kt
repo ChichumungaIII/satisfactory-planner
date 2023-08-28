@@ -7,7 +7,6 @@ import app.api.optimize.v2.OptimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
 import app.serialization.AppJson
-import com.chichumunga.satisfactory.app.routes.optimize.v2.Optimizer
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.http.HttpStatusCode
@@ -23,6 +22,7 @@ import util.math.Constraint
 import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.Rational
+import util.math.maximize
 import util.math.q
 
 fun Routing.optimizeRouteV2() {
@@ -79,11 +79,37 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
   val restrictionConstraints = request.restrictions.filter { recipes.contains(it.recipe) }
     .map { restriction -> Constraint.atMost(1.br * restriction.recipe, restriction.rate.br) }
 
-  val optimizer = Optimizer(expressions, basicConstraints + restrictionConstraints, productConstraints)
-  val solution = optimizer.computePrincipalSolution(
-    objectives,
-    (provisions.keys + requirements.keys).associateWith { (requirements[it] ?: 0.br) - (provisions[it] ?: 0.br) }
-  )
+  val solution = if (objectives.isEmpty()) {
+    val objective = expressions[requirements.keys.first()]!!
+    maximize(
+      objective,
+      basicConstraints + restrictionConstraints + productConstraints.values,
+      BigRational.FACTORY
+    )
+  } else {
+    val principalObjective = objectives[0]
+    val principalOffset = principalObjective.item.let {
+      (requirements[it] ?: 0.br) - (provisions[it] ?: 0.br)
+    }
+    val balanceConstraints = objectives.subList(1, objectives.size).map { secondaryObjective ->
+      val secondaryOffset = secondaryObjective.item.let {
+        (requirements[it] ?: 0.br) - (provisions[it] ?: 0.br)
+      }
+
+      Constraint.equalTo(
+        expressions[principalObjective.item]!! * secondaryObjective.weight.br -
+            expressions[secondaryObjective.item]!! * principalObjective.weight.br,
+        secondaryObjective.weight.br * principalOffset -
+            principalObjective.weight.br * secondaryOffset
+      )
+    }
+    val objective = expressions[principalObjective.item]!!
+    maximize(
+      objective,
+      basicConstraints + restrictionConstraints + productConstraints.values + balanceConstraints,
+      BigRational.FACTORY
+    )
+  }
 
   return OptimizeResponse(
     demands = listOf(),
