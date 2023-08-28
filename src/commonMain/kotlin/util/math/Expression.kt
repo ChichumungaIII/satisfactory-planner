@@ -19,6 +19,9 @@ class Expression<V, N : Numeric<N>> private constructor(
   private fun join(other: Expression<V, N>, merge: (N, N) -> N) =
     Expression((terms + other.terms).associateWith { term -> merge(get(term), other.get(term)) }, numbers)
 
+  operator fun times(scalar: N) =
+    Expression(coefficients.mapValues { (_, coefficient) -> coefficient * scalar }, numbers)
+
   operator fun invoke(values: Map<V, N>) =
     coefficients.map { (term, c) -> c * (values[term] ?: numbers.zilch()) }.reduce(Numeric<N>::plus)
 

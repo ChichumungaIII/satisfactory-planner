@@ -9,9 +9,9 @@ import util.math.Rational
 @Serializable
 data class OptimizeRequest(
   val provisions: List<Provision>,
-  val objectives: List<Objective>,
   val requirements: List<Requirement>,
   val restrictions: List<Restriction>,
+  val objectives: List<Objective>,
 ) : ResourceName {
   override fun getResourceName() = "Optimization-${hashCode()}"
 
@@ -19,12 +19,6 @@ data class OptimizeRequest(
   data class Provision(
     val item: Item,
     val quantity: Rational,
-  )
-
-  @Serializable
-  data class Objective(
-    val item: Item,
-    val weight: Rational,
   )
 
   @Serializable
@@ -37,5 +31,11 @@ data class OptimizeRequest(
   data class Restriction(
     val recipe: Recipe,
     val rate: Rational,
+  )
+
+  @Serializable
+  data class Objective(
+    val item: Item,
+    val weight: Rational,
   )
 }
