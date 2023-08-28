@@ -1,4 +1,4 @@
-package com.chichumunga.satisfactory.app.routes.optimize.v1
+package com.chichumunga.satisfactory.app.routes.optimize.v2
 
 import app.api.optimize.v2.OptimizeRequest
 import app.api.optimize.v2.OptimizeRequest.Provision

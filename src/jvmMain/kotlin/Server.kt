@@ -1,6 +1,6 @@
 package com.chichumunga.satisfactory
 
-import com.chichumunga.satisfactory.app.routes.optimize.v1.optimizeRouteV2
+import com.chichumunga.satisfactory.app.routes.optimize.v2.optimizeRouteV2
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
