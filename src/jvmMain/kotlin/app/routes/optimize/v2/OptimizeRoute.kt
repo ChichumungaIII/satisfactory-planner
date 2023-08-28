@@ -17,6 +17,8 @@ import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import util.math.Constraint
@@ -50,7 +52,7 @@ private fun validate(request: OptimizeRequest) {
   check(requirements.size + objectives.size > 0) { "Optimization requires products." }
 }
 
-private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
+private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
   val provisions = request.provisions.foldToItemMap(Provision::item, Provision::quantity)
   val requirements = request.requirements.foldToItemMap(Requirement::item, Requirement::amount)
   val objectives = request.objectives
@@ -80,16 +82,21 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
     .map { restriction -> Constraint.atMost(1.br * restriction.recipe, restriction.rate.br) }
 
   val optimizer = Optimizer(expressions, basicConstraints + restrictionConstraints, productConstraints)
-  val solution = optimizer.computePrincipalSolution(
-    objectives,
-    (provisions.keys + requirements.keys).associateWith { (requirements[it] ?: 0.br) - (provisions[it] ?: 0.br) }
-  )
+  val solution = async {
+    optimizer.computePrincipalSolution(
+      objectives,
+      (provisions.keys + requirements.keys).associateWith { (requirements[it] ?: 0.br) - (provisions[it] ?: 0.br) }
+    )
+  }
 
-  return OptimizeResponse(
+
+  val rates = solution.await()
+    .map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
+    .filter { it.rate != 0.q }
+  OptimizeResponse(
     demands = listOf(),
     potentials = listOf(),
-    rates = solution.map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
-      .filter { it.rate != 0.q },
+    rates = rates,
   )
 }
 
