@@ -4,6 +4,7 @@ import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListState
+import app.data.optimization.OptimizationCacheProvider
 import app.data.plan.PlanCacheProvider
 import app.data.plan.PlanCollectionCacheProvider
 import app.data.plan.PlanCollectionLoader
@@ -24,22 +25,26 @@ external interface AppV3Props : Props
 
 val AppV3 = FC<AppV3Props>("AppV3") {
   +listOf(
-    // Services
+    /* Services */
     app.api.optimize.v1.OptimizeServiceJs.Provider,
     app.api.optimize.v2.OptimizeServiceJs.Provider,
     SaveServiceJs.Provider,
     PlanServiceJs.Provider,
-    // Global theme
+    /* Global theme */
     AppThemeContextProvider,
-    // App Data
+    /* App Data */
+    // Save
     SaveCacheProvider,
     SaveCollectionLoader.Provider,
     SaveLoaderProvider,
+    // Plan
     PlanCacheProvider,
     PlanCollectionCacheProvider,
     PlanCollectionLoader.Provider,
     PlanLoaderProvider,
-    // App State
+    // Optimization
+    OptimizationCacheProvider,
+    /* App State */
     AppFrameState.Provider,
     NavigationListState.Provider,
     SavePageState.Manager.Provider,

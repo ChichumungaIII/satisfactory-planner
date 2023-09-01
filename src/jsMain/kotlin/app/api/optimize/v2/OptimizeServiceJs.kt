@@ -1,10 +1,7 @@
 package app.api.optimize.v2
 
-import app.api.optimize.v1.OptimizeRequest
-import app.api.optimize.v1.OptimizeResponse
-import app.api.optimize.v1.OptimizeService
-import app.api.optimize.v1.OptimizeService.Companion.decodeResponse
-import app.api.optimize.v1.OptimizeService.Companion.encodeRequest
+import app.api.optimize.v2.OptimizeService.Companion.decodeResponse
+import app.api.optimize.v2.OptimizeService.Companion.encodeRequest
 import kotlinx.browser.window
 import kotlinx.coroutines.await
 import org.w3c.fetch.RequestInit

@@ -22,7 +22,7 @@ class PartitionManager private constructor(
     private sealed interface PartitionManagerAction
     private data class Apply(val update: (partition: Plan.Partition) -> Plan.Partition) : PartitionManagerAction
     private data object Delete : PartitionManagerAction
-    private data class Set(val parition: Plan.Partition) : PartitionManagerAction
+    private data class Set(val partition: Plan.Partition) : PartitionManagerAction
 
     val Context = createContext<PartitionManager>()
     val Provider = FC<PartitionManagerProps>("PartitionManagerProvider") { props ->
@@ -30,7 +30,7 @@ class PartitionManager private constructor(
         when (action) {
           is Apply -> action.update(partition).also { props.setPartition(it) }
           is Delete -> partition.also { props.deletePartition() }
-          is Set -> action.parition
+          is Set -> action.partition
         }
       }, initialState = props.partition)
       useEffect(props.partition) { updatePartition(Set(props.partition)) }

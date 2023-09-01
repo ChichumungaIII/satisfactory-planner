@@ -52,7 +52,7 @@ private fun validate(request: OptimizeRequest) {
 }
 
 private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
-  val provisions = request.provisions.foldToItemMap(Provision::item, Provision::quantity)
+  val provisions = request.provisions.foldToItemMap(Provision::item, Provision::quantity).filterValues { it > 0.br }
   val requirements = request.requirements.foldToItemMap(Requirement::item, Requirement::amount)
   val objectives = request.objectives
 

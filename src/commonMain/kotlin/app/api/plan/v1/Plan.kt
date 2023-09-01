@@ -1,8 +1,8 @@
 package app.api.plan.v1
 
 import app.api.common.Resource
-import app.data.recipe.Recipe
 import app.game.data.Item
+import app.game.data.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational
 
