@@ -1,6 +1,5 @@
 package app.api.optimize.v2
 
-import app.api.common.ResourceName
 import app.game.data.Item
 import app.game.data.Recipe
 import kotlinx.serialization.Serializable
@@ -12,9 +11,7 @@ data class OptimizeRequest(
   val requirements: List<Requirement>,
   val restrictions: List<Restriction>,
   val objectives: List<Objective>,
-) : ResourceName {
-  override fun getResourceName() = "Optimization-${hashCode()}"
-
+) {
   @Serializable
   data class Provision(
     val item: Item,
