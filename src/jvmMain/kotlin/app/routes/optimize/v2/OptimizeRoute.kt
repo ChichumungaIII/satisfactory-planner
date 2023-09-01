@@ -120,9 +120,16 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
     .mapValues { (_, consumed) -> consumed(minimize(consumed, minimumConstraints, BigRational.FACTORY)) }
     .map { (item, demand) -> OptimizeResponse.Demand(item, demand.toRational()) }
 
+  val productions = requirements.mapValues { (item) -> expressions[item]!! }
+    .mapValues { (item, produced) ->
+      val maximizeProductConstraints = productConstraints.filter { it.key != item }.values
+      val maximizeConstraints = basicConstraints + restrictionConstraints + maximizeProductConstraints
+      produced(maximize(produced, maximizeConstraints, BigRational.FACTORY)).toRational()
+    }.map { (item, potential) -> OptimizeResponse.Production(item, amounts[item]!!.toRational(), potential) }
+
   return OptimizeResponse(
     demands = demands,
-    productions = listOf(),
+    productions = productions,
     rates = solution.map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
       .filter { it.rate != 0.q },
   )
