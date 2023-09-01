@@ -23,6 +23,7 @@ import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.Rational
 import util.math.maximize
+import util.math.minimize
 import util.math.q
 
 fun Routing.optimizeRouteV2() {
@@ -110,10 +111,18 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
       BigRational.FACTORY
     )
   }
+  val amounts = getAmounts(solution)
+
+  val minimumProductConstraints =
+    requirements.map { (item) -> Constraint.equalTo(expressions[item]!!, amounts[item]!!) }
+  val minimumConstraints = basicConstraints + restrictionConstraints + minimumProductConstraints
+  val demands = provisions.mapValues { (item) -> -expressions[item]!! }
+    .mapValues { (_, consumed) -> consumed(minimize(consumed, minimumConstraints, BigRational.FACTORY)) }
+    .map { (item, demand) -> OptimizeResponse.Demand(item, demand.toRational()) }
 
   return OptimizeResponse(
-    demands = listOf(),
-    potentials = listOf(),
+    demands = demands,
+    productions = listOf(),
     rates = solution.map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
       .filter { it.rate != 0.q },
   )
@@ -121,11 +130,7 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
 
 private fun getExpressions(recipes: Set<Recipe>) =
   recipes
-    .flatMap { recipe ->
-      recipe.inputs.map { Triple(recipe, it.key, -it.value) } +
-          recipe.outputs.map { Triple(recipe, it.key, it.value) }
-    }
-    .map { (recipe, item, amount) -> item to (amount * 60.q / recipe.time).br * recipe }
+    .flatMap { recipe -> recipe.rates.map { (item, rate) -> item to rate.br * recipe } }
     .fold(mutableMapOf<Item, Expression<Recipe, BigRational>>()) { map, (item, expression) ->
       map.also { it.merge(item, expression, Expression<Recipe, BigRational>::plus) }
     }.toMap()
@@ -135,6 +140,12 @@ private fun getReachableRecipes(items: Set<Item>): Set<Recipe> =
     (items + recipes.flatMap { it.outputs.keys }).takeIf { it.size > items.size }
       ?.let { getReachableRecipes(it) } ?: recipes.toSet()
   }
+
+private fun getAmounts(recipes: Map<Recipe, BigRational>) =
+  recipes.flatMap { (recipe, clock) -> recipe.rates.map { (item, rate) -> item to clock * rate.br } }
+    .fold(mutableMapOf<Item, BigRational>()) { map, (item, amount) ->
+      map.also { it.merge(item, amount, BigRational::plus) }
+    }.toMap()
 
 private fun <T> Iterable<T>.foldToItemMap(getItem: (T) -> Item, getRational: (T) -> Rational) =
   fold(mutableMapOf<Item, BigRational>()) { map, element ->

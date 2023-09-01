@@ -250,5 +250,7 @@ enum class Recipe(
     inputs = mapOf(Item.FLOWER_PETALS to 5.q),
     outputs = mapOf(Item.COLOR_CARTRIDGE to 10.q),
     unlock = ItemCondition(Item.COLOR_CARTRIDGE),
-  ),
+  );
+
+  val rates = (inputs.mapValues { (_, amount) -> -amount } + outputs).mapValues { (_, amount) -> amount * 60.q / time }
 }
