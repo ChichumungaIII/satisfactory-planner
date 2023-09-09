@@ -20,11 +20,11 @@ val PartitionComponent: FC<PartitionComponentProps> = FC("PartitionComponent") {
 
   val inputsComponent = PartitionInputs.create {
     inputs = partition.inputs
-    setInputs = { next -> manager.update { it.copy(inputs = next) } }
+    setInputs = { next -> manager.update { it.copy(inputs = next, optimized = false) } }
   }
   val productsComponent = PartitionProducts.create {
     products = partition.products
-    setProducts = { next -> manager.update { it.copy(products = next) } }
+    setProducts = { next -> manager.update { it.copy(products = next, optimized = false) } }
   }
 
   if (large) {

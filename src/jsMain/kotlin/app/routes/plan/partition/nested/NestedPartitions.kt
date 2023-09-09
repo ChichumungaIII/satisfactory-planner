@@ -18,19 +18,21 @@ val NestedPartitions = FC<NestedPartitionsProps>("NestedPartitions") {
 
   PartitionList {
     spacing = 8.px
-    onAdd = { manager.update { it.copy(partitions = it.partitions + NEW_PARTITION) } }
+    onAdd = { manager.update { it.copy(partitions = it.partitions + NEW_PARTITION, optimized = false) } }
 
     partitionListItems = parent.partitions.mapIndexed { i, child ->
       PartitionManager.Provider.create {
         partition = child
         setPartition = { next ->
           manager.update { partition ->
-            partition.copy(partitions = partition.partitions.toMutableList().also { it[i] = next }.toList())
+            val partitions = partition.partitions.toMutableList().also { it[i] = next }.toList()
+            partition.copy(partitions = partitions, optimized = false)
           }
         }
         deletePartition = {
           manager.update { partition ->
-            partition.copy(partitions = partition.partitions.let { it.subList(0, i) + it.subList(i + 1, it.size) })
+            val partitions = partition.partitions.let { it.subList(0, i) + it.subList(i + 1, it.size) }
+            partition.copy(partitions = partitions, optimized = false)
           }
         }
 

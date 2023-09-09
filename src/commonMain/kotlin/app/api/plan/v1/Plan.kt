@@ -21,6 +21,7 @@ data class Plan(
     val byproducts: List<Byproduct>,
     val partitions: List<Partition>,
     val targets: List<Target>,
+    val optimized: Boolean,
   ) {
     companion object {
       private val EMPTY = Partition(
@@ -29,6 +30,7 @@ data class Plan(
         byproducts = listOf(),
         partitions = listOf(),
         targets = listOf(),
+        optimized = false,
       )
 
       fun empty() = EMPTY

@@ -29,6 +29,8 @@ val PartitionSection = FC<PartitionSectionProps>("PartitionSection") { props ->
   val appTheme by useContext(AppThemeContext)!!
 
   Accordion {
+    defaultExpanded = true
+
     AccordionSummary {
       expandIcon = ExpandMore.create()
       Typography {

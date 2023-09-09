@@ -112,27 +112,29 @@ private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
     )
   }
   val amounts = getAmounts(solution)
+  val outputs = (requirements.keys + objectives.map { it.item }).distinct()
 
   val minimumProductConstraints =
-    requirements.map { (item) -> Constraint.equalTo(expressions[item]!!, amounts[item]!!) }
+    outputs.map { item -> Constraint.equalTo(expressions[item]!!, amounts[item]!!) }
   val minimumConstraints = basicConstraints + restrictionConstraints + minimumProductConstraints
   val demands = provisions.mapValues { (item) -> -expressions[item]!! }
     .mapValues { (_, consumed) -> consumed(minimize(consumed, minimumConstraints, BigRational.FACTORY)) }
     .map { (item, demand) -> OptimizeResponse.Demand(item, demand.toRational()) }
 
-  val productions = requirements.mapValues { (item) -> expressions[item]!! }
+  val productions = amounts.filter { (item, amount) -> amount != 0.br || outputs.contains(item) }
+    .map { (item, amount) -> OptimizeResponse.Production(item, amount.toRational()) }
+
+  val potentials = outputs.associateWith { expressions[it]!! }
     .mapValues { (item, produced) ->
       val maximizeProductConstraints = productConstraints.filter { it.key != item }.values
       val maximizeConstraints = basicConstraints + restrictionConstraints + maximizeProductConstraints
       produced(maximize(produced, maximizeConstraints, BigRational.FACTORY)).toRational()
-    }.map { (item, potential) -> OptimizeResponse.Production(item, amounts[item]!!.toRational(), potential) }
+    }.map { (item, potential) -> OptimizeResponse.Potential(item, potential) }
 
-  return OptimizeResponse(
-    demands = demands,
-    productions = productions,
-    rates = solution.map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
-      .filter { it.rate != 0.q },
-  )
+  val rates = solution.map { (recipe, rate) -> OptimizeResponse.Rate(recipe, rate.toRational()) }
+    .filterNot { it.rate == 0.q }
+
+  return OptimizeResponse(demands, productions, potentials, rates)
 }
 
 private fun getExpressions(recipes: Set<Recipe>) =

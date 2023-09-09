@@ -9,6 +9,7 @@ import util.math.Rational
 data class OptimizeResponse(
   val demands: List<Demand>,
   val productions: List<Production>,
+  val potentials: List<Potential>,
   val rates: List<Rate>,
 ) {
   @Serializable
@@ -21,6 +22,11 @@ data class OptimizeResponse(
   data class Production(
     val item: Item,
     val amount: Rational,
+  )
+
+  @Serializable
+  data class Potential(
+    val item: Item,
     val potential: Rational,
   )
 
