@@ -62,8 +62,10 @@ kotlin {
         implementation(kotlinw("mui-icons"))
         implementation(kotlinw("react"))
         implementation(kotlinw("react-dom"))
+        implementation(kotlinw("react-redux"))
         implementation(kotlinw("react-router"))
         implementation(kotlinw("react-router-dom"))
+        implementation(kotlinw("redux"))
       }
     }
     val jsTest by getting

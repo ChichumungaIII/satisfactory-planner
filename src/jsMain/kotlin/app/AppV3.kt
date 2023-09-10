@@ -12,6 +12,7 @@ import app.data.plan.PlanLoaderProvider
 import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoaderProvider
+import app.redux.AppStoreProvider
 import app.routes.save.SavePageState
 import app.theme.AppThemeContextProvider
 import react.FC
@@ -33,6 +34,7 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     /* Global theme */
     AppThemeContextProvider,
     /* App Data */
+    AppStoreProvider,
     // Save
     SaveCacheProvider,
     SaveCollectionLoader.Provider,
