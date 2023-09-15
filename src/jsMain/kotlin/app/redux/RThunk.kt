@@ -1,5 +1,6 @@
 package app.redux
 
+import app.redux.state.AppState
 import js.core.jso
 import redux.RAction
 import redux.WrapperAction

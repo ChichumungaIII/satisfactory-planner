@@ -1,4 +1,4 @@
-package app.redux
+package app.redux.state
 
 import redux.RAction
 

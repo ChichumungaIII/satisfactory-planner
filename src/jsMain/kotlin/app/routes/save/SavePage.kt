@@ -1,10 +1,10 @@
 package app.routes.save
 
 import app.api.save.v1.Save
-import app.redux.AppState
-import app.redux.Decrement
-import app.redux.Increment
 import app.redux.RThunk
+import app.redux.state.AppState
+import app.redux.state.Decrement
+import app.redux.state.Increment
 import app.redux.useAppDispatch
 import app.util.launchMain
 import kotlinx.coroutines.delay
