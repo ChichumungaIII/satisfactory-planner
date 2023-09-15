@@ -5,9 +5,9 @@ import app.api.save.v1.SaveName
 import app.common.layout.RouteLoadingIndicator
 import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
-import app.redux.state.cache.ResourceState.Loaded
-import app.redux.state.cache.ResourceState.Updating
-import app.redux.state.cache.useSave
+import app.redux.state.resource.ResourceState.Loaded
+import app.redux.state.resource.ResourceState.Updating
+import app.redux.state.resource.useSave
 import react.FC
 import react.Props
 import react.ReactNode

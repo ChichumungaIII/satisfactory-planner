@@ -6,9 +6,9 @@ import app.api.save.v1.SaveName
 import app.api.save.v1.getSaveService
 import app.data.common.RemoteData
 import app.redux.state.AppState
-import app.redux.state.cache.AppCache
-import app.redux.state.cache.InsertSave
-import app.redux.state.cache.InsertSaves
+import app.redux.state.resource.InsertSave
+import app.redux.state.resource.InsertSaves
+import app.redux.state.resource.ResourceCache
 import app.redux.useAppDispatch
 import app.redux.useAppSelector
 import app.util.launchMain
@@ -23,7 +23,7 @@ import redux.WrapperAction
 import kotlin.time.Duration.Companion.milliseconds
 
 class SaveCollectionLoader(
-  private val cache: AppCache<SaveName, Save>,
+  private val cache: ResourceCache<SaveName, Save>,
   private val dispatch: (RAction) -> WrapperAction,
   private val names: RemoteData<Unit, List<SaveName>>,
   private val setNames: StateSetter<RemoteData<Unit, List<SaveName>>>,

@@ -1,4 +1,4 @@
-package app.redux.state.cache
+package app.redux.state.resource
 
 import app.api.common.Resource
 import app.api.common.ResourceName

@@ -1,4 +1,4 @@
-package app.redux.state.cache
+package app.redux.state.resource
 
 import app.api.save.v1.GetSaveRequest
 import app.api.save.v1.Save
@@ -6,9 +6,9 @@ import app.api.save.v1.SaveName
 import app.api.save.v1.getSaveService
 import app.redux.AppAction
 import app.redux.state.AppState
-import app.redux.state.cache.ResourceState.Loaded
-import app.redux.state.cache.ResourceState.Loading
-import app.redux.state.cache.ResourceState.Updating
+import app.redux.state.resource.ResourceState.Loaded
+import app.redux.state.resource.ResourceState.Loading
+import app.redux.state.resource.ResourceState.Updating
 import app.redux.useAppDispatch
 import app.redux.useAppSelector
 import app.util.launchMain
@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlin.time.Duration.Companion.seconds
 
-typealias SaveCache = AppCache<SaveName, Save>
+typealias SaveCache = ResourceCache<SaveName, Save>
 
 abstract class SaveCacheAction : AppAction() {
   override fun AppState.update() = copy(saveCache = saveCache.update())

@@ -1,10 +1,10 @@
-package app.redux.state.cache
+package app.redux.state.resource
 
 import app.api.common.Resource
 import app.api.common.ResourceName
 import kotlinx.coroutines.Deferred
 
-data class AppCache<N : ResourceName, R : Resource<N>>(
+data class ResourceCache<N : ResourceName, R : Resource<N>>(
   val cache: Map<N, R> = mapOf(),
   val requests: Map<N, Deferred<R>> = mapOf(),
 ) {
