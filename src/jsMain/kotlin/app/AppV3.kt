@@ -4,11 +4,6 @@ import app.api.plan.v1.PlanServiceJs
 import app.api.save.v1.SaveServiceJs
 import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListState
-import app.data.optimization.OptimizationCacheProvider
-import app.data.plan.PlanCacheProvider
-import app.data.plan.PlanCollectionCacheProvider
-import app.data.plan.PlanCollectionLoader
-import app.data.plan.PlanLoaderProvider
 import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoaderProvider
@@ -39,13 +34,6 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     SaveCacheProvider,
     SaveCollectionLoader.Provider,
     SaveLoaderProvider,
-    // Plan
-    PlanCacheProvider,
-    PlanCollectionCacheProvider,
-    PlanCollectionLoader.Provider,
-    PlanLoaderProvider,
-    // Optimization
-    OptimizationCacheProvider,
     /* App State */
     AppFrameState.Provider,
     NavigationListState.Provider,

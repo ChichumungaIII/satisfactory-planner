@@ -60,9 +60,7 @@ val SavePage = FC<SavePageProps>("SavePage") { props ->
     }
 
     AccordionDetails {
-      PlanList.takeIf { state.showPlans }?.invoke {
-        save = props.save
-      }
+      +"Plans"
     }
   }
 }
