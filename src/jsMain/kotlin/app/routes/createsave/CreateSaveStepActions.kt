@@ -5,7 +5,8 @@ import app.RouteParams
 import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
 import app.api.save.v1.getSaveService
-import app.data.save.SaveCollectionLoader
+import app.redux.state.resource.save.InsertSave
+import app.redux.useAppDispatch
 import app.theme.AppThemeContext
 import app.util.launchMain
 import kotlinx.coroutines.delay
@@ -21,7 +22,7 @@ import react.Props
 import react.router.useNavigate
 import react.useContext
 import web.cssom.px
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 external interface CreateSaveStepActionsProps : Props {
   var initial: Boolean
@@ -32,7 +33,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
   val appTheme by useContext(AppThemeContext)!!
 
   val navigate = useNavigate()
-  val (_, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
+  val dispatch = useAppDispatch()
 
   var step by useContext(CreateSaveStepContext)!!
   val newSave by useContext(NewSaveContext)!!
@@ -50,14 +51,11 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
         loading = creating
         onClick = {
           launchMain {
-            delay(3000.milliseconds)
-
-            val request = CreateSaveRequest(
-              save = newSave.copy(name = SaveName.createRandom())
-            )
+            val request = CreateSaveRequest(newSave.copy(name = SaveName.createRandom()))
             val save = getSaveService().createSave(request)
-            saveCollectionLoader.ifLoaded { it.add(save) }
+            delay(3.seconds)
 
+            dispatch(InsertSave(save))
             creating = false
             navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
           }

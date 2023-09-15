@@ -1,21 +1,24 @@
 package app.redux.state.resource
 
-import app.api.common.Resource
-import app.api.common.ResourceName
 import kotlinx.coroutines.Job
 
-sealed interface ResourceState<N : ResourceName, R : Resource<N>> {
-  data class Loading<N : ResourceName, R : Resource<N>>(
+sealed interface ResourceState<N, R> {
+  data class Empty<N, R>(
     val name: N,
+  ) : ResourceState<N, R>
+
+  data class Loading<N, R>(
     val request: Job,
   ) : ResourceState<N, R>
 
-  data class Loaded<N : ResourceName, R : Resource<N>>(
-    val resource: R
-  ) : ResourceState<N, R>
+  sealed interface Loaded<N, R> : ResourceState<N, R> {
+    abstract val resource: R
 
-  data class Updating<N : ResourceName, R : Resource<N>>(
-    val resource: R,
-    val request: Job,
-  ) : ResourceState<N, R>
+    data class Stable<N, R>(override val resource: R) : Loaded<N, R>
+
+    data class Updating<N, R>(
+      override val resource: R,
+      val request: Job,
+    ) : Loaded<N, R>
+  }
 }

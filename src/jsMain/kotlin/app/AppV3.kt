@@ -2,7 +2,6 @@ package app
 
 import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListState
-import app.data.save.SaveCollectionLoader
 import app.redux.AppStoreProvider
 import app.routes.save.SavePageState
 import app.theme.AppThemeContextProvider
@@ -23,8 +22,6 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     AppThemeContextProvider,
     /* App Data */
     AppStoreProvider,
-    // Save
-    SaveCollectionLoader.Provider,
     /* App State */
     AppFrameState.Provider,
     NavigationListState.Provider,

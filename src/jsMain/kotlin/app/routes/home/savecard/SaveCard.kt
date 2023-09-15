@@ -5,7 +5,8 @@ import app.RouteParams
 import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
 import app.api.save.v1.getSaveService
-import app.data.save.SaveCollectionLoader
+import app.redux.state.resource.save.DeleteSave
+import app.redux.useAppDispatch
 import app.routes.home.common.HomePageCard
 import app.util.launchMain
 import mui.icons.material.Delete
@@ -15,7 +16,6 @@ import react.FC
 import react.Props
 import react.create
 import react.router.useNavigate
-import react.useContext
 import web.cssom.Auto
 
 external interface SaveCardProps : Props {
@@ -24,8 +24,7 @@ external interface SaveCardProps : Props {
 
 val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
   val navigate = useNavigate()
-
-  val saveCollectionLoader = useContext(SaveCollectionLoader.Context)!!
+  val dispatch = useAppDispatch()
 
   val save = props.save
 
@@ -38,10 +37,8 @@ val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
     actions = IconButton.create {
       sx { marginLeft = Auto.auto }
       onClick = {
-        launchMain {
-          getSaveService().deleteSave(DeleteSaveRequest(save.name))
-        }
-        saveCollectionLoader.remove(save)
+        launchMain { getSaveService().deleteSave(DeleteSaveRequest(save.name)) }
+        dispatch(DeleteSave(save.name))
       }
       Delete {}
     }

@@ -4,8 +4,12 @@ import app.AppRoute
 import app.RouteParams
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
-import app.data.common.RemoteData
-import app.data.save.SaveCollectionLoader
+import app.redux.state.resource.ResourceState.Empty
+import app.redux.state.resource.ResourceState.Loaded
+import app.redux.state.resource.ResourceState.Loading
+import app.redux.state.resource.save.LoadSaves
+import app.redux.state.resource.save.useSaves
+import app.redux.useAppDispatch
 import app.theme.AppThemeContext
 import mui.icons.material.ExpandLess
 import mui.icons.material.ExpandMore
@@ -30,8 +34,9 @@ external interface NavigationListProps : Props
 val NavigationList = FC<NavigationListProps>("NavigationList") {
   val navigate = useNavigate()
   val appTheme by useContext(AppThemeContext)!!
+  val dispatch = useAppDispatch()
 
-  val (saveCollection, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
+  val saves = useSaves()
 
   var state by useContext(NavigationListState.Context)!!
 
@@ -55,15 +60,15 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
       this.asDynamic().unmountOnExit = true
 
       mui.material.List.takeIf { state.showAllSaves }?.invoke {
-        when (saveCollection) {
-          is RemoteData.Empty -> saveCollectionLoader.load()
+        when (saves) {
+          is Empty -> dispatch(LoadSaves)
 
-          is RemoteData.Loading -> ListItem {
+          is Loading -> ListItem {
             LoadingIndicator { variant = LoadingIndicatorVariant.Small }
           }
 
-          is RemoteData.Loaded -> {
-            if (saveCollection.value.isEmpty()) {
+          is Loaded -> {
+            if (saves.resource.isEmpty()) {
               ListItem {
                 ListItemText {
                   sx { padding = appTheme.spacing(1, 4) }
@@ -72,7 +77,7 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
               }
             }
 
-            saveCollection.value.forEach { save ->
+            saves.resource.forEach { save ->
               ListItemButton {
                 onClick = {
                   navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
@@ -85,8 +90,6 @@ val NavigationList = FC<NavigationListProps>("NavigationList") {
               }
             }
           }
-
-          is RemoteData.Error -> TODO()
         }
       }
     }
