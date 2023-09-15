@@ -1,10 +1,9 @@
 package app.redux.state
 
-import redux.RAction
+import app.api.save.v1.Save
+import app.api.save.v1.SaveName
+import app.redux.state.cache.AppCache
 
 data class AppState(
-  val counter: Int = 0,
+  val saveCache: AppCache<SaveName, Save> = AppCache(),
 )
-
-data object Increment : RAction
-data object Decrement : RAction

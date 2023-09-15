@@ -1,8 +1,6 @@
 package app.redux
 
 import app.redux.state.AppState
-import app.redux.state.Decrement
-import app.redux.state.Increment
 import react.FC
 import react.PropsWithChildren
 import react.redux.Provider
@@ -13,11 +11,14 @@ import redux.compose
 import redux.createStore
 import redux.rEnhancer
 
+interface AppAction : RAction {
+  fun AppState.update(): AppState
+}
+
 private val AppStore = createStore(
   reducer = { state, action ->
     when (action) {
-      is Increment -> state.copy(counter = state.counter + 1)
-      is Decrement -> state.copy(counter = state.counter - 1)
+      is AppAction -> with(action) { state.update() }
       else -> state
     }
   },
