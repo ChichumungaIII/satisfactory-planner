@@ -7,7 +7,7 @@ import app.redux.state.AppState
 
 typealias SaveCache = AppCache<SaveName, Save>
 
-abstract class SaveCacheAction : AppAction {
+abstract class SaveCacheAction : AppAction() {
   override fun AppState.update() = copy(saveCache = saveCache.update())
   abstract fun SaveCache.update(): SaveCache
 }

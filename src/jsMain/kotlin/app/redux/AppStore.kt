@@ -11,8 +11,8 @@ import redux.compose
 import redux.createStore
 import redux.rEnhancer
 
-interface AppAction : RAction {
-  fun AppState.update(): AppState
+abstract class AppAction : RAction {
+  abstract fun AppState.update(): AppState
 }
 
 private val AppStore = createStore(
