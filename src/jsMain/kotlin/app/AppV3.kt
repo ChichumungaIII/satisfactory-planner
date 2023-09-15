@@ -1,7 +1,5 @@
 package app
 
-import app.api.plan.v1.PlanServiceJs
-import app.api.save.v1.SaveServiceJs
 import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListState
 import app.data.save.SaveCacheProvider
@@ -23,9 +21,6 @@ val AppV3 = FC<AppV3Props>("AppV3") {
   +listOf(
     /* Services */
     app.api.optimize.v1.OptimizeServiceJs.Provider,
-    app.api.optimize.v2.OptimizeServiceJs.Provider,
-    SaveServiceJs.Provider,
-    PlanServiceJs.Provider,
     /* Global theme */
     AppThemeContextProvider,
     /* App Data */

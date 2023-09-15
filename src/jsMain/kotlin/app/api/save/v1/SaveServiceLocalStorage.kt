@@ -2,7 +2,6 @@ package app.api.save.v1
 
 import app.api.plan.v1.PlanServiceLocalStorage
 import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -59,3 +58,5 @@ object SaveServiceLocalStorage : SaveService {
     )
   }
 }
+
+fun getSaveService(): SaveService = SaveServiceLocalStorage

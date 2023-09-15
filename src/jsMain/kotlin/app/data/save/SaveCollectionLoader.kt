@@ -3,8 +3,7 @@ package app.data.save
 import app.api.save.v1.ListSavesRequest
 import app.api.save.v1.Save
 import app.api.save.v1.SaveName
-import app.api.save.v1.SaveService
-import app.api.save.v1.SaveServiceJs
+import app.api.save.v1.getSaveService
 import app.data.common.RemoteData
 import app.data.common.ResourceCache
 import app.util.launchMain
@@ -18,7 +17,6 @@ import react.useState
 import kotlin.time.Duration.Companion.milliseconds
 
 class SaveCollectionLoader(
-  private val saveService: SaveService,
   private val cache: ResourceCache<SaveName, Save>,
   private val names: RemoteData<Unit, List<SaveName>>,
   private val setNames: StateSetter<RemoteData<Unit, List<SaveName>>>,
@@ -26,11 +24,10 @@ class SaveCollectionLoader(
   companion object {
     val Context = createContext<SaveCollectionLoader>()
     val Provider = FC<PropsWithChildren> {
-      val saveService = useContext(SaveServiceJs.Context)!!
       val cache = useContext(SaveCache)!!
       val (names, setNames) = useState(RemoteData.empty<Unit, List<SaveName>>())
 
-      Context(SaveCollectionLoader(saveService, cache, names, setNames)) {
+      Context(SaveCollectionLoader(cache, names, setNames)) {
         +it.children
       }
     }
@@ -39,7 +36,7 @@ class SaveCollectionLoader(
   fun load() {
     launchMain {
       delay(1500.milliseconds)
-      val saves = saveService.listSaves(ListSavesRequest()).saves
+      val saves = getSaveService().listSaves(ListSavesRequest()).saves
       cache.insertAll(saves)
       setNames(RemoteData.loaded(Unit, saves.map { it.name }))
     }

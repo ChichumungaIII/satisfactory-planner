@@ -38,14 +38,12 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
       val update: (managed: ManagedResource<R>) -> ManagedResource<R>,
     ) : ResourceManagerAction<R>
 
-    fun <N : ResourceName, R : Resource<N>, S> createProvider(
+    fun <N : ResourceName, R : Resource<N>> createProvider(
       displayName: String,
       context: Context<ResourceManager<N, R>?>,
-      serviceContext: Context<S?>,
-      query: suspend S.(resource: R) -> R,
+      query: suspend (resource: R) -> R,
       cacheContext: Context<ResourceCache<N, R>?>,
     ) = FC<ResourceManagerProps<N, R>>(displayName) { props ->
-      val service = useContext(serviceContext)!!
       val cache = useContext(cacheContext)!!
       val (managed, updateManaged) = useReducer({ managed: ManagedResource<R>, action: ResourceManagerAction<R> ->
         when (action) {
@@ -53,7 +51,7 @@ class ResourceManager<N : ResourceName, R : Resource<N>> private constructor(
         }
       }, initialState = ManagedResource(Stable(props.resource), SaveState()))
 
-      context(ResourceManager({ service.query(it) }, cache, managed, updateManaged)) {
+      context(ResourceManager(query, cache, managed, updateManaged)) {
         +props.children
       }
     }

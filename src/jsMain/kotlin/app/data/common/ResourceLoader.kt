@@ -19,18 +19,16 @@ class ResourceLoader<N : ResourceName, R : Resource<N>> private constructor(
   private val setData: StateSetter<RemoteData<N, N>>,
 ) {
   companion object {
-    fun <N : ResourceName, R : Resource<N>, S> createProvider(
+    fun <N : ResourceName, R : Resource<N>> createProvider(
       displayName: String,
       context: Context<ResourceLoader<N, R>?>,
-      serviceContext: Context<S?>,
-      query: suspend S.(name: N) -> R,
+      query: suspend (name: N) -> R,
       cacheContext: Context<ResourceCache<N, R>?>,
     ) = FC<PropsWithChildren>(displayName) {
-      val service = useContext(serviceContext)!!
       val cache = useContext(cacheContext)!!
       val (data, setData) = useState<RemoteData<N, N>>(RemoteData.empty())
 
-      context(ResourceLoader({ service.query(it) }, cache, data, setData)) { +it.children }
+      context(ResourceLoader(query, cache, data, setData)) { +it.children }
     }
   }
 

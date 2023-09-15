@@ -2,10 +2,8 @@ package app.api.plan.v1
 
 import app.api.save.v1.SaveName
 import kotlinx.browser.window
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-
 
 object PlanServiceLocalStorage : PlanService {
   private val collections = mutableMapOf<SaveName, Map<PlanName, Plan>>()
@@ -69,3 +67,5 @@ object PlanServiceLocalStorage : PlanService {
 
   private fun SaveName.collection() = "//satisfactory.chichumunga.com/v1/${getResourceName()}/plans"
 }
+
+fun getPlanService(): PlanService = PlanServiceLocalStorage

@@ -4,7 +4,7 @@ import app.AppRoute
 import app.RouteParams
 import app.api.save.v1.CreateSaveRequest
 import app.api.save.v1.SaveName
-import app.api.save.v1.SaveServiceJs
+import app.api.save.v1.getSaveService
 import app.data.save.SaveCollectionLoader
 import app.theme.AppThemeContext
 import app.util.launchMain
@@ -32,7 +32,6 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
   val appTheme by useContext(AppThemeContext)!!
 
   val navigate = useNavigate()
-  val saveService = useContext(SaveServiceJs.Context)!!
   val (_, saveCollectionLoader) = useContext(SaveCollectionLoader.Context)!!
 
   var step by useContext(CreateSaveStepContext)!!
@@ -56,7 +55,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
             val request = CreateSaveRequest(
               save = newSave.copy(name = SaveName.createRandom())
             )
-            val save = saveService.createSave(request)
+            val save = getSaveService().createSave(request)
             saveCollectionLoader.ifLoaded { it.add(save) }
 
             creating = false

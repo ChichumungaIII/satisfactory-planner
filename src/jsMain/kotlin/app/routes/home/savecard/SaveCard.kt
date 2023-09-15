@@ -4,7 +4,7 @@ import app.AppRoute
 import app.RouteParams
 import app.api.save.v1.DeleteSaveRequest
 import app.api.save.v1.Save
-import app.api.save.v1.SaveServiceJs
+import app.api.save.v1.getSaveService
 import app.data.save.SaveCollectionLoader
 import app.routes.home.common.HomePageCard
 import app.util.launchMain
@@ -25,7 +25,6 @@ external interface SaveCardProps : Props {
 val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
   val navigate = useNavigate()
 
-  val saveService = useContext(SaveServiceJs.Context)!!
   val saveCollectionLoader = useContext(SaveCollectionLoader.Context)!!
 
   val save = props.save
@@ -40,7 +39,7 @@ val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
       sx { marginLeft = Auto.auto }
       onClick = {
         launchMain {
-          saveService.deleteSave(DeleteSaveRequest(save.name))
+          getSaveService().deleteSave(DeleteSaveRequest(save.name))
         }
         saveCollectionLoader.remove(save)
       }
