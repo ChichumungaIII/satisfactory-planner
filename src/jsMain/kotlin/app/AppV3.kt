@@ -2,7 +2,6 @@ package app
 
 import app.common.layout.appframe.AppFrameState
 import app.common.layout.navigationlist.NavigationListState
-import app.data.save.SaveCacheProvider
 import app.data.save.SaveCollectionLoader
 import app.data.save.SaveLoaderProvider
 import app.redux.AppStoreProvider
@@ -26,7 +25,6 @@ val AppV3 = FC<AppV3Props>("AppV3") {
     /* App Data */
     AppStoreProvider,
     // Save
-    SaveCacheProvider,
     SaveCollectionLoader.Provider,
     SaveLoaderProvider,
     /* App State */

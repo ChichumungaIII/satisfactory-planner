@@ -5,6 +5,7 @@ import react.FC
 import react.PropsWithChildren
 import react.redux.Provider
 import react.redux.useDispatch
+import react.redux.useSelector
 import redux.RAction
 import redux.WrapperAction
 import redux.compose
@@ -33,4 +34,6 @@ val AppStoreProvider = FC<PropsWithChildren>("SatisfactoryStore") {
   }
 }
 
+fun <R> useAppSelector(selector: (AppState) -> R) = useSelector(selector)
+fun <R> useAppSelector(selector: (AppState) -> R, equalityFn: (R, R) -> Boolean) = useSelector(selector, equalityFn)
 fun useAppDispatch() = useDispatch<RAction, WrapperAction>()

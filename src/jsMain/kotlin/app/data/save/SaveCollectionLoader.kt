@@ -5,29 +5,37 @@ import app.api.save.v1.Save
 import app.api.save.v1.SaveName
 import app.api.save.v1.getSaveService
 import app.data.common.RemoteData
-import app.data.common.ResourceCache
+import app.redux.state.AppState
+import app.redux.state.cache.AppCache
+import app.redux.state.cache.InsertSave
+import app.redux.state.cache.InsertSaves
+import app.redux.useAppDispatch
+import app.redux.useAppSelector
 import app.util.launchMain
 import kotlinx.coroutines.delay
 import react.FC
 import react.PropsWithChildren
 import react.StateSetter
 import react.createContext
-import react.useContext
 import react.useState
+import redux.RAction
+import redux.WrapperAction
 import kotlin.time.Duration.Companion.milliseconds
 
 class SaveCollectionLoader(
-  private val cache: ResourceCache<SaveName, Save>,
+  private val cache: AppCache<SaveName, Save>,
+  private val dispatch: (RAction) -> WrapperAction,
   private val names: RemoteData<Unit, List<SaveName>>,
   private val setNames: StateSetter<RemoteData<Unit, List<SaveName>>>,
 ) {
   companion object {
     val Context = createContext<SaveCollectionLoader>()
     val Provider = FC<PropsWithChildren> {
-      val cache = useContext(SaveCache)!!
+      val cache = useAppSelector(AppState::saveCache)
+      val dispatch = useAppDispatch()
       val (names, setNames) = useState(RemoteData.empty<Unit, List<SaveName>>())
 
-      Context(SaveCollectionLoader(cache, names, setNames)) {
+      Context(SaveCollectionLoader(cache, dispatch, names, setNames)) {
         +it.children
       }
     }
@@ -37,7 +45,7 @@ class SaveCollectionLoader(
     launchMain {
       delay(1500.milliseconds)
       val saves = getSaveService().listSaves(ListSavesRequest()).saves
-      cache.insertAll(saves)
+      dispatch(InsertSaves(saves))
       setNames(RemoteData.loaded(Unit, saves.map { it.name }))
     }
     setNames(RemoteData.loading(Unit))
@@ -49,7 +57,7 @@ class SaveCollectionLoader(
   fun add(save: Save) {
     check(names is RemoteData.Loaded) { "Cannot add Save prior to initial load." }
 
-    cache.insert(save)
+    dispatch(InsertSave(save))
     setNames(RemoteData.loaded(Unit, names.value + save.name))
   }
 
