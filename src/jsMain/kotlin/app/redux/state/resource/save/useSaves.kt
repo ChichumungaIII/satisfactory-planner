@@ -31,26 +31,26 @@ data object LoadSaves : RThunk {
 }
 
 private data class RegisterRequest(val request: Job) : SaveCacheAction() {
-  override fun SaveCache.update() = copy(collectionRequest = request)
+  override fun SaveCache.update() = copy(collectionRequests = mapOf(Unit to request))
 }
 
 private data class RegisterSaves(
   val saves: List<Save>,
 ) : SaveCacheAction() {
   override fun SaveCache.update(): SaveCache {
-    val cache = saves.associateBy { it.name }
+    val cache = cache + saves.associateBy { it.name }
     val resources = saves.map { it.name }
     return copy(
       cache = cache,
-      collection = resources,
-      collectionRequest = null,
+      collections = mapOf(Unit to resources),
+      collectionRequests = mapOf(),
     )
   }
 }
 
 fun useSaves(): ResourceState<Unit, List<Save>> {
-  val saves = useAppSelector({ it.saveCache.getCollection() }) { current, new -> current == new }
-  val request = useAppSelector { it.saveCache.collectionRequest }
+  val saves = useAppSelector({ it.saveCache.getCollection(Unit) }) { current, new -> current == new }
+  val request = useAppSelector { it.saveCache.collectionRequests[Unit] }
   return if (saves == null)
     (if (request == null) Empty(Unit) else Loading(request))
   else
