@@ -16,8 +16,8 @@ abstract class SaveCacheAction : AppAction() {
 data class InsertSave(val save: Save) : SaveCacheAction() {
   override fun SaveCache.update(): SaveCache {
     val cache = cache + (save.name to save)
-    val resources = resources?.let { it + save.name }
-    return copy(cache = cache, resources = resources)
+    val resources = collection?.let { it + save.name }
+    return copy(cache = cache, collection = resources)
   }
 }
 
@@ -25,6 +25,6 @@ data class DeleteSave(val save: SaveName) : SaveCacheAction() {
   override fun SaveCache.update() = copy(
     cache = cache - save,
     requests = requests - save,
-    resources = resources?.let { it - save },
+    collection = collection?.let { it - save },
   )
 }

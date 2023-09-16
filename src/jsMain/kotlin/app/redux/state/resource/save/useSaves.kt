@@ -31,7 +31,7 @@ data object LoadSaves : RThunk {
 }
 
 private data class RegisterRequest(val request: Job) : SaveCacheAction() {
-  override fun SaveCache.update() = copy(resourcesRequest = request)
+  override fun SaveCache.update() = copy(collectionRequest = request)
 }
 
 private data class RegisterSaves(
@@ -42,15 +42,15 @@ private data class RegisterSaves(
     val resources = saves.map { it.name }
     return copy(
       cache = cache,
-      resources = resources,
-      resourcesRequest = null,
+      collection = resources,
+      collectionRequest = null,
     )
   }
 }
 
 fun useSaves(): ResourceState<Unit, List<Save>> {
-  val saves = useAppSelector({ it.saveCache.getResources() }) { current, new -> current == new }
-  val request = useAppSelector { it.saveCache.resourcesRequest }
+  val saves = useAppSelector({ it.saveCache.getCollection() }) { current, new -> current == new }
+  val request = useAppSelector { it.saveCache.collectionRequest }
   return if (saves == null)
     (if (request == null) Empty(Unit) else Loading(request))
   else
