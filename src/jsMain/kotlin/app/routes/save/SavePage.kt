@@ -32,8 +32,6 @@ val SavePage = FC<SavePageProps>("SavePage") { props ->
       }
     }
 
-    AccordionDetails {
-      +"Plans"
-    }
+    AccordionDetails { PlanList { save = props.save } }
   }
 }
