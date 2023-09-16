@@ -2,8 +2,9 @@ package app.routes.plan
 
 import app.api.plan.v1.Plan
 import app.api.save.v1.Save
-import mui.material.Typography
-import mui.material.styles.TypographyVariant
+import app.redux.state.resource.plan.InsertPlan
+import app.redux.useAppDispatch
+import app.routes.plan.partition.PartitionComponent
 import react.FC
 import react.Props
 
@@ -13,8 +14,11 @@ external interface PlanPageProps : Props {
 }
 
 val PlanPage = FC<PlanPageProps>("PlanPage") { props ->
-  Typography {
-    variant = TypographyVariant.h2
-    +props.plan.displayName
+  val dispatch = useAppDispatch()
+
+  ProgressContext(props.save.progress) {
+    PartitionContext(PartitionContextValue(props.plan.partition) { next ->
+      dispatch(InsertPlan(props.plan.copy(partition = next)))
+    }) { PartitionComponent {} }
   }
 }

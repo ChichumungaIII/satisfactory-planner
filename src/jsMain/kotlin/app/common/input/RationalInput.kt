@@ -42,10 +42,11 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
   var text by useState(model?.toString() ?: "")
   var error by useState(model == null)
   useEffect(model) {
-    model.takeIf { it != Rational.parse(text) }?.also {
-      text = it.toString()
-      error = false
-    }
+    if (model == Rational.parse(text)) return@useEffect
+
+    val sync = model?.toString() ?: ""
+    text = sync
+    error = sync.isEmpty()
   }
 
   TextField {
