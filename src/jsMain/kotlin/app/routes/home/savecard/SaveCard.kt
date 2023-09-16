@@ -30,7 +30,7 @@ val SaveCard = FC<SaveCardProps>("SaveCard") { props ->
 
   HomePageCard {
     onClick = {
-      navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
+      navigate(to = AppRoute.V3_SAVE.url(RouteParams.SAVE_ID to save.name.id))
     }
 
     content = SaveCardContent.create { this.save = save }

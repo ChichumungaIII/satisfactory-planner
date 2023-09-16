@@ -55,7 +55,7 @@ val FactoryRouteComponent = FC<FactoryRouteComponentProps>("FactoryRouteComponen
           variant = ButtonVariant.contained
           +"Factory List"
 
-          onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
+          onClick = { navigate.invoke(AppRoute.V2_FACTORIES.url) }
         }
       }
     }

@@ -13,7 +13,7 @@ val NewSaveCard = FC<NewSaveCardProps>("NewSaveCard") {
   val navigate = useNavigate()
 
   HomePageCard {
-    onClick = { navigate(to = AppRoute.CREATE_SAVE.url) }
+    onClick = { navigate(to = AppRoute.V3_SAVES_CREATE.url) }
     content = NewSaveCardContent.create {}
   }
 }

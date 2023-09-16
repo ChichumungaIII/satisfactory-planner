@@ -60,7 +60,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
           ListItemIcon { Factory {} }
           ListItemText { +"All Factories" }
 
-          onClick = { navigate.invoke(AppRoute.FACTORIES.url) }
+          onClick = { navigate.invoke(AppRoute.V2_FACTORIES.url) }
         }
       }
 
@@ -98,7 +98,7 @@ val NavigationDrawerComponent = FC<NavigationDrawerComponentProps>("NavigationDr
           ListItemIcon { AccountTree {} }
           ListItemText { +"All Plans" }
 
-          onClick = { navigate.invoke(AppRoute.PLANS.url) }
+          onClick = { navigate.invoke(AppRoute.V2_PLANS.url) }
         }
       }
     }

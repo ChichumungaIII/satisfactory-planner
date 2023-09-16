@@ -26,17 +26,17 @@ enum class AppRoute(
 ) {
   ROOT("", parent = null, index = { redirect(V2) }),
 
-  V2("v2", ROOT, AppV2.create(), index = { redirect(FACTORIES) }),
-  FACTORIES("factories", V2, index = { FactoriesComponent.create() }),
-  FACTORY(":factoryId", FACTORIES, FactoryRouteComponent.create()),
-  PLANS("plans", V2, index = { PlansRouteComponent.create() }),
-  PLAN(":planId", PLANS, PlanRouteComponent.create()),
+  V2("v2", ROOT, AppV2.create(), index = { redirect(V2_FACTORIES) }),
+  V2_FACTORIES("factories", V2, index = { FactoriesComponent.create() }),
+  V2_FACTORY(":factoryId", V2_FACTORIES, FactoryRouteComponent.create()),
+  V2_PLANS("plans", V2, index = { PlansRouteComponent.create() }),
+  V2_PLAN(":planId", V2_PLANS, PlanRouteComponent.create()),
 
   V3("v3", ROOT, AppV3.create(), index = { HomeRoute.create() }),
-  SAVES("saves", V3),
-  CREATE_SAVE("create", SAVES, CreateSaveRoute.create()),
-  SAVE(":${RouteParams.SAVE_ID.key}", SAVES, index = { SaveRoute.create() }),
-  SAVE_PLANS("plans", SAVE);
+  V3_SAVES("saves", V3),
+  V3_SAVES_CREATE("create", V3_SAVES, CreateSaveRoute.create()),
+  V3_SAVE(":${RouteParams.SAVE_ID.key}", V3_SAVES, index = { SaveRoute.create() }),
+  V3_SAVE_PLANS("plans", V3_SAVE);
 
   val url = url()
   fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))

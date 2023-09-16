@@ -46,7 +46,7 @@ val PlansListComponent = FC<PlansListComponentProps>("PlansListComponent") { pro
             Avatar { AccountTree {} }
           }
           ListItemText { primary = Typography.create { +plan.title } }
-          onClick = { navigate(AppRoute.PLAN.url("planId" to "${plan.id}")) }
+          onClick = { navigate(AppRoute.V2_PLAN.url("planId" to "${plan.id}")) }
 
         }
       }

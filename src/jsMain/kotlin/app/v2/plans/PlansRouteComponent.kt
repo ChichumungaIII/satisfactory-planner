@@ -52,7 +52,7 @@ val PlansRouteComponent = FC<PlansRouteComponentProps>("PlansRouteComponent") {
             planService.create(plan)
             updatePlanStore(StorePlan(plan))
             updatePlans(AppendPlan(plan))
-            navigate(AppRoute.PLAN.url("planId" to "${plan.id}"))
+            navigate(AppRoute.V2_PLAN.url("planId" to "${plan.id}"))
           }
         }
         onDelete = { id ->

@@ -57,7 +57,7 @@ val CreateSaveStepActions = FC<CreateSaveStepActionsProps>("CreateSaveStepAction
 
             dispatch(InsertSave(save))
             creating = false
-            navigate(to = AppRoute.SAVE.url(RouteParams.SAVE_ID to save.name.id))
+            navigate(to = AppRoute.V3_SAVE.url(RouteParams.SAVE_ID to save.name.id))
           }
 
           creating = true

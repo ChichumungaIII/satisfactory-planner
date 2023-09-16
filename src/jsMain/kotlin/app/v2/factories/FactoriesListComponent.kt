@@ -47,7 +47,7 @@ val FactoriesListComponent = FC<FactoriesListComponentProps>("FactoriesListCompo
           }
 
           onClick = {
-            navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
+            navigate.invoke(AppRoute.V2_FACTORY.url("factoryId" to "${factory.id}"))
           }
         }
       }

@@ -105,7 +105,7 @@ val FactoryComponent = FC<FactoryComponentProps>("FactoryComponent") { props ->
       onDelete = {
         factoryToDelete = null
         updateFactories(DeleteFactory(it.id))
-        navigate(AppRoute.FACTORIES.url)
+        navigate(AppRoute.V2_FACTORIES.url)
       }
     }
   }

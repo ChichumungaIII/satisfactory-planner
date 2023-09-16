@@ -80,7 +80,7 @@ private val ZeroFactoriesPlaceholderComponent = FC<Props>("ZeroFactoriesPlacehol
           val factory = Factory(Random.nextULong(), "New Factory")
           updateStore(SetFactory(factoryService.createFactory(factory)))
           updateFactories(AddFactory(factory))
-          navigate.invoke(AppRoute.FACTORY.url("factoryId" to "${factory.id}"))
+          navigate.invoke(AppRoute.V2_FACTORY.url("factoryId" to "${factory.id}"))
         }
       }
     }

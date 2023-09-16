@@ -156,7 +156,7 @@ val PlanComponent = FC<PlanComponentProps>("PlanComponent") { props ->
       onDelete = {
         planToDelete = null
         updatePlans(RemovePlan(it.id))
-        navigate(AppRoute.PLANS.url)
+        navigate(AppRoute.V2_PLANS.url)
       }
     }
   }
