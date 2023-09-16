@@ -13,6 +13,7 @@ import kotlinx.coroutines.Job
 class LoadPlan(name: PlanName) :
   LoadResource<PlanName, Plan>(
     name,
+    { state -> state.planCache },
     { getPlanService().getPlan(GetPlanRequest(name)) },
     { plan -> RegisterPlan(plan) },
     { request -> RegisterPlanRequest(name, request) }

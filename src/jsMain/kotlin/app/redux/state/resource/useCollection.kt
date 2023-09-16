@@ -54,5 +54,5 @@ fun <P, N : ResourceName, R : Resource<N>> useCollection(
 ): ResourceState<List<R>> {
   val collection = useAppSelector { state -> cacheSelector(state).getCollection(parent) }
   val request = useAppSelector { state -> cacheSelector(state).collectionRequests[parent] }
-  return ResourceState.create(collection, request)
+  return ResourceState.Companion.create(collection, request)
 }

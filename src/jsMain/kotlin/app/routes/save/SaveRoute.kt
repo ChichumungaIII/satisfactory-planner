@@ -6,8 +6,8 @@ import app.common.layout.RouteLoadingIndicator
 import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
 import app.redux.state.resource.ResourceState
-import app.redux.state.resource.ResourceState.Empty
-import app.redux.state.resource.ResourceState.Loaded
+import app.redux.state.resource.ResourceState.Companion.Empty
+import app.redux.state.resource.ResourceState.Companion.Loaded
 import app.redux.state.resource.save.LoadSave
 import app.redux.state.resource.save.useSave
 import app.redux.useAppDispatch
@@ -34,7 +34,7 @@ val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
     when (val save = useSave(name)) {
       is Empty -> dispatch(LoadSave(name))
 
-      is ResourceState.Loading -> AppFrame {
+      is ResourceState.Companion.Loading -> AppFrame {
         title = AppTitle.create { +"Loading ${name.getResourceName()}..." }
         content = RouteLoadingIndicator.create()
       }

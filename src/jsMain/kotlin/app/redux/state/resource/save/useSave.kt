@@ -13,6 +13,7 @@ import kotlinx.coroutines.Job
 class LoadSave(name: SaveName) :
   LoadResource<SaveName, Save>(
     name,
+    { state -> state.saveCache },
     { getSaveService().getSave(GetSaveRequest(name)) },
     { save -> RegisterSave(save) },
     { request -> RegisterSaveRequest(name, request) }

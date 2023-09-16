@@ -3,7 +3,9 @@ package app.routes.home
 import app.common.layout.RouteLoadingIndicator
 import app.common.layout.appframe.AppFrame
 import app.common.util.AppTitle
-import app.redux.state.resource.ResourceState
+import app.redux.state.resource.ResourceState.Companion.Empty
+import app.redux.state.resource.ResourceState.Companion.Loaded
+import app.redux.state.resource.ResourceState.Companion.Loading
 import app.redux.state.resource.save.LoadSaves
 import app.redux.state.resource.save.useSaves
 import app.redux.useAppDispatch
@@ -21,13 +23,13 @@ val HomeRoute = FC<HomeRouteProps>("HomeRoute") {
     title = AppTitle.create { +"Satisfactory Planner" }
 
     when (saves) {
-      is ResourceState.Empty -> dispatch(LoadSaves)
+      is Empty -> dispatch(LoadSaves)
 
-      is ResourceState.Loading -> {
+      is Loading -> {
         content = RouteLoadingIndicator.create {}
       }
 
-      is ResourceState.Loaded -> {
+      is Loaded -> {
         content = HomePage.create { this.saves = saves.resource }
       }
     }

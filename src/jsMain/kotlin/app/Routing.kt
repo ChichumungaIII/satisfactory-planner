@@ -2,6 +2,7 @@ package app
 
 import app.routes.createsave.CreateSaveRoute
 import app.routes.home.HomeRoute
+import app.routes.plan.PlanRoute
 import app.routes.save.SaveRoute
 import app.v2.AppV2
 import app.v2.factories.FactoriesComponent
@@ -36,7 +37,8 @@ enum class AppRoute(
   V3_SAVES("saves", V3),
   V3_SAVES_CREATE("create", V3_SAVES, CreateSaveRoute.create()),
   V3_SAVE(":${RouteParams.SAVE_ID.key}", V3_SAVES, index = { SaveRoute.create() }),
-  V3_SAVE_PLANS("plans", V3_SAVE);
+  V3_SAVE_PLANS("plans", V3_SAVE),
+  V3_SAVE_PLAN(":${RouteParams.PLAN_ID.key}", V3_SAVE_PLANS, PlanRoute.create {});
 
   val url = url()
   fun url(vararg pairs: Pair<String, String>) = url(mapOf(*pairs))

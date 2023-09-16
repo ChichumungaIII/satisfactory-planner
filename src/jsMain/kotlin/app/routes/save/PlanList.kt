@@ -1,5 +1,7 @@
 package app.routes.save
 
+import app.AppRoute
+import app.RouteParams
 import app.api.plan.v1.CreatePlanRequest
 import app.api.plan.v1.DeletePlanRequest
 import app.api.plan.v1.Plan
@@ -9,9 +11,9 @@ import app.api.save.v1.Save
 import app.common.input.NamedResourceDialog
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
-import app.redux.state.resource.ResourceState.Empty
-import app.redux.state.resource.ResourceState.Loaded
-import app.redux.state.resource.ResourceState.Loading
+import app.redux.state.resource.ResourceState.Companion.Empty
+import app.redux.state.resource.ResourceState.Companion.Loaded
+import app.redux.state.resource.ResourceState.Companion.Loading
 import app.redux.state.resource.plan.DeletePlan
 import app.redux.state.resource.plan.InsertPlan
 import app.redux.state.resource.plan.LoadPlans
@@ -78,6 +80,11 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
             ListItem {
               ListItemButton {
                 onClick = {
+                  val url = AppRoute.V3_SAVE_PLAN.url(
+                    RouteParams.SAVE_ID to plan.parent.id,
+                    RouteParams.PLAN_ID to plan.name.id,
+                  )
+                  navigate(to = url)
                 }
                 ListItemIcon { Schema {} }
                 ListItemText { +plan.displayName }
@@ -146,6 +153,12 @@ val PlanList = FC<PlanListProps>("PlanList") { props ->
         val plan = getPlanService().createPlan(request)
         delay(2.seconds)
         dispatch(InsertPlan(plan))
+
+        val url = AppRoute.V3_SAVE_PLAN.url(
+          RouteParams.SAVE_ID to plan.parent.id,
+          RouteParams.PLAN_ID to plan.name.id,
+        )
+        navigate(to = url)
       }
       createPlanDisplayName = name
     }

@@ -16,11 +16,15 @@ import kotlin.time.Duration.Companion.seconds
 
 open class LoadResource<N : ResourceName, R : Resource<N>>(
   private val name: N,
+  private val cacheSelector: (AppState) -> ResourceCache<*, N, R>,
   private val loader: suspend () -> R,
   private val registerResource: (resource: R) -> AppAction,
   private val registerResourceRequest: (request: Job) -> AppAction,
 ) : RThunk {
   override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
+    val cache = cacheSelector(getState())
+    if (cache.hasRequest(name)) return
+
     val request = launchMain {
       val resource = loader()
       delay(1.5.seconds)
@@ -54,5 +58,5 @@ fun <N : ResourceName, R : Resource<N>> useResource(
 ): ResourceState<R> {
   val resource = useAppSelector { state -> cacheSelector(state)[name] }
   val request = useAppSelector { state -> cacheSelector(state).getRequest(name) }
-  return ResourceState.create(resource, request)
+  return ResourceState.Companion.create(resource, request)
 }

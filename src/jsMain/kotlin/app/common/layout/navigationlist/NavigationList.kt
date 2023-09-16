@@ -4,9 +4,9 @@ import app.AppRoute
 import app.RouteParams
 import app.common.util.LoadingIndicator
 import app.common.util.LoadingIndicatorVariant
-import app.redux.state.resource.ResourceState.Empty
-import app.redux.state.resource.ResourceState.Loaded
-import app.redux.state.resource.ResourceState.Loading
+import app.redux.state.resource.ResourceState.Companion.Empty
+import app.redux.state.resource.ResourceState.Companion.Loaded
+import app.redux.state.resource.ResourceState.Companion.Loading
 import app.redux.state.resource.save.LoadSaves
 import app.redux.state.resource.save.useSaves
 import app.redux.useAppDispatch
