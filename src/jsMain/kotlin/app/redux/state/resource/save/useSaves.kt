@@ -2,57 +2,25 @@ package app.redux.state.resource.save
 
 import app.api.save.v1.ListSavesRequest
 import app.api.save.v1.Save
+import app.api.save.v1.SaveName
 import app.api.save.v1.getSaveService
-import app.redux.RThunk
-import app.redux.state.AppState
-import app.redux.state.resource.ResourceState
-import app.redux.state.resource.ResourceState.Empty
-import app.redux.state.resource.ResourceState.Loaded.Stable
-import app.redux.state.resource.ResourceState.Loading
-import app.redux.useAppSelector
-import app.util.launchMain
+import app.redux.state.resource.LoadCollection
+import app.redux.state.resource.RegisterCollection
+import app.redux.state.resource.RegisterCollectionRequest
+import app.redux.state.resource.useCollection
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import redux.RAction
-import redux.WrapperAction
-import kotlin.time.Duration.Companion.seconds
 
-data object LoadSaves : RThunk {
-  override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
-    val request = launchMain {
-      val response = getSaveService().listSaves(ListSavesRequest())
-      delay(2.5.seconds)
-      if (!isActive) return@launchMain
-      dispatch(RegisterSaves(response.saves))
-    }
-    dispatch(RegisterRequest(request))
-  }
-}
+data object LoadSaves :
+  LoadCollection<Unit, SaveName, Save>(
+    { getSaveService().listSaves(ListSavesRequest()).saves },
+    { saves -> RegisterSaves(saves) },
+    { request -> RegisterSavesCollectionRequest(request) }
+  )
 
-private data class RegisterRequest(val request: Job) : SaveCacheAction() {
-  override fun SaveCache.update() = copy(collectionRequests = mapOf(Unit to request))
-}
+private data class RegisterSavesCollectionRequest(val request: Job) :
+  SaveCacheAction(RegisterCollectionRequest(Unit, request))
 
-private data class RegisterSaves(
-  val saves: List<Save>,
-) : SaveCacheAction() {
-  override fun SaveCache.update(): SaveCache {
-    val cache = cache + saves.associateBy { it.name }
-    val resources = saves.map { it.name }
-    return copy(
-      cache = cache,
-      collections = mapOf(Unit to resources),
-      collectionRequests = mapOf(),
-    )
-  }
-}
+private data class RegisterSaves(val saves: List<Save>) :
+  SaveCacheAction(RegisterCollection(Unit, saves))
 
-fun useSaves(): ResourceState<Unit, List<Save>> {
-  val saves = useAppSelector({ it.saveCache.getCollection(Unit) }) { current, new -> current == new }
-  val request = useAppSelector { it.saveCache.collectionRequests[Unit] }
-  return if (saves == null)
-    (if (request == null) Empty(Unit) else Loading(request))
-  else
-    Stable(saves)
-}
+fun useSaves() = useCollection(Unit) { state -> state.saveCache }
