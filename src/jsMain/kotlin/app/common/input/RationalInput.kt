@@ -40,13 +40,9 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
   val variant = props.variant ?: RationalInputVariant.RATE
 
   var text by useState(model?.toString() ?: "")
-  var error by useState(model == null)
   useEffect(model) {
     if (model == Rational.parse(text)) return@useEffect
-
-    val sync = model?.toString() ?: ""
-    text = sync
-    error = sync.isEmpty()
+    text = model?.toString() ?: ""
   }
 
   TextField {
@@ -65,13 +61,7 @@ val RationalInput = FC<RationalInputProps>("RationalInput") { props ->
     onChange = { event ->
       val next = event.target.asDynamic().value as String
       text = next
-
-      Rational.parse(next).also {
-        model = it
-        error = it == null
-      }
+      model = Rational.parse(next)
     }
-
-    this.error = error
   }
 }

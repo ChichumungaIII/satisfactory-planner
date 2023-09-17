@@ -8,6 +8,7 @@ import app.api.optimize.v2.OptimizeRequest.Restriction
 import app.api.optimize.v2.OptimizeResponse
 import app.api.optimize.v2.getOptimizeService
 import app.api.plan.v1.Plan.Partition
+import app.api.plan.v1.Plan.Target
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -85,9 +86,19 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
     )
   }
 
+  val rates = optimization.rates.associate { it.recipe to it.rate }.toMutableMap()
+  val existingTargets = partition.targets.mapNotNull { target ->
+    target.takeIf { rates.containsKey(it.recipe) || it.banned }?.copy(
+      rate = rates[target.recipe] ?: 0.q,
+    ).also { rates.remove(target.recipe) }
+  }
+  val newTargets = rates.map { (recipe, rate) -> Target(recipe = recipe, rate = rate) }
+  val targets = (existingTargets + newTargets).sortedBy { it.recipe }
+
   return partition.copy(
     inputs = inputs,
     products = products,
+    targets = targets,
     optimized = true,
   )
 }
