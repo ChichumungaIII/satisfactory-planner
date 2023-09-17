@@ -36,7 +36,7 @@ val PartitionInputs = FC<Props>("PartitionInputs") {
   }
 }
 
-private val PartitionInputsList = createArrangedList<Input>("PartitionInputs") { i, input, props ->
+private val PartitionInputsList = createArrangedList<Input>("PartitionInputsList") { i, input, props ->
   val progress = useProgress()
 
   fun setInput(next: Input) {
