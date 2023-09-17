@@ -4,6 +4,7 @@ import app.api.plan.v1.Plan
 import app.api.save.v1.Save
 import app.redux.state.resource.plan.SavePlan
 import app.redux.useAppDispatch
+import app.routes.plan.partition.OptimizePartition
 import app.routes.plan.partition.PartitionComponent
 import react.FC
 import react.Props
@@ -19,6 +20,11 @@ val PlanPage = FC<PlanPageProps>("PlanPage") { props ->
   ProgressContext(props.save.progress) {
     PartitionContext(PartitionContextValue(props.plan.partition) { next ->
       dispatch(SavePlan(props.plan.copy(partition = next)))
+
+      val optimize = OptimizePartition(next) { optimized ->
+        dispatch(SavePlan(props.plan.copy(partition = optimized)))
+      }
+      dispatch(optimize)
     }) { PartitionComponent {} }
   }
 }

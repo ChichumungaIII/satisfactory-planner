@@ -14,6 +14,7 @@ external interface PartitionComponentProps : Props
 val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
   Stack {
     direction = responsive(StackDirection.column)
+    divider = Divider.create {}
 
     Stack {
       direction = responsive(

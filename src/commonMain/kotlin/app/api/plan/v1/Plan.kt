@@ -5,6 +5,7 @@ import app.game.data.Item
 import app.game.data.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational
+import kotlin.random.Random
 
 @Serializable
 data class Plan(
@@ -16,6 +17,8 @@ data class Plan(
 
   @Serializable
   data class Partition(
+    val id: Long,
+    val displayName: String,
     val inputs: List<Input>,
     val products: List<Product>,
     val byproducts: List<Byproduct>,
@@ -25,6 +28,8 @@ data class Plan(
   ) {
     companion object {
       private val EMPTY = Partition(
+        id = Random.nextLong(),
+        displayName = "Partition",
         inputs = listOf(),
         products = listOf(),
         byproducts = listOf(),
