@@ -78,8 +78,16 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
     )
   }
 
+  val products = partition.products.map { product ->
+    product.copy(
+      amount = productions[product.item] ?: 0.q,
+      potential = potentials[product.item]!!
+    )
+  }
+
   return partition.copy(
     inputs = inputs,
+    products = products,
     optimized = true,
   )
 }

@@ -9,12 +9,16 @@ import app.common.util.RationalDisplay
 import app.game.data.Item
 import app.routes.plan.usePartition
 import app.routes.plan.useProgress
+import mui.icons.material.InfoOutlined
 import mui.material.Button
 import mui.material.Checkbox
+import mui.material.Tooltip
+import mui.material.TooltipPlacement
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.FC
 import react.Props
+import react.ReactNode
 import react.create
 import util.math.q
 
@@ -83,6 +87,15 @@ private val PartitionProductsList = createArrangedList<Product>("PartitionProduc
     RationalDisplay {
       variant = RationalInputVariant.NUMBER
       value = null
+    }
+  }
+
+  product.potential?.also { potential ->
+    Tooltip {
+      arrow = true
+      placement = TooltipPlacement.top
+      title = ReactNode("$potential possible")
+      InfoOutlined {}
     }
   }
 }
