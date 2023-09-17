@@ -45,7 +45,7 @@ open class SaveResource<N : ResourceName, R : Resource<N>>(
   private val registerResourceRequest: (request: Job) -> AppAction,
 ) : RThunk {
   override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
-    cacheSelector(getState()).requests[resource.name]?.cancel()?.also { println("Cancelling previous save.") }
+    cacheSelector(getState()).requests[resource.name]?.cancel()
     val request = launchMain {
       delay(debounce)
       if (!isActive) return@launchMain

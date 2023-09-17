@@ -8,9 +8,16 @@ import app.common.layout.arrangedlist.createArrangedList
 import app.game.data.Item
 import app.routes.plan.usePartition
 import app.routes.plan.useProgress
+import mui.icons.material.InfoOutlined
+import mui.material.Box
 import mui.material.Button
+import mui.material.Stack
+import mui.material.StackDirection
+import mui.material.Tooltip
+import mui.material.TooltipPlacement
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
+import mui.system.responsive
 import react.FC
 import react.Props
 import react.create
@@ -53,5 +60,19 @@ private val PartitionInputsList = createArrangedList<Input>("PartitionInputsList
     model = input.item
     setModel = { next -> setInput(input.copy(item = next)) }
     options = Item.entries.filter { it.unlock.test(progress) }
+  }
+
+  val (_, _, consumption, demand) = input
+  if (consumption != null && demand != null) {
+    Tooltip {
+      arrow = true
+      placement = TooltipPlacement.top
+      title = Stack.create {
+        direction = responsive(StackDirection.column)
+        Box { +"$consumption consumed" }
+        Box { +"$demand required" }
+      }
+      InfoOutlined {}
+    }
   }
 }

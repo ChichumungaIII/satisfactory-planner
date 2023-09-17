@@ -67,5 +67,19 @@ fun toRequest(partition: Partition): OptimizeRequest {
 }
 
 fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
-  return partition
+  val productions = optimization.productions.associate { it.item to it.amount }
+  val demands = optimization.demands.associate { it.item to it.demand }
+  val potentials = optimization.potentials.associate { it.item to it.potential }
+
+  val inputs = partition.inputs.map { input ->
+    input.copy(
+      consumption = productions[input.item]?.let { -it } ?: 0.q,
+      demand = demands[input.item]!!,
+    )
+  }
+
+  return partition.copy(
+    inputs = inputs,
+    optimized = true,
+  )
 }
