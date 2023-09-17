@@ -92,7 +92,7 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
       rate = rates[target.recipe] ?: 0.q,
     ).also { rates.remove(target.recipe) }
   }
-  val newTargets = rates.map { (recipe, rate) -> Target(recipe = recipe, rate = rate) }
+  val newTargets = rates.map { (recipe, rate) -> Target(recipe = recipe, rate = rate) }.filter { it.rate != 0.q }
   val targets = (existingTargets + newTargets).sortedBy { it.recipe }
 
   return partition.copy(

@@ -55,7 +55,7 @@ private val PartitionTarget = FC<PartitionTargetProps>("PartitionTarget") { prop
     Box { +"${target.recipe.displayName} at ${target.rate * 100.q}%" }
 
     Checkbox {
-      value = target.banned
+      checked = target.banned
       onClick = { target = target.copy(banned = !target.banned) }
     }
 
