@@ -250,7 +250,149 @@ enum class Recipe(
     inputs = mapOf(Item.FLOWER_PETALS to 5.q),
     outputs = mapOf(Item.COLOR_CARTRIDGE to 10.q),
     unlock = ItemCondition(Item.COLOR_CARTRIDGE),
-  );
+  ),
+
+  STEEL_INGOT(
+    "Steel Ingot",
+    time = 4.q,
+    inputs = mapOf(
+      Item.IRON_ORE to 3.q,
+      Item.COAL to 3.q,
+    ),
+    outputs = mapOf(Item.STEEL_INGOT to 3.q),
+    unlock = ItemCondition(Item.STEEL_INGOT),
+  ),
+  SOLID_STEEL_INGOT(
+    "Solid Steel Ingot",
+    time = 3.q,
+    inputs = mapOf(
+      Item.IRON_INGOT to 2.q,
+      Item.COAL to 2.q,
+    ),
+    outputs = mapOf(Item.STEEL_INGOT to 3.q),
+    unlock = ResearchCondition(Research.SOLID_STEEL_INGOT),
+  ),
+
+  STEEL_BEAM(
+    "Steel Beam",
+    time = 4.q,
+    inputs = mapOf(Item.STEEL_INGOT to 4.q),
+    outputs = mapOf(Item.STEEL_BEAM to 1.q),
+    unlock = ItemCondition(Item.STEEL_BEAM),
+  ),
+
+  STEEL_PIPE(
+    "Steel Pipe",
+    time = 6.q,
+    inputs = mapOf(Item.STEEL_INGOT to 3.q),
+    outputs = mapOf(Item.STEEL_PIPE to 2.q),
+    unlock = ItemCondition(Item.STEEL_PIPE),
+  ),
+
+  VERSATILE_FRAMEWORK(
+    "Versatile Framework",
+    time = 24.q,
+    inputs = mapOf(
+      Item.MODULAR_FRAME to 1.q,
+      Item.STEEL_BEAM to 12.q,
+    ),
+    outputs = mapOf(Item.VERSATILE_FRAMEWORK to 2.q),
+    unlock = ItemCondition(Item.VERSATILE_FRAMEWORK),
+  ),
+
+  XENO_BASHER(
+    "Xeno-Basher",
+    time = 80.q,
+    inputs = mapOf(
+      Item.MODULAR_FRAME to 5.q,
+      Item.XENO_ZAPPER to 2.q,
+      Item.CABLE to 25.q,
+      Item.WIRE to 100.q,
+    ),
+    outputs = mapOf(Item.XENO_BASHER to 1.q),
+    unlock = ItemCondition(Item.XENO_BASHER),
+  ),
+
+  ENCASED_INDUSTRIAL_BEAM(
+    "Encased Industrial Beam",
+    time = 10.q,
+    inputs = mapOf(
+      Item.STEEL_BEAM to 4.q,
+      Item.CONCRETE to 5.q,
+    ),
+    outputs = mapOf(Item.ENCASED_INDUSTRIAL_BEAM to 1.q),
+    unlock = ItemCondition(Item.ENCASED_INDUSTRIAL_BEAM),
+  ),
+  ENCASED_INDUSTRIAL_PIPE(
+    "Encased Industrial Pipe",
+    time = 15.q,
+    inputs = mapOf(
+      Item.STEEL_PIPE to 7.q,
+      Item.CONCRETE to 5.q,
+    ),
+    outputs = mapOf(),
+    unlock = ResearchCondition(Research.ENCASED_INDUSTRIAL_PIPE),
+  ),
+
+  STATOR(
+    "Stator",
+    time = 12.q,
+    inputs = mapOf(
+      Item.STEEL_PIPE to 3.q,
+      Item.WIRE to 8.q,
+    ),
+    outputs = mapOf(Item.STATOR to 1.q),
+    unlock = ItemCondition(Item.STATOR),
+  ),
+
+  MOTOR(
+    "Motor",
+    time = 12.q,
+    inputs = mapOf(
+      Item.ROTOR to 2.q,
+      Item.STATOR to 2.q,
+    ),
+    outputs = mapOf(Item.MOTOR to 1.q),
+    unlock = ItemCondition(Item.MOTOR),
+  ),
+
+  AUTOMATED_WIRING(
+    "Automated Wiring",
+    time = 24.q,
+    inputs = mapOf(
+      Item.STATOR to 1.q,
+      Item.CABLE to 20.q,
+    ),
+    outputs = mapOf(Item.AUTOMATED_WIRING to 1.q),
+    unlock = ItemCondition(Item.AUTOMATED_WIRING),
+  ),
+
+  HEAVY_MODULAR_FRAME(
+    "Heavy Modular Frame",
+    time = 30.q,
+    inputs = mapOf(
+      Item.MODULAR_FRAME to 5.q,
+      Item.STEEL_PIPE to 15.q,
+      Item.ENCASED_INDUSTRIAL_BEAM to 5.q,
+      Item.SCREW to 100.q,
+    ),
+    outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
+    unlock = ItemCondition(Item.HEAVY_MODULAR_FRAME),
+  ),
+  HEAVY_FLEXIBLE_FRAME(
+    "Heavy Flexible Frame",
+    time = 16.q,
+    inputs = mapOf(
+      Item.MODULAR_FRAME to 5.q,
+      Item.ENCASED_INDUSTRIAL_BEAM to 3.q,
+      Item.RUBBER to 20.q,
+      Item.SCREW to 104.q,
+    ),
+    outputs = mapOf(),
+    unlock = ResearchCondition(Research.HEAVY_FLEXIBLE_FRAME),
+  ),
+
+  ;
 
   val rates = (inputs.mapValues { (_, amount) -> -amount } + outputs).mapValues { (_, amount) -> amount * 60.q / time }
 }

@@ -2,6 +2,7 @@ package app.game.data
 
 import app.game.logic.Condition
 import app.game.logic.Condition.Companion.all
+import app.game.logic.Condition.MilestoneCondition
 import app.game.logic.Condition.ResearchCondition
 import util.math.Rational
 import util.math.q
@@ -20,6 +21,18 @@ enum class Research(
     cost = mapOf(),
     requirement = Condition.TRUE,
   ),
+  ENCASED_INDUSTRIAL_PIPE(
+    "Encased Industrial Pipe",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION),
+  ),
+  HEAVY_FLEXIBLE_FRAME(
+    "Heavy Flexible Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING),
+  ),
   IRON_ALLOY_INGOT(
     "Iron Alloy Ingot",
     Category.HARD_DRIVE,
@@ -31,6 +44,12 @@ enum class Research(
     Category.HARD_DRIVE,
     cost = mapOf(),
     requirement = Condition.TRUE,
+  ),
+  SOLID_STEEL_INGOT(
+    "Solid Steel Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
   ),
   STITCHED_IRON_PLATE(
     "Stitched Iron Plate",

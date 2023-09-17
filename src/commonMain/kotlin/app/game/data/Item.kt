@@ -265,6 +265,13 @@ enum class Item(
     sink = 24.q,
     unlock = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
   ),
+  VERSATILE_FRAMEWORK(
+    "Versatile Framework",
+    category = Category.PARTS,
+    stack = 50.q,
+    sink = 1_176.q,
+    unlock = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
 
   /* Improved Melee Combat */
 
