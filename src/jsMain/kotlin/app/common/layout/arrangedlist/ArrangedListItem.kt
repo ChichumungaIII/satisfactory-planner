@@ -5,12 +5,19 @@ import mui.icons.material.ArrowDropUp
 import mui.icons.material.Delete
 import mui.material.Box
 import mui.material.IconButton
+import mui.material.Size
 import mui.material.Stack
 import mui.material.StackDirection
+import mui.material.SvgIconColor
+import mui.material.SvgIconSize
 import mui.system.responsive
 import mui.system.sx
 import react.FC
 import react.PropsWithChildren
+import web.cssom.AlignItems
+import web.cssom.Display
+import web.cssom.FlexDirection
+import web.cssom.px
 
 external interface ArrangedListItemProps : PropsWithChildren {
   var onDelete: () -> Unit
@@ -24,7 +31,13 @@ external interface ArrangedListItemProps : PropsWithChildren {
 
 val ArrangedListItem = FC<ArrangedListItemProps>("ArrangedListItem") { props ->
   Stack {
+    sx {
+      alignItems = AlignItems.center
+    }
+
     direction = responsive(StackDirection.row)
+    spacing = responsive(6.px)
+    useFlexGap = true
 
     IconButton {
       Delete {}
@@ -32,18 +45,33 @@ val ArrangedListItem = FC<ArrangedListItemProps>("ArrangedListItem") { props ->
     }
 
     Box {
-      sx { }
-
-      IconButton {
-        ArrowDropUp {}
-        disabled = !props.canMoveUp
-        onClick = { props.onMoveUp() }
+      sx {
+        display = Display.flex
+        flexDirection = FlexDirection.column
       }
 
       IconButton {
-        ArrowDropDown {}
+        size = Size.small
+        disabled = !props.canMoveUp
+        onClick = { props.onMoveUp() }
+        ArrowDropUp {
+          fontSize = SvgIconSize.small
+          if (!props.canMoveUp) {
+            color = SvgIconColor.disabled
+          }
+        }
+      }
+
+      IconButton {
+        size = Size.small
         disabled = !props.canMoveDown
         onClick = { props.onMoveDown() }
+        ArrowDropDown {
+          fontSize = SvgIconSize.small
+          if (!props.canMoveDown) {
+            color = SvgIconColor.disabled
+          }
+        }
       }
     }
 

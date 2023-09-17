@@ -29,6 +29,7 @@ import web.cssom.None
 import web.cssom.px
 
 private val small = Size.small
+private val medium = Size.medium
 
 private val SatisfactoryMuiTheme = createTheme(jso {
   palette = jso {
@@ -135,10 +136,15 @@ private val SatisfactoryMuiTheme = createTheme(jso {
 
     MuiIconButton = jso {
       defaultProps = jso<IconButtonProps> {
-        size = small
+        size = medium
       }
       styleOverrides = jso {
         sizeSmall = jso {
+          width = 18.px
+          height = 18.px
+          padding = 2.px
+        }
+        sizeMedium = jso {
           width = 36.px
           height = 36.px
         }

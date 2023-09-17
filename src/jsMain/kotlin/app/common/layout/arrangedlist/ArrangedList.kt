@@ -2,10 +2,13 @@ package app.common.layout.arrangedlist
 
 import app.util.PropsDelegate
 import mui.material.ListItem
+import mui.system.sx
 import react.ChildrenBuilder
 import react.FC
 import react.Props
 import react.ReactNode
+import web.cssom.Padding
+import web.cssom.px
 
 external interface ArrangedListProps<T> : Props {
   var items: List<T>
@@ -29,6 +32,8 @@ fun <T> createArrangedList(
   }
 
   mui.material.List {
+    sx { padding = Padding(4.px, 4.px) }
+
     ListItem { +props.header }
 
     props.items.forEachIndexed { i, item ->

@@ -18,10 +18,13 @@ import mui.material.TooltipPlacement
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import mui.system.responsive
+import mui.system.sx
 import react.FC
 import react.Props
 import react.create
 import util.math.q
+import web.cssom.Margin
+import web.cssom.px
 
 private val NEW_INPUT = Input(item = null, quantity = 0.q)
 
@@ -33,10 +36,15 @@ val PartitionInputs = FC<Props>("PartitionInputs") {
     setItems = { next -> partition = partition.copy(inputs = next) }
 
     header = Typography.create {
+      sx { marginLeft = 66.px }
       variant = TypographyVariant.h2
       +"Inputs"
     }
     footer = Button.create {
+      sx {
+        margin = Margin(4.px, 0.px, 2.px, 66.px)
+        width = 442.125.px
+      }
       onClick = { partition = partition.copy(inputs = partition.inputs + NEW_INPUT) }
       +"Add Input"
     }

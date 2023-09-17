@@ -16,11 +16,14 @@ import mui.material.Tooltip
 import mui.material.TooltipPlacement
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
+import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
 import react.create
 import util.math.q
+import web.cssom.Margin
+import web.cssom.px
 
 external interface PartitionProductsProps : Props
 
@@ -39,10 +42,15 @@ val PartitionProducts = FC<PartitionProductsProps>("PartitionProducts") {
     setItems = { next -> partition = partition.copy(products = next) }
 
     header = Typography.create {
+      sx { marginLeft = 66.px }
       variant = TypographyVariant.h2
       +"Products"
     }
     footer = Button.create {
+      sx {
+        margin = Margin(4.px, 0.px, 2.px, 66.px)
+        width = 442.125.px
+      }
       onClick = { partition = partition.copy(products = partition.products + NEW_PRODUCT) }
       +"Add Product"
     }
