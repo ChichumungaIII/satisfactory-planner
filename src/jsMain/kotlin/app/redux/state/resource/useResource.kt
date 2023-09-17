@@ -12,6 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import redux.RAction
 import redux.WrapperAction
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 open class LoadResource<N : ResourceName, R : Resource<N>>(
@@ -31,6 +32,34 @@ open class LoadResource<N : ResourceName, R : Resource<N>>(
       if (!isActive) return@launchMain
       dispatch(registerResource(resource))
     }
+    dispatch(registerResourceRequest(request))
+  }
+}
+
+open class SaveResource<N : ResourceName, R : Resource<N>>(
+  private val resource: R,
+  private val cacheSelector: (AppState) -> ResourceCache<*, N, R>,
+  private val debounce: Duration,
+  private val save: suspend () -> R,
+  private val registerResource: (resource: R) -> AppAction,
+  private val registerResourceRequest: (request: Job) -> AppAction,
+) : RThunk {
+  override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
+    println("Detected save...")
+    cacheSelector(getState()).requests[resource.name]?.cancel()?.also { println("Cancelling previous save.") }
+    val request = launchMain {
+      delay(debounce)
+      if (!isActive) return@launchMain
+
+      println("Resource is stable. Saving...")
+      val updated = save()
+      delay(1.5.seconds)
+      if (!isActive) return@launchMain
+
+      println("Save successful and current.")
+      dispatch(registerResource(updated))
+    }
+    dispatch(registerResource(resource))
     dispatch(registerResourceRequest(request))
   }
 }
@@ -58,5 +87,5 @@ fun <N : ResourceName, R : Resource<N>> useResource(
 ): ResourceState<R> {
   val resource = useAppSelector { state -> cacheSelector(state)[name] }
   val request = useAppSelector { state -> cacheSelector(state).getRequest(name) }
-  return ResourceState.Companion.create(resource, request)
+  return ResourceState.create(resource, request)
 }
