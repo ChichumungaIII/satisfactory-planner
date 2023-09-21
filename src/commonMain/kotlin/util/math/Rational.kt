@@ -24,8 +24,6 @@ class Rational private constructor(
       override fun unit() = ONE
     }
 
-    private val MAX_REPEATED_DIGITS = 10
-
     private val RATIONAL = Regex("""(-)?\s*(\d+)\s*/\s*(\d+)""")
     private val DECIMAL = Regex("""(-)?(\d+)(\.(\d*)(_(\d*))?)?""")
 
@@ -134,27 +132,28 @@ class Rational private constructor(
     if (n < 0) return (-this).exact()?.let { "-$it" }
 
     val integer = n / d
-    if (n % d == 0L) return "$integer"
+    var numerator = n % d
+    if (numerator == 0L) return "$integer"
 
-    val remainder = (this - integer.toRational()).norm()
-    val fixedScale = getFixedScale(remainder.d)
-    val fixed = remainder.n * fixedScale / remainder.d
-    val fixedOut = fixed.takeIf { it > 0L || fixedScale > 1.q }
-      ?.toString()?.padStart("$fixedScale".length - 1, '0')
-      ?: ""
-
-    val trailing = remainder * fixedScale.toRational() - fixed.toRational()
-    if (trailing == ZERO) return "$integer.$fixedOut"
-
-    // TODO: Come up with a better way to determine the repeating decimal part.
-    var nines = 9L
-    var digits = 1
-    while (nines % trailing.d != 0L) {
-      nines = nines * 10L + 9L
-      if (++digits > MAX_REPEATED_DIGITS) return null
+    var denominator = d
+    var fixedPlaces = 0
+    listOf(10L, 5L, 2L).forEach { divisor ->
+      while (denominator % divisor == 0L) {
+        denominator /= divisor
+        numerator *= 10L / divisor
+        fixedPlaces++
+      }
     }
-    val repeated = trailing.n * nines / trailing.d
-    return "$integer.${fixedOut}_${"$repeated".padStart(digits, '0')}"
+    val fixed = if (fixedPlaces > 0) "${numerator / denominator}".padStart(fixedPlaces, '0') else ""
+    if (denominator == 1L) return "$integer.$fixed"
+
+    var nines = 9L
+    while (nines % denominator != 0L) {
+      nines = 10L * nines + 9L
+      if (nines < 0L) return null
+    }
+    val repeating = "${(numerator % denominator) * (nines / denominator)}".padStart("$nines".length, '0')
+    return "$integer.${fixed}_$repeating"
   }
 
   override fun toString(): String {
@@ -163,21 +162,6 @@ class Rational private constructor(
       val end = text.lastIndexOf('.')
       return "~${text.substring(0, end + 6)}"
     }
-  }
-
-  private fun getFixedScale(n: Long): Long {
-    check(n > 0) { "Expected number to be positive." }
-
-    var x = n
-    var scale = 1L
-    do {
-      val twos = x % 2 == 0L
-      val fives = x % 5 == 0L
-      if (twos || fives) scale *= 10L
-      if (twos) x /= 2
-      if (fives) x /= 5
-    } while (twos || fives)
-    return scale
   }
 
   override fun toDouble() = n.toDouble() / d
