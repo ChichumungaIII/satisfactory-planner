@@ -21,6 +21,7 @@ external interface RecipeAutocompleteProps : Props {
   var building: Building?
 }
 
+@Deprecated("Use the v2 RecipeAutocomplete.")
 val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { props ->
   var model by PropsDelegate(props.model, props.setModel)
 
