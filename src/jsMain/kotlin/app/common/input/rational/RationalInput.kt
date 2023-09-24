@@ -1,4 +1,4 @@
-package app.common.input
+package app.common.input.rational
 
 import app.util.PropsDelegate
 import js.core.jso

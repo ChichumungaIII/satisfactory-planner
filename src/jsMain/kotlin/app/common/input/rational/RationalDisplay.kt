@@ -1,6 +1,5 @@
-package app.common.util
+package app.common.input.rational
 
-import app.common.input.RationalInputVariant
 import js.core.jso
 import mui.material.FormControlVariant
 import mui.material.InputAdornment
@@ -15,7 +14,7 @@ import web.cssom.AlignItems
 import web.cssom.Padding
 import web.cssom.px
 
-private val NULL_DISPLAY = "—"
+private const val NULL_DISPLAY = "—"
 
 external interface RationalDisplayProps : Props {
   var variant: RationalInputVariant?

@@ -1,9 +1,9 @@
 package app.routes.plan.partition
 
 import app.api.plan.v1.Plan.Target
-import app.common.input.RationalInput
-import app.common.input.RationalInputVariant
-import app.common.util.RationalDisplay
+import app.common.input.rational.RationalDisplay
+import app.common.input.rational.RationalInput
+import app.common.input.rational.RationalInputVariant
 import app.routes.plan.usePartition
 import app.util.PropsDelegate
 import mui.material.Box

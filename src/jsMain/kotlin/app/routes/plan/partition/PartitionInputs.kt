@@ -2,8 +2,8 @@ package app.routes.plan.partition
 
 import app.api.plan.v1.Plan.Input
 import app.common.input.ItemAutocomplete
-import app.common.input.RationalInput
-import app.common.input.RationalInputVariant
+import app.common.input.rational.RationalInput
+import app.common.input.rational.RationalInputVariant
 import app.common.layout.arrangedlist.createArrangedList
 import app.game.data.Item
 import app.routes.plan.usePartition
