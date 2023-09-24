@@ -1,4 +1,4 @@
-package app.common.input
+package app.common.input.recipe
 
 import app.common.input.autocomplete.createAppAutocomplete
 import app.game.data.Recipe

@@ -1,4 +1,4 @@
-package app.common.input
+package app.common.input.item
 
 import app.common.input.autocomplete.createAppAutocomplete
 import app.game.data.Item

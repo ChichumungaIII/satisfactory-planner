@@ -1,7 +1,7 @@
 package app.routes.plan.partition
 
 import app.api.plan.v1.Plan.Product
-import app.common.input.ItemAutocomplete
+import app.common.input.item.ItemAutocomplete
 import app.common.input.rational.RationalDisplay
 import app.common.input.rational.RationalInput
 import app.common.input.rational.RationalInputVariant
