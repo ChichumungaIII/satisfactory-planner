@@ -70,8 +70,10 @@ data class Plan(
   data class Target(
     val recipe: Recipe,
     val rate: Rational,
-    val banned: Boolean = false,
+    val limit: Limit = Limit.NONE,
     val restriction: Rational? = null,
     val details: Boolean = false,
-  )
+  ) {
+    enum class Limit { NONE, BANNED, RESTRICTED }
+  }
 }

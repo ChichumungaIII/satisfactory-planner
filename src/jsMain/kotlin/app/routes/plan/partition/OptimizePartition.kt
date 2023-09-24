@@ -9,6 +9,7 @@ import app.api.optimize.v2.OptimizeResponse
 import app.api.optimize.v2.getOptimizeService
 import app.api.plan.v1.Plan.Partition
 import app.api.plan.v1.Plan.Target
+import app.api.plan.v1.Plan.Target.Limit
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -49,11 +50,12 @@ fun toRequest(partition: Partition): OptimizeRequest {
     item?.let { amount?.let { Requirement(item, amount) } }
   }
 
-  val restrictions = partition.targets.filterNot { it.banned }.mapNotNull { (recipe, _, _, restriction) ->
-    restriction?.let { Restriction(recipe, restriction) }
-  } + partition.targets.filter { it.banned }.map { (recipe) ->
-    Restriction(recipe, 0.q)
-  }
+  val restrictions =
+    partition.targets.filter { it.limit == Limit.BANNED }.map { (recipe) ->
+      Restriction(recipe, 0.q)
+    } + partition.targets.filter { it.limit == Limit.RESTRICTED }.mapNotNull { (recipe, _, _, restriction) ->
+      restriction?.let { Restriction(recipe, it) }
+    }
 
   val objectives = partition.products.filter { it.maximize }.mapNotNull { (item, _, weight) ->
     item?.let { weight?.let { Objective(item, weight) } }
@@ -88,7 +90,7 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
 
   val rates = optimization.rates.associate { it.recipe to it.rate }.toMutableMap()
   val existingTargets = partition.targets.mapNotNull { target ->
-    target.takeIf { rates.containsKey(it.recipe) || it.banned }?.copy(
+    target.takeIf { rates.containsKey(it.recipe) || it.limit != Limit.NONE }?.copy(
       rate = rates[target.recipe] ?: 0.q,
     ).also { rates.remove(target.recipe) }
   }
