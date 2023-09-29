@@ -27,9 +27,14 @@ class OptimizePartition(
 ) : RThunk {
   override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
     getState().optimizations[partition.id]?.cancel()
+
+    if (partition.partitions.isNotEmpty() && !partition.partitions.all { it.optimized }) return
+
     val request = launchMain {
-      delay(5.seconds)
-      if (!isActive) return@launchMain
+      if (partition.partitions.isEmpty()) {
+        delay(3.seconds)
+        if (!isActive) return@launchMain
+      }
 
       val optimizeRequest = toRequest(partition)
       val response = getOptimizeService().optimize(optimizeRequest)
@@ -44,10 +49,18 @@ class OptimizePartition(
 fun toRequest(partition: Partition): OptimizeRequest {
   val provisions = partition.inputs.mapNotNull { (item, quantity) ->
     item?.let { quantity?.let { Provision(item, quantity) } }
+  } + partition.partitions.flatMap {
+    it.products.mapNotNull { (item, _, _, amount) ->
+      item?.let { amount?.let { Provision(item, amount) } }
+    }
   }
 
   val requirements = partition.products.filterNot { it.maximize }.mapNotNull { (item, _, _, amount) ->
     item?.let { amount?.let { Requirement(item, amount) } }
+  } + partition.partitions.flatMap {
+    it.inputs.mapNotNull { (item, _, consumption) ->
+      item?.let { consumption?.let { Requirement(item, consumption) } }
+    }
   }
 
   val restrictions =

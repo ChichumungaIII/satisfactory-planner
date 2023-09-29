@@ -19,12 +19,11 @@ val PlanPage = FC<PlanPageProps>("PlanPage") { props ->
 
   ProgressContext(props.save.progress) {
     PartitionContext(PartitionContextValue(props.plan.partition) { next ->
-      dispatch(SavePlan(props.plan.copy(partition = next)))
-
-      val optimize = OptimizePartition(next) { optimized ->
+      val updated = next.copy(optimized = false)
+      dispatch(SavePlan(props.plan.copy(partition = updated)))
+      dispatch(OptimizePartition(updated) { optimized ->
         dispatch(SavePlan(props.plan.copy(partition = optimized)))
-      }
-      dispatch(optimize)
+      })
     }) { PartitionComponent {} }
   }
 }

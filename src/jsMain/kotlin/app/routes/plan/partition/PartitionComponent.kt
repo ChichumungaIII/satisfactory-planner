@@ -28,6 +28,6 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
     }
 
     PartitionTargets {}
-//    NestedPartitions {}
+    NestedPartitions {}
   }
 }
