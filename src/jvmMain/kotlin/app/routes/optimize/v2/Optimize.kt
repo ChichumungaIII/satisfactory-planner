@@ -11,7 +11,7 @@ import util.math.maximize
 import util.math.minimize
 
 data class OptimizedPlan(
-  val target: Map<Recipe, BigRational>,
+  val rates: Map<Recipe, BigRational>,
   val consumption: Map<Item, BigRational>,
   val demand: Map<Item, BigRational>,
   val production: Map<Item, BigRational>,
@@ -48,7 +48,7 @@ suspend fun optimize(
   /* TARGET */
   /**********/
 
-  val target = (if (weights.isEmpty()) {
+  val rates = (if (weights.isEmpty()) {
     val objective = data[requirements.keys.first()]
     maximize(objective, itemConstraints.values + recipeConstraints, BigRational.FACTORY)
   } else {
@@ -64,7 +64,7 @@ suspend fun optimize(
     }
     maximize(primary.expression, itemConstraints.values + recipeConstraints + balance, BigRational.FACTORY)
   }).filterValues { it != 0.br }
-  val amounts = data(target)
+  val amounts = data(rates)
   val consumption = amounts.filterValues { it < 0.br }.mapValues { (_, amount) -> -amount }
   val production = amounts.filterValues { it > 0.br }
 
@@ -97,7 +97,7 @@ suspend fun optimize(
   /********/
 
   return OptimizedPlan(
-    target = target,
+    rates = rates,
     consumption = consumption,
     demand = demand,
     production = production,

@@ -7,32 +7,23 @@ import util.math.Rational
 
 @Serializable
 data class OptimizeResponse(
-  val demands: List<Demand>,
-  val productions: List<Production>,
-  val potentials: List<Potential>,
-  val rates: List<Rate>,
+  val inputs: List<Input>,
+  val products: List<Product>,
+  val byproducts: Map<Item, Rational>,
+  val rates: Map<Recipe, Rational>
 ) {
   @Serializable
-  data class Demand(
+  data class Input(
     val item: Item,
+    val quantity: Rational,
+    val consumption: Rational,
     val demand: Rational,
   )
 
   @Serializable
-  data class Production(
+  data class Product(
     val item: Item,
     val amount: Rational,
-  )
-
-  @Serializable
-  data class Potential(
-    val item: Item,
     val potential: Rational,
-  )
-
-  @Serializable
-  data class Rate(
-    val recipe: Recipe,
-    val rate: Rational,
   )
 }

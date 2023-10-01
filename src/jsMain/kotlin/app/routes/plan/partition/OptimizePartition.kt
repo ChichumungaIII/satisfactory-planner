@@ -1,15 +1,10 @@
 package app.routes.plan.partition
 
 import app.api.optimize.v2.OptimizeRequest
-import app.api.optimize.v2.OptimizeRequest.Objective
-import app.api.optimize.v2.OptimizeRequest.Provision
-import app.api.optimize.v2.OptimizeRequest.Requirement
-import app.api.optimize.v2.OptimizeRequest.Restriction
 import app.api.optimize.v2.OptimizeResponse
 import app.api.optimize.v2.getOptimizeService
+import app.api.plan.v1.Plan
 import app.api.plan.v1.Plan.Partition
-import app.api.plan.v1.Plan.Target
-import app.api.plan.v1.Plan.Target.Limit
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -47,68 +42,44 @@ class OptimizePartition(
 }
 
 fun toRequest(partition: Partition): OptimizeRequest {
-  val provisions = partition.inputs.mapNotNull { (item, quantity) ->
-    item?.let { quantity?.let { Provision(item, quantity) } }
-  } + partition.partitions.flatMap {
-    it.products.mapNotNull { (item, _, _, amount) ->
-      item?.let { amount?.let { Provision(item, amount) } }
-    }
-  }
-
-  val requirements = partition.products.filterNot { it.maximize }.mapNotNull { (item, _, _, amount) ->
-    item?.let { amount?.let { Requirement(item, amount) } }
-  } + partition.partitions.flatMap {
-    it.inputs.mapNotNull { (item, _, consumption) ->
-      item?.let { consumption?.let { Requirement(item, consumption) } }
-    }
-  }
-
-  val restrictions =
-    partition.targets.filter { it.limit == Limit.BANNED }.map { (recipe) ->
-      Restriction(recipe, 0.q)
-    } + partition.targets.filter { it.limit == Limit.RESTRICTED }.mapNotNull { (recipe, _, _, restriction) ->
-      restriction?.let { Restriction(recipe, it) }
-    }
-
-  val objectives = partition.products.filter { it.maximize }.mapNotNull { (item, _, weight) ->
-    item?.let { weight?.let { Objective(item, weight) } }
-  }
-
+  val inputs = partition.inputs.mapNotNull { it.toOptimizeInput() } +
+      partition.partitions.flatMap { it.products }.mapNotNull { it.toOptimizeInput() }
+  val products = partition.products.mapNotNull { it.toOptimizeProduct() } +
+      partition.partitions.flatMap { it.inputs }.mapNotNull { it.toOptimizeProduct() }
+  val restrictions = partition.targets.mapNotNull { it.toOptimizeRestriction() }
   return OptimizeRequest(
-    provisions = provisions,
-    requirements = requirements,
+    inputs = inputs,
+    products = products,
     restrictions = restrictions,
-    objectives = objectives,
   )
 }
 
+private fun Plan.Input.toOptimizeInput() = item?.let { quantity?.let { OptimizeRequest.Input(item, quantity) } }
+private fun Plan.Product.toOptimizeInput() = item?.let { amount?.let { (OptimizeRequest.Input(item, amount)) } }
+
+private fun Plan.Product.toOptimizeProduct() = item?.let {
+  if (maximize) weight?.let { OptimizeRequest.Product.weight(item, weight) }
+  else amount?.let { OptimizeRequest.Product.amount(item, amount) }
+}
+
+private fun Plan.Input.toOptimizeProduct() =
+  item?.let { quantity?.let { OptimizeRequest.Product.amount(item, quantity) } }
+
+private fun Plan.Target.toOptimizeRestriction() = when (limit) {
+  Plan.Target.Limit.NONE -> null
+  Plan.Target.Limit.BANNED -> OptimizeRequest.Restriction(recipe, 0.q)
+  Plan.Target.Limit.RESTRICTED -> restriction?.let { OptimizeRequest.Restriction(recipe, restriction) }
+}
+
 fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
-  val productions = optimization.productions.associate { it.item to it.amount }
-  val demands = optimization.demands.associate { it.item to it.demand }
-  val potentials = optimization.potentials.associate { it.item to it.potential }
+  val inputs = partition.inputs.mapIndexed { i, input -> input.copyFrom(optimization.inputs[i]) }
+  val products = partition.products.mapIndexed { i, product -> product.copyFrom(optimization.products[i]) }
 
-  val inputs = partition.inputs.map { input ->
-    input.copy(
-      consumption = productions[input.item]?.let { -it } ?: 0.q,
-      demand = demands[input.item]!!,
-    )
-  }
-
-  val products = partition.products.map { product ->
-    product.copy(
-      amount = productions[product.item] ?: 0.q,
-      potential = potentials[product.item]!!
-    )
-  }
-
-  val rates = optimization.rates.associate { it.recipe to it.rate }.toMutableMap()
-  val existingTargets = partition.targets.mapNotNull { target ->
-    target.takeIf { rates.containsKey(it.recipe) || it.limit != Limit.NONE }?.copy(
-      rate = rates[target.recipe] ?: 0.q,
-    ).also { rates.remove(target.recipe) }
-  }
-  val newTargets = rates.map { (recipe, rate) -> Target(recipe = recipe, rate = rate) }.filter { it.rate != 0.q }
-  val targets = (existingTargets + newTargets).sortedBy { it.recipe }
+  val targets = (optimization.rates.mapValues { (recipe, rate) -> Plan.Target(recipe, rate) } +
+      partition.targets.filter { optimization.rates.containsKey(it.recipe) || it.limit != Plan.Target.Limit.NONE }
+        .map { it.copy(rate = optimization.rates[it.recipe] ?: 0.q) }
+        .associateBy { it.recipe })
+    .values.sortedBy { it.recipe }
 
   return partition.copy(
     inputs = inputs,
@@ -117,3 +88,16 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
     optimized = true,
   )
 }
+
+private fun Plan.Input.copyFrom(input: OptimizeResponse.Input) = copy(
+  item = input.item,
+  quantity = input.quantity,
+  consumption = input.consumption,
+  demand = input.demand
+)
+
+private fun Plan.Product.copyFrom(product: OptimizeResponse.Product) = copy(
+  item = product.item,
+  amount = product.amount,
+  potential = product.potential,
+)

@@ -7,32 +7,47 @@ import util.math.Rational
 
 @Serializable
 data class OptimizeRequest(
-  val provisions: List<Provision>,
-  val requirements: List<Requirement>,
+  val inputs: List<Input>,
+  val products: List<Product>,
   val restrictions: List<Restriction>,
-  val objectives: List<Objective>,
 ) {
   @Serializable
-  data class Provision(
+  data class Input(
     val item: Item,
     val quantity: Rational,
   )
 
   @Serializable
-  data class Requirement(
+  data class Product(
     val item: Item,
-    val amount: Rational,
-  )
+    val objective: Objective,
+  ) {
+    @Serializable
+    data class Objective(
+      val kind: Kind,
+      val amount: Rational? = null,
+      val weight: Rational? = null,
+    ) {
+      enum class Kind { AMOUNT, WEIGHT }
+
+      companion object {
+        fun amount(amount: Rational) = Objective(Kind.AMOUNT, amount = amount)
+        fun weight(weight: Rational) = Objective(Kind.WEIGHT, weight = weight)
+      }
+
+      fun toAmount() = amount ?: throw Error("Cannot call #toAmount() on Objective with kind=$kind")
+      fun toWeight() = weight ?: throw Error("Cannot call #toWeight() on Objective with kind=$kind")
+    }
+
+    companion object {
+      fun amount(item: Item, amount: Rational) = Product(item, Objective.amount(amount))
+      fun weight(item: Item, weight: Rational) = Product(item, Objective.weight(weight))
+    }
+  }
 
   @Serializable
   data class Restriction(
     val recipe: Recipe,
     val rate: Rational,
-  )
-
-  @Serializable
-  data class Objective(
-    val item: Item,
-    val weight: Rational,
   )
 }
