@@ -1,5 +1,8 @@
 package util.collections
 
+fun <K, V> Map<K, V>.merge(key: K, value: V, merger: (V, V) -> V) =
+  this + (key to (get(key)?.let { merger(it, value) } ?: value))
+
 fun <K, V> Map<K, V?>.filterValuesNotNull(): Map<K, V> =
   filterValues { it != null }.mapValues { (_, v) -> v!! }
 

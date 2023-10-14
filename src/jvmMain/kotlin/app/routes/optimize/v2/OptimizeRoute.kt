@@ -2,7 +2,9 @@ package com.chichumunga.satisfactory.app.routes.optimize.v2
 
 import app.api.optimize.v2.OptimizeRequest
 import app.api.optimize.v2.OptimizeResponse
+import app.game.data.Item
 import app.serialization.AppJson
+import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -13,6 +15,9 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import util.collections.augment
+import util.collections.join
+import util.collections.merge
 import util.math.q
 
 fun Routing.optimizeRouteV2() {
@@ -46,35 +51,52 @@ private fun validate(request: OptimizeRequest) {
 }
 
 private suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
-  val inputs = request.inputs.associate { it.item to it.quantity.br }
-  val requirements = request.products.filter { it.objective.kind == OptimizeRequest.Product.Objective.Kind.AMOUNT }
-    .associate { it.item to it.objective.toAmount().br }
-  val weights = request.products.filter { it.objective.kind == OptimizeRequest.Product.Objective.Kind.WEIGHT }
-    .associate { it.item to it.objective.toWeight().br }
-  val restrictions = request.restrictions.associate { it.recipe to it.rate.br }
+  val providedInputs =
+    ItemPool(request.inputs.fold(mapOf()) { inputs, (item, quantity) ->
+      inputs.merge(item, quantity.br, BigRational::plus)
+    })
+  val emptyRegistry = ProductRegistry(request.products.map { ProductManager.create(it) })
 
-  val plan = optimize(inputs, requirements, weights, restrictions)
+  val (optimizeRegistry, optimizeInputs) = emptyRegistry.allocateFixed(providedInputs)
 
-  val responseInputs = request.inputs.map { (item, quantity) ->
-    OptimizeResponse.Input(
+  val plan = optimize(
+    optimizeInputs.items,
+    optimizeRegistry.requirements(),
+    optimizeRegistry.weights(),
+    request.restrictions.associate { it.recipe to it.rate.br })
+
+  val inputTotals = InputTotals(
+    plan.consumption.join(optimizeRegistry.production(), BigRational::plus),
+    plan.demand.join(optimizeRegistry.production(), BigRational::plus),
+  )
+  val (responseInputs) = request.inputs.augment(
+    inputTotals,
+    { responses: List<OptimizeResponse.Input> -> responses }) { total, (item, quantity) ->
+    val response = OptimizeResponse.Input(
       item = item,
       quantity = quantity,
-      consumption = plan.consumption[item]?.toRational() ?: 0.q,
-      demand = plan.demand[item]?.toRational() ?: throw Error("Unknown demand: $item"),
+      consumption = minOf(total.consumption[item] ?: 0.br, quantity.br).toRational(),
+      demand = minOf(total.demand[item] ?: 0.br, quantity.br).toRational(),
+    )
+    add(response)
+    InputTotals(
+      consumption = total.consumption.merge(item, response.consumption.br, BigRational::minus),
+      demand = total.demand.merge(item, response.demand.br, BigRational::minus),
     )
   }
-  val responseProducts = request.products.map { (item) ->
-    OptimizeResponse.Product(
-      item = item,
-      amount = plan.production[item]?.toRational() ?: 0.q,
-      potential = plan.potential[item]?.toRational() ?: throw Error("Unknown potential: $item"),
-    )
-  }
+
+  val (fixedRegistry, surplus) = optimizeRegistry.allocateFixed(optimizeInputs + ItemPool(plan.production))
+  val (responseRegistry, byproducts) = fixedRegistry.allocateDynamic(surplus)
 
   return OptimizeResponse(
     inputs = responseInputs,
-    products = responseProducts,
-    byproducts = mapOf(),
+    products = responseRegistry.products(plan.potential),
+    byproducts = byproducts.items.filterValues { it != 0.br }.mapValues { (_, amount) -> amount.toRational() },
     rates = plan.rates.mapValues { (_, rate) -> rate.toRational() }
   )
 }
+
+data class InputTotals(
+  val consumption: Map<Item, BigRational>,
+  val demand: Map<Item, BigRational>,
+)
