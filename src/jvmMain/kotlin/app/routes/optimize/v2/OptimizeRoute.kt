@@ -86,12 +86,12 @@ internal suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
   }
 
   val (fixedRegistry, surplus) = optimizeRegistry.allocateFixed(optimizeInputs + ItemPool(plan.production))
-  val (responseRegistry, byproducts) = fixedRegistry.allocateDynamic(surplus)
+  val (responseRegistry) = fixedRegistry.allocateDynamic(surplus)
 
   return OptimizeResponse(
     inputs = responseInputs,
     products = responseRegistry.products(plan.potential),
-    byproducts = byproducts.items.filterValues { it != 0.br }.mapValues { (_, amount) -> amount.toRational() },
+    byproducts = mapOf(),
     rates = plan.rates.mapValues { (_, rate) -> rate.toRational() }
   )
 }

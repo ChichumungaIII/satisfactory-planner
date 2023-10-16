@@ -31,9 +31,7 @@ class OptimizeRouteTest {
       products = listOf(
         OptimizeResponse.Product(Item.IRON_PLATE, amount = 40.q, potential = 40.q)
       ),
-      byproducts = mapOf(
-        Item.IRON_ORE to 60.q, // TODO: This is a bug.
-      ),
+      byproducts = mapOf(),
       rates = mapOf(
         Recipe.IRON_INGOT to 200.q / 100.q,
         Recipe.IRON_PLATE to 200.q / 100.q,
@@ -62,9 +60,7 @@ class OptimizeRouteTest {
       products = listOf(
         OptimizeResponse.Product(Item.IRON_PLATE, amount = 30.q, potential = 40.q),
       ),
-      byproducts = mapOf(
-        Item.IRON_ORE to 60.q, // TODO: This is a bug.
-      ),
+      byproducts = mapOf(),
       rates = mapOf(
         Recipe.IRON_INGOT to 150.q / 100.q,
         Recipe.IRON_PLATE to 150.q / 100.q,
