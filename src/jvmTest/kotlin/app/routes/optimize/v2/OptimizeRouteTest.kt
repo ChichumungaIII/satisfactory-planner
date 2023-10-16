@@ -195,4 +195,38 @@ class OptimizeRouteTest {
     }
     assertEquals(expected, response)
   }
+
+  @Test
+  fun optimize_multipleInputs_differentPotentialOutputs() = runBlocking {
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 120.q)
+      +input(Item.COPPER_ORE, 60.q)
+
+      +productWeight(Item.IRON_PLATE, 1.q)
+      +productWeight(Item.CABLE, 1.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 120.q) {
+        consumption = 90.q
+        demand = 90.q
+      }
+      +input(Item.COPPER_ORE, 60.q) {
+        consumption = 60.q
+        demand = 60.q
+      }
+
+      +product(Item.IRON_PLATE, 60.q, 80.q)
+      +product(Item.CABLE, 60.q, 60.q)
+
+      Recipe.IRON_INGOT += 300.q / 100.q
+      Recipe.IRON_PLATE += 300.q / 100.q
+
+      Recipe.COPPER_INGOT += 200.q / 100.q
+      Recipe.WIRE += 400.q / 100.q
+      Recipe.CABLE += 200.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
 }
