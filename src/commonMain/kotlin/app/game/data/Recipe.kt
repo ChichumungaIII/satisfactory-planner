@@ -13,6 +13,7 @@ enum class Recipe(
   val outputs: Map<Item, Rational>,
   val power: ClosedRange<Rational>? = null,
   val unlock: Condition,
+  val alternate: Boolean = false,
 ) {
   IRON_INGOT(
     "Iron Ingot",
@@ -29,7 +30,8 @@ enum class Recipe(
       Item.COPPER_ORE to 2.q,
     ),
     outputs = mapOf(Item.IRON_INGOT to 5.q),
-    unlock = ResearchCondition(Research.IRON_ALLOY_INGOT)
+    unlock = ResearchCondition(Research.IRON_ALLOY_INGOT),
+    alternate = true,
   ),
 
   IRON_PLATE(
@@ -92,7 +94,8 @@ enum class Recipe(
     time = 24.q,
     inputs = mapOf(Item.IRON_INGOT to 5.q),
     outputs = mapOf(Item.WIRE to 9.q),
-    unlock = ResearchCondition(Research.IRON_WIRE)
+    unlock = ResearchCondition(Research.IRON_WIRE),
+    alternate = true,
   ),
 
   CABLE(
@@ -123,7 +126,8 @@ enum class Recipe(
     time = 24.q,
     inputs = mapOf(Item.IRON_INGOT to 5.q),
     outputs = mapOf(Item.SCREW to 20.q),
-    unlock = ResearchCondition(Research.CAST_SCREW)
+    unlock = ResearchCondition(Research.CAST_SCREW),
+    alternate = true,
   ),
 
   REINFORCED_IRON_PLATE(
@@ -144,7 +148,8 @@ enum class Recipe(
       Item.WIRE to 20.q,
     ),
     outputs = mapOf(Item.REINFORCED_IRON_PLATE to 3.q),
-    unlock = ResearchCondition(Research.STITCHED_IRON_PLATE)
+    unlock = ResearchCondition(Research.STITCHED_IRON_PLATE),
+    alternate = true,
   ),
 
   BIOMASS_WOOD(
@@ -271,6 +276,7 @@ enum class Recipe(
     ),
     outputs = mapOf(Item.STEEL_INGOT to 3.q),
     unlock = ResearchCondition(Research.SOLID_STEEL_INGOT),
+    alternate = true,
   ),
 
   STEEL_BEAM(
@@ -332,6 +338,7 @@ enum class Recipe(
     ),
     outputs = mapOf(),
     unlock = ResearchCondition(Research.ENCASED_INDUSTRIAL_PIPE),
+    alternate = true,
   ),
 
   STATOR(
@@ -390,6 +397,7 @@ enum class Recipe(
     ),
     outputs = mapOf(),
     unlock = ResearchCondition(Research.HEAVY_FLEXIBLE_FRAME),
+    alternate = true,
   ),
 
   ;
