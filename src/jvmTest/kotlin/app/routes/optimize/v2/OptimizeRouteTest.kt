@@ -126,4 +126,73 @@ class OptimizeRouteTest {
     }
     assertEquals(expected, response)
   }
+
+  @Test
+  fun optimize_withoutAlternateRecipes_ignoresAlternates() = runBlocking {
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 60.q)
+      +productWeight(Item.SCREW, 1.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 60.q) {
+        consumption = 60.q
+        demand = 60.q
+      }
+      +product(Item.SCREW, 240.q, 240.q)
+
+      Recipe.IRON_INGOT += 200.q / 100.q
+      Recipe.IRON_ROD += 400.q / 100.q
+      Recipe.SCREW += 600.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
+
+  @Test
+  fun optimize_withAlternateRecipes_usesAlternates() = runBlocking {
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 60.q)
+      +productWeight(Item.SCREW, 1.q)
+      +Recipe.CAST_SCREW
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 60.q) {
+        consumption = 60.q
+        demand = 60.q
+      }
+      +product(Item.SCREW, 240.q, 240.q)
+
+      Recipe.IRON_INGOT += 200.q / 100.q
+      Recipe.CAST_SCREW += 480.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
+
+  @Test
+  fun optimize_withRestriction_limitsRecipeUse() = runBlocking {
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 60.q)
+      +productWeight(Item.SCREW, 1.q)
+      +Recipe.CAST_SCREW
+      +restriction(Recipe.CAST_SCREW, 240.q / 100.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 60.q) {
+        consumption = 60.q
+        demand = 60.q
+      }
+      +product(Item.SCREW, 240.q, 240.q)
+
+      Recipe.IRON_INGOT += 200.q / 100.q
+      Recipe.IRON_ROD += 200.q / 100.q
+      Recipe.SCREW += 300.q / 100.q
+      Recipe.CAST_SCREW += 240.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
 }

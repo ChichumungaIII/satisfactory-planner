@@ -63,7 +63,9 @@ internal suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
     optimizeInputs.items,
     optimizeRegistry.requirements(),
     optimizeRegistry.weights(),
-    request.restrictions.associate { it.recipe to it.rate.br })
+    request.restrictions.associate { it.recipe to it.rate.br },
+    request.alternates
+  )
 
   val inputTotals = InputTotals(
     plan.consumption.join(optimizeRegistry.production(), BigRational::plus),

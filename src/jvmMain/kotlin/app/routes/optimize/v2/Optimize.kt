@@ -23,6 +23,7 @@ suspend fun optimize(
   requirements: Map<Item, BigRational>,
   weights: Map<Item, BigRational>,
   restrictions: Map<Recipe, BigRational>,
+  alternates: List<Recipe>,
 ): OptimizedPlan {
   check(inputs.values.all { it > 0.br }) { "Inputs must be positive." }
   check(requirements.values.all { it > 0.br }) { "Requirements must be positive." }
@@ -30,7 +31,8 @@ suspend fun optimize(
   check(requirements.size + weights.size > 0) { "Must optimize at least one product." }
   checkDisjoint(inputs.keys, requirements.keys + weights.keys)
 
-  val data = OptimizationData.create(inputs.keys, restrictions.filterValues { it == 0.br }.keys)
+  val recipes = Recipe.entries.filterNot { it.alternate } + alternates
+  val data = OptimizationData.create(inputs.keys, recipes.toSet() - restrictions.filterValues { it == 0.br }.keys)
   data.checkProducible(requirements)
   data.checkProducible(weights.keys)
 
@@ -110,8 +112,8 @@ private data class OptimizationData(
   val expressions: Map<Item, Expression<Recipe, BigRational>>,
 ) {
   companion object {
-    fun create(inputs: Set<Item>, banned: Set<Recipe>): OptimizationData {
-      val recipes = getReachableRecipes(inputs, banned)
+    fun create(inputs: Set<Item>, recipes: Set<Recipe>): OptimizationData {
+      val recipes = getReachableRecipes(inputs, recipes)
       val expressions = getExpressions(recipes)
       return OptimizationData(recipes, expressions)
     }
@@ -124,15 +126,11 @@ private data class OptimizationData(
 
     private tailrec fun getReachableRecipes(
       items: Set<Item>,
-      banned: Set<Recipe>,
+      recipes: Set<Recipe>,
     ): Set<Recipe> {
-      val reachable = Recipe.entries
-        .filterNot { banned.contains(it) }
-        .filter { items.containsAll(it.inputs.keys) }
-        .toSet()
-
+      val reachable = recipes.filter { items.containsAll(it.inputs.keys) }.toSet()
       val next = items + reachable.flatMap { it.outputs.keys }
-      return reachable.takeIf { items == next } ?: getReachableRecipes(next, banned)
+      return reachable.takeIf { items == next } ?: getReachableRecipes(next, recipes)
     }
   }
 

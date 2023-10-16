@@ -10,6 +10,7 @@ data class OptimizeRequest(
   val inputs: List<Input>,
   val products: List<Product>,
   val restrictions: List<Restriction>,
+  val alternates: List<Recipe>,
 ) {
   @Serializable
   data class Input(

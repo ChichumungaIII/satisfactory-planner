@@ -11,6 +11,7 @@ class OptimizeRequestBuilder private constructor(
   private val inputs: MutableList<Input> = mutableListOf(),
   private val products: MutableList<Product> = mutableListOf(),
   private val restrictions: MutableList<Restriction> = mutableListOf(),
+  private val alternates: MutableList<Recipe> = mutableListOf(),
 ) {
   companion object {
     fun optimizeRequest(init: OptimizeRequestBuilder.() -> Unit): OptimizeRequest {
@@ -20,6 +21,7 @@ class OptimizeRequestBuilder private constructor(
         builder.inputs,
         builder.products,
         builder.restrictions,
+        builder.alternates,
       )
     }
   }
@@ -34,6 +36,11 @@ class OptimizeRequestBuilder private constructor(
 
   operator fun Restriction.unaryPlus() {
     restrictions.add(this)
+  }
+
+  operator fun Recipe.unaryPlus() {
+    check(alternate) { "Recipe [$this] is not an alternate recipe." }
+    alternates.add(this)
   }
 
   fun input(item: Item, quantity: Rational) = Input(item, quantity)

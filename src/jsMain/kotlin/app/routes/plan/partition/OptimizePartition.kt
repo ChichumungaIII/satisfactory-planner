@@ -51,6 +51,7 @@ fun toRequest(partition: Partition): OptimizeRequest {
     inputs = inputs,
     products = products,
     restrictions = restrictions,
+    alternates = listOf() // TODO: add unlocked alternate recipes.
   )
 }
 
