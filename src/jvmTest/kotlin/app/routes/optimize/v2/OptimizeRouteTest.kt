@@ -229,4 +229,47 @@ class OptimizeRouteTest {
     }
     assertEquals(expected, response)
   }
+
+  @Test
+  fun optimize_repeatedInput_distributedConsumption() = runBlocking {
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 15.q)
+      +input(Item.IRON_ORE, 15.q)
+      +input(Item.IRON_ORE, 15.q)
+      +input(Item.IRON_ORE, 15.q)
+
+      +productAmount(Item.IRON_PLATE, 4.q)
+      +productAmount(Item.REINFORCED_IRON_PLATE, 4.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 15.q) {
+        consumption = 15.q
+        demand = 15.q
+      }
+      +input(Item.IRON_ORE, 15.q) {
+        consumption = 15.q
+        demand = 15.q
+      }
+      +input(Item.IRON_ORE, 15.q) {
+        consumption = 15.q
+        demand = 15.q
+      }
+      +input(Item.IRON_ORE, 15.q) {
+        consumption = 9.q
+        demand = 9.q
+      }
+
+      +product(Item.IRON_PLATE, 4.q, 8.q)
+      +product(Item.REINFORCED_IRON_PLATE, 4.q, 45.q / 10.q)
+
+      Recipe.IRON_INGOT += 180.q / 100.q
+      Recipe.IRON_PLATE += 140.q / 100.q
+      Recipe.IRON_ROD += 80.q / 100.q
+      Recipe.SCREW += 120.q / 100.q
+      Recipe.REINFORCED_IRON_PLATE += 80.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
 }
