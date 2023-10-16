@@ -26,7 +26,7 @@ suspend fun optimize(
   alternates: List<Recipe>,
 ): OptimizedPlan {
   check(inputs.values.all { it > 0.br }) { "Inputs must be positive." }
-  check(requirements.values.all { it > 0.br }) { "Requirements must be positive." }
+  check(requirements.values.all { it >= 0.br }) { "Requirements must be positive." }
   check(weights.values.all { it > 0.br }) { "Weights must be positive." }
   check(requirements.size + weights.size > 0) { "Must optimize at least one product." }
   checkDisjoint(inputs.keys, requirements.keys + weights.keys)
@@ -113,7 +113,8 @@ private data class OptimizationData(
 ) {
   companion object {
     fun create(inputs: Set<Item>, recipes: Set<Recipe>): OptimizationData {
-      val recipes = getReachableRecipes(inputs, recipes)
+      // TODO: Reintroduce the recipe reduction optimization.
+      // val recipes = getReachableRecipes(inputs, recipes)
       val expressions = getExpressions(recipes)
       return OptimizationData(recipes, expressions)
     }
@@ -124,14 +125,14 @@ private data class OptimizationData(
           map.also { it.merge(item, expression, Expression<Recipe, BigRational>::plus) }
         }
 
-    private tailrec fun getReachableRecipes(
-      items: Set<Item>,
-      recipes: Set<Recipe>,
-    ): Set<Recipe> {
-      val reachable = recipes.filter { items.containsAll(it.inputs.keys) }.toSet()
-      val next = items + reachable.flatMap { it.outputs.keys }
-      return reachable.takeIf { items == next } ?: getReachableRecipes(next, recipes)
-    }
+    // private tailrec fun getReachableRecipes(
+    //   items: Set<Item>,
+    //   recipes: Set<Recipe>,
+    // ): Set<Recipe> {
+    //   val reachable = recipes.filter { items.containsAll(it.inputs.keys) }.toSet()
+    //   val next = items + reachable.flatMap { it.outputs.keys }
+    //   return reachable.takeIf { items == next } ?: getReachableRecipes(next, recipes)
+    // }
   }
 
   operator fun get(item: Item) = expressions[item] ?: throw Error("Unsupported item [$item].")

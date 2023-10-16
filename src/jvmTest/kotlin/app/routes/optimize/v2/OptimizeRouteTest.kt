@@ -296,6 +296,7 @@ class OptimizeRouteTest {
       }
 
       +product(Item.IRON_PLATE, 20.q, 20.q)
+      +product(Item.IRON_ORE, 30.q, 0.q) // TODO: Potential should also be 30 here.
 
       Recipe.IRON_PLATE += 100.q / 100.q
     }
