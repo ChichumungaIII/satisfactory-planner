@@ -272,4 +272,33 @@ class OptimizeRouteTest {
     }
     assertEquals(expected, response)
   }
+
+  @Test
+  fun optimize_passthroughInput_pipesInputToProduct() = runBlocking {
+    // Example assuming a 30 iron ore -> 30 ingot partition while maximizing plates.
+    val request = optimizeRequest {
+      +input(Item.IRON_ORE, 30.q)
+      +input(Item.IRON_INGOT, 30.q)
+
+      +productWeight(Item.IRON_PLATE, 1.q)
+      +productAmount(Item.IRON_ORE, 30.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      +input(Item.IRON_ORE, 30.q) {
+        consumption = 30.q
+        demand = 30.q
+      }
+      +input(Item.IRON_INGOT, 30.q) {
+        consumption = 30.q
+        demand = 30.q
+      }
+
+      +product(Item.IRON_PLATE, 20.q, 20.q)
+
+      Recipe.IRON_PLATE += 100.q / 100.q
+    }
+    assertEquals(expected, response)
+  }
 }
