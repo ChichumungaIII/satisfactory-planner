@@ -50,7 +50,7 @@ private fun validate(request: OptimizeRequest) {
   check(products.isNotEmpty()) { "Optimization requires products." }
 }
 
-internal suspend fun optimize(request: OptimizeRequest): OptimizeResponse {
+internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   val providedInputs =
     ItemPool(request.inputs.fold(mapOf()) { inputs, (item, quantity) ->
       inputs.merge(item, quantity.br, BigRational::plus)

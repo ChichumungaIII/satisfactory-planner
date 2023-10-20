@@ -18,7 +18,7 @@ data class OptimizedPlan(
   val potential: Map<Item, BigRational>,
 )
 
-suspend fun optimize(
+fun optimize(
   inputs: Map<Item, BigRational>,
   requirements: Map<Item, BigRational>,
   weights: Map<Item, BigRational>,

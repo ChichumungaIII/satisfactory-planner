@@ -5,14 +5,13 @@ import app.api.optimize.v2.OptimizeResponseBuilder.Companion.optimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
 import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize
-import kotlinx.coroutines.runBlocking
 import util.math.q
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class OptimizeRouteTest {
   @Test
-  fun optimize_singleInput_maximizeOutput() = runBlocking {
+  fun optimize_singleInput_maximizeOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       productWeight(Item.IRON_PLATE, 1.q)
@@ -33,7 +32,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_singleInput_fixedOutput() = runBlocking {
+  fun optimize_singleInput_fixedOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       productAmount(Item.IRON_PLATE, 30.q)
@@ -54,7 +53,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_singleInput_balancedOutput() = runBlocking {
+  fun optimize_singleInput_balancedOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       productWeight(Item.IRON_PLATE, 1.q)
@@ -78,7 +77,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_singleInput_imbalancedOutput() = runBlocking {
+  fun optimize_singleInput_imbalancedOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       productWeight(Item.IRON_PLATE, 2.q)
@@ -102,7 +101,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_singleInput_offsetWeightedOutput() = runBlocking {
+  fun optimize_singleInput_offsetWeightedOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       productAmount(Item.IRON_PLATE, 20.q)
@@ -128,7 +127,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_withoutAlternateRecipes_ignoresAlternates() = runBlocking {
+  fun optimize_withoutAlternateRecipes_ignoresAlternates() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       productWeight(Item.SCREW, 1.q)
@@ -150,7 +149,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_withAlternateRecipes_usesAlternates() = runBlocking {
+  fun optimize_withAlternateRecipes_usesAlternates() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       productWeight(Item.SCREW, 1.q)
@@ -172,7 +171,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_withRestriction_limitsRecipeUse() = runBlocking {
+  fun optimize_withRestriction_limitsRecipeUse() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       productWeight(Item.SCREW, 1.q)
@@ -197,7 +196,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_multipleInputs_differentPotentialOutputs() = runBlocking {
+  fun optimize_multipleInputs_differentPotentialOutputs() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       input(Item.COPPER_ORE, 60.q)
@@ -231,7 +230,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_repeatedInput_distributedConsumption() = runBlocking {
+  fun optimize_repeatedInput_distributedConsumption() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 15.q)
       input(Item.IRON_ORE, 15.q)
@@ -274,7 +273,7 @@ class OptimizeRouteTest {
   }
 
   @Test
-  fun optimize_passthroughInput_pipesInputToProduct() = runBlocking {
+  fun optimize_passthroughInput_pipesInputToProduct() {
     // Example assuming a 30 iron ore -> 30 ingot partition while maximizing plates.
     val request = optimizeRequest {
       input(Item.IRON_ORE, 30.q)

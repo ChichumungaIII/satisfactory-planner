@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import util.math.Constraint.Comparison
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
-suspend fun <V, N : Numeric<N>> minimize(
+fun <V, N : Numeric<N>> minimize(
   objective: Expression<V, N>,
   constraints: List<Constraint<V, N>>,
   numbers: Numeric.Factory<N>,
@@ -22,7 +22,7 @@ suspend fun <V, N : Numeric<N>> minimize(
  * @return A Map containing the values to which each term in the objective and constraints should be set in order to
  *         maximize the objective function.
  */
-suspend fun <V, N : Numeric<N>> maximize(
+fun <V, N : Numeric<N>> maximize(
   objective: Expression<V, N>,
   rawConstraints: List<Constraint<V, N>>,
   numbers: Numeric.Factory<N>,
@@ -133,7 +133,7 @@ private fun <V, N : Numeric<N>> Constraint<V, N>.normalize(numbers: Numeric.Fact
     Comparison.EQUAL_TO -> Constraint.equalTo(-expression, -result)
   }
 
-private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: Int, pivotColumn: Int) = coroutineScope {
+private fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: Int, pivotColumn: Int) {
   // Normalize the rows of variables in the solution so that the variables in the solution can be identified as
   // the only 1 in a column that's otherwise 0s.
   val divisor = get(pivotRow, pivotColumn)
@@ -142,14 +142,12 @@ private suspend fun <N : Numeric<N>> MutableMatrix<MValue<N>>.pivot(pivotRow: In
   }
 
   (0 until rows()).filterNot { it == pivotRow }.map { row ->
-    launch {
-      // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
-      val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
-      for (column in 0 until columns()) {
-        update(row, column) { (it - scalar * get(pivotRow, column)) }
-      }
+    // Standard matrix row operation. Subtract the pivot row from the current row so that (row, column) is 0.
+    val scalar = get(row, pivotColumn) / get(pivotRow, pivotColumn)
+    for (column in 0 until columns()) {
+      update(row, column) { (it - scalar * get(pivotRow, column)) }
     }
-  }.joinAll()
+  }
 }
 
 // Simplex solver to help with bugs: https://cbom.atozmath.com/CBOM/Simplex.aspx
