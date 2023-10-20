@@ -20,14 +20,14 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 60.q) {
+      input(Item.IRON_ORE, 60.q) {
         consumption = 60.q
         demand = 60.q
       }
-      +product(Item.IRON_PLATE, 40.q, 40.q)
+      product(Item.IRON_PLATE, 40.q, 40.q)
 
-      Recipe.IRON_INGOT += 200.q / 100.q
-      Recipe.IRON_PLATE += 200.q / 100.q
+      rate(Recipe.IRON_INGOT, 200.q)
+      rate(Recipe.IRON_PLATE, 200.q)
     }
     assertEquals(expected, response)
   }
@@ -41,14 +41,14 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 60.q) {
+      input(Item.IRON_ORE, 60.q) {
         consumption = 45.q
         demand = 45.q
       }
-      +product(Item.IRON_PLATE, 30.q, 40.q)
+      product(Item.IRON_PLATE, 30.q, 40.q)
 
-      Recipe.IRON_INGOT += 150.q / 100.q
-      Recipe.IRON_PLATE += 150.q / 100.q
+      rate(Recipe.IRON_INGOT, 150.q)
+      rate(Recipe.IRON_PLATE, 150.q)
     }
     assertEquals(expected, response)
   }
@@ -70,9 +70,9 @@ class OptimizeRouteTest {
       product(Item.IRON_PLATE, 48.q, 48.q)
       product(Item.IRON_ROD, 48.q, 48.q)
 
-      Recipe.IRON_INGOT += 400.q / 100.q
-      Recipe.IRON_PLATE += 240.q / 100.q
-      Recipe.IRON_ROD += 320.q / 100.q
+      rate(Recipe.IRON_INGOT, 400.q)
+      rate(Recipe.IRON_PLATE, 240.q)
+      rate(Recipe.IRON_ROD, 320.q)
     }
     assertEquals(expected, response)
   }
@@ -87,16 +87,16 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 120.q) {
+      input(Item.IRON_ORE, 120.q) {
         consumption = 120.q
         demand = 120.q
       }
-      +product(Item.IRON_PLATE, 60.q, 60.q)
-      +product(Item.IRON_ROD, 30.q, 30.q)
+      product(Item.IRON_PLATE, 60.q, 60.q)
+      product(Item.IRON_ROD, 30.q, 30.q)
 
-      Recipe.IRON_INGOT += 400.q / 100.q
-      Recipe.IRON_PLATE += 300.q / 100.q
-      Recipe.IRON_ROD += 200.q / 100.q
+      rate(Recipe.IRON_INGOT, 400.q)
+      rate(Recipe.IRON_PLATE, 300.q)
+      rate(Recipe.IRON_ROD, 200.q)
     }
     assertEquals(expected, response)
   }
@@ -112,17 +112,17 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 120.q) {
+      input(Item.IRON_ORE, 120.q) {
         consumption = 120.q
         demand = 120.q
       }
-      +product(Item.IRON_PLATE, 20.q, 56.q) // TODO: Fix "potential" calculation.
-      +product(Item.IRON_PLATE, 36.q, 36.q)
-      +product(Item.IRON_ROD, 36.q, 36.q)
+      product(Item.IRON_PLATE, 20.q, 56.q) // TODO: Fix "potential" calculation.
+      product(Item.IRON_PLATE, 36.q, 36.q)
+      product(Item.IRON_ROD, 36.q, 36.q)
 
-      Recipe.IRON_INGOT += 400.q / 100.q
-      Recipe.IRON_PLATE += 280.q / 100.q
-      Recipe.IRON_ROD += 240.q / 100.q
+      rate(Recipe.IRON_INGOT, 400.q)
+      rate(Recipe.IRON_PLATE, 280.q)
+      rate(Recipe.IRON_ROD, 240.q)
     }
     assertEquals(expected, response)
   }
@@ -136,15 +136,15 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 60.q) {
+      input(Item.IRON_ORE, 60.q) {
         consumption = 60.q
         demand = 60.q
       }
-      +product(Item.SCREW, 240.q, 240.q)
+      product(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT += 200.q / 100.q
-      Recipe.IRON_ROD += 400.q / 100.q
-      Recipe.SCREW += 600.q / 100.q
+      rate(Recipe.IRON_INGOT, 200.q)
+      rate(Recipe.IRON_ROD, 400.q)
+      rate(Recipe.SCREW, 600.q)
     }
     assertEquals(expected, response)
   }
@@ -159,14 +159,14 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 60.q) {
+      input(Item.IRON_ORE, 60.q) {
         consumption = 60.q
         demand = 60.q
       }
-      +product(Item.SCREW, 240.q, 240.q)
+      product(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT += 200.q / 100.q
-      Recipe.CAST_SCREW += 480.q / 100.q
+      rate(Recipe.IRON_INGOT, 200.q)
+      rate(Recipe.CAST_SCREW, 480.q)
     }
     assertEquals(expected, response)
   }
@@ -182,16 +182,16 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 60.q) {
+      input(Item.IRON_ORE, 60.q) {
         consumption = 60.q
         demand = 60.q
       }
-      +product(Item.SCREW, 240.q, 240.q)
+      product(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT += 200.q / 100.q
-      Recipe.IRON_ROD += 200.q / 100.q
-      Recipe.SCREW += 300.q / 100.q
-      Recipe.CAST_SCREW += 240.q / 100.q
+      rate(Recipe.IRON_INGOT, 200.q)
+      rate(Recipe.IRON_ROD, 200.q)
+      rate(Recipe.SCREW, 300.q)
+      rate(Recipe.CAST_SCREW, 240.q)
     }
     assertEquals(expected, response)
   }
@@ -208,24 +208,24 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 120.q) {
+      input(Item.IRON_ORE, 120.q) {
         consumption = 90.q
         demand = 90.q
       }
-      +input(Item.COPPER_ORE, 60.q) {
+      input(Item.COPPER_ORE, 60.q) {
         consumption = 60.q
         demand = 60.q
       }
 
-      +product(Item.IRON_PLATE, 60.q, 80.q)
-      +product(Item.CABLE, 60.q, 60.q)
+      product(Item.IRON_PLATE, 60.q, 80.q)
+      product(Item.CABLE, 60.q, 60.q)
 
-      Recipe.IRON_INGOT += 300.q / 100.q
-      Recipe.IRON_PLATE += 300.q / 100.q
+      rate(Recipe.IRON_INGOT, 300.q)
+      rate(Recipe.IRON_PLATE, 300.q)
 
-      Recipe.COPPER_INGOT += 200.q / 100.q
-      Recipe.WIRE += 400.q / 100.q
-      Recipe.CABLE += 200.q / 100.q
+      rate(Recipe.COPPER_INGOT, 200.q)
+      rate(Recipe.WIRE, 400.q)
+      rate(Recipe.CABLE, 200.q)
     }
     assertEquals(expected, response)
   }
@@ -244,31 +244,31 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 15.q) {
+      input(Item.IRON_ORE, 15.q) {
         consumption = 15.q
         demand = 15.q
       }
-      +input(Item.IRON_ORE, 15.q) {
+      input(Item.IRON_ORE, 15.q) {
         consumption = 15.q
         demand = 15.q
       }
-      +input(Item.IRON_ORE, 15.q) {
+      input(Item.IRON_ORE, 15.q) {
         consumption = 15.q
         demand = 15.q
       }
-      +input(Item.IRON_ORE, 15.q) {
+      input(Item.IRON_ORE, 15.q) {
         consumption = 9.q
         demand = 9.q
       }
 
-      +product(Item.IRON_PLATE, 4.q, 8.q)
-      +product(Item.REINFORCED_IRON_PLATE, 4.q, 45.q / 10.q)
+      product(Item.IRON_PLATE, 4.q, 8.q)
+      product(Item.REINFORCED_IRON_PLATE, 4.q, 45.q / 10.q)
 
-      Recipe.IRON_INGOT += 180.q / 100.q
-      Recipe.IRON_PLATE += 140.q / 100.q
-      Recipe.IRON_ROD += 80.q / 100.q
-      Recipe.SCREW += 120.q / 100.q
-      Recipe.REINFORCED_IRON_PLATE += 80.q / 100.q
+      rate(Recipe.IRON_INGOT, 180.q)
+      rate(Recipe.IRON_PLATE, 140.q)
+      rate(Recipe.IRON_ROD, 80.q)
+      rate(Recipe.SCREW, 120.q)
+      rate(Recipe.REINFORCED_IRON_PLATE, 80.q)
     }
     assertEquals(expected, response)
   }
@@ -286,19 +286,19 @@ class OptimizeRouteTest {
     val response = optimize(request)
 
     val expected = optimizeResponse {
-      +input(Item.IRON_ORE, 30.q) {
+      input(Item.IRON_ORE, 30.q) {
         consumption = 30.q
         demand = 30.q
       }
-      +input(Item.IRON_INGOT, 30.q) {
+      input(Item.IRON_INGOT, 30.q) {
         consumption = 30.q
         demand = 30.q
       }
 
-      +product(Item.IRON_PLATE, 20.q, 20.q)
-      +product(Item.IRON_ORE, 30.q, 0.q) // TODO: Potential should also be 30 here.
+      product(Item.IRON_PLATE, 20.q, 20.q)
+      product(Item.IRON_ORE, 30.q, 0.q) // TODO: Potential should also be 30 here.
 
-      Recipe.IRON_PLATE += 100.q / 100.q
+      rate(Recipe.IRON_PLATE, 100.q)
     }
     assertEquals(expected, response)
   }
