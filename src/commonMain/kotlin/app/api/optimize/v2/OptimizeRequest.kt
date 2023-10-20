@@ -16,6 +16,7 @@ data class OptimizeRequest(
   data class Input(
     val item: Item,
     val quantity: Rational,
+    val required: Boolean = false,
   )
 
   @Serializable

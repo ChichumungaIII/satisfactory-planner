@@ -43,7 +43,7 @@ class OptimizeRequestBuilder private constructor(
     alternates.add(this)
   }
 
-  fun input(item: Item, quantity: Rational) = Input(item, quantity)
+  fun input(item: Item, quantity: Rational, required: Boolean = false) = Input(item, quantity, required)
   fun productAmount(item: Item, amount: Rational) = Product.amount(item, amount)
   fun productWeight(item: Item, weight: Rational) = Product.weight(item, weight)
   fun restriction(recipe: Recipe, rate: Rational) = Restriction(recipe, rate)

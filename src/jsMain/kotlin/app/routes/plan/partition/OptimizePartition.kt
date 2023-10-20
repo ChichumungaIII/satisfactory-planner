@@ -56,7 +56,7 @@ fun toRequest(partition: Partition): OptimizeRequest {
 }
 
 private fun Plan.Input.toOptimizeInput() = item?.let { quantity?.let { OptimizeRequest.Input(item, quantity) } }
-private fun Plan.Product.toOptimizeInput() = item?.let { amount?.let { (OptimizeRequest.Input(item, amount)) } }
+private fun Plan.Product.toOptimizeInput() = item?.let { amount?.let { (OptimizeRequest.Input(item, amount, true)) } }
 
 private fun Plan.Product.toOptimizeProduct() = item?.let {
   if (maximize) weight?.let { OptimizeRequest.Product.weight(item, weight) }
