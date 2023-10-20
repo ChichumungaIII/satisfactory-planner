@@ -26,25 +26,15 @@ class OptimizeRequestBuilder private constructor(
     }
   }
 
-  operator fun Input.unaryPlus() {
-    inputs.add(this)
-  }
+  fun input(item: Item, quantity: Rational, required: Boolean = false) = inputs.add(Input(item, quantity, required))
 
-  operator fun Product.unaryPlus() {
-    products.add(this)
-  }
+  fun productAmount(item: Item, amount: Rational) = products.add(Product.amount(item, amount))
+  fun productWeight(item: Item, weight: Rational) = products.add(Product.weight(item, weight))
 
-  operator fun Restriction.unaryPlus() {
-    restrictions.add(this)
-  }
+  fun restriction(recipe: Recipe, rate: Rational) = restrictions.add(Restriction(recipe, rate))
 
-  operator fun Recipe.unaryPlus() {
-    check(alternate) { "Recipe [$this] is not an alternate recipe." }
-    alternates.add(this)
+  fun alternate(recipe: Recipe) {
+    check(recipe.alternate) { "Recipe [$recipe] is not an alternate recipe." }
+    alternates.add(recipe)
   }
-
-  fun input(item: Item, quantity: Rational, required: Boolean = false) = Input(item, quantity, required)
-  fun productAmount(item: Item, amount: Rational) = Product.amount(item, amount)
-  fun productWeight(item: Item, weight: Rational) = Product.weight(item, weight)
-  fun restriction(recipe: Recipe, rate: Rational) = Restriction(recipe, rate)
 }
