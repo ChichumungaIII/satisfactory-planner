@@ -1,5 +1,7 @@
 package app.api.optimize.v2
 
+import app.api.optimize.v2.request.OptimizeRequest
+import app.api.optimize.v2.response.OptimizeResponse
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

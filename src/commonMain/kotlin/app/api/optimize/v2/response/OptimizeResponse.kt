@@ -23,8 +23,8 @@ data class OptimizeResponse(
     fun consume(item: Item, amount: Rational, consumed: Rational, demand: Rational) =
       this.consumed.add(OptimizeConsumption(item, amount, consumed, demand))
 
-    fun produce(item: Item, weight: Rational? = null, amount: Rational, potential: Rational) =
-      produced.add(OptimizeProduction(item, weight, amount, potential))
+    fun produce(item: Item, amount: Rational, potential: Rational) =
+      produced.add(OptimizeProduction(item, amount, potential))
 
     infix fun Item.byproduct(amount: Rational) {
       byproducts[this] = amount

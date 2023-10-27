@@ -5,7 +5,6 @@ import util.math.Rational
 
 data class OptimizeProduction(
   val item: Item,
-  val weight: Rational?,
   val amount: Rational,
   val potential: Rational,
 )
