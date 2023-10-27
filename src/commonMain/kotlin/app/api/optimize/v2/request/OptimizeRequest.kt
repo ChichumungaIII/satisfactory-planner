@@ -12,7 +12,7 @@ data class OptimizeRequest(
   val limits: Map<Recipe, Rational>,
 ) {
   companion object {
-    fun optimizeRequest(init: Builder.() -> Unit) = Builder().also { it.init() }.build()
+    fun optimizeRequest(init: Builder.() -> Unit) = Builder().apply(init).build()
   }
 
   class Builder {
