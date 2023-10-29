@@ -3,6 +3,7 @@ package app.api.optimize.v2.response
 import app.game.data.Item
 import app.game.data.Recipe
 import util.math.Rational
+import util.math.q
 
 data class OptimizeResponse(
   val consumed: List<OptimizeConsumption>,
@@ -30,6 +31,10 @@ data class OptimizeResponse(
       byproducts[this] = amount
     }
 
+    infix fun Recipe.clock(rate: Rational) {
+      this at rate / 100.q
+    }
+
     infix fun Recipe.at(rate: Rational) {
       this@Builder.rates[this] = rate
     }
@@ -40,5 +45,27 @@ data class OptimizeResponse(
       byproducts.toMap(),
       rates.toMap(),
     )
+  }
+
+  override fun toString() = buildString {
+    appendLine("Consumed:")
+    consumed.forEach { consumption ->
+      appendLine("  ${consumption.amount} ${consumption.item} (${consumption.consumed} / ${consumption.demand})")
+    }
+
+    appendLine("Produced:")
+    produced.forEach { production ->
+      appendLine("  ${production.amount} ${production.item} (${production.potential})")
+    }
+
+    appendLine("Byproducts:")
+    byproducts.forEach { (item, surplus) ->
+      appendLine("  $surplus $item")
+    }
+
+    appendLine("Rates:")
+    rates.entries.sortedBy { (recipe) -> recipe.ordinal }.forEach { (recipe, rate) ->
+      appendLine("  $recipe @${rate * 100.q})")
+    }
   }
 }

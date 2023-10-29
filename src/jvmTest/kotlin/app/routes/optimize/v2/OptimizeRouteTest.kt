@@ -14,7 +14,7 @@ class OptimizeRouteTest {
   fun optimize_singleInput_maximizeOutput() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
-      produce(Item.IRON_PLATE, 1.q)
+      maximize(Item.IRON_PLATE, 1.q)
     }
     val response = optimize(request)
 
@@ -26,8 +26,8 @@ class OptimizeRouteTest {
       )
       produce(Item.IRON_PLATE, 40.q, 40.q)
 
-      Recipe.IRON_INGOT at 200.q
-      Recipe.IRON_PLATE at 200.q
+      Recipe.IRON_INGOT clock 200.q
+      Recipe.IRON_PLATE clock 200.q
     }
     assertEquals(expected, response)
   }
@@ -48,8 +48,8 @@ class OptimizeRouteTest {
       )
       produce(Item.IRON_PLATE, 30.q, 40.q)
 
-      Recipe.IRON_INGOT at 150.q
-      Recipe.IRON_PLATE at 150.q
+      Recipe.IRON_INGOT clock 150.q
+      Recipe.IRON_PLATE clock 150.q
     }
     assertEquals(expected, response)
   }
@@ -72,9 +72,9 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 48.q, 48.q)
       produce(Item.IRON_ROD, 48.q, 48.q)
 
-      Recipe.IRON_INGOT at 400.q
-      Recipe.IRON_PLATE at 240.q
-      Recipe.IRON_ROD at 320.q
+      Recipe.IRON_INGOT clock 400.q
+      Recipe.IRON_PLATE clock 240.q
+      Recipe.IRON_ROD clock 320.q
     }
     assertEquals(expected, response)
   }
@@ -97,9 +97,9 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 60.q, 60.q)
       produce(Item.IRON_ROD, 30.q, 30.q)
 
-      Recipe.IRON_INGOT at 400.q
-      Recipe.IRON_PLATE at 300.q
-      Recipe.IRON_ROD at 200.q
+      Recipe.IRON_INGOT clock 400.q
+      Recipe.IRON_PLATE clock 300.q
+      Recipe.IRON_ROD clock 200.q
     }
     assertEquals(expected, response)
   }
@@ -124,9 +124,9 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 36.q, 36.q)
       produce(Item.IRON_ROD, 36.q, 36.q)
 
-      Recipe.IRON_INGOT at 400.q
-      Recipe.IRON_PLATE at 280.q
-      Recipe.IRON_ROD at 240.q
+      Recipe.IRON_INGOT clock 400.q
+      Recipe.IRON_PLATE clock 280.q
+      Recipe.IRON_ROD clock 240.q
     }
     assertEquals(expected, response)
   }
@@ -147,9 +147,9 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT at 200.q
-      Recipe.IRON_ROD at 400.q
-      Recipe.SCREW at 600.q
+      Recipe.IRON_INGOT clock 200.q
+      Recipe.IRON_ROD clock 400.q
+      Recipe.SCREW clock 600.q
     }
     assertEquals(expected, response)
   }
@@ -171,8 +171,8 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT at 200.q
-      Recipe.CAST_SCREW at 480.q
+      Recipe.IRON_INGOT clock 200.q
+      Recipe.CAST_SCREW clock 480.q
     }
     assertEquals(expected, response)
   }
@@ -183,7 +183,7 @@ class OptimizeRouteTest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.SCREW, 1.q)
       allow(Recipe.CAST_SCREW)
-      Recipe.CAST_SCREW limitTo 240.q / 100.q
+      Recipe.CAST_SCREW limitToClock 240.q
     }
     val response = optimize(request)
 
@@ -195,10 +195,10 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREW, 240.q, 240.q)
 
-      Recipe.IRON_INGOT at 200.q
-      Recipe.IRON_ROD at 200.q
-      Recipe.SCREW at 300.q
-      Recipe.CAST_SCREW at 240.q
+      Recipe.IRON_INGOT clock 200.q
+      Recipe.IRON_ROD clock 200.q
+      Recipe.SCREW clock 300.q
+      Recipe.CAST_SCREW clock 240.q
     }
     assertEquals(expected, response)
   }
@@ -229,12 +229,12 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 60.q, 80.q)
       produce(Item.CABLE, 60.q, 60.q)
 
-      Recipe.IRON_INGOT at 300.q
-      Recipe.IRON_PLATE at 300.q
+      Recipe.IRON_INGOT clock 300.q
+      Recipe.IRON_PLATE clock 300.q
 
-      Recipe.COPPER_INGOT at 200.q
-      Recipe.WIRE at 400.q
-      Recipe.CABLE at 200.q
+      Recipe.COPPER_INGOT clock 200.q
+      Recipe.WIRE clock 400.q
+      Recipe.CABLE clock 200.q
     }
     assertEquals(expected, response)
   }
@@ -277,11 +277,11 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 4.q, 8.q)
       produce(Item.REINFORCED_IRON_PLATE, 4.q, 45.q / 10.q)
 
-      Recipe.IRON_INGOT at 180.q
-      Recipe.IRON_PLATE at 140.q
-      Recipe.IRON_ROD at 80.q
-      Recipe.SCREW at 120.q
-      Recipe.REINFORCED_IRON_PLATE at 80.q
+      Recipe.IRON_INGOT clock 180.q
+      Recipe.IRON_PLATE clock 140.q
+      Recipe.IRON_ROD clock 80.q
+      Recipe.SCREW clock 120.q
+      Recipe.REINFORCED_IRON_PLATE clock 80.q
     }
     assertEquals(expected, response)
   }
@@ -313,7 +313,7 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 20.q, 20.q)
       produce(Item.IRON_ORE, 30.q, 0.q) // TODO: Potential should also be 30 here.
 
-      Recipe.IRON_PLATE at 100.q
+      Recipe.IRON_PLATE clock 100.q
     }
     assertEquals(expected, response)
   }

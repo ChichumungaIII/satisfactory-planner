@@ -24,8 +24,11 @@ data class OptimizeRequest(
     fun input(item: Item, amount: Rational, required: Boolean = false) =
       inputs.add(OptimizeInput(item, amount, required))
 
-    fun produce(item: Item, amount: Rational, exact: Boolean = false) =
-      outputs.add(OptimizeOutput.Production(item, amount, exact))
+    fun produce(item: Item, amount: Rational) =
+      outputs.add(OptimizeOutput.Production(item, amount, exact = true))
+
+    fun require(item: Item, amount: Rational) =
+      outputs.add(OptimizeOutput.Production(item, amount, exact = false))
 
     fun maximize(item: Item, weight: Rational) =
       outputs.add(OptimizeOutput.Maximization(item, weight))
@@ -33,7 +36,7 @@ data class OptimizeRequest(
     fun allow(recipe: Recipe) = recipes.add(recipe)
     fun allowAll(recipes: Collection<Recipe>) = this.recipes.addAll(recipes)
 
-    infix fun Recipe.limitTo(clock: Rational) {
+    infix fun Recipe.limitToClock(clock: Rational) {
       limits[this] = clock / 100.q
     }
 

@@ -150,12 +150,6 @@ private data class OptimizationData(
   }
 }
 
-private data class Objective(
-  val expression: Expression<Recipe, BigRational>,
-  val weight: BigRational,
-  val offset: BigRational,
-)
-
 private fun checkDisjoint(inputs: Set<Item>, products: Set<Item>) {
   val intersection = inputs.intersect(products)
   check(intersection.isEmpty()) { "Cannot optimize items $intersection which are both inputs and products." }
