@@ -2,6 +2,11 @@ package util.collections
 
 import util.function.using
 
+fun <T, A, D> Iterable<T>.augment(
+  initial: D,
+  integrate: MutableList<A>.(D, T) -> D,
+) = augment(initial, { it }, integrate)
+
 fun <T, A, D, O> Iterable<T>.augment(
   initial: D,
   transform: (List<A>) -> O,

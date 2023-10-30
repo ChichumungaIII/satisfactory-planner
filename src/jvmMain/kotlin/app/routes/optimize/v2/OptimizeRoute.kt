@@ -3,8 +3,8 @@ package com.chichumunga.satisfactory.app.routes.optimize.v2
 import app.api.optimize.v2.request.OptimizeOutput.Maximization
 import app.api.optimize.v2.request.OptimizeOutput.Production
 import app.api.optimize.v2.request.OptimizeRequest
+import app.api.optimize.v2.response.OptimizeConsumption
 import app.api.optimize.v2.response.OptimizeResponse
-import app.api.optimize.v2.response.OptimizeResponse.Companion.optimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
 import app.serialization.AppJson
@@ -19,12 +19,14 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import util.collections.augment
 import util.collections.merge
 import util.math.Constraint
 import util.math.Expression
 import util.math.Expression.Companion.times
 import util.math.Rational
 import util.math.maximize
+import util.math.minimize
 import util.math.q
 
 fun Routing.optimizeRouteV2() {
@@ -77,6 +79,10 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   }
   val restrictions = limits.map { (recipe, rate) -> Constraint.atMost(1.br * recipe, rate.br) }
 
+  /****************/
+  /** PLAN RATES **/
+  /****************/
+
   val rates: Map<Recipe, BigRational> = (if (weights.isEmpty()) {
     val objective = expressions.productionOf(required.keys.first())
     maximize(objective, constraints.values + restrictions)
@@ -93,10 +99,43 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
     }
     maximize(primary.expression, constraints.values + restrictions + balance)
   }).filterValues { it != 0.br }
-
-  return optimizeResponse {
-    rates.forEach { (recipe, rate) -> recipe at rate.toRational() }
+  val targets = outputs.map { it.item }.associateWith { item ->
+    val expression = expressions.productionOf(item)
+    Constraint.equalTo(expression, expression(rates))
   }
+
+  /*******************/
+  /** INPUT DEMANDS **/
+  /*******************/
+
+  val implicitConsumed = available.mapValues { (item, available) ->
+    minOf(required[item]?.amount ?: 0.br, available)
+  }
+  val totalConsumed = available.keys.associateWith { item ->
+    expressions.consumptionOf(item)(rates) + (implicitConsumed[item] ?: 0.br)
+  }
+
+  val demandConstraints = (constraints + targets).values + restrictions
+  val totalDemand = available.keys.associateWith { expressions.consumptionOf(it) }.mapValues { (item, consumption) ->
+    consumption(minimize(consumption, demandConstraints)) + (implicitConsumed[item] ?: 0.br)
+  }
+
+  val optimizeConsumed = inputs.augment(totalConsumed to totalDemand) { (remainingConsumed, remainingDemand),
+                                                                        (item, amount) ->
+    val consumed = minOf(remainingConsumed[item]?.toRational() ?: 0.q, amount)
+    val demand = minOf(remainingDemand[item]?.toRational() ?: 0.q, amount)
+    add(OptimizeConsumption(item, amount, consumed, demand))
+
+    (remainingConsumed + (item to (remainingConsumed[item] ?: 0.br) - consumed.br)) to
+        (remainingDemand + (item to (remainingDemand[item] ?: 0.br) - demand.br))
+  }
+
+  return OptimizeResponse(
+    consumed = optimizeConsumed.augment,
+    produced = listOf(),
+    byproducts = mapOf(),
+    rates = rates.mapValues { (_, rate) -> rate.toRational() }
+  )
 }
 
 fun <T> Iterable<T>.index(key: (T) -> Item, value: (T) -> Rational) = index(key, { value(it).br }, BigRational::plus)
@@ -108,3 +147,8 @@ private fun maximize(
   objective: Expression<Recipe, BigRational>,
   constraints: List<Constraint<Recipe, BigRational>>
 ) = maximize(objective, constraints, BigRational.FACTORY)
+
+private fun minimize(
+  objective: Expression<Recipe, BigRational>,
+  constraints: List<Constraint<Recipe, BigRational>>
+) = minimize(objective, constraints, BigRational.FACTORY)
