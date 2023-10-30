@@ -55,10 +55,11 @@ fun toRequest(partition: Partition): OptimizeRequest {
   val limits = partition.targets.filter { it.limit == Limit.RESTRICTED }
     .mapNotNull { it.restriction?.let { restriction -> it.recipe to restriction } }
     .toMap()
+  val banned = partition.targets.filter { it.limit == Limit.BANNED }.map { it.recipe }.toSet()
   return OptimizeRequest(
     inputs = inputs,
     outputs = outputs,
-    recipes = Recipe.entries.toSet(), // TODO: Filter to unlocked, unbanned recipes.
+    recipes = Recipe.entries.toSet() - banned, // TODO: Filter to unlocked recipes.
     limits = limits,
   )
 }
@@ -73,7 +74,7 @@ private fun Plan.Product.toOptimizeOutput() = item?.let {
 }
 
 private fun Plan.Input.toOptimizeOutput() =
-  item?.let { quantity?.let { OptimizeOutput.Production(item, quantity, exact = false) } }
+  item?.let { consumption?.let { OptimizeOutput.Production(item, consumption, exact = false) } }
 
 fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
   val inputs = partition.inputs.mapIndexed { i, input -> input.copyFrom(optimization.consumed[i]) }

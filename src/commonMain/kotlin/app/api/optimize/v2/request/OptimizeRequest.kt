@@ -2,9 +2,11 @@ package app.api.optimize.v2.request
 
 import app.game.data.Item
 import app.game.data.Recipe
+import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
 
+@Serializable
 data class OptimizeRequest(
   val inputs: List<OptimizeInput>,
   val outputs: List<OptimizeOutput>,
