@@ -108,9 +108,7 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   /** INPUT DEMANDS **/
   /*******************/
 
-  val implicitConsumed = available.mapValues { (item, available) ->
-    minOf(required[item]?.amount ?: 0.br, available)
-  }
+  val implicitConsumed = available.mapValues { (item, available) -> minOf(required[item]?.amount ?: 0.br, available) }
   val totalConsumed = available.keys.associateWith { item ->
     expressions.consumptionOf(item)(rates) + (implicitConsumed[item] ?: 0.br)
   }
@@ -120,18 +118,15 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
     consumption(minimize(consumption, demandConstraints)) + (implicitConsumed[item] ?: 0.br)
   }
 
-  val optimizeConsumed = inputs.augment(totalConsumed to totalDemand) { (remainingConsumed, remainingDemand),
-                                                                        (item, amount) ->
-    val consumed = minOf(remainingConsumed[item]?.toRational() ?: 0.q, amount)
-    val demand = minOf(remainingDemand[item]?.toRational() ?: 0.q, amount)
-    add(OptimizeConsumption(item, amount, consumed, demand))
-
-    (remainingConsumed + (item to (remainingConsumed[item] ?: 0.br) - consumed.br)) to
-        (remainingDemand + (item to (remainingDemand[item] ?: 0.br) - demand.br))
+  val (optimizeConsumed) = inputs.augment(totalConsumed) { consumption, (item, amount) ->
+    val consumed = minOf(consumption[item] ?: 0.br, amount.br)
+    val demand = amount.br + (totalDemand[item] ?: 0.br) - (available[item] ?: 0.br)
+    add(OptimizeConsumption(item, amount, consumed.toRational(), demand.toRational()))
+    consumption + (item to (consumption[item] ?: 0.br) - consumed)
   }
 
   return OptimizeResponse(
-    consumed = optimizeConsumed.augment,
+    consumed = optimizeConsumed,
     produced = listOf(),
     byproducts = mapOf(),
     rates = rates.mapValues { (_, rate) -> rate.toRational() }

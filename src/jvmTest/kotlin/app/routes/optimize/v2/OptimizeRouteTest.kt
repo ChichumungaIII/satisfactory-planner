@@ -256,17 +256,17 @@ class OptimizeRouteTest {
       consume(
         Item.IRON_ORE, amount = 15.q,
         consumed = 15.q,
-        demand = 15.q,
+        demand = 9.q,
       )
       consume(
         Item.IRON_ORE, amount = 15.q,
         consumed = 15.q,
-        demand = 15.q,
+        demand = 9.q,
       )
       consume(
         Item.IRON_ORE, amount = 15.q,
         consumed = 15.q,
-        demand = 15.q,
+        demand = 9.q,
       )
       consume(
         Item.IRON_ORE, amount = 15.q,
