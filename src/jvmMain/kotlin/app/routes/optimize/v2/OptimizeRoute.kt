@@ -4,6 +4,7 @@ import app.api.optimize.v2.request.OptimizeOutput.Maximization
 import app.api.optimize.v2.request.OptimizeOutput.Production
 import app.api.optimize.v2.request.OptimizeRequest
 import app.api.optimize.v2.response.OptimizeConsumption
+import app.api.optimize.v2.response.OptimizeProduction
 import app.api.optimize.v2.response.OptimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
@@ -125,10 +126,47 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
     consumption + (item to (consumption[item] ?: 0.br) - consumed)
   }
 
+  /**************************/
+  /** PRODUCTION POTENTIAL **/
+  /**************************/
+
+  val products = outputs.map { it.item }.distinct()
+  val implicitProduced = required.mapValues { (_, requirement) -> requirement.amount }
+    .mapValues { (item, amount) -> minOf(available[item] ?: 0.br, amount) }
+  val totalProduced = products.associateWith { item ->
+    expressions.productionOf(item)(rates) + (implicitProduced[item] ?: 0.br)
+  }
+
+  val totalPotential = products.associateWith { expressions.productionOf(it) }.mapValues { (item, production) ->
+    val potentialConstraints = (constraints + targets - item).values + restrictions
+    production(maximize(production, potentialConstraints)) + (implicitProduced[item] ?: 0.br)
+  }
+
+  val (distributedProduced, byproducts) = outputs.augment(totalProduced) { produced, output ->
+    val item = output.item
+    val amount: BigRational = when (output) {
+      is Production -> output.amount.br
+      is Maximization -> {
+        val surplus = ((totalProduced[item] ?: 0.br) - (required[item]?.amount ?: 0.br))
+        surplus * output.weight.br / weights[item]!!
+      }
+    }
+    add(OptimizeProduction(item, amount.toRational(), 0.q))
+    produced + (item to (produced[item] ?: 0.br) - amount)
+  }
+  val optimizeProduced = distributedProduced.map { (item, amount) ->
+    val potential = amount.br + (totalPotential[item] ?: 0.br) - (totalProduced[item] ?: 0.br)
+    OptimizeProduction(item, amount, potential.toRational())
+  }
+
+  /**************/
+  /** RESPONSE **/
+  /**************/
+
   return OptimizeResponse(
     consumed = optimizeConsumed,
-    produced = listOf(),
-    byproducts = mapOf(),
+    produced = optimizeProduced,
+    byproducts = byproducts.filterValues { it != 0.br }.mapValues { (_, amount) -> amount.toRational() },
     rates = rates.mapValues { (_, rate) -> rate.toRational() }
   )
 }

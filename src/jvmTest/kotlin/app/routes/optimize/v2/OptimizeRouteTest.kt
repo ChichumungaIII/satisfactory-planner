@@ -120,7 +120,7 @@ class OptimizeRouteTest {
         consumed = 120.q,
         demand = 120.q,
       )
-      produce(Item.IRON_PLATE, 20.q, 56.q) // TODO: Fix "potential" calculation.
+      produce(Item.IRON_PLATE, 20.q, 20.q)
       produce(Item.IRON_PLATE, 36.q, 36.q)
       produce(Item.IRON_ROD, 36.q, 36.q)
 
@@ -311,7 +311,7 @@ class OptimizeRouteTest {
       )
 
       produce(Item.IRON_PLATE, 20.q, 20.q)
-      produce(Item.IRON_ORE, 30.q, 0.q) // TODO: Potential should also be 30 here.
+      produce(Item.IRON_ORE, 30.q, 30.q)
 
       Recipe.IRON_PLATE clock 100.q
     }
