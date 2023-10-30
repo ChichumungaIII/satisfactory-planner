@@ -67,7 +67,7 @@ data class OptimizeResponse(
 
     appendLine("Rates:")
     rates.entries.sortedBy { (recipe) -> recipe.ordinal }.forEach { (recipe, rate) ->
-      appendLine("  $recipe @${rate * 100.q})")
+      appendLine("  $recipe @${rate * 100.q}%")
     }
   }
 }

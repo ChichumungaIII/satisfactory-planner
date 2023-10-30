@@ -461,6 +461,7 @@ enum class Recipe(
     ),
     outputs = mapOf(Item.RUBBER to 12.q),
     unlock = ResearchCondition(Research.RECYCLED_RUBBER),
+    alternate = true,
   ),
 
   PETROLEUM_COKE(

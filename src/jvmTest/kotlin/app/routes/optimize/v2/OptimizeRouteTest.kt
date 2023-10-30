@@ -318,6 +318,57 @@ class OptimizeRouteTest {
     assertEquals(expected, response)
   }
 
+  @Test
+  fun optimize_multipleOutputProducts_returnsByproducts() {
+    val request = optimizeRequest {
+      input(Item.CRUDE_OIL, 300.q)
+
+      maximize(Item.PLASTIC, 1.q)
+      maximize(Item.RUBBER, 1.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      consume(Item.CRUDE_OIL, 300.q, 300.q, 300.q)
+
+      produce(Item.PLASTIC, 100.q, 100.q)
+      produce(Item.RUBBER, 100.q, 100.q)
+
+      Item.HEAVY_OIL_RESIDUE byproduct 150.q
+
+      Recipe.PLASTIC clock 500.q
+      Recipe.RUBBER clock 500.q
+    }
+    assertEquals(expected, response)
+  }
+
+  @Test
+  fun optimize_bannedByproduct_selectsAlternative() {
+    val request = optimizeRequest {
+      input(Item.CRUDE_OIL, 300.q)
+
+      maximize(Item.PLASTIC, 1.q)
+      maximize(Item.RUBBER, 1.q)
+      produce(Item.HEAVY_OIL_RESIDUE, 0.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      consume(Item.CRUDE_OIL, 300.q, 300.q, 300.q)
+
+      produce(Item.PLASTIC, 100.q, 100.q)
+      produce(Item.RUBBER, 100.q, 100.q)
+      produce(Item.HEAVY_OIL_RESIDUE, 0.q, 150.q)
+
+      Item.FUEL byproduct 100.q
+
+      Recipe.PLASTIC clock 500.q
+      Recipe.RUBBER clock 500.q
+      Recipe.RESIDUAL_FUEL clock 250.q
+    }
+    assertEquals(expected, response)
+  }
+
   private fun optimizeRequest(init: OptimizeRequest.Builder.() -> Unit) =
     OptimizeRequest.optimizeRequest {
       allowAll(Recipe.entries.filterNot { it.alternate })
