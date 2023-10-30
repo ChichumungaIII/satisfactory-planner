@@ -130,17 +130,18 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   /** PRODUCTION POTENTIAL **/
   /**************************/
 
-  val products = outputs.map { it.item }.distinct()
   val implicitProduced = required.mapValues { (_, requirement) -> requirement.amount }
     .mapValues { (item, amount) -> minOf(available[item] ?: 0.br, amount) }
-  val totalProduced = products.associateWith { item ->
-    expressions.productionOf(item)(rates) + (implicitProduced[item] ?: 0.br)
-  }
+  val totalProduced = expressions.items
+    .associateWith { item -> expressions.productionOf(item)(rates) + (implicitProduced[item] ?: 0.br) }
+    .filterValues { it > 0.br }
 
-  val totalPotential = products.associateWith { expressions.productionOf(it) }.mapValues { (item, production) ->
-    val potentialConstraints = (constraints + targets - item).values + restrictions
-    production(maximize(production, potentialConstraints)) + (implicitProduced[item] ?: 0.br)
-  }
+  val totalPotential = outputs.map { it.item }.distinct()
+    .associateWith { expressions.productionOf(it) }
+    .mapValues { (item, production) ->
+      val potentialConstraints = (constraints + targets - item).values + restrictions
+      production(maximize(production, potentialConstraints)) + (implicitProduced[item] ?: 0.br)
+    }
 
   val (distributedProduced, byproducts) = outputs.augment(totalProduced) { produced, output ->
     val item = output.item

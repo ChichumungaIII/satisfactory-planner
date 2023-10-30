@@ -395,9 +395,119 @@ enum class Recipe(
       Item.RUBBER to 20.q,
       Item.SCREW to 104.q,
     ),
-    outputs = mapOf(),
+    outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
     unlock = ResearchCondition(Research.HEAVY_FLEXIBLE_FRAME),
     alternate = true,
+  ),
+
+  PLASTIC(
+    "Plastic",
+    time = 6.q,
+    inputs = mapOf(Item.CRUDE_OIL to 3.q),
+    outputs = mapOf(
+      Item.PLASTIC to 2.q,
+      Item.HEAVY_OIL_RESIDUE to 1.q,
+    ),
+    unlock = ItemCondition(Item.PLASTIC),
+  ),
+  RESIDUAL_PLASTIC(
+    "Residual Plastic",
+    time = 6.q,
+    inputs = mapOf(
+      Item.POLYMER_RESIN to 6.q,
+      Item.WATER to 2.q,
+    ),
+    outputs = mapOf(Item.PLASTIC to 2.q),
+    unlock = ItemCondition(Item.PLASTIC),
+  ),
+  RECYCLED_PLASTIC(
+    "Recycled Plastic",
+    time = 12.q,
+    inputs = mapOf(
+      Item.RUBBER to 6.q,
+      Item.FUEL to 6.q,
+    ),
+    outputs = mapOf(Item.PLASTIC to 12.q),
+    unlock = ResearchCondition(Research.RECYCLED_PLASTIC),
+    alternate = true,
+  ),
+
+  RUBBER(
+    "Rubber",
+    time = 6.q,
+    inputs = mapOf(Item.CRUDE_OIL to 3.q),
+    outputs = mapOf(
+      Item.RUBBER to 2.q,
+      Item.HEAVY_OIL_RESIDUE to 2.q,
+    ),
+    unlock = ItemCondition(Item.RUBBER),
+  ),
+  RESIDUAL_RUBBER(
+    "Residual Rubber",
+    time = 6.q,
+    inputs = mapOf(
+      Item.POLYMER_RESIN to 4.q,
+      Item.WATER to 4.q,
+    ),
+    outputs = mapOf(Item.RUBBER to 2.q),
+    unlock = ItemCondition(Item.RUBBER),
+  ),
+  RECYCLED_RUBBER(
+    "Recycled Rubber",
+    time = 12.q,
+    inputs = mapOf(
+      Item.PLASTIC to 6.q,
+      Item.FUEL to 6.q,
+    ),
+    outputs = mapOf(Item.RUBBER to 12.q),
+    unlock = ResearchCondition(Research.RECYCLED_RUBBER),
+  ),
+
+  PETROLEUM_COKE(
+    "Petroleum Coke",
+    time = 6.q,
+    inputs = mapOf(Item.HEAVY_OIL_RESIDUE to 4.q),
+    outputs = mapOf(Item.PETROLEUM_COKE to 12.q),
+    unlock = ItemCondition(Item.PETROLEUM_COKE),
+  ),
+
+  FUEL(
+    "Fuel",
+    time = 6.q,
+    inputs = mapOf(Item.CRUDE_OIL to 6.q),
+    outputs = mapOf(
+      Item.FUEL to 4.q,
+      Item.POLYMER_RESIN to 3.q,
+    ),
+    unlock = ItemCondition(Item.FUEL),
+  ),
+  RESIDUAL_FUEL(
+    "Residual Fuel",
+    time = 6.q,
+    inputs = mapOf(Item.HEAVY_OIL_RESIDUE to 6.q),
+    outputs = mapOf(Item.FUEL to 4.q),
+    unlock = ItemCondition(Item.FUEL),
+  ),
+
+  CIRCUIT_BOARD(
+    "Circuit Board",
+    time = 8.q,
+    inputs = mapOf(
+      Item.COPPER_SHEET to 2.q,
+      Item.PLASTIC to 4.q,
+    ),
+    outputs = mapOf(Item.CIRCUIT_BOARD to 1.q),
+    unlock = ItemCondition(Item.CIRCUIT_BOARD),
+  ),
+  SILICON_CIRCUIT_BOARD(
+    "Silicon Circuit Board",
+    time = 24.q,
+    inputs = mapOf(
+      Item.COPPER_SHEET to 11.q,
+      Item.SILICA to 11.q,
+    ),
+    outputs = mapOf(Item.CIRCUIT_BOARD to 5.q),
+    unlock = ResearchCondition(Research.SILICON_CIRCUIT_BOARD),
   ),
 
   ;

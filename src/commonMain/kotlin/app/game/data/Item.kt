@@ -241,6 +241,11 @@ enum class Item(
     energy = 300.q,
     unlock = MilestoneCondition(Milestone.COAL_POWER),
   ),
+  WATER(
+    "Water",
+    category = Category.RESOURCES,
+    unlock = MilestoneCondition(Milestone.COAL_POWER),
+  ),
 
   /* Basic Steel Production */
 
@@ -621,8 +626,8 @@ enum class Item(
     sink = 20.q,
     unlock = ResearchCondition(Research.SILICA),
   ),
-  CRYSTAL_OSCILATOR(
-    "Crystal Oscilator",
+  CRYSTAL_OSCILLATOR(
+    "Crystal Oscillator",
     Category.PARTS,
     stack = 100.q,
     sink = 3_702.q,

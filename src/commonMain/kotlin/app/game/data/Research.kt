@@ -45,6 +45,24 @@ enum class Research(
     cost = mapOf(),
     requirement = Condition.TRUE,
   ),
+  RECYCLED_PLASTIC(
+    "Recycled Plastic",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  RECYCLED_RUBBER(
+    "Recycled Rubber",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  SILICON_CIRCUIT_BOARD(
+    "Silicon Circuit Board",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
   SOLID_STEEL_INGOT(
     "Solid Steel Ingot",
     Category.HARD_DRIVE,
@@ -147,7 +165,7 @@ enum class Research(
     Category.ALIEN_ORGANISMS,
     cost = mapOf(
       Item.ALIEN_DNA_CAPSULE to 10.q,
-      Item.CRYSTAL_OSCILATOR to 5.q,
+      Item.CRYSTAL_OSCILLATOR to 5.q,
       Item.HIGH_SPEED_CONNECTOR to 5.q,
     ),
     requirement = ResearchCondition(BIO_ORGANIC_PROPERTIES),
