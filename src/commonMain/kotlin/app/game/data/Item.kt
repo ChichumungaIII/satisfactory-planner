@@ -508,7 +508,7 @@ enum class Item(
     Category.PARTS,
     stack = 100.q,
     sink = 42.q,
-    unlock = ResearchCondition(Research.CATERIUM_INGOT),
+    unlock = ResearchCondition(Research.CATERIUM_INGOTS),
   ),
   QUICKWIRE(
     "Quickwire",

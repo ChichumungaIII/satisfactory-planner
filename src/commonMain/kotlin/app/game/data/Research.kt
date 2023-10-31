@@ -2,6 +2,7 @@ package app.game.data
 
 import app.game.logic.Condition
 import app.game.logic.Condition.Companion.all
+import app.game.logic.Condition.Companion.any
 import app.game.logic.Condition.MilestoneCondition
 import app.game.logic.Condition.ResearchCondition
 import util.math.Rational
@@ -13,69 +14,6 @@ enum class Research(
   val cost: Map<Item, Rational>,
   val requirement: Condition,
 ) {
-  /* Hard Drive  */
-
-  CAST_SCREW(
-    "Cast Screw",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = Condition.TRUE,
-  ),
-  ENCASED_INDUSTRIAL_PIPE(
-    "Encased Industrial Pipe",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION),
-  ),
-  HEAVY_FLEXIBLE_FRAME(
-    "Heavy Flexible Frame",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING),
-  ),
-  IRON_ALLOY_INGOT(
-    "Iron Alloy Ingot",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = Condition.TRUE,
-  ),
-  IRON_WIRE(
-    "Iron Wire",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = Condition.TRUE,
-  ),
-  RECYCLED_PLASTIC(
-    "Recycled Plastic",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
-  ),
-  RECYCLED_RUBBER(
-    "Recycled Rubber",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
-  ),
-  SILICON_CIRCUIT_BOARD(
-    "Silicon Circuit Board",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
-  ),
-  SOLID_STEEL_INGOT(
-    "Solid Steel Ingot",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
-  ),
-  STITCHED_IRON_PLATE(
-    "Stitched Iron Plate",
-    Category.HARD_DRIVE,
-    cost = mapOf(),
-    requirement = Condition.TRUE,
-  ),
-
   /* Alien Organisms */
 
   HOG_RESEARCH(
@@ -185,7 +123,7 @@ enum class Research(
     cost = mapOf(Item.CATERIUM_ORE to 10.q),
     requirement = ResearchCondition(UNKNOWN_METAL),
   ),
-  CATERIUM_INGOT(
+  CATERIUM_INGOTS(
     "Caterium Ingot",
     Category.CATERIUM,
     cost = mapOf(Item.CATERIUM_ORE to 50.q),
@@ -195,7 +133,7 @@ enum class Research(
     "Quickwire",
     Category.CATERIUM,
     cost = mapOf(Item.CATERIUM_INGOT to 50.q),
-    requirement = ResearchCondition(CATERIUM_INGOT),
+    requirement = ResearchCondition(CATERIUM_INGOTS),
   ),
   ZIPLINE(
     "Zipline",
@@ -430,7 +368,600 @@ enum class Research(
     requirement = ResearchCondition(SMOKELESS_POWDER),
   ),
 
-  ;
+  /* Hard Drive  */
+
+  ADHERED_IRON_PLATE(
+    "Adhered Iron Plate",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  ALCLAD_CASING(
+    "Alclad Casing",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  AUTOMATED_MINER(
+    "Automated Miner",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING),
+  ),
+  AUTOMATED_SPEED_WIRING(
+    "Automated Speed Wiring",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.ADVANCED_STEEL_PRODUCTION
+      +AI_LIMITER
+    },
+  ),
+  BIOCOAL(
+    "Biocoal",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.COAL_POWER
+      +COMPACTED_COAL
+    },
+  ),
+  BOLTED_FRAME(
+    "Bolted Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PART_ASSEMBLY),
+  ),
+  BOLTED_IRON_PLATE(
+    "Bolted Iron Plate",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  CAST_SCREW(
+    "Cast Screw",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  CATERIUM_CIRCUIT_BOARD(
+    "Caterium Circuit Board",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.OIL_PROCESSING
+      +CATERIUM_INGOTS
+    },
+  ),
+  CATERIUM_COMPUTER(
+    "Caterium Computer",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.INDUSTRIAL_MANUFACTURING
+      +CATERIUM_INGOTS
+    },
+  ),
+  CATERIUM_WIRE(
+    "Caterium Wire",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(CATERIUM),
+  ),
+  CHARCOAL(
+    "Charcoal",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.COAL_POWER
+      +COMPACTED_COAL
+    },
+  ),
+  CHEAP_SILICA(
+    "Cheap Silica",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(SILICA),
+  ),
+  CLASSIC_BATTERY(
+    "Classic Battery",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+  COATED_CABLE(
+    "Coated Cable",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  COATED_IRON_CANISTER(
+    "Coated Iron Canister",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT),
+  ),
+  COATED_IRON_PLATE(
+    "Coated Iron Plate",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  COKE_STEEL_INGOT(
+    "Coke Steel Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  COMPACTED_STEEL_INGOT(
+    "Compacted Steel Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +COMPACTED_COAL
+      +Milestone.BASIC_STEEL_PRODUCTION
+    },
+  ),
+  COOLING_DEVICE(
+    "Cooling Device",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  COPPER_ALLOY_INGOT(
+    "Copper Alloy Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  COPPER_ROTOR(
+    "Copper Rotor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PART_ASSEMBLY),
+  ),
+  CRYSTAL_BEACON(
+    "Crystal Beacon",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.BASIC_STEEL_PRODUCTION
+      +QUARTZ_CRYSTALS
+    },
+  ),
+  CRYSTAL_COMPUTER(
+    "Crystal Computer",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.INDUSTRIAL_MANUFACTURING
+      +QUARTZ_CRYSTALS
+    },
+  ),
+  DILUTED_FUEL(
+    "Diluted Fuel",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  DILUTED_PACKAGED_FUEL(
+    "Diluted Packaged Fuel",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  ELECTRIC_MOTOR(
+    "Electric Motor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING),
+  ),
+  ELECTRODE_ALUMINUM_SCRAP(
+    "Electrode - Aluminum Scrap",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  ELECTRODE_CIRCUIT_BOARD(
+    "Electrode Circuit Board",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  ELECTROMAGNETIC_CONNECTION_ROD(
+    "Electromagnetic Connection Rod",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.NUCLEAR_POWER
+      +AI_LIMITER
+    },
+  ),
+  ENCASED_INDUSTRIAL_PIPE(
+    "Encased Industrial Pipe",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION),
+  ),
+  FERTILE_URANIUM(
+    "Fertile Uranium",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PARTICLE_ENRICHMENT),
+  ),
+  FINE_BLACK_POWDER(
+    "Fine Black Powder",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(COMPACTED_COAL),
+  ),
+  FINE_CONCRETE(
+    "Fine Concrete",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(QUARTZ),
+  ),
+  FLEXIBLE_FRAMEWORK(
+    "Flexible Framework",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  FUSED_QUICKWIRE(
+    "Fused Quickwire",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(CATERIUM_INGOTS),
+  ),
+  FUSED_WIRE(
+    "Fused Wire",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = ResearchCondition(CATERIUM_INGOTS),
+  ),
+  HEAT_EXCHANGER(
+    "Heat Exchanger",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION),
+  ),
+  HEAT_FUSED_FRAME(
+    "Heat-Fused Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PARTICLE_ENRICHMENT),
+  ),
+  HEAVY_ENCASED_FRAME(
+    "Heavy Encased Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING),
+  ),
+  HEAVY_FLEXIBLE_FRAME(
+    "Heavy Flexible Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING),
+  ),
+  HEAVY_OIL_RESIDUE(
+    "Heavy Oil Residue",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  INFUSED_URANIUM_CELL(
+    "Infused Uranium Cell",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.NUCLEAR_POWER
+      +CATERIUM_INGOTS
+      +QUARTZ
+      +SULFUR
+    },
+  ),
+  INSTANT_PLUTONIUM_CELL(
+    "Instant Plutonium Cell",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PARTICLE_ENRICHMENT),
+  ),
+  INSTANT_SCRAP(
+    "Instant Scrap",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.BAUXITE_REFINEMENT
+      +Milestone.AERONAUTICAL_ENGINEERING
+    },
+  ),
+  INSULATED_CABLE(
+    "Insulated Cable",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  INSULATED_CRYSTAL_OSCILLATOR(
+    "Insulated Crystal Oscillator",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +CRYSTAL_OSCILLATOR
+      +CATERIUM_ELECTRONICS
+      +Milestone.OIL_PROCESSING
+    },
+  ),
+  IRON_ALLOY_INGOT(
+    "Iron Alloy Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  IRON_WIRE(
+    "Iron Wire",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  OC_SUPERCOMPUTER(
+    "OC Supercomputer",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.AERONAUTICAL_ENGINEERING
+      +Milestone.ADVANCED_ALUMINUM_PRODUCTION
+    },
+  ),
+  PLASTIC_SMART_PLATING(
+    "Plastic Smart Plating",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  PLUTONIUM_FUEL_UNIT(
+    "Plutonium Fuel Unit",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PARTICLE_ENRICHMENT),
+  ),
+  POLYMER_RESIN(
+    "Polymer Resin",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  PURE_ALUMINUM_INGOT(
+    "Pure Aluminum Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  PURE_CATERIUM_INGOT(
+    "Pure Caterium Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +CATERIUM
+      +Milestone.COAL_POWER
+    },
+  ),
+  PURE_COPPER_INGOT(
+    "Pure Copper Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.COAL_POWER),
+  ),
+  PURE_IRON_INGOT(
+    "Pure Iron Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.COAL_POWER),
+  ),
+  PURE_QUARTZ_CRYSTAL(
+    "Pure Quartz Crystal",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +QUARTZ_CRYSTALS
+      +Milestone.COAL_POWER
+    },
+  ),
+  QUICKWIRE_CABLE(
+    "Quickwire Cable",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.OIL_PROCESSING
+      +CATERIUM_INGOTS
+    },
+  ),
+  QUICKWIRE_STATOR(
+    "Quickwire Stator",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.ADVANCED_STEEL_PRODUCTION
+      +Research.CATERIUM_INGOTS
+    },
+  ),
+  RADIO_CONNECTION_UNIT(
+    "Radio Connection Unit",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.ADVANCED_ALUMINUM_PRODUCTION
+      +AI_LIMITER
+    },
+  ),
+  RADIO_CONTROL_SYSTEM(
+    "Radio Control System",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  RECYCLED_PLASTIC(
+    "Recycled Plastic",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  RECYCLED_RUBBER(
+    "Recycled Rubber",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  RIGOUR_MOTOR(
+    "Rigour Motor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.ADVANCED_STEEL_PRODUCTION
+      +QUARTZ_CRYSTALS
+    },
+  ),
+  RUBBER_CONCRETE(
+    "Rubber Concrete",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  SILICON_CIRCUIT_BOARD(
+    "Silicon Circuit Board",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.OIL_PROCESSING
+      +QUARTZ
+    },
+  ),
+  SILICON_HIGH_SPEED_CONNECTOR(
+    "Silicon High-Speed Connector",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +HIGH_SPEED_CONNECTOR
+      +Milestone.OIL_PROCESSING
+      +QUARTZ
+    },
+  ),
+  SLOPPY_ALUMINA(
+    "Sloppy Alumina",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BAUXITE_REFINEMENT),
+  ),
+  SOLID_STEEL_INGOT(
+    "Solid Steel Ingot",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
+  STEAMED_COPPER_SHEET(
+    "Steamed Copper Sheet",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.COAL_POWER),
+  ),
+  STEEL_CANISTER(
+    "Steel Canister",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT),
+  ),
+  STEEL_COATED_PLATE(
+    "Steel Coated Plate",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.OIL_PROCESSING),
+  ),
+  STEEL_ROD(
+    "Steel Rod",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
+  STEEL_ROTOR(
+    "Steel Rotor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
+  STEEL_SCREW(
+    "Steel Screw",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
+  STEELED_FRAME(
+    "Steeled Frame",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION),
+  ),
+  STITCHED_IRON_PLATE(
+    "Stitched Iron Plate",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = Condition.TRUE,
+  ),
+  SUPER_STATE_COMPUTER(
+    "Super-State Computer",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.NUCLEAR_POWER
+      +Milestone.AERONAUTICAL_ENGINEERING
+    },
+  ),
+  TURBO_BLEND_FUEL(
+    "Turbo Blend Fuel",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.BAUXITE_REFINEMENT
+      +SULFUR
+    },
+  ),
+  TURBO_ELECTRIC_MOTOR(
+    "Turbo Electric Motor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.LEADING_EDGE_PRODUCTION
+      +Milestone.NUCLEAR_POWER
+    },
+  ),
+  TURBO_HEAVY_FUEL(
+    "Turbo Heavy Fuel",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.OIL_PROCESSING
+      +COMPACTED_COAL
+    },
+  ),
+  TURBO_PRESSURE_MOTOR(
+    "Turbo Pressure Motor",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.PARTICLE_ENRICHMENT),
+  ),
+  URANIUM_FUEL_UNIT(
+    "Uranium Fuel Unit",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = any {
+      +Milestone.NUCLEAR_POWER
+      +QUARTZ_CRYSTALS
+    },
+  ),
+  WET_CONCRETE(
+    "Wet Concrete",
+    Category.HARD_DRIVE,
+    cost = mapOf(),
+    requirement = MilestoneCondition(Milestone.COAL_POWER),
+  );
 
   enum class Category(
     val displayName: String,
