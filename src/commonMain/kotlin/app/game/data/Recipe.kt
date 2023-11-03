@@ -511,6 +511,173 @@ enum class Recipe(
     unlock = ResearchCondition(Research.SILICON_CIRCUIT_BOARD),
   ),
 
+  COMPUTER(
+    "Computer",
+    time = 24.q,
+    inputs = mapOf(
+      Item.CIRCUIT_BOARD to 10.q,
+      Item.CABLE to 9.q,
+      Item.PLASTIC to 18.q,
+      Item.SCREW to 52.q,
+    ),
+    outputs = mapOf(Item.COMPUTER to 1.q),
+    unlock = ItemCondition(Item.COMPUTER),
+  ),
+
+  MODULAR_ENGINE(
+    "Modular Engine",
+    time = 60.q,
+    inputs = mapOf(
+      Item.MOTOR to 2.q,
+      Item.RUBBER to 15.q,
+      Item.SMART_PLATING to 2.q,
+    ),
+    outputs = mapOf(Item.MODULAR_ENGINE to 1.q),
+    unlock = ItemCondition(Item.MODULAR_ENGINE),
+  ),
+
+  ADAPTIVE_CONTROL_UNIT(
+    "Adaptive Control Unit",
+    time = 120.q,
+    inputs = mapOf(
+      Item.AUTOMATED_WIRING to 15.q,
+      Item.CIRCUIT_BOARD to 10.q,
+      Item.HEAVY_MODULAR_FRAME to 2.q,
+      Item.COMPUTER to 2.q,
+    ),
+    outputs = mapOf(Item.ADAPTIVE_CONTROL_UNIT to 2.q),
+    unlock = ItemCondition(Item.ADAPTIVE_CONTROL_UNIT),
+  ),
+
+  EMPTY_CANISTER(
+    "Empty Canister",
+    time = 4.q,
+    inputs = mapOf(),
+    outputs = mapOf(),
+    unlock = ItemCondition(Item.EMPTY_CANISTER),
+  ),
+
+  PACKAGE_WATER(
+    "Package Water",
+    time = 2.q,
+    inputs = mapOf(
+      Item.WATER to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_WATER to 2.q),
+    unlock = ItemCondition(Item.PACKAGED_WATER),
+  ),
+
+  PACKAGE_OIL(
+    "Package Oil",
+    time = 4.q,
+    inputs = mapOf(
+      Item.CRUDE_OIL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_OIL to 2.q),
+    unlock = ItemCondition(Item.PACKAGED_OIL),
+  ),
+
+  PACKAGE_FUEL(
+    "Package Fuel",
+    time = 3.q,
+    inputs = mapOf(
+      Item.FUEL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_FUEL to 2.q),
+    unlock = ItemCondition(Item.PACKAGED_FUEL),
+  ),
+
+  PACKAGE_HEAVY_OIL_RESIDUE(
+    "Package Heavy Oil Residue",
+    time = 4.q,
+    inputs = mapOf(
+      Item.HEAVY_OIL_RESIDUE to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_HEAVY_OIL_RESIDUE to 2.q),
+    unlock = ItemCondition(Item.PACKAGED_HEAVY_OIL_RESIDUE),
+  ),
+
+  PACKAGE_LIQUID_BIOFUEL(
+    "Package Liquid Biofuel",
+    time = 3.q,
+    inputs = mapOf(
+      Item.LIQUID_BIOFUEL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_LIQUID_BIOFUEL to 2.q),
+    unlock = ItemCondition(Item.PACKAGED_LIQUID_BIOFUEL),
+  ),
+
+  UNPACKAGE_WATER(
+    "UNPACKAGE_WATER",
+    time = 1.q,
+    inputs = mapOf(Item.PACKAGED_WATER to 2.q),
+    outputs = mapOf(
+      Item.WATER to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    unlock = ItemCondition(Item.PACKAGED_WATER),
+  ),
+
+  UNPACKAGE_OIL(
+    "Unpackage Oil",
+    time = 2.q,
+    inputs = mapOf(Item.PACKAGED_OIL to 2.q),
+    outputs = mapOf(
+      Item.CRUDE_OIL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    unlock = ItemCondition(Item.PACKAGED_OIL),
+  ),
+
+  UNPACKAGE_FUEL(
+    "Unpackage Fuel",
+    time = 2.q,
+    inputs = mapOf(Item.PACKAGED_FUEL to 2.q),
+    outputs = mapOf(
+      Item.FUEL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    unlock = ItemCondition(Item.PACKAGED_FUEL),
+  ),
+
+  UNPACKAGE_HEAVY_OIL_RESIDUE(
+    "Unpackage Heavy Oil Residue",
+    time = 6.q,
+    inputs = mapOf(Item.PACKAGED_HEAVY_OIL_RESIDUE to 2.q),
+    outputs = mapOf(
+      Item.HEAVY_OIL_RESIDUE to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    unlock = ItemCondition(Item.PACKAGED_HEAVY_OIL_RESIDUE),
+  ),
+
+  UNPACKAGE_LIQUID_BIOFUEL(
+    "Unpackage Liquid Biofuel",
+    time = 2.q,
+    inputs = mapOf(Item.PACKAGED_LIQUID_BIOFUEL to 2.q),
+    outputs = mapOf(
+      Item.LIQUID_BIOFUEL to 2.q,
+      Item.EMPTY_CANISTER to 2.q,
+    ),
+    unlock = ItemCondition(Item.PACKAGED_LIQUID_BIOFUEL),
+  ),
+
+  LIQUID_BIOFUEL(
+    "Liquid Biofuel",
+    time = 4.q,
+    inputs = mapOf(
+      Item.SOLID_BIOFUEL to 6.q,
+      Item.WATER to 3.q,
+    ),
+    outputs = mapOf(Item.LIQUID_BIOFUEL to 4.q),
+    unlock = ItemCondition(Item.LIQUID_BIOFUEL),
+  ),
+
   ;
 
   val rates = (inputs.mapValues { (_, amount) -> -amount } + outputs).mapValues { (_, amount) -> amount * 60.q / time }
