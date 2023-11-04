@@ -12,7 +12,7 @@ class ItemSchema(json: JsonObject) : JsonSchema(json) {
   val radioactive = double("radioactive")
   val canBeDiscarded = boolean("canBeDiscarded")
   val sinkPoints = int("sinkPoints")
-  val abbreviation = string("abbreviation")
+  val abbreviation = stringOrNull("abbreviation")
   val form = string("form")
   val fluidColor = string("fluidColor")
   val stable = boolean("stable")

@@ -32,6 +32,7 @@ open class JsonSchema(val json: JsonObject) {
   protected fun int(field: String) = primitive(field).intOrNull
     ?: error("Field [$field] is not an int: ${primitive(field)}")
 
+  protected fun stringOrNull(field: String) = if (primitive(field) is JsonNull) null else string(field)
   protected fun string(field: String) = primitive(field).contentOrNull
     ?: error("Field [$field] is not a string: ${primitive(field)}")
 

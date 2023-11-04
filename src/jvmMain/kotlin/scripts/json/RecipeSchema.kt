@@ -14,7 +14,7 @@ class RecipeSchema(json: JsonObject) : JsonSchema(json) {
   val inWorkshop = boolean("inWorkshop")
   val inBuildGun = boolean("inBuildGun")
   val inCustomizer = boolean("inCustomizer")
-  val manualCraftingMultiplier = int("manualCraftingMultiplier")
+  val manualCraftingMultiplier = double("manualCraftingMultiplier")
   val alternate = boolean("alternate")
   val minPower = intOrNull("minPower")
   val maxPower = intOrNull("maxPower")
