@@ -159,7 +159,5 @@ enum class Milestone(
   PARTICLE_ENRICHMENT(
     displayName = "Particle Enrichment",
     tier = Tier.TIER_8,
-  ),;
-
-  companion object
+  );
 }
