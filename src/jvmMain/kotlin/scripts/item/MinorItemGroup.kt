@@ -48,4 +48,5 @@ enum class MinorItemGroup(val printName: String) {
   POWER_SLUGS("Power Slugs"),
   HARD_DRIVES("Hard Drives"),
   FICSMAS("FICSMAS"),
+  UNCATEGORIZED("UNCATEGORIZED"),
 }

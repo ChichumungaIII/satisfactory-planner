@@ -9,7 +9,7 @@ data class ItemEnum(
   val minorGroup: MinorItemGroup,
   val enumName: String,
   val displayName: String,
-  val category: Item.Category,
+  val category: Item.Category?,
   val stack: Int?,
   val sink: Int?,
   val energy: Int?,
@@ -18,6 +18,20 @@ data class ItemEnum(
   val experimental: Boolean,
 ) {
   companion object {
+    val MANUAL_ITEM_HARD_DRIVE = ItemEnum(
+      MajorItemGroup.NATURE,
+      MinorItemGroup.HARD_DRIVES,
+      "HARD_DRIVE",
+      "Hard Drive",
+      Item.Category.NATURE,
+      stack = 100,
+      sink = null,
+      energy = null,
+      radiation = null,
+      stable = true,
+      experimental = true
+    )
+
     fun writeDeclarationTo(writer: Writer) {
       writer.write(
         """
@@ -76,7 +90,7 @@ data class ItemEnum(
   fun writeTo(writer: PrintWriter) = with(writer) {
     println("  $enumName(")
     println("    \"$displayName\",")
-    println("    Category.${category.name},")
+    category?.let { "Category.${it.name}" }?.also { println("    $it,") } ?: run { println("    TODO(),") }
     stack?.also { println("    stack = ${legible(it)}.q,") }
     sink?.also { println("    sink = ${legible(it)}.q,") }
     energy?.also { println("    energy = ${legible(it)}.q,") }
@@ -93,6 +107,6 @@ data class ItemEnum(
   private fun legible(value: Int): String {
     val big = (value / 1000).takeIf { it > 0 }
     val small = value % 1000
-    return big?.let { "${legible(it)}_$small" } ?: "$small"
+    return big?.let { "${legible(it)}_${"$small".padStart(3, '0')}" } ?: "$small"
   }
 }
