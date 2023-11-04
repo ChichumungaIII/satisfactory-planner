@@ -1,7 +1,6 @@
 package com.chichumunga.satisfactory.scripts
 
-import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS
-import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS_INDEX
+import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPEC_ORDER
 import com.chichumunga.satisfactory.scripts.conversion.convertToItemEnum
 import com.chichumunga.satisfactory.scripts.item.ItemEnum
 import com.chichumunga.satisfactory.scripts.item.ItemEnum.Companion.MANUAL_ITEM_HARD_DRIVE
@@ -54,18 +53,22 @@ fun writeItems(path: String, items: List<ItemEnum>) {
             println("  /* ${minor.printName} */")
             println()
 
-            minorGroupItems.sortedBy { ITEM_SPECS_INDEX[it.enumName]?.let { ITEM_SPECS.indexOf(it) } ?: Int.MAX_VALUE }
+            minorGroupItems.sortedWith(ITEM_SPEC_ORDER)
               .forEach {
-                it.writeTo(this)
+                it.writeEnumDeclarationTo(this)
                 if (++count < items.size) println(",")
               }
           }
       }
     println(";")
+    println()
 
     ItemEnum.writeNestedCategoryEnumTo(this)
+    println()
 
-    // TODO: Unlock conditions
+    ItemEnum.writeUnlockPrefixTo(this)
+    items.sortedWith(ITEM_SPEC_ORDER).forEach { it.writeUnlockConditionTo(this) }
+    ItemEnum.writeUnlockSuffixTo(this)
 
     ItemEnum.writeFinalizationTo(this)
 

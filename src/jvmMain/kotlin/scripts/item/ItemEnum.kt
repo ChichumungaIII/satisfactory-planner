@@ -63,7 +63,6 @@ data class ItemEnum(
     fun writeNestedCategoryEnumTo(writer: Writer) {
       writer.write(
         """
-        |
         |  enum class Category(
         |    val displayName: String,
         |  ) {
@@ -71,6 +70,26 @@ data class ItemEnum(
         |    EQUIPMENT("Equipment"),
         |    NATURE("Nature"),
         |    RESOURCES("Resources"),
+        |  }
+        |
+        """.trimMargin()
+      )
+    }
+
+    fun writeUnlockPrefixTo(writer: Writer) {
+      writer.write(
+        """
+        |  val unlock by lazy {
+        |    when (this) {
+        |
+        """.trimMargin()
+      )
+    }
+
+    fun writeUnlockSuffixTo(writer: Writer) {
+      writer.write(
+        """
+        |    }
         |  }
         |
         """.trimMargin()
@@ -87,7 +106,7 @@ data class ItemEnum(
     }
   }
 
-  fun writeTo(writer: PrintWriter) = with(writer) {
+  fun writeEnumDeclarationTo(writer: PrintWriter) = with(writer) {
     println("  $enumName(")
     println("    \"$displayName\",")
     category?.let { "Category.${it.name}" }?.also { println("    $it,") } ?: run { println("    TODO(),") }
@@ -102,6 +121,11 @@ data class ItemEnum(
     if (!stable) println("    stable = false,")
     if (!experimental) println("    experimental = false,")
     print("  )")
+  }
+
+  fun writeUnlockConditionTo(writer: PrintWriter) = with(writer) {
+    print("      $enumName -> ")
+    println("TODO()")
   }
 
   private fun legible(value: Int): String {

@@ -5,7 +5,6 @@ import com.chichumunga.satisfactory.scripts.item.ItemEnum
 import com.chichumunga.satisfactory.scripts.item.MajorItemGroup
 import com.chichumunga.satisfactory.scripts.item.MinorItemGroup
 import com.chichumunga.satisfactory.scripts.json.ItemSchema
-import kotlin.reflect.jvm.internal.impl.name.NameUtils
 
 fun convertToItemEnum(json: ItemSchema): ItemEnum {
   val suffix = "_EXPERIMENTAL".takeIf { json.experimental && !json.stable } ?: ""
@@ -232,3 +231,6 @@ val ITEM_SPECS = listOf(
   ItemSpec("HARD_DRIVE", MajorItemGroup.NATURE, MinorItemGroup.HARD_DRIVES, Category.NATURE),
 )
 val ITEM_SPECS_INDEX = ITEM_SPECS.associateBy { it.enumName }
+val ITEM_SPEC_ORDER = compareBy<ItemEnum> {
+  ITEM_SPECS_INDEX[it.enumName]?.let { ITEM_SPECS.indexOf(it) } ?: Int.MAX_VALUE
+}
