@@ -24,6 +24,7 @@ import mui.material.SvgIconColor
 import mui.material.SvgIconProps
 import mui.material.TextFieldProps
 import mui.material.styles.createTheme
+import web.cssom.AlignItems
 import web.cssom.Margin
 import web.cssom.None
 import web.cssom.px
@@ -83,6 +84,7 @@ private val SatisfactoryMuiTheme = createTheme(jso {
           minHeight = 36.px
         }
         content = jso {
+          alignItems = AlignItems.center
           margin = Margin(0.px, 0.px)
         }
       }
