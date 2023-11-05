@@ -15,6 +15,8 @@ enum class Item(
   val sink: Rational? = null,
   val energy: Rational? = null,
   val radiation: Rational? = null,
+  val stable: Boolean = true,
+  val experimental: Boolean = true,
 ) {
   /* ****** */
   /* Tier 0 */
@@ -133,7 +135,7 @@ enum class Item(
   /* Field Research */
 
   OBJECT_SCANNER(
-    "Object scanner",
+    "Object Scanner",
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 1_400.q,
@@ -217,7 +219,7 @@ enum class Item(
   ),
   WATER(
     "Water",
-    category = Category.RESOURCES,
+    Category.RESOURCES,
   ),
 
   /* Basic Steel Production */
@@ -242,7 +244,7 @@ enum class Item(
   ),
   VERSATILE_FRAMEWORK(
     "Versatile Framework",
-    category = Category.PARTS,
+    Category.PARTS,
     stack = 50.q,
     sink = 1_176.q,
   ),
@@ -319,7 +321,7 @@ enum class Item(
     "Rubber",
     Category.PARTS,
     stack = 200.q,
-    sink = 60.q
+    sink = 60.q,
   ),
   FUEL(
     "Fuel",
@@ -394,6 +396,15 @@ enum class Item(
     stack = 100.q,
     sink = 270.q,
     energy = 750.q,
+    experimental = false,
+  ),
+  PACKAGED_FUEL_EXPERIMENTAL(
+    "Packaged Fuel",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 270.q,
+    energy = 750.q,
+    stable = false,
   ),
   PACKAGED_HEAVY_OIL_RESIDUE(
     "Packaged Heavy Oil Residue",
@@ -408,6 +419,15 @@ enum class Item(
     stack = 100.q,
     sink = 370.q,
     energy = 750.q,
+    experimental = false,
+  ),
+  PACKAGED_LIQUID_BIOFUEL_EXPERIMENTAL(
+    "Packaged Liquid Biofuel",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 370.q,
+    energy = 750.q,
+    stable = false,
   ),
   LIQUID_BIOFUEL(
     "Liquid Biofuel",
@@ -440,7 +460,7 @@ enum class Item(
     "Caterium Ore",
     Category.RESOURCES,
     stack = 100.q,
-    sink = 7.q
+    sink = 7.q,
   ),
   CATERIUM_INGOT(
     "Caterium Ingot",
@@ -480,6 +500,14 @@ enum class Item(
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 49_580.q,
+    experimental = false,
+  ),
+  JETPACK_EXPERIMENTAL(
+    "Jetpack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 49_580.q,
+    stable = false,
   ),
 
   /* ****** */
@@ -550,28 +578,13 @@ enum class Item(
     "Crystal Oscillator",
     Category.PARTS,
     stack = 100.q,
-    sink = 3_702.q,
+    sink = 3_072.q,
   ),
   RADIO_CONTROL_UNIT(
     "Radio Control Unit",
     Category.PARTS,
     stack = 50.q,
     sink = 19_600.q,
-  ),
-
-  /* Hazmat Suit */
-
-  HAZMAT_SUIT(
-    "Hazmat Suit",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 54_100.q,
-  ),
-  IODINE_INFUSED_FILTER(
-    "Iodine Infused Filter",
-    Category.PARTS,
-    stack = 50.q,
-    sink = 2_718.q,
   ),
 
   /* Aeronautical Engineering */
@@ -606,6 +619,15 @@ enum class Item(
     stack = 100.q,
     sink = 570.q,
     energy = 2_000.q,
+    experimental = false,
+  ),
+  PACKAGED_TURBOFUEL_EXPERIMENTAL(
+    "Packaged Turbofuel",
+    Category.PARTS,
+    stack = 100.q,
+    sink = 570.q,
+    energy = 2_000.q,
+    stable = false,
   ),
   NOBELISK_DETONATOR(
     "Nobelisk Detonator",
@@ -679,6 +701,21 @@ enum class Item(
     sink = 543_632.q,
   ),
 
+  /* Hazmat Suit */
+
+  HAZMAT_SUIT(
+    "Hazmat Suit",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 54_100.q,
+  ),
+  IODINE_INFUSED_FILTER(
+    "Iodine Infused Filter",
+    Category.PARTS,
+    stack = 50.q,
+    sink = 2_718.q,
+  ),
+
   /* Hover Pack */
 
   HOVER_PACK(
@@ -686,6 +723,14 @@ enum class Item(
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 413_920.q,
+    experimental = false,
+  ),
+  HOVER_PACK_EXPERIMENTAL(
+    "Hover Pack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 413_920.q,
+    stable = false,
   ),
 
   /* ****** */
@@ -721,6 +766,12 @@ enum class Item(
     sink = 44_092.q,
     energy = 750_000.q,
     radiation = 50.q,
+  ),
+  URANIUM_WASTE(
+    "Uranium Waste",
+    Category.PARTS,
+    stack = 500.q,
+    radiation = 10.q,
   ),
   MAGNETIC_FIELD_GENERATOR(
     "Magnetic Field Generator",
@@ -825,13 +876,12 @@ enum class Item(
     stack = 50.q,
     energy = 250.q,
   ),
-  SPITTER_REMAINS(
-    "Spitter Remains",
+  PLASMA_SPITTER_REMAINS(
+    "Plasma Spitter Remains",
     Category.NATURE,
     stack = 50.q,
     energy = 250.q,
   ),
-
   ALIEN_PROTEIN(
     "Alien Protein",
     Category.PARTS,
@@ -841,9 +891,7 @@ enum class Item(
     "Alien DNA Capsule",
     Category.PARTS,
     stack = 50.q,
-    sink = 1_000.q,
   ),
-
   REBAR_GUN(
     "Rebar Gun",
     Category.EQUIPMENT,
@@ -884,7 +932,6 @@ enum class Item(
     Category.NATURE,
     stack = 50.q,
   ),
-
   MEDICINAL_INHALER(
     "Medicinal Inhaler",
     Category.EQUIPMENT,
@@ -897,7 +944,7 @@ enum class Item(
   BLUE_POWER_SLUG(
     "Blue Power Slug",
     Category.NATURE,
-    stack = 50.q
+    stack = 50.q,
   ),
   YELLOW_POWER_SLUG(
     "Yellow Power Slug",
@@ -911,10 +958,275 @@ enum class Item(
   ),
 
   /* Hard Drives */
+
   HARD_DRIVE(
     "Hard Drive",
     Category.NATURE,
     stack = 100.q,
+  ),
+
+  /* ************* */
+  /* UNCATEGORIZED */
+  /* ************* */
+
+  /* UNCATEGORIZED */
+
+  PLUTONIUM_WASTE(
+    "Plutonium Waste",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    radiation = 200.q,
+  ),
+  NON_FISSILE_URANIUM(
+    "Non-fissile Uranium",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    radiation = 3.q / 4.q,
+  ),
+  PLUTONIUM_PELLET(
+    "Plutonium Pellet",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    radiation = 20.q,
+  ),
+  ENCASED_PLUTONIUM_CELL(
+    "Encased Plutonium Cell",
+    Category.UNCATEGORIZED,
+    stack = 200.q,
+    radiation = 120.q,
+  ),
+  POWER_SHARD(
+    "Power Shard",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+  ),
+  HUB_PARTS(
+    "HUB Parts",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+  ),
+  FICSMAS_GIFT(
+    "FICSMAS Gift",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  CANDY_CANE(
+    "Candy Cane",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  FICSMAS_TREE_BRANCH(
+    "FICSMAS Tree Branch",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  FICSMAS_BOW(
+    "FICSMAS Bow",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  ACTUAL_SNOW(
+    "Actual Snow",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  FICSMAS_WONDER_STAR(
+    "FICSMAS Wonder Star",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 1.q,
+  ),
+  RED_FICSMAS_ORNAMENT(
+    "Red FICSMAS Ornament",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  BLUE_FICSMAS_ORNAMENT(
+    "Blue FICSMAS Ornament",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  COPPER_FICSMAS_ORNAMENT(
+    "Copper FICSMAS Ornament",
+    Category.UNCATEGORIZED,
+    stack = 200.q,
+    sink = 1.q,
+  ),
+  IRON_FICSMAS_ORNAMENT(
+    "Iron FICSMAS Ornament",
+    Category.UNCATEGORIZED,
+    stack = 200.q,
+    sink = 1.q,
+  ),
+  FICSMAS_ORNAMENT_BUNDLE(
+    "FICSMAS Ornament Bundle",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 1.q,
+  ),
+  FICSMAS_DECORATION(
+    "FICSMAS Decoration",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 1.q,
+  ),
+  NUCLEAR_PASTA(
+    "Nuclear Pasta",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 543_424.q,
+  ),
+  NITRIC_ACID(
+    "Nitric Acid",
+    Category.UNCATEGORIZED,
+  ),
+  PRESSURE_CONVERSION_CUBE(
+    "Pressure Conversion Cube",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 257_312.q,
+  ),
+  COPPER_POWDER(
+    "Copper Powder",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 72.q,
+  ),
+  PARACHUTE(
+    "Parachute",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 608.q,
+    experimental = false,
+  ),
+  PARACHUTE_EXPERIMENTAL(
+    "Parachute",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+    sink = 608.q,
+    stable = false,
+  ),
+  PACKAGED_NITRIC_ACID(
+    "Packaged Nitric Acid",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 412.q,
+  ),
+  FABRIC(
+    "Fabric",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 140.q,
+    energy = 15.q,
+  ),
+  NITROGEN_GAS(
+    "Nitrogen Gas",
+    Category.UNCATEGORIZED,
+  ),
+  FACTORY_CART(
+    "Factory Cart™",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+    sink = 1_552.q,
+  ),
+  BLADE_RUNNERS(
+    "Blade Runners",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+    sink = 4_088.q,
+  ),
+  CANDY_CANE_BASHER(
+    "Candy Cane Basher",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+    sink = 1.q,
+  ),
+  GOLDEN_FACTORY_CART(
+    "Golden Factory Cart™",
+    Category.UNCATEGORIZED,
+    stack = 1.q,
+    sink = 1_852.q,
+  ),
+  PLUTONIUM_FUEL_ROD(
+    "Plutonium Fuel Rod",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 153_184.q,
+    energy = 1_500_000.q,
+    radiation = 250.q,
+  ),
+  STUN_REBAR(
+    "Stun Rebar",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 186.q,
+  ),
+  HOMING_RIFLE_AMMO(
+    "Homing Rifle Ammo",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 855.q,
+  ),
+  GAS_NOBELISK(
+    "Gas Nobelisk",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 544.q,
+  ),
+  NUKE_NOBELISK(
+    "Nuke Nobelisk",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 19_600.q,
+  ),
+  PULSE_NOBELISK(
+    "Pulse Nobelisk",
+    Category.UNCATEGORIZED,
+    stack = 50.q,
+    sink = 1_533.q,
+  ),
+  SWEET_FIREWORKS(
+    "Sweet Fireworks",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 18.q,
+  ),
+  FANCY_FIREWORKS(
+    "Fancy Fireworks",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 14.q,
+  ),
+  SPARKLY_FIREWORKS(
+    "Sparkly Fireworks",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 10.q,
+  ),
+  SNOWBALL(
+    "Snowball",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 1.q,
+  ),
+  SHATTER_REBAR(
+    "Shatter Rebar",
+    Category.UNCATEGORIZED,
+    stack = 100.q,
+    sink = 332.q,
+  ),
+  TURBO_RIFLE_AMMO(
+    "Turbo Rifle Ammo",
+    Category.UNCATEGORIZED,
+    stack = 500.q,
+    sink = 120.q,
   );
 
   enum class Category(
@@ -924,6 +1236,7 @@ enum class Item(
     EQUIPMENT("Equipment"),
     NATURE("Nature"),
     RESOURCES("Resources"),
+    UNCATEGORIZED("Uncategorized"),
   }
 
   val unlock by lazy {
@@ -942,7 +1255,11 @@ enum class Item(
       CONCRETE -> MilestoneCondition(Milestone.HUB_UPGRADE_3)
       SCREW -> MilestoneCondition(Milestone.HUB_UPGRADE_3)
       REINFORCED_IRON_PLATE -> MilestoneCondition(Milestone.HUB_UPGRADE_3)
-      BIOMASS -> MilestoneCondition(Milestone.HUB_UPGRADE_6)
+      BIOMASS -> any {
+        +Milestone.HUB_UPGRADE_6
+        +Research.BIO_ORGANIC_PROPERTIES
+        +Research.MYCELIA
+      }
       OBJECT_SCANNER -> MilestoneCondition(Milestone.FIELD_RESEARCH)
       BEACON -> MilestoneCondition(Milestone.FIELD_RESEARCH)
       COPPER_SHEET -> MilestoneCondition(Milestone.PART_ASSEMBLY)
@@ -951,9 +1268,21 @@ enum class Item(
       SMART_PLATING -> MilestoneCondition(Milestone.PART_ASSEMBLY)
       CHAINSAW -> MilestoneCondition(Milestone.OBSTACLE_CLEARING)
       SOLID_BIOFUEL -> MilestoneCondition(Milestone.OBSTACLE_CLEARING)
-      COLOR_CARTRIDGE -> MilestoneCondition(Milestone.RESOURCE_SINK_BONUS_PROGRAM)
-      COAL -> MilestoneCondition(Milestone.COAL_POWER)
-      WATER -> MilestoneCondition(Milestone.COAL_POWER)
+      COLOR_CARTRIDGE -> any {
+        +Milestone.RESOURCE_SINK_BONUS_PROGRAM
+        +Condition.FALSE // TODO: Implement unsupported conditions.
+      }
+      COAL -> any {
+        +Milestone.COAL_POWER
+        +Research.COMPACTED_COAL
+      }
+      WATER -> any {
+        +Milestone.COAL_POWER
+        +Milestone.ALTERNATIVE_FLUID_TRANSPORT
+        +Milestone.BAUXITE_REFINEMENT
+        +Milestone.AERONAUTICAL_ENGINEERING
+        +Milestone.PARTICLE_ENRICHMENT
+      }
       STEEL_INGOT -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       STEEL_BEAM -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       STEEL_PIPE -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
@@ -964,23 +1293,39 @@ enum class Item(
       MOTOR -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
       AUTOMATED_WIRING -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
       HEAVY_MODULAR_FRAME -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
-      CRUDE_OIL -> MilestoneCondition(Milestone.OIL_PROCESSING)
+      CRUDE_OIL -> any {
+        +Milestone.OIL_PROCESSING
+        +Milestone.ALTERNATIVE_FLUID_TRANSPORT
+      }
       PLASTIC -> MilestoneCondition(Milestone.OIL_PROCESSING)
-      HEAVY_OIL_RESIDUE -> MilestoneCondition(Milestone.OIL_PROCESSING)
+      HEAVY_OIL_RESIDUE -> any {
+        +Milestone.OIL_PROCESSING
+        +Milestone.ALTERNATIVE_FLUID_TRANSPORT
+      }
       RUBBER -> MilestoneCondition(Milestone.OIL_PROCESSING)
-      FUEL -> MilestoneCondition(Milestone.OIL_PROCESSING)
+      FUEL -> any {
+        +Milestone.OIL_PROCESSING
+        +Milestone.ALTERNATIVE_FLUID_TRANSPORT
+      }
       POLYMER_RESIN -> MilestoneCondition(Milestone.OIL_PROCESSING)
       PETROLEUM_COKE -> MilestoneCondition(Milestone.OIL_PROCESSING)
       CIRCUIT_BOARD -> MilestoneCondition(Milestone.OIL_PROCESSING)
       COMPUTER -> MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING)
       MODULAR_ENGINE -> MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING)
       ADAPTIVE_CONTROL_UNIT -> MilestoneCondition(Milestone.INDUSTRIAL_MANUFACTURING)
-      EMPTY_CANISTER -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
+      EMPTY_CANISTER -> any {
+        +Milestone.ALTERNATIVE_FLUID_TRANSPORT
+        +Milestone.BAUXITE_REFINEMENT
+        +Milestone.AERONAUTICAL_ENGINEERING
+        +Research.TURBOFUEL
+      }
       PACKAGED_WATER -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_OIL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_FUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
+      PACKAGED_FUEL_EXPERIMENTAL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_HEAVY_OIL_RESIDUE -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_LIQUID_BIOFUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
+      PACKAGED_LIQUID_BIOFUEL_EXPERIMENTAL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       LIQUID_BIOFUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       GAS_MASK -> MilestoneCondition(Milestone.GAS_MASK)
       GAS_FILTER -> MilestoneCondition(Milestone.GAS_MASK)
@@ -991,9 +1336,16 @@ enum class Item(
       CATERIUM_INGOT -> ResearchCondition(Research.CATERIUM_INGOTS)
       QUICKWIRE -> ResearchCondition(Research.QUICKWIRE)
       ZIPLINE -> ResearchCondition(Research.ZIPLINE)
-      AI_LIMITER -> ResearchCondition(Research.AI_LIMITER)
-      HIGH_SPEED_CONNECTOR -> ResearchCondition(Research.HIGH_SPEED_CONNECTOR)
+      AI_LIMITER -> any {
+        +Milestone.AERONAUTICAL_ENGINEERING
+        +Research.AI_LIMITER
+      }
+      HIGH_SPEED_CONNECTOR -> any {
+        +Milestone.AERONAUTICAL_ENGINEERING
+        +Research.HIGH_SPEED_CONNECTOR
+      }
       JETPACK -> MilestoneCondition(Milestone.JETPACK)
+      JETPACK_EXPERIMENTAL -> MilestoneCondition(Milestone.JETPACK)
       BAUXITE -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       PACKAGED_ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
@@ -1005,9 +1357,18 @@ enum class Item(
         +Milestone.BAUXITE_REFINEMENT
         +Research.UNKNOWN_CRYSTALLINE_MATERIAL
       }
-      QUARTZ_CRYSTAL -> ResearchCondition(Research.QUARTZ_CRYSTALS)
-      SILICA -> ResearchCondition(Research.SILICA)
-      CRYSTAL_OSCILLATOR -> ResearchCondition(Research.CRYSTAL_OSCILLATOR)
+      QUARTZ_CRYSTAL -> any {
+        +Milestone.BAUXITE_REFINEMENT
+        +Research.QUARTZ_CRYSTALS
+      }
+      SILICA -> any {
+        +Milestone.BAUXITE_REFINEMENT
+        +Research.SILICA
+      }
+      CRYSTAL_OSCILLATOR -> any {
+        +Milestone.BAUXITE_REFINEMENT
+        +Research.CRYSTAL_OSCILLATOR
+      }
       RADIO_CONTROL_UNIT -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       HAZMAT_SUIT -> MilestoneCondition(Milestone.HAZMAT_SUIT)
       IODINE_INFUSED_FILTER -> MilestoneCondition(Milestone.HAZMAT_SUIT)
@@ -1019,6 +1380,7 @@ enum class Item(
       COMPACTED_COAL -> ResearchCondition(Research.COMPACTED_COAL)
       TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
       PACKAGED_TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
+      PACKAGED_TURBOFUEL_EXPERIMENTAL -> ResearchCondition(Research.TURBOFUEL)
       NOBELISK_DETONATOR -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
       NOBELISK -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
       SMOKELESS_POWDER -> ResearchCondition(Research.SMOKELESS_POWDER)
@@ -1026,7 +1388,10 @@ enum class Item(
       EXPLOSIVE_REBAR -> ResearchCondition(Research.EXPLOSIVE_REBAR)
       RIFLE -> ResearchCondition(Research.THE_RIFLE)
       RIFLE_AMMO -> ResearchCondition(Research.THE_RIFLE)
-      SULFURIC_ACID -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
+      SULFURIC_ACID -> any {
+        +Milestone.AERONAUTICAL_ENGINEERING
+        +Milestone.NUCLEAR_POWER
+      }
       PACKAGED_SULFURIC_ACID -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       BATTERY -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       SUPERCOMPUTER -> any {
@@ -1035,25 +1400,30 @@ enum class Item(
       }
       ASSEMBLY_DIRECTOR_SYSTEM -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       HOVER_PACK -> MilestoneCondition(Milestone.HOVER_PACK)
+      HOVER_PACK_EXPERIMENTAL -> MilestoneCondition(Milestone.HOVER_PACK)
       URANIUM -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       ENCASED_URANIUM_CELL -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       ELECTROMAGNETIC_CONTROL_ROD -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       URANIUM_FUEL_ROD -> MilestoneCondition(Milestone.NUCLEAR_POWER)
+      URANIUM_WASTE -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       MAGNETIC_FIELD_GENERATOR -> MilestoneCondition(Milestone.NUCLEAR_POWER)
-      EMPTY_FLUID_TANK -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
+      EMPTY_FLUID_TANK -> any {
+        +Milestone.ADVANCED_ALUMINUM_PRODUCTION
+        +Milestone.PARTICLE_ENRICHMENT
+      }
       PACKAGED_NITROGEN_GAS -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       HEAT_SINK -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       COOLING_SYSTEM -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       FUSED_MODULAR_FRAME -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
-      TURBO_MOTOR -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
-      THERMAL_PROPULSION_ROCKET -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
+      TURBO_MOTOR -> MilestoneCondition(Milestone.LEADING_EDGE_PRODUCTION)
+      THERMAL_PROPULSION_ROCKET -> MilestoneCondition(Milestone.LEADING_EDGE_PRODUCTION)
       WOOD -> Condition.TRUE
       LEAVES -> Condition.TRUE
       FLOWER_PETALS -> Condition.TRUE
       HOG_REMAINS -> Condition.TRUE
       HATCHER_REMAINS -> Condition.TRUE
       STINGER_REMAINS -> Condition.TRUE
-      SPITTER_REMAINS -> Condition.TRUE
+      PLASMA_SPITTER_REMAINS -> Condition.TRUE
       ALIEN_PROTEIN -> any {
         +Research.HOG_RESEARCH
         +Research.HATCHER_RESEARCH
@@ -1069,12 +1439,64 @@ enum class Item(
       PALEBERRY -> Condition.TRUE
       MEDICINAL_INHALER -> any {
         +Research.PROTEIN_INHALER
-        // TODO
+        +Research.VITAMIN_INHALER
+        +Research.THERAPEUTIC_INHALER
+        +Research.NUTRITIONAL_INHALER
       }
       BLUE_POWER_SLUG -> Condition.TRUE
       YELLOW_POWER_SLUG -> Condition.TRUE
       PURPLE_POWER_SLUG -> Condition.TRUE
       HARD_DRIVE -> Condition.TRUE
+      PLUTONIUM_WASTE -> Condition.TRUE
+      NON_FISSILE_URANIUM -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      PLUTONIUM_PELLET -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      ENCASED_PLUTONIUM_CELL -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      POWER_SHARD -> any {
+        +Research.BLUE_POWER_SLUGS
+        +Research.YELLOW_POWER_SHARDS
+        +Research.PURPLE_POWER_SHARDS
+      }
+      HUB_PARTS -> Condition.TRUE
+      FICSMAS_GIFT -> Condition.TRUE
+      CANDY_CANE -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FICSMAS_TREE_BRANCH -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FICSMAS_BOW -> Condition.FALSE // TODO: Implement unsupported conditions.
+      ACTUAL_SNOW -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FICSMAS_WONDER_STAR -> Condition.FALSE // TODO: Implement unsupported conditions.
+      RED_FICSMAS_ORNAMENT -> Condition.FALSE // TODO: Implement unsupported conditions.
+      BLUE_FICSMAS_ORNAMENT -> Condition.FALSE // TODO: Implement unsupported conditions.
+      COPPER_FICSMAS_ORNAMENT -> Condition.FALSE // TODO: Implement unsupported conditions.
+      IRON_FICSMAS_ORNAMENT -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FICSMAS_ORNAMENT_BUNDLE -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FICSMAS_DECORATION -> Condition.FALSE // TODO: Implement unsupported conditions.
+      NUCLEAR_PASTA -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      NITRIC_ACID -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      PRESSURE_CONVERSION_CUBE -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      COPPER_POWDER -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      PARACHUTE -> ResearchCondition(Research.PARACHUTE)
+      PARACHUTE_EXPERIMENTAL -> ResearchCondition(Research.PARACHUTE)
+      PACKAGED_NITRIC_ACID -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      FABRIC -> any {
+        +Research.FABRIC
+        +Research.SYNTHETIC_POLYESTER_FABRIC
+      }
+      NITROGEN_GAS -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
+      FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.
+      BLADE_RUNNERS -> ResearchCondition(Research.BLADE_RUNNERS)
+      CANDY_CANE_BASHER -> Condition.FALSE // TODO: Implement unsupported conditions.
+      GOLDEN_FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.
+      PLUTONIUM_FUEL_ROD -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
+      STUN_REBAR -> ResearchCondition(Research.STUN_REBAR)
+      HOMING_RIFLE_AMMO -> ResearchCondition(Research.BULLET_GUIDANCE_SYSTEM)
+      GAS_NOBELISK -> ResearchCondition(Research.TOXIC_CELLULAR_MODIFICATION)
+      NUKE_NOBELISK -> ResearchCondition(Research.NUCLEAR_DETERRENT_DEVELOPMENT)
+      PULSE_NOBELISK -> ResearchCondition(Research.EXPLOSIVE_RESONANCE_APPLICATION)
+      SWEET_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
+      FANCY_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
+      SPARKLY_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
+      SNOWBALL -> Condition.FALSE // TODO: Implement unsupported conditions.
+      SHATTER_REBAR -> ResearchCondition(Research.SHATTER_REBAR)
+      TURBO_RIFLE_AMMO -> ResearchCondition(Research.TURBO_RIFLE_AMMO)
     }
   }
 }

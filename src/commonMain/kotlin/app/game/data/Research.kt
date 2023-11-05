@@ -37,7 +37,7 @@ enum class Research(
   SPITTER_RESEARCH(
     "Spitter Research",
     Category.ALIEN_ORGANISMS,
-    cost = mapOf(Item.SPITTER_REMAINS to 1.q),
+    cost = mapOf(Item.PLASMA_SPITTER_REMAINS to 1.q),
     requirement = Condition.TRUE,
   ),
   BIO_ORGANIC_PROPERTIES(
@@ -264,7 +264,7 @@ enum class Research(
     "Parachute",
     Category.MYCELIA,
     cost = mapOf(
-      // TODO: Item.FABRIC to 10.q,
+      Item.FABRIC to 10.q,
       Item.CABLE to 50.q,
     ),
     requirement = ResearchCondition(FABRIC),
@@ -273,7 +273,7 @@ enum class Research(
     "Expanded Toolbelt",
     Category.MYCELIA,
     cost = mapOf(
-      // TODO: Item.FABRIC to 50.q,
+      Item.FABRIC to 50.q,
       Item.ROTOR to 100.q,
     ),
     requirement = ResearchCondition(FABRIC),
@@ -282,7 +282,7 @@ enum class Research(
     "Synthetic Polyester Fabric",
     Category.MYCELIA,
     cost = mapOf(
-      // TODO: Item.FABRIC to 25.q,
+      Item.FABRIC to 25.q,
       Item.POLYMER_RESIN to 100.q,
     ),
     requirement = ResearchCondition(FABRIC),
@@ -380,7 +380,7 @@ enum class Research(
     "Overclock Production",
     Category.POWER_SLUGS,
     cost = mapOf(
-      // TODO: Item.POWER_SHARD to 1.q,
+      Item.POWER_SHARD to 1.q,
       Item.IRON_PLATE to 50.q,
       Item.WIRE to 50.q,
     ),
@@ -1021,7 +1021,7 @@ enum class Research(
     cost = mapOf(),
     requirement = any {
       +Milestone.ADVANCED_STEEL_PRODUCTION
-      +Research.CATERIUM_INGOTS
+      +CATERIUM_INGOTS
     },
   ),
   RADIO_CONNECTION_UNIT(

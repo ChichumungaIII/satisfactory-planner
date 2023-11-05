@@ -9,6 +9,7 @@ private val CATEGORY_ORDER = listOf(
   Item.Category.PARTS,
   Item.Category.EQUIPMENT,
   Item.Category.NATURE,
+  Item.Category.UNCATEGORIZED,
 )
 
 val ItemAutocomplete = createAppAutocomplete(

@@ -8,14 +8,14 @@ import java.io.PrintWriter
 
 interface ConditionWriter {
   companion object {
-    private val IGNORED_CONDITIONS = setOf(
+    private val UNSUPPORTED_CONDITIONS = setOf(
       // AWESOME Shop unlocks.
       "[[AWESOME Shop]] - FICSIT Factory Cart™",
       "[[AWESOME Shop]] - Golden FICSIT Factory Cart™",
       // Weird and FICSMAS.
       "Equipment: Fireworks",
       // Removed from game.
-      "[[Flower Petals Research|MAM Flower Petals Research]] - Color Cartridges ",
+      "[[Flower Petals Research|MAM Flower Petals Research]] - Color Cartridges",
     )
 
     private val UNSUPPORTED_RESEARCH = setOf(
@@ -48,18 +48,14 @@ interface ConditionWriter {
     )
 
     fun parse(unlockedBy: String): ConditionWriter {
-      val conditions = unlockedBy.split("OR<br>")
-        .filterNot { IGNORED_CONDITIONS.contains(it) }
-        .map { parseCondition(it.trim()) }
+      val conditions = unlockedBy.split("OR<br>").map { parseCondition(it.trim()) }
       return if (conditions.size == 1) conditions[0]
-      else AnyCondition(conditions.map {
-        (it as? EnumCondition<*>)
-          ?: error("Joined conditions must be EnumCondition.")
-      })
+      else AnyCondition(conditions)
     }
 
     private fun parseCondition(value: String): ConditionWriter {
       if (value.isEmpty()) return TrueCondition
+      if (UNSUPPORTED_CONDITIONS.contains(value)) return TodoCondition
 
       PARSERS.entries.forEach { (regex, handler) ->
         val condition = regex.matchEntire(value)?.let(handler)

@@ -15,6 +15,11 @@ sealed class Condition {
     override fun compute(progress: Progress) = true
   }
 
+  @Deprecated("Condition.FALSE should never be necessary.")
+  data object FALSE : Condition() {
+    override fun compute(progress: Progress) = false
+  }
+
   class PhaseCondition(private val phase: Phase) : Condition() {
     override fun compute(progress: Progress) = phase <= progress.phase
   }

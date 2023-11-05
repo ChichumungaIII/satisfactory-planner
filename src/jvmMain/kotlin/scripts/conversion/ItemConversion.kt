@@ -1,5 +1,6 @@
 package com.chichumunga.satisfactory.scripts.conversion
 
+import app.game.data.Item
 import app.game.data.Milestone
 import app.game.data.Phase
 import app.game.data.Research
@@ -14,12 +15,13 @@ import com.chichumunga.satisfactory.scripts.json.ItemSchema
 fun ItemSchema.convertToItemEnum(): ItemEnum {
   val suffix = "_EXPERIMENTAL".takeIf { experimental && !stable } ?: ""
   val enumName = "${uppercaseUnderscore(name)}$suffix"
+  val spec = ITEM_SPECS_INDEX[enumName]
   return ItemEnum(
-    majorGroup = ITEM_SPECS_INDEX[enumName]?.majorItemGroup ?: MajorItemGroup.UNCATEGORIZED,
-    minorGroup = ITEM_SPECS_INDEX[enumName]?.minorItemGroup ?: MinorItemGroup.UNCATEGORIZED,
+    majorGroup = spec?.majorItemGroup ?: MajorItemGroup.UNCATEGORIZED,
+    minorGroup = spec?.minorItemGroup ?: MinorItemGroup.UNCATEGORIZED,
     enumName = enumName,
     displayName = name,
-    category = ITEM_SPECS_INDEX[enumName]?.category,
+    category = spec?.category ?: Item.Category.UNCATEGORIZED,
     stack = stackSize.takeIf { it > 0 && form == "solid" },
     sink = sinkPoints.takeIf { it > 0 && form == "solid" },
     energy = energy.takeIf { it > 0.0 }?.downcast(),

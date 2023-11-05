@@ -11,7 +11,7 @@ data class ItemEnum(
   val minorGroup: MinorItemGroup,
   val enumName: String,
   val displayName: String,
-  val category: Item.Category?,
+  val category: Item.Category,
   val stack: Int?,
   val sink: Int?,
   val energy: Int?,
@@ -74,6 +74,7 @@ data class ItemEnum(
         |    EQUIPMENT("Equipment"),
         |    NATURE("Nature"),
         |    RESOURCES("Resources"),
+        |    UNCATEGORIZED("Uncategorized"),
         |  }
         |
         """.trimMargin()
@@ -113,7 +114,7 @@ data class ItemEnum(
   fun writeEnumDeclarationTo(writer: PrintWriter) = with(writer) {
     println("  $enumName(")
     println("    \"$displayName\",")
-    category?.let { "Category.${it.name}" }?.also { println("    $it,") } ?: run { println("    TODO(),") }
+    println("    Category.${category.name},")
     stack?.also { println("    stack = ${legible(it)}.q,") }
     sink?.also { println("    sink = ${legible(it)}.q,") }
     energy?.also { println("    energy = ${legible(it)}.q,") }
