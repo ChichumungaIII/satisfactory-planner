@@ -34,7 +34,7 @@ private val NEW_PRODUCT = Product(
   amount = 0.q,
 )
 
-val PartitionProducts = FC<PartitionProductsProps>("PartitionProducts") {
+val PartitionProductsLegacy = FC<PartitionProductsProps>("PartitionProducts") {
   var partition by usePartition()
 
   PartitionProductsList {

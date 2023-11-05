@@ -15,9 +15,9 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
     direction = responsive(StackDirection.column)
     divider = Divider.create {}
 
-    PartitionInputs {}
-    PartitionProducts {}
-    PartitionTargets {}
-    NestedPartitions {}
+    PartitionInputsLegacy {}
+    PartitionProductsLegacy {}
+    PartitionTargetsLegacy {}
+    NestedPartitionsLegacy {}
   }
 }

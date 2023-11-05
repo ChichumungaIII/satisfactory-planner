@@ -28,7 +28,7 @@ import web.cssom.px
 
 private val NEW_INPUT = Input(item = null, quantity = 0.q)
 
-val PartitionInputs = FC<Props>("PartitionInputs") {
+val PartitionInputsLegacy = FC<Props>("PartitionInputs") {
   var partition by usePartition()
 
   PartitionInputsList {

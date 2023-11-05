@@ -28,7 +28,7 @@ import web.cssom.Padding
 import web.cssom.px
 
 
-val PartitionTargets = FC<Props>("PartitionTargets") {
+val PartitionTargetsLegacy = FC<Props>("PartitionTargets") {
   var partition by usePartition()
 
   Box {

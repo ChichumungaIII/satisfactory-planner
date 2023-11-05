@@ -26,7 +26,7 @@ import web.cssom.px
 
 external interface NestedPartitionsProps : Props
 
-val NestedPartitions: FC<NestedPartitionsProps> = FC("NestedPartitions") { props ->
+val NestedPartitionsLegacy: FC<NestedPartitionsProps> = FC("NestedPartitions") { props ->
   val dispatch = useAppDispatch()
   val progress = useProgress()
   var parent by usePartition()
