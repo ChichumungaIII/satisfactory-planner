@@ -1,8 +1,8 @@
 package app.routes.plan.partition
 
 import mui.material.Divider
-import mui.system.Stack
-import mui.system.StackDirection
+import mui.material.Stack
+import mui.material.StackDirection
 import mui.system.responsive
 import react.FC
 import react.Props
