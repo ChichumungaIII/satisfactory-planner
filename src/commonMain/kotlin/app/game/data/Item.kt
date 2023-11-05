@@ -1048,7 +1048,7 @@ enum class Item(
     stack = 50.q,
   ),
 
-  /* Hard Drives */
+  /* Specialty */
 
   HARD_DRIVE(
     "Hard Drive",
@@ -1227,7 +1227,6 @@ enum class Item(
         +Research.BIO_ORGANIC_PROPERTIES
         +Research.MYCELIA
       }
-
       OBJECT_SCANNER -> MilestoneCondition(Milestone.FIELD_RESEARCH)
       BEACON -> MilestoneCondition(Milestone.FIELD_RESEARCH)
       COPPER_SHEET -> MilestoneCondition(Milestone.PART_ASSEMBLY)
@@ -1240,12 +1239,10 @@ enum class Item(
         +Milestone.RESOURCE_SINK_BONUS_PROGRAM
         +Condition.FALSE // TODO: Implement unsupported conditions.
       }
-
       COAL -> any {
         +Milestone.COAL_POWER
         +Research.COMPACTED_COAL
       }
-
       WATER -> any {
         +Milestone.COAL_POWER
         +Milestone.ALTERNATIVE_FLUID_TRANSPORT
@@ -1253,7 +1250,6 @@ enum class Item(
         +Milestone.AERONAUTICAL_ENGINEERING
         +Milestone.PARTICLE_ENRICHMENT
       }
-
       STEEL_INGOT -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       STEEL_BEAM -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       STEEL_PIPE -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
@@ -1267,19 +1263,16 @@ enum class Item(
         +Milestone.OIL_PROCESSING
         +Milestone.ALTERNATIVE_FLUID_TRANSPORT
       }
-
       PLASTIC -> MilestoneCondition(Milestone.OIL_PROCESSING)
       HEAVY_OIL_RESIDUE -> any {
         +Milestone.OIL_PROCESSING
         +Milestone.ALTERNATIVE_FLUID_TRANSPORT
       }
-
       RUBBER -> MilestoneCondition(Milestone.OIL_PROCESSING)
       FUEL -> any {
         +Milestone.OIL_PROCESSING
         +Milestone.ALTERNATIVE_FLUID_TRANSPORT
       }
-
       POLYMER_RESIN -> MilestoneCondition(Milestone.OIL_PROCESSING)
       PETROLEUM_COKE -> MilestoneCondition(Milestone.OIL_PROCESSING)
       CIRCUIT_BOARD -> MilestoneCondition(Milestone.OIL_PROCESSING)
@@ -1292,7 +1285,6 @@ enum class Item(
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.TURBOFUEL
       }
-
       PACKAGED_WATER -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_OIL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_FUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
@@ -1303,7 +1295,6 @@ enum class Item(
         +Milestone.EXPANDED_POWER_INFRASTRUCTURE
         +Research.UNKNOWN_METAL
       }
-
       CATERIUM_INGOT -> ResearchCondition(Research.CATERIUM_INGOTS)
       QUICKWIRE -> ResearchCondition(Research.QUICKWIRE)
       ZIPLINE -> ResearchCondition(Research.ZIPLINE)
@@ -1311,12 +1302,10 @@ enum class Item(
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.AI_LIMITER
       }
-
       HIGH_SPEED_CONNECTOR -> any {
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.HIGH_SPEED_CONNECTOR
       }
-
       BAUXITE -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       PACKAGED_ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
@@ -1328,28 +1317,23 @@ enum class Item(
         +Milestone.BAUXITE_REFINEMENT
         +Research.UNKNOWN_CRYSTALLINE_MATERIAL
       }
-
       QUARTZ_CRYSTAL -> any {
         +Milestone.BAUXITE_REFINEMENT
         +Research.QUARTZ_CRYSTALS
       }
-
       SILICA -> any {
         +Milestone.BAUXITE_REFINEMENT
         +Research.SILICA
       }
-
       CRYSTAL_OSCILLATOR -> any {
         +Milestone.BAUXITE_REFINEMENT
         +Research.CRYSTAL_OSCILLATOR
       }
-
       RADIO_CONTROL_UNIT -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       SULFUR -> any {
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.UNKNOWN_CHEMICAL_ELEMENT
       }
-
       BLACK_POWDER -> ResearchCondition(Research.BLACK_POWDER)
       COMPACTED_COAL -> ResearchCondition(Research.COMPACTED_COAL)
       TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
@@ -1359,14 +1343,12 @@ enum class Item(
         +Milestone.AERONAUTICAL_ENGINEERING
         +Milestone.NUCLEAR_POWER
       }
-
       PACKAGED_SULFURIC_ACID -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       BATTERY -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       SUPERCOMPUTER -> any {
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.SUPERCOMPUTER
       }
-
       ASSEMBLY_DIRECTOR_SYSTEM -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
       URANIUM -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       ENCASED_URANIUM_CELL -> MilestoneCondition(Milestone.NUCLEAR_POWER)
@@ -1379,7 +1361,6 @@ enum class Item(
         +Milestone.ADVANCED_ALUMINUM_PRODUCTION
         +Milestone.PARTICLE_ENRICHMENT
       }
-
       PACKAGED_NITROGEN_GAS -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       HEAT_SINK -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       COOLING_SYSTEM -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
@@ -1392,7 +1373,7 @@ enum class Item(
       PLUTONIUM_PELLET -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       ENCASED_PLUTONIUM_CELL -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       PLUTONIUM_FUEL_ROD -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
-      PLUTONIUM_WASTE -> Condition.TRUE
+      PLUTONIUM_WASTE -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       COPPER_POWDER -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       PRESSURE_CONVERSION_CUBE -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       NUCLEAR_PASTA -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
@@ -1406,7 +1387,6 @@ enum class Item(
         +Research.THERAPEUTIC_INHALER
         +Research.NUTRITIONAL_INHALER
       }
-
       GAS_MASK -> MilestoneCondition(Milestone.GAS_MASK)
       GAS_FILTER -> MilestoneCondition(Milestone.GAS_MASK)
       HAZMAT_SUIT -> MilestoneCondition(Milestone.HAZMAT_SUIT)
@@ -1441,7 +1421,6 @@ enum class Item(
         +Research.STINGER_RESEARCH
         +Research.SPITTER_RESEARCH
       }
-
       ALIEN_DNA_CAPSULE -> ResearchCondition(Research.BIO_ORGANIC_PROPERTIES)
       MYCELIA -> Condition.TRUE
       BACON_AGARIC -> Condition.TRUE
@@ -1456,7 +1435,6 @@ enum class Item(
         +Research.YELLOW_POWER_SHARDS
         +Research.PURPLE_POWER_SHARDS
       }
-
       HUB_PARTS -> Condition.TRUE
       FICSMAS_GIFT -> Condition.TRUE
       CANDY_CANE -> Condition.FALSE // TODO: Implement unsupported conditions.
@@ -1474,7 +1452,6 @@ enum class Item(
         +Research.FABRIC
         +Research.SYNTHETIC_POLYESTER_FABRIC
       }
-
       FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.
       CANDY_CANE_BASHER -> Condition.FALSE // TODO: Implement unsupported conditions.
       GOLDEN_FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.

@@ -79,4 +79,5 @@ private val CONDITION_OVERRIDES = mapOf(
   ),
   "URANIUM" to EnumCondition(Milestone.NUCLEAR_POWER),
   "URANIUM_WASTE" to EnumCondition(Milestone.NUCLEAR_POWER),
+  "PLUTONIUM_WASTE" to EnumCondition(Milestone.PARTICLE_ENRICHMENT),
 )

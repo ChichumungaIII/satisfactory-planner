@@ -5,6 +5,7 @@ import app.redux.useAppDispatch
 import app.routes.plan.PartitionContext
 import app.routes.plan.PartitionContextValue
 import app.routes.plan.usePartition
+import app.routes.plan.useProgress
 import mui.icons.material.Delete
 import mui.icons.material.ExpandMore
 import mui.material.Accordion
@@ -27,6 +28,7 @@ external interface NestedPartitionsProps : Props
 
 val NestedPartitions: FC<NestedPartitionsProps> = FC("NestedPartitions") { props ->
   val dispatch = useAppDispatch()
+  val progress = useProgress()
   var parent by usePartition()
 
   fun setChild(i: Int, child: Partition) {
@@ -46,7 +48,7 @@ val NestedPartitions: FC<NestedPartitionsProps> = FC("NestedPartitions") { props
       PartitionContext(PartitionContextValue(child) { next ->
         val updated = next.copy(optimized = false)
         setChild(i, updated)
-        dispatch(OptimizePartition(updated) { optimized -> setChild(i, optimized) })
+        dispatch(OptimizePartition(updated, progress) { optimized -> setChild(i, optimized) })
       }) {
         Accordion {
           AccordionSummary {
