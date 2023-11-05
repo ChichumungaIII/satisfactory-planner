@@ -1,7 +1,6 @@
 package app.routes.plan.partition
 
 import mui.material.Divider
-import mui.system.Breakpoint
 import mui.system.Stack
 import mui.system.StackDirection
 import mui.system.responsive
@@ -16,17 +15,8 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
     direction = responsive(StackDirection.column)
     divider = Divider.create {}
 
-    Stack {
-      direction = responsive(
-        Breakpoint.xs to StackDirection.column,
-        Breakpoint.lg to StackDirection.row,
-      )
-      divider = Divider.create {}
-
-      PartitionInputs {}
-      PartitionProducts {}
-    }
-
+    PartitionInputs {}
+    PartitionProducts {}
     PartitionTargets {}
     NestedPartitions {}
   }
