@@ -43,6 +43,7 @@ enum class MinorItemGroup(val printName: String) {
   PARTICLE_ENRICHMENT("Particle Enrichment"),
 
   TRANSPORTATION("Transportation"),
+  HEALTH_AND_SAFETY("Health and Safety"),
   MELEE_WEAPONS("Melee Weapons"),
   REBAR_GUN("Rebar Gun"),
   RIFLE("Rifle"),

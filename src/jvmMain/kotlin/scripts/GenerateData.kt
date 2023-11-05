@@ -37,10 +37,10 @@ fun writeItems(path: String, items: List<ItemEnum>) {
         if (firstMajor) firstMajor = false
         else println()
 
-        val asterisks = "*".repeat(major.printName.length)
-        println("  /* $asterisks */")
-        println("  /* ${major.printName} */")
-        println("  /* $asterisks */")
+        val asterisks = "*".repeat(major.printName.length + 4)
+        println("  /*$asterisks*/")
+        println("  /** ${major.printName} **/")
+        println("  /*$asterisks*/")
         println()
 
         var firstMinor = true

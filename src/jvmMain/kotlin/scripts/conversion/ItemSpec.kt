@@ -1,6 +1,5 @@
 package com.chichumunga.satisfactory.scripts.conversion
 
-import app.game.data.Item
 import app.game.data.Item.Category
 import com.chichumunga.satisfactory.scripts.item.ItemEnum
 import com.chichumunga.satisfactory.scripts.item.MajorItemGroup
@@ -112,9 +111,6 @@ val ITEM_SPECS = listOf(
   ),
   ItemSpec("LIQUID_BIOFUEL", MajorItemGroup.TIER_5, MinorItemGroup.ALTERNATIVE_FLUID_TRANSPORT, Category.PARTS),
 
-  ItemSpec("GAS_MASK", MajorItemGroup.TIER_5, MinorItemGroup.GAS_MASK, Category.EQUIPMENT),
-  ItemSpec("GAS_FILTER", MajorItemGroup.TIER_5, MinorItemGroup.GAS_MASK, Category.PARTS),
-
 
   ItemSpec("CATERIUM_ORE", MajorItemGroup.TIER_6, MinorItemGroup.EXPANDED_POWER_INFRASTRUCTURE, Category.RESOURCES),
   ItemSpec("CATERIUM_INGOT", MajorItemGroup.TIER_6, MinorItemGroup.EXPANDED_POWER_INFRASTRUCTURE, Category.PARTS),
@@ -136,9 +132,6 @@ val ITEM_SPECS = listOf(
   ItemSpec("SILICA", MajorItemGroup.TIER_7, MinorItemGroup.BAUXITE_REFINEMENT, Category.PARTS),
   ItemSpec("CRYSTAL_OSCILLATOR", MajorItemGroup.TIER_7, MinorItemGroup.BAUXITE_REFINEMENT, Category.PARTS),
   ItemSpec("RADIO_CONTROL_UNIT", MajorItemGroup.TIER_7, MinorItemGroup.BAUXITE_REFINEMENT, Category.PARTS),
-
-  ItemSpec("HAZMAT_SUIT", MajorItemGroup.TIER_7, MinorItemGroup.HAZMAT_SUIT, Category.EQUIPMENT),
-  ItemSpec("IODINE_INFUSED_FILTER", MajorItemGroup.TIER_7, MinorItemGroup.HAZMAT_SUIT, Category.PARTS),
 
   ItemSpec("SULFUR", MajorItemGroup.TIER_7, MinorItemGroup.AERONAUTICAL_ENGINEERING, Category.RESOURCES),
   ItemSpec("BLACK_POWDER", MajorItemGroup.TIER_7, MinorItemGroup.AERONAUTICAL_ENGINEERING, Category.PARTS),
@@ -166,6 +159,7 @@ val ITEM_SPECS = listOf(
   ItemSpec("URANIUM_WASTE", MajorItemGroup.TIER_8, MinorItemGroup.NUCLEAR_POWER, Category.PARTS),
   ItemSpec("MAGNETIC_FIELD_GENERATOR", MajorItemGroup.TIER_8, MinorItemGroup.NUCLEAR_POWER, Category.PARTS),
 
+  ItemSpec("NITROGEN_GAS", MajorItemGroup.TIER_8, MinorItemGroup.ADVANCED_ALUMINUM_PRODUCTION, Category.RESOURCES),
   ItemSpec("EMPTY_FLUID_TANK", MajorItemGroup.TIER_8, MinorItemGroup.ADVANCED_ALUMINUM_PRODUCTION, Category.PARTS),
   ItemSpec("PACKAGED_NITROGEN_GAS", MajorItemGroup.TIER_8, MinorItemGroup.ADVANCED_ALUMINUM_PRODUCTION, Category.PARTS),
   ItemSpec("HEAT_SINK", MajorItemGroup.TIER_8, MinorItemGroup.ADVANCED_ALUMINUM_PRODUCTION, Category.PARTS),
@@ -175,6 +169,17 @@ val ITEM_SPECS = listOf(
   ItemSpec("TURBO_MOTOR", MajorItemGroup.TIER_8, MinorItemGroup.LEADING_EDGE_PRODUCTION, Category.PARTS),
   ItemSpec("THERMAL_PROPULSION_ROCKET", MajorItemGroup.TIER_8, MinorItemGroup.LEADING_EDGE_PRODUCTION, Category.PARTS),
 
+  ItemSpec("NITRIC_ACID", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("PACKAGED_NITRIC_ACID", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("NON_FISSILE_URANIUM", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("PLUTONIUM_PELLET", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("ENCASED_PLUTONIUM_CELL", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("PLUTONIUM_FUEL_ROD", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("PLUTONIUM_WASTE", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("COPPER_POWDER", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("PRESSURE_CONVERSION_CUBE", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+  ItemSpec("NUCLEAR_PASTA", MajorItemGroup.TIER_8, MinorItemGroup.PARTICLE_ENRICHMENT, Category.PARTS),
+
 
   ItemSpec("BLADE_RUNNERS", MajorItemGroup.EQUIPMENT, MinorItemGroup.TRANSPORTATION, Category.EQUIPMENT),
   ItemSpec("PARACHUTE", MajorItemGroup.EQUIPMENT, MinorItemGroup.TRANSPORTATION, Category.EQUIPMENT),
@@ -183,6 +188,12 @@ val ITEM_SPECS = listOf(
   ItemSpec("JETPACK_EXPERIMENTAL", MajorItemGroup.EQUIPMENT, MinorItemGroup.TRANSPORTATION, Category.EQUIPMENT),
   ItemSpec("HOVER_PACK", MajorItemGroup.EQUIPMENT, MinorItemGroup.TRANSPORTATION, Category.EQUIPMENT),
   ItemSpec("HOVER_PACK_EXPERIMENTAL", MajorItemGroup.EQUIPMENT, MinorItemGroup.TRANSPORTATION, Category.EQUIPMENT),
+
+  ItemSpec("MEDICINAL_INHALER", MajorItemGroup.EQUIPMENT, MinorItemGroup.HEALTH_AND_SAFETY, Category.EQUIPMENT),
+  ItemSpec("GAS_MASK", MajorItemGroup.EQUIPMENT, MinorItemGroup.HEALTH_AND_SAFETY, Category.EQUIPMENT),
+  ItemSpec("GAS_FILTER", MajorItemGroup.EQUIPMENT, MinorItemGroup.HEALTH_AND_SAFETY, Category.CONSUMABLES),
+  ItemSpec("HAZMAT_SUIT", MajorItemGroup.EQUIPMENT, MinorItemGroup.HEALTH_AND_SAFETY, Category.EQUIPMENT),
+  ItemSpec("IODINE_INFUSED_FILTER", MajorItemGroup.EQUIPMENT, MinorItemGroup.HEALTH_AND_SAFETY, Category.CONSUMABLES),
 
   ItemSpec("XENO_ZAPPER", MajorItemGroup.EQUIPMENT, MinorItemGroup.MELEE_WEAPONS, Category.EQUIPMENT),
   ItemSpec("XENO_BASHER", MajorItemGroup.EQUIPMENT, MinorItemGroup.MELEE_WEAPONS, Category.EQUIPMENT),
@@ -206,6 +217,7 @@ val ITEM_SPECS = listOf(
   ItemSpec("NUKE_NOBELISK", MajorItemGroup.EQUIPMENT, MinorItemGroup.NOBELISK, Category.CONSUMABLES),
 
 
+
   ItemSpec("WOOD", MajorItemGroup.NATURE, MinorItemGroup.MILESTONES, Category.NATURE),
   ItemSpec("LEAVES", MajorItemGroup.NATURE, MinorItemGroup.MILESTONES, Category.NATURE),
   ItemSpec("FLOWER_PETALS", MajorItemGroup.NATURE, MinorItemGroup.MILESTONES, Category.NATURE),
@@ -222,7 +234,6 @@ val ITEM_SPECS = listOf(
   ItemSpec("BACON_AGARIC", MajorItemGroup.NATURE, MinorItemGroup.NUTRIENTS, Category.NATURE),
   ItemSpec("BERYL_NUT", MajorItemGroup.NATURE, MinorItemGroup.NUTRIENTS, Category.NATURE),
   ItemSpec("PALEBERRY", MajorItemGroup.NATURE, MinorItemGroup.NUTRIENTS, Category.NATURE),
-  ItemSpec("MEDICINAL_INHALER", MajorItemGroup.NATURE, MinorItemGroup.NUTRIENTS, Category.EQUIPMENT),
 
   ItemSpec("BLUE_POWER_SLUG", MajorItemGroup.NATURE, MinorItemGroup.POWER_SLUGS, Category.NATURE),
   ItemSpec("YELLOW_POWER_SLUG", MajorItemGroup.NATURE, MinorItemGroup.POWER_SLUGS, Category.NATURE),
