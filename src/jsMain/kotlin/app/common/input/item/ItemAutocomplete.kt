@@ -7,6 +7,7 @@ import web.cssom.px
 private val CATEGORY_ORDER = listOf(
   Item.Category.RESOURCES,
   Item.Category.PARTS,
+  Item.Category.CONSUMABLES,
   Item.Category.EQUIPMENT,
   Item.Category.NATURE,
   Item.Category.UNCATEGORIZED,

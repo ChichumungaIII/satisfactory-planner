@@ -72,6 +72,7 @@ data class ItemEnum(
         |  ) {
         |    PARTS("Components"),
         |    EQUIPMENT("Equipment"),
+        |    CONSUMABLES("Consumables"),
         |    NATURE("Nature"),
         |    RESOURCES("Resources"),
         |    UNCATEGORIZED("Uncategorized"),

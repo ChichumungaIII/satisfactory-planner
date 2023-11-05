@@ -41,6 +41,13 @@ enum class MinorItemGroup(val printName: String) {
   ADVANCED_ALUMINUM_PRODUCTION("Advanced Aluminum Production"),
   LEADING_EDGE_PRODUCTION("Leading-edge Production"),
   PARTICLE_ENRICHMENT("Particle Enrichment"),
+
+  TRANSPORTATION("Transportation"),
+  MELEE_WEAPONS("Melee Weapons"),
+  REBAR_GUN("Rebar Gun"),
+  RIFLE("Rifle"),
+  NOBELISK("Nobelisk"),
+
   MILESTONES("Milestones"),
   ALIEN_ORGANISMS("Alien Organisms"),
   MYCELIA("Mycelia"),

@@ -48,12 +48,6 @@ enum class Item(
     stack = 200.q,
     sink = 4.q,
   ),
-  XENO_ZAPPER(
-    "Xeno-Zapper",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 1_880.q,
-  ),
 
   /* HUB Upgrade 1 */
 
@@ -129,7 +123,7 @@ enum class Item(
   ),
 
   /* ****** */
-  /* TIER 1 */
+  /* Tier 1 */
   /* ****** */
 
   /* Field Research */
@@ -148,7 +142,7 @@ enum class Item(
   ),
 
   /* ****** */
-  /* TIER 2 */
+  /* Tier 2 */
   /* ****** */
 
   /* Part Assembly */
@@ -205,7 +199,7 @@ enum class Item(
   ),
 
   /* ****** */
-  /* TIER 3 */
+  /* Tier 3 */
   /* ****** */
 
   /* Coal Power */
@@ -249,17 +243,8 @@ enum class Item(
     sink = 1_176.q,
   ),
 
-  /* Improved Melee Combat */
-
-  XENO_BASHER(
-    "Xeno-Basher",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 18_800.q,
-  ),
-
   /* ****** */
-  /* TIER 4 */
+  /* Tier 4 */
   /* ****** */
 
   /* Advanced Steel Production */
@@ -296,7 +281,7 @@ enum class Item(
   ),
 
   /* ****** */
-  /* TIER 5 */
+  /* Tier 5 */
   /* ****** */
 
   /* Oil Processing */
@@ -451,7 +436,7 @@ enum class Item(
   ),
 
   /* ****** */
-  /* TIER 6 */
+  /* Tier 6 */
   /* ****** */
 
   /* Expanded Power Infrastructure */
@@ -493,25 +478,8 @@ enum class Item(
     sink = 3_776.q,
   ),
 
-  /* Jetpack */
-
-  JETPACK(
-    "Jetpack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 49_580.q,
-    experimental = false,
-  ),
-  JETPACK_EXPERIMENTAL(
-    "Jetpack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 49_580.q,
-    stable = false,
-  ),
-
   /* ****** */
-  /* TIER 7 */
+  /* Tier 7 */
   /* ****** */
 
   /* Bauxite Refinement */
@@ -629,47 +597,11 @@ enum class Item(
     energy = 2_000.q,
     stable = false,
   ),
-  NOBELISK_DETONATOR(
-    "Nobelisk Detonator",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 6_480.q,
-  ),
-  NOBELISK(
-    "Nobelisk",
-    Category.PARTS,
-    stack = 50.q,
-    sink = 152.q,
-  ),
   SMOKELESS_POWDER(
     "Smokeless Powder",
     Category.PARTS,
     stack = 100.q,
     sink = 58.q,
-  ),
-  CLUSTER_NOBELISK(
-    "Cluster Nobelisk",
-    Category.PARTS,
-    stack = 50.q,
-    sink = 1_376.q,
-  ),
-  EXPLOSIVE_REBAR(
-    "Explosive Rebar",
-    Category.PARTS,
-    stack = 100.q,
-    sink = 360.q,
-  ),
-  RIFLE(
-    "Rifle",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 9_480.q,
-  ),
-  RIFLE_AMMO(
-    "Rifle Ammo",
-    Category.PARTS,
-    stack = 500.q,
-    sink = 25.q,
   ),
   SULFURIC_ACID(
     "Sulfuric Acid",
@@ -716,25 +648,8 @@ enum class Item(
     sink = 2_718.q,
   ),
 
-  /* Hover Pack */
-
-  HOVER_PACK(
-    "Hover Pack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 413_920.q,
-    experimental = false,
-  ),
-  HOVER_PACK_EXPERIMENTAL(
-    "Hover Pack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 413_920.q,
-    stable = false,
-  ),
-
   /* ****** */
-  /* TIER 8 */
+  /* Tier 8 */
   /* ****** */
 
   /* Nuclear Power */
@@ -828,8 +743,177 @@ enum class Item(
     sink = 732_956.q,
   ),
 
+  /* ********* */
+  /* Equipment */
+  /* ********* */
+
+  /* Transportation */
+
+  BLADE_RUNNERS(
+    "Blade Runners",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 4_088.q,
+  ),
+  PARACHUTE(
+    "Parachute",
+    Category.EQUIPMENT,
+    stack = 50.q,
+    sink = 608.q,
+    experimental = false,
+  ),
+  PARACHUTE_EXPERIMENTAL(
+    "Parachute",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 608.q,
+    stable = false,
+  ),
+  JETPACK(
+    "Jetpack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 49_580.q,
+    experimental = false,
+  ),
+  JETPACK_EXPERIMENTAL(
+    "Jetpack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 49_580.q,
+    stable = false,
+  ),
+  HOVER_PACK(
+    "Hover Pack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 413_920.q,
+    experimental = false,
+  ),
+  HOVER_PACK_EXPERIMENTAL(
+    "Hover Pack",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 413_920.q,
+    stable = false,
+  ),
+
+  /* Melee Weapons */
+
+  XENO_ZAPPER(
+    "Xeno-Zapper",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 1_880.q,
+  ),
+  XENO_BASHER(
+    "Xeno-Basher",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 18_800.q,
+  ),
+
+  /* Rebar Gun */
+
+  REBAR_GUN(
+    "Rebar Gun",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 1_968.q,
+  ),
+  IRON_REBAR(
+    "Iron Rebar",
+    Category.CONSUMABLES,
+    stack = 100.q,
+    sink = 8.q,
+  ),
+  STUN_REBAR(
+    "Stun Rebar",
+    Category.CONSUMABLES,
+    stack = 100.q,
+    sink = 186.q,
+  ),
+  SHATTER_REBAR(
+    "Shatter Rebar",
+    Category.CONSUMABLES,
+    stack = 100.q,
+    sink = 332.q,
+  ),
+  EXPLOSIVE_REBAR(
+    "Explosive Rebar",
+    Category.CONSUMABLES,
+    stack = 100.q,
+    sink = 360.q,
+  ),
+
+  /* Rifle */
+
+  RIFLE(
+    "Rifle",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 9_480.q,
+  ),
+  RIFLE_AMMO(
+    "Rifle Ammo",
+    Category.CONSUMABLES,
+    stack = 500.q,
+    sink = 25.q,
+  ),
+  HOMING_RIFLE_AMMO(
+    "Homing Rifle Ammo",
+    Category.CONSUMABLES,
+    stack = 500.q,
+    sink = 855.q,
+  ),
+  TURBO_RIFLE_AMMO(
+    "Turbo Rifle Ammo",
+    Category.CONSUMABLES,
+    stack = 500.q,
+    sink = 120.q,
+  ),
+
+  /* Nobelisk */
+
+  NOBELISK_DETONATOR(
+    "Nobelisk Detonator",
+    Category.EQUIPMENT,
+    stack = 1.q,
+    sink = 6_480.q,
+  ),
+  NOBELISK(
+    "Nobelisk",
+    Category.CONSUMABLES,
+    stack = 50.q,
+    sink = 152.q,
+  ),
+  GAS_NOBELISK(
+    "Gas Nobelisk",
+    Category.CONSUMABLES,
+    stack = 50.q,
+    sink = 544.q,
+  ),
+  PULSE_NOBELISK(
+    "Pulse Nobelisk",
+    Category.CONSUMABLES,
+    stack = 50.q,
+    sink = 1_533.q,
+  ),
+  CLUSTER_NOBELISK(
+    "Cluster Nobelisk",
+    Category.CONSUMABLES,
+    stack = 50.q,
+    sink = 1_376.q,
+  ),
+  NUKE_NOBELISK(
+    "Nuke Nobelisk",
+    Category.CONSUMABLES,
+    stack = 50.q,
+    sink = 19_600.q,
+  ),
+
   /* ****** */
-  /* NATURE */
+  /* Nature */
   /* ****** */
 
   /* Milestones */
@@ -891,18 +975,6 @@ enum class Item(
     "Alien DNA Capsule",
     Category.PARTS,
     stack = 50.q,
-  ),
-  REBAR_GUN(
-    "Rebar Gun",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 1_968.q,
-  ),
-  IRON_REBAR(
-    "Iron Rebar",
-    Category.PARTS,
-    stack = 100.q,
-    sink = 8.q,
   ),
 
   /* Mycelia */
@@ -1099,20 +1171,6 @@ enum class Item(
     stack = 500.q,
     sink = 72.q,
   ),
-  PARACHUTE(
-    "Parachute",
-    Category.UNCATEGORIZED,
-    stack = 50.q,
-    sink = 608.q,
-    experimental = false,
-  ),
-  PARACHUTE_EXPERIMENTAL(
-    "Parachute",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
-    sink = 608.q,
-    stable = false,
-  ),
   PACKAGED_NITRIC_ACID(
     "Packaged Nitric Acid",
     Category.UNCATEGORIZED,
@@ -1136,12 +1194,6 @@ enum class Item(
     stack = 1.q,
     sink = 1_552.q,
   ),
-  BLADE_RUNNERS(
-    "Blade Runners",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
-    sink = 4_088.q,
-  ),
   CANDY_CANE_BASHER(
     "Candy Cane Basher",
     Category.UNCATEGORIZED,
@@ -1161,36 +1213,6 @@ enum class Item(
     sink = 153_184.q,
     energy = 1_500_000.q,
     radiation = 250.q,
-  ),
-  STUN_REBAR(
-    "Stun Rebar",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
-    sink = 186.q,
-  ),
-  HOMING_RIFLE_AMMO(
-    "Homing Rifle Ammo",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
-    sink = 855.q,
-  ),
-  GAS_NOBELISK(
-    "Gas Nobelisk",
-    Category.UNCATEGORIZED,
-    stack = 50.q,
-    sink = 544.q,
-  ),
-  NUKE_NOBELISK(
-    "Nuke Nobelisk",
-    Category.UNCATEGORIZED,
-    stack = 50.q,
-    sink = 19_600.q,
-  ),
-  PULSE_NOBELISK(
-    "Pulse Nobelisk",
-    Category.UNCATEGORIZED,
-    stack = 50.q,
-    sink = 1_533.q,
   ),
   SWEET_FIREWORKS(
     "Sweet Fireworks",
@@ -1215,18 +1237,6 @@ enum class Item(
     Category.UNCATEGORIZED,
     stack = 500.q,
     sink = 1.q,
-  ),
-  SHATTER_REBAR(
-    "Shatter Rebar",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
-    sink = 332.q,
-  ),
-  TURBO_RIFLE_AMMO(
-    "Turbo Rifle Ammo",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
-    sink = 120.q,
   );
 
   enum class Category(
@@ -1234,6 +1244,7 @@ enum class Item(
   ) {
     PARTS("Components"),
     EQUIPMENT("Equipment"),
+    CONSUMABLES("Consumables"),
     NATURE("Nature"),
     RESOURCES("Resources"),
     UNCATEGORIZED("Uncategorized"),
@@ -1245,7 +1256,6 @@ enum class Item(
       IRON_INGOT -> PhaseCondition(Phase.GAME_START)
       IRON_PLATE -> PhaseCondition(Phase.GAME_START)
       IRON_ROD -> PhaseCondition(Phase.GAME_START)
-      XENO_ZAPPER -> PhaseCondition(Phase.GAME_START)
       PORTABLE_MINER -> MilestoneCondition(Milestone.HUB_UPGRADE_1)
       COPPER_ORE -> MilestoneCondition(Milestone.HUB_UPGRADE_2)
       COPPER_INGOT -> MilestoneCondition(Milestone.HUB_UPGRADE_2)
@@ -1287,7 +1297,6 @@ enum class Item(
       STEEL_BEAM -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       STEEL_PIPE -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
       VERSATILE_FRAMEWORK -> MilestoneCondition(Milestone.BASIC_STEEL_PRODUCTION)
-      XENO_BASHER -> MilestoneCondition(Milestone.IMPROVED_MELEE_COMBAT)
       ENCASED_INDUSTRIAL_BEAM -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
       STATOR -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
       MOTOR -> MilestoneCondition(Milestone.ADVANCED_STEEL_PRODUCTION)
@@ -1344,8 +1353,6 @@ enum class Item(
         +Milestone.AERONAUTICAL_ENGINEERING
         +Research.HIGH_SPEED_CONNECTOR
       }
-      JETPACK -> MilestoneCondition(Milestone.JETPACK)
-      JETPACK_EXPERIMENTAL -> MilestoneCondition(Milestone.JETPACK)
       BAUXITE -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
       PACKAGED_ALUMINA_SOLUTION -> MilestoneCondition(Milestone.BAUXITE_REFINEMENT)
@@ -1381,13 +1388,7 @@ enum class Item(
       TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
       PACKAGED_TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
       PACKAGED_TURBOFUEL_EXPERIMENTAL -> ResearchCondition(Research.TURBOFUEL)
-      NOBELISK_DETONATOR -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
-      NOBELISK -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
       SMOKELESS_POWDER -> ResearchCondition(Research.SMOKELESS_POWDER)
-      CLUSTER_NOBELISK -> ResearchCondition(Research.CLUSTER_NOBELISK)
-      EXPLOSIVE_REBAR -> ResearchCondition(Research.EXPLOSIVE_REBAR)
-      RIFLE -> ResearchCondition(Research.THE_RIFLE)
-      RIFLE_AMMO -> ResearchCondition(Research.THE_RIFLE)
       SULFURIC_ACID -> any {
         +Milestone.AERONAUTICAL_ENGINEERING
         +Milestone.NUCLEAR_POWER
@@ -1399,8 +1400,6 @@ enum class Item(
         +Research.SUPERCOMPUTER
       }
       ASSEMBLY_DIRECTOR_SYSTEM -> MilestoneCondition(Milestone.AERONAUTICAL_ENGINEERING)
-      HOVER_PACK -> MilestoneCondition(Milestone.HOVER_PACK)
-      HOVER_PACK_EXPERIMENTAL -> MilestoneCondition(Milestone.HOVER_PACK)
       URANIUM -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       ENCASED_URANIUM_CELL -> MilestoneCondition(Milestone.NUCLEAR_POWER)
       ELECTROMAGNETIC_CONTROL_ROD -> MilestoneCondition(Milestone.NUCLEAR_POWER)
@@ -1417,6 +1416,30 @@ enum class Item(
       FUSED_MODULAR_FRAME -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       TURBO_MOTOR -> MilestoneCondition(Milestone.LEADING_EDGE_PRODUCTION)
       THERMAL_PROPULSION_ROCKET -> MilestoneCondition(Milestone.LEADING_EDGE_PRODUCTION)
+      BLADE_RUNNERS -> ResearchCondition(Research.BLADE_RUNNERS)
+      PARACHUTE -> ResearchCondition(Research.PARACHUTE)
+      PARACHUTE_EXPERIMENTAL -> ResearchCondition(Research.PARACHUTE)
+      JETPACK -> MilestoneCondition(Milestone.JETPACK)
+      JETPACK_EXPERIMENTAL -> MilestoneCondition(Milestone.JETPACK)
+      HOVER_PACK -> MilestoneCondition(Milestone.HOVER_PACK)
+      HOVER_PACK_EXPERIMENTAL -> MilestoneCondition(Milestone.HOVER_PACK)
+      XENO_ZAPPER -> PhaseCondition(Phase.GAME_START)
+      XENO_BASHER -> MilestoneCondition(Milestone.IMPROVED_MELEE_COMBAT)
+      REBAR_GUN -> ResearchCondition(Research.THE_REBAR_GUN)
+      IRON_REBAR -> ResearchCondition(Research.THE_REBAR_GUN)
+      STUN_REBAR -> ResearchCondition(Research.STUN_REBAR)
+      SHATTER_REBAR -> ResearchCondition(Research.SHATTER_REBAR)
+      EXPLOSIVE_REBAR -> ResearchCondition(Research.EXPLOSIVE_REBAR)
+      RIFLE -> ResearchCondition(Research.THE_RIFLE)
+      RIFLE_AMMO -> ResearchCondition(Research.THE_RIFLE)
+      HOMING_RIFLE_AMMO -> ResearchCondition(Research.BULLET_GUIDANCE_SYSTEM)
+      TURBO_RIFLE_AMMO -> ResearchCondition(Research.TURBO_RIFLE_AMMO)
+      NOBELISK_DETONATOR -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
+      NOBELISK -> ResearchCondition(Research.THE_NOBELISK_DETONATOR)
+      GAS_NOBELISK -> ResearchCondition(Research.TOXIC_CELLULAR_MODIFICATION)
+      PULSE_NOBELISK -> ResearchCondition(Research.EXPLOSIVE_RESONANCE_APPLICATION)
+      CLUSTER_NOBELISK -> ResearchCondition(Research.CLUSTER_NOBELISK)
+      NUKE_NOBELISK -> ResearchCondition(Research.NUCLEAR_DETERRENT_DEVELOPMENT)
       WOOD -> Condition.TRUE
       LEAVES -> Condition.TRUE
       FLOWER_PETALS -> Condition.TRUE
@@ -1431,8 +1454,6 @@ enum class Item(
         +Research.SPITTER_RESEARCH
       }
       ALIEN_DNA_CAPSULE -> ResearchCondition(Research.BIO_ORGANIC_PROPERTIES)
-      REBAR_GUN -> ResearchCondition(Research.THE_REBAR_GUN)
-      IRON_REBAR -> ResearchCondition(Research.THE_REBAR_GUN)
       MYCELIA -> Condition.TRUE
       BACON_AGARIC -> Condition.TRUE
       BERYL_NUT -> Condition.TRUE
@@ -1473,8 +1494,6 @@ enum class Item(
       NITRIC_ACID -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       PRESSURE_CONVERSION_CUBE -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       COPPER_POWDER -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
-      PARACHUTE -> ResearchCondition(Research.PARACHUTE)
-      PARACHUTE_EXPERIMENTAL -> ResearchCondition(Research.PARACHUTE)
       PACKAGED_NITRIC_ACID -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       FABRIC -> any {
         +Research.FABRIC
@@ -1482,21 +1501,13 @@ enum class Item(
       }
       NITROGEN_GAS -> MilestoneCondition(Milestone.ADVANCED_ALUMINUM_PRODUCTION)
       FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.
-      BLADE_RUNNERS -> ResearchCondition(Research.BLADE_RUNNERS)
       CANDY_CANE_BASHER -> Condition.FALSE // TODO: Implement unsupported conditions.
       GOLDEN_FACTORY_CART -> Condition.FALSE // TODO: Implement unsupported conditions.
       PLUTONIUM_FUEL_ROD -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
-      STUN_REBAR -> ResearchCondition(Research.STUN_REBAR)
-      HOMING_RIFLE_AMMO -> ResearchCondition(Research.BULLET_GUIDANCE_SYSTEM)
-      GAS_NOBELISK -> ResearchCondition(Research.TOXIC_CELLULAR_MODIFICATION)
-      NUKE_NOBELISK -> ResearchCondition(Research.NUCLEAR_DETERRENT_DEVELOPMENT)
-      PULSE_NOBELISK -> ResearchCondition(Research.EXPLOSIVE_RESONANCE_APPLICATION)
       SWEET_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
       FANCY_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
       SPARKLY_FIREWORKS -> Condition.FALSE // TODO: Implement unsupported conditions.
       SNOWBALL -> Condition.FALSE // TODO: Implement unsupported conditions.
-      SHATTER_REBAR -> ResearchCondition(Research.SHATTER_REBAR)
-      TURBO_RIFLE_AMMO -> ResearchCondition(Research.TURBO_RIFLE_AMMO)
     }
   }
 }
