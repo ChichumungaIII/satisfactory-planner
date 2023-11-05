@@ -1057,10 +1057,10 @@ enum class Item(
   ),
 
   /*******************/
-  /** UNCATEGORIZED **/
+  /** Uncategorized **/
   /*******************/
 
-  /* UNCATEGORIZED */
+  /* Uncategorized */
 
   POWER_SHARD(
     "Power Shard",

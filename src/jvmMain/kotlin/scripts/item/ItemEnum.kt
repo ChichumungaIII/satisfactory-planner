@@ -8,8 +8,6 @@ import java.io.PrintWriter
 import java.io.Writer
 
 data class ItemEnum(
-  val majorGroup: MajorItemGroup,
-  val minorGroup: MinorItemGroup,
   val enumName: String,
   val displayName: String,
   val category: Item.Category,
@@ -23,8 +21,6 @@ data class ItemEnum(
 ) {
   companion object {
     val MANUAL_ITEM_HARD_DRIVE = ItemEnum(
-      MajorItemGroup.NATURE,
-      MinorItemGroup.HARD_DRIVES,
       "HARD_DRIVE",
       "Hard Drive",
       Item.Category.NATURE,

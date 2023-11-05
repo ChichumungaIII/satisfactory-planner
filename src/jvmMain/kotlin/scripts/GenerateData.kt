@@ -1,10 +1,11 @@
 package com.chichumunga.satisfactory.scripts
 
-import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS
-import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS_INDEX
-import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPEC_ORDER
+import com.chichumunga.satisfactory.scripts.conversion.ITEM_ENUM_COMPARATOR
+import com.chichumunga.satisfactory.scripts.conversion.RECIPE_ENUM_COMPARATOR
 import com.chichumunga.satisfactory.scripts.conversion.convertToItemEnum
 import com.chichumunga.satisfactory.scripts.conversion.convertToRecipeEnum
+import com.chichumunga.satisfactory.scripts.conversion.getMajorGroup
+import com.chichumunga.satisfactory.scripts.conversion.getMinorGroup
 import com.chichumunga.satisfactory.scripts.item.ItemEnum
 import com.chichumunga.satisfactory.scripts.item.ItemEnum.Companion.MANUAL_ITEM_HARD_DRIVE
 import com.chichumunga.satisfactory.scripts.json.ItemSchema
@@ -43,33 +44,31 @@ fun writeItems(path: String, items: List<ItemEnum>) {
 
     var count = 0
     var firstMajor = true
-    items.groupBy { it.majorGroup }.entries
-      .sortedBy { (major) -> major.ordinal }
+    items.sortedWith(ITEM_ENUM_COMPARATOR)
+      .groupBy { getMajorGroup(it.enumName) }.entries
       .forEach { (major, majorGroupItems) ->
         if (firstMajor) firstMajor = false
         else println()
 
-        val asterisks = "*".repeat(major.printName.length + 4)
+        val asterisks = "*".repeat(major.length + 4)
         println("  /*$asterisks*/")
-        println("  /** ${major.printName} **/")
+        println("  /** $major **/")
         println("  /*$asterisks*/")
         println()
 
         var firstMinor = true
-        majorGroupItems.groupBy { it.minorGroup }.entries
-          .sortedBy { (minor) -> minor.ordinal }
+        majorGroupItems.groupBy { getMinorGroup(it.enumName) }.entries
           .forEach { (minor, minorGroupItems) ->
             if (firstMinor) firstMinor = false
             else println()
 
-            println("  /* ${minor.printName} */")
+            println("  /* $minor */")
             println()
 
-            minorGroupItems.sortedWith(ITEM_SPEC_ORDER)
-              .forEach {
-                it.writeEnumDeclarationTo(this)
-                if (++count < items.size) println(",")
-              }
+            minorGroupItems.forEach {
+              it.writeEnumDeclarationTo(this)
+              if (++count < items.size) println(",")
+            }
           }
       }
     println(";")
@@ -79,7 +78,7 @@ fun writeItems(path: String, items: List<ItemEnum>) {
     println()
 
     ItemEnum.writeUnlockPrefixTo(this)
-    items.sortedWith(ITEM_SPEC_ORDER).forEach {
+    items.sortedWith(ITEM_ENUM_COMPARATOR).forEach {
       it.writeUnlockConditionTo(this)
       println()
     }
@@ -96,7 +95,7 @@ fun writeRecipes(path: String, recipes: List<RecipeEnum>) {
 
     var count = 0
     var first = true
-    recipes.sortedBy { it.primary?.let { ITEM_SPECS_INDEX[it.name] }?.let { ITEM_SPECS.indexOf(it) } ?: Int.MAX_VALUE }
+    recipes.sortedWith(RECIPE_ENUM_COMPARATOR)
       .groupBy { it.primary }
       .values.forEach { primaryRecipes ->
         if (first) first = false
