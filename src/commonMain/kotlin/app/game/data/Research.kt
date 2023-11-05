@@ -183,6 +183,24 @@ enum class Research(
     ),
     requirement = ResearchCondition(CATERIUM_ELECTRONICS),
   ),
+  SMART_SPLITTER(
+    "Smart Splitter",
+    Category.CATERIUM,
+    cost = mapOf(
+      Item.QUICKWIRE to 500.q,
+      Item.PLASTIC to 50.q,
+    ),
+    requirement = ResearchCondition(AI_LIMITER),
+  ),
+  POWER_SWITCH(
+    "Power Switch",
+    Category.CATERIUM,
+    cost = mapOf(
+      Item.STEEL_BEAM to 100.q,
+      Item.AI_LIMITER to 50.q,
+    ),
+    requirement = ResearchCondition(AI_LIMITER),
+  ),
   SUPERCOMPUTER(
     "Supercomputer",
     Category.CATERIUM,
@@ -196,6 +214,15 @@ enum class Research(
       +HIGH_SPEED_CONNECTOR
     },
   ),
+  BULLET_GUIDANCE_SYSTEM(
+    "Bullet Guidance System",
+    Category.CATERIUM,
+    cost = mapOf(
+      Item.HIGH_SPEED_CONNECTOR to 10.q,
+      Item.RIFLE_AMMO to 500.q,
+    ),
+    requirement = ResearchCondition(HIGH_SPEED_CONNECTOR),
+  ),
 
   /* Mycelia */
 
@@ -205,12 +232,170 @@ enum class Research(
     cost = mapOf(Item.MYCELIA to 5.q),
     requirement = Condition.TRUE,
   ),
+  FABRIC(
+    "Fabric",
+    Category.MYCELIA,
+    cost = mapOf(
+      Item.MYCELIA to 25.q,
+      Item.BIOMASS to 100.q,
+    ),
+    requirement = ResearchCondition(MYCELIA),
+  ),
+  TOXIC_CELLULAR_MODIFICATION(
+    "Toxic Cellular Modification",
+    Category.MYCELIA,
+    cost = mapOf(
+      Item.NOBELISK to 50.q,
+      Item.MYCELIA to 100.q,
+      Item.BIOMASS to 200.q,
+    ),
+    requirement = ResearchCondition(MYCELIA),
+  ),
+  MEDICAL_PROPERTIES(
+    "Medical Properties",
+    Category.MYCELIA,
+    cost = mapOf(
+      Item.MYCELIA to 25.q,
+      Item.STATOR to 10.q,
+    ),
+    requirement = ResearchCondition(MYCELIA),
+  ),
+  PARACHUTE(
+    "Parachute",
+    Category.MYCELIA,
+    cost = mapOf(
+      // TODO: Item.FABRIC to 10.q,
+      Item.CABLE to 50.q,
+    ),
+    requirement = ResearchCondition(FABRIC),
+  ),
+  EXPANDED_TOOLBELT_MYCELIA(
+    "Expanded Toolbelt",
+    Category.MYCELIA,
+    cost = mapOf(
+      // TODO: Item.FABRIC to 50.q,
+      Item.ROTOR to 100.q,
+    ),
+    requirement = ResearchCondition(FABRIC),
+  ),
+  SYNTHETIC_POLYESTER_FABRIC(
+    "Synthetic Polyester Fabric",
+    Category.MYCELIA,
+    cost = mapOf(
+      // TODO: Item.FABRIC to 25.q,
+      Item.POLYMER_RESIN to 100.q,
+    ),
+    requirement = ResearchCondition(FABRIC),
+  ),
+  VITAMIN_INHALER(
+    "Vitamin Inhaler",
+    Category.MYCELIA,
+    cost = mapOf(
+      Item.MYCELIA to 10.q,
+      Item.PALEBERRY to 5.q,
+    ),
+    requirement = ResearchCondition(MEDICAL_PROPERTIES),
+  ),
+  THERAPEUTIC_INHALER(
+    "Therapeutic Inhaler",
+    Category.MYCELIA,
+    cost = mapOf(
+      Item.MYCELIA to 15.q,
+      Item.BACON_AGARIC to 1.q,
+      Item.ALIEN_PROTEIN to 1.q,
+    ),
+    requirement = ResearchCondition(MEDICAL_PROPERTIES),
+  ),
 
   /* Nutrients */
 
+  BERYL_NUT(
+    "Beryl Nut",
+    Category.NUTRIENTS,
+    cost = mapOf(Item.BERYL_NUT to 5.q),
+    requirement = Condition.TRUE,
+  ),
+  PALEBERRY(
+    "Paleberry",
+    Category.NUTRIENTS,
+    cost = mapOf(Item.PALEBERRY to 2.q),
+    requirement = Condition.TRUE,
+  ),
+  BACON_AGARIC(
+    "Bacon Agaric",
+    Category.NUTRIENTS,
+    cost = mapOf(Item.BACON_AGARIC to 1.q),
+    requirement = Condition.TRUE,
+  ),
+  NUTRITIONAL_PROCESSOR(
+    "Nutritional Processor",
+    Category.NUTRIENTS,
+    cost = mapOf(),
+    requirement = all {
+      +BERYL_NUT
+      +PALEBERRY
+      +BACON_AGARIC
+    },
+  ),
+  NUTRITIONAL_INHALER(
+    "Nutritional Inhaler",
+    Category.NUTRIENTS,
+    cost = mapOf(
+      Item.BACON_AGARIC to 2.q,
+      Item.PALEBERRY to 4.q,
+      Item.BERYL_NUT to 10.q,
+    ),
+    requirement = ResearchCondition(NUTRITIONAL_PROCESSOR),
+  ),
 
   /* Power Slugs */
 
+  BLUE_POWER_SLUGS(
+    "Blue Power Slugs",
+    Category.POWER_SLUGS,
+    cost = mapOf(Item.BLUE_POWER_SLUG to 1.q),
+    requirement = Condition.TRUE,
+  ),
+  SLUG_SCANNING(
+    "Slug Scanning",
+    Category.POWER_SLUGS,
+    cost = mapOf(
+      Item.IRON_ROD to 50.q,
+      Item.WIRE to 100.q,
+      Item.SCREW to 200.q,
+    ),
+    requirement = ResearchCondition(BLUE_POWER_SLUGS),
+  ),
+  YELLOW_POWER_SHARDS(
+    "Yellow Power Shards",
+    Category.POWER_SLUGS,
+    cost = mapOf(
+      Item.YELLOW_POWER_SLUG to 1.q,
+      Item.ROTOR to 25.q,
+      Item.CABLE to 100.q,
+    ),
+    requirement = ResearchCondition(BLUE_POWER_SLUGS),
+  ),
+  OVERCLOCK_PRODUCTION(
+    "Overclock Production",
+    Category.POWER_SLUGS,
+    cost = mapOf(
+      // TODO: Item.POWER_SHARD to 1.q,
+      Item.IRON_PLATE to 50.q,
+      Item.WIRE to 50.q,
+    ),
+    requirement = ResearchCondition(BLUE_POWER_SLUGS),
+  ),
+  PURPLE_POWER_SHARDS(
+    "Purple Power Shards",
+    Category.POWER_SLUGS,
+    cost = mapOf(
+      Item.PURPLE_POWER_SLUG to 1.q,
+      Item.MODULAR_FRAME to 25.q,
+      Item.COPPER_SHEET to 100.q,
+    ),
+    requirement = ResearchCondition(YELLOW_POWER_SHARDS),
+  ),
 
   /* Quartz */
 
@@ -255,6 +440,30 @@ enum class Research(
       Item.REINFORCED_IRON_PLATE to 50.q,
     ),
     requirement = ResearchCondition(QUARTZ_CRYSTALS),
+  ),
+  BLADE_RUNNERS(
+    "Blade Runners",
+    Category.QUARTZ,
+    cost = mapOf(
+      Item.SILICA to 50.q,
+      Item.MODULAR_FRAME to 10.q,
+    ),
+    requirement = ResearchCondition(SILICA),
+  ),
+  INFLATED_POCKET_DIMENSION_QUARTZ(
+    "Inflated Pocket Dimension",
+    Category.QUARTZ,
+    cost = mapOf(Item.SILICA to 200.q),
+    requirement = ResearchCondition(SILICA),
+  ),
+  EXPLOSIVE_RESONANCE_APPLICATION(
+    "Explosive Resonance Application",
+    Category.QUARTZ,
+    cost = mapOf(
+      Item.CRYSTAL_OSCILLATOR to 5.q,
+      Item.NOBELISK to 100.q,
+    ),
+    requirement = ResearchCondition(CRYSTAL_OSCILLATOR),
   ),
 
   /* Sulfur */
@@ -338,6 +547,16 @@ enum class Research(
     ),
     requirement = ResearchCondition(BLACK_POWDER),
   ),
+  NUCLEAR_DETERRENT_DEVELOPMENT(
+    "Nuclear Deterrent Development",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.NOBELISK to 500.q,
+      Item.ENCASED_URANIUM_CELL to 10.q,
+      Item.AI_LIMITER to 100.q,
+    ),
+    requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
   CLUSTER_NOBELISK(
     "Cluster Nobelisk",
     Category.SULFUR,
@@ -366,6 +585,27 @@ enum class Research(
       Item.RUBBER to 200.q,
     ),
     requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
+  TURBO_RIFLE_AMMO(
+    "Turbo Rifle Ammo",
+    Category.SULFUR,
+    cost = mapOf(
+      Item.RIFLE_AMMO to 1_000.q,
+      Item.PACKAGED_TURBOFUEL to 50.q,
+      Item.ALUMINUM_CASING to 100.q,
+    ),
+    requirement = ResearchCondition(SMOKELESS_POWDER),
+  ),
+  INFLATED_POCKET_DIMENSION_SULFUR(
+    "Inflated Pocket Dimension",
+    Category.SULFUR,
+    cost = mapOf(),
+    requirement = any {
+      +NUCLEAR_DETERRENT_DEVELOPMENT
+      +CLUSTER_NOBELISK
+      +THE_RIFLE
+      +TURBO_RIFLE_AMMO
+    },
   ),
 
   /* Hard Drive  */

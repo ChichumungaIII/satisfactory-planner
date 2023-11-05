@@ -1,6 +1,8 @@
 package com.chichumunga.satisfactory.scripts.item
 
 import app.game.data.Item
+import com.chichumunga.satisfactory.scripts.condition.ConditionWriter
+import com.chichumunga.satisfactory.scripts.condition.TrueCondition
 import java.io.PrintWriter
 import java.io.Writer
 
@@ -16,6 +18,7 @@ data class ItemEnum(
   val radiation: Pair<Int, Int>?,
   val stable: Boolean,
   val experimental: Boolean,
+  val unlock: ConditionWriter,
 ) {
   companion object {
     val MANUAL_ITEM_HARD_DRIVE = ItemEnum(
@@ -29,7 +32,8 @@ data class ItemEnum(
       energy = null,
       radiation = null,
       stable = true,
-      experimental = true
+      experimental = true,
+      unlock = TrueCondition,
     )
 
     fun writeDeclarationTo(writer: Writer) {
@@ -125,7 +129,7 @@ data class ItemEnum(
 
   fun writeUnlockConditionTo(writer: PrintWriter) = with(writer) {
     print("      $enumName -> ")
-    println("TODO()")
+    unlock.writeTo(this)
   }
 
   private fun legible(value: Int): String {

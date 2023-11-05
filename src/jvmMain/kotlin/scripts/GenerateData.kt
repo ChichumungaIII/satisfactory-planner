@@ -16,7 +16,7 @@ import java.util.stream.Collectors.joining
 fun main(args: Array<String>) {
   val (itemsJsonFilePath, recipesJsonFilePath, itemsEnumFilePath, recipesEnumFilePath) = args
 
-  val items = readAll(itemsJsonFilePath) { ItemSchema(it) }.map { convertToItemEnum(it) } + MANUAL_ITEM_HARD_DRIVE
+  val items = readAll(itemsJsonFilePath) { ItemSchema(it).convertToItemEnum() } + MANUAL_ITEM_HARD_DRIVE
   writeItems(itemsEnumFilePath, items)
 }
 
