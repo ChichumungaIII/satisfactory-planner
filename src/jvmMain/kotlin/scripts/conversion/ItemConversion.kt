@@ -4,7 +4,7 @@ import app.game.data.Item
 import app.game.data.Milestone
 import app.game.data.Phase
 import app.game.data.Research
-import com.chichumunga.satisfactory.scripts.condition.AnyCondition
+import com.chichumunga.satisfactory.scripts.condition.CompoundCondition
 import com.chichumunga.satisfactory.scripts.condition.ConditionWriter
 import com.chichumunga.satisfactory.scripts.condition.EnumCondition
 import com.chichumunga.satisfactory.scripts.item.ItemEnum
@@ -37,13 +37,15 @@ private val CONDITION_OVERRIDES = mapOf(
   "IRON_ORE" to EnumCondition(Phase.GAME_START),
   "COPPER_ORE" to EnumCondition(Milestone.HUB_UPGRADE_2),
   "LIMESTONE" to EnumCondition(Milestone.HUB_UPGRADE_3),
-  "COAL" to AnyCondition(
+  "COAL" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.COAL_POWER),
       EnumCondition(Research.COMPACTED_COAL),
     )
   ),
-  "WATER" to AnyCondition(
+  "WATER" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.COAL_POWER),
       EnumCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT),
@@ -52,26 +54,30 @@ private val CONDITION_OVERRIDES = mapOf(
       EnumCondition(Milestone.PARTICLE_ENRICHMENT),
     )
   ),
-  "CRUDE_OIL" to AnyCondition(
+  "CRUDE_OIL" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.OIL_PROCESSING),
       EnumCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT),
     )
   ),
-  "CATERIUM_ORE" to AnyCondition(
+  "CATERIUM_ORE" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.EXPANDED_POWER_INFRASTRUCTURE),
       EnumCondition(Research.UNKNOWN_METAL),
     )
   ),
-  "RAW_QUARTZ" to AnyCondition(
+  "RAW_QUARTZ" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.BAUXITE_REFINEMENT),
       EnumCondition(Research.UNKNOWN_CRYSTALLINE_MATERIAL),
     )
   ),
   "BAUXITE" to EnumCondition(Milestone.BAUXITE_REFINEMENT),
-  "SULFUR" to AnyCondition(
+  "SULFUR" to CompoundCondition(
+    "any",
     listOf(
       EnumCondition(Milestone.AERONAUTICAL_ENGINEERING),
       EnumCondition(Research.UNKNOWN_CHEMICAL_ELEMENT),

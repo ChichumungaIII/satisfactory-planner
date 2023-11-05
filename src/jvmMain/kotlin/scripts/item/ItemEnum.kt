@@ -3,6 +3,7 @@ package com.chichumunga.satisfactory.scripts.item
 import app.game.data.Item
 import com.chichumunga.satisfactory.scripts.condition.ConditionWriter
 import com.chichumunga.satisfactory.scripts.condition.TrueCondition
+import com.chichumunga.satisfactory.scripts.conversion.legible
 import java.io.PrintWriter
 import java.io.Writer
 
@@ -116,14 +117,10 @@ data class ItemEnum(
     println("  $enumName(")
     println("    \"$displayName\",")
     println("    Category.${category.name},")
-    stack?.also { println("    stack = ${legible(it)}.q,") }
-    sink?.also { println("    sink = ${legible(it)}.q,") }
-    energy?.also { println("    energy = ${legible(it)}.q,") }
-    radiation?.also { (n, d) ->
-      print("    radiation = ${legible(n)}.q")
-      if (d != 1) print(" / ${legible(d)}.q")
-      println(",")
-    }
+    stack?.also { println("    stack = ${it.legible()}.q,") }
+    sink?.also { println("    sink = ${it.legible()}.q,") }
+    energy?.also { println("    energy = ${it.legible()}.q,") }
+    radiation?.also { println("    radiation = ${it.legible()},") }
     if (!stable) println("    stable = false,")
     if (!experimental) println("    experimental = false,")
     print("  )")
@@ -132,11 +129,5 @@ data class ItemEnum(
   fun writeUnlockConditionTo(writer: PrintWriter) = with(writer) {
     print("      $enumName -> ")
     unlock.writeTo(this)
-  }
-
-  private fun legible(value: Int): String {
-    val big = (value / 1000).takeIf { it > 0 }
-    val small = value % 1000
-    return big?.let { "${legible(it)}_${"$small".padStart(3, '0')}" } ?: "$small"
   }
 }

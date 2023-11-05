@@ -4,7 +4,7 @@ import java.io.PrintWriter
 
 data object TrueCondition : ConditionWriter {
   override fun writeTo(writer: PrintWriter) = with(writer) {
-    println("Condition.TRUE")
+    print("Condition.TRUE")
   }
 
   override fun writeToInline(writer: PrintWriter) = error("Condition.TRUE should not be inlined.")

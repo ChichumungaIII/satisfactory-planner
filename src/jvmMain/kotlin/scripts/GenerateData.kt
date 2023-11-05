@@ -1,10 +1,15 @@
 package com.chichumunga.satisfactory.scripts
 
+import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS
+import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPECS_INDEX
 import com.chichumunga.satisfactory.scripts.conversion.ITEM_SPEC_ORDER
 import com.chichumunga.satisfactory.scripts.conversion.convertToItemEnum
+import com.chichumunga.satisfactory.scripts.conversion.convertToRecipeEnum
 import com.chichumunga.satisfactory.scripts.item.ItemEnum
 import com.chichumunga.satisfactory.scripts.item.ItemEnum.Companion.MANUAL_ITEM_HARD_DRIVE
 import com.chichumunga.satisfactory.scripts.json.ItemSchema
+import com.chichumunga.satisfactory.scripts.json.RecipeSchema
+import com.chichumunga.satisfactory.scripts.recipe.RecipeEnum
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonArray
@@ -16,13 +21,19 @@ import java.util.stream.Collectors.joining
 fun main(args: Array<String>) {
   val (itemsJsonFilePath, recipesJsonFilePath, itemsEnumFilePath, recipesEnumFilePath) = args
 
-  val items = readAll(itemsJsonFilePath) { ItemSchema(it).convertToItemEnum() } + MANUAL_ITEM_HARD_DRIVE
-  writeItems(itemsEnumFilePath, items)
+  val items = readAll(itemsJsonFilePath) { ItemSchema(it) }.associate { it.className to it.convertToItemEnum() }
+  writeItems(itemsEnumFilePath, items.values + MANUAL_ITEM_HARD_DRIVE)
+
+  val recipes = readAll(recipesJsonFilePath) { RecipeSchema(it) }
+    .filterNot { it.inBuildGun }
+    .filterNot { it.inCustomizer }
+    .map { it.convertToRecipeEnum(items) }
+  writeRecipes(recipesEnumFilePath, recipes)
 }
 
 fun <T> readAll(path: String, transform: (JsonObject) -> T) =
   Json.parseToJsonElement(File(path).bufferedReader().lines().collect(joining())).jsonObject
-    .values.flatMap { it.jsonArray }
+    .values.map { it.jsonArray[0] }
     .map { transform(it.jsonObject) }
 
 fun writeItems(path: String, items: List<ItemEnum>) {
@@ -67,11 +78,31 @@ fun writeItems(path: String, items: List<ItemEnum>) {
     println()
 
     ItemEnum.writeUnlockPrefixTo(this)
-    items.sortedWith(ITEM_SPEC_ORDER).forEach { it.writeUnlockConditionTo(this) }
+    items.sortedWith(ITEM_SPEC_ORDER).forEach {
+      it.writeUnlockConditionTo(this)
+      println()
+    }
     ItemEnum.writeUnlockSuffixTo(this)
 
     ItemEnum.writeFinalizationTo(this)
+    flush()
+  }
+}
 
+fun writeRecipes(path: String, recipes: List<RecipeEnum>) {
+  with(PrintWriter(File(path).also { it.createNewFile() }.bufferedWriter())) {
+    RecipeEnum.writeDeclarationTo(this)
+
+    var count = 0
+    recipes.sortedBy { it.primary?.let { ITEM_SPECS_INDEX[it.name] }?.let { ITEM_SPECS.indexOf(it) } ?: Int.MAX_VALUE }
+      .forEach { recipe ->
+        recipe.writeEnumDeclarationTo(this)
+        if (++count < recipes.size) println(",")
+      }
+    println(";")
+    println()
+
+    RecipeEnum.writeFinalizationTo(this)
     flush()
   }
 }

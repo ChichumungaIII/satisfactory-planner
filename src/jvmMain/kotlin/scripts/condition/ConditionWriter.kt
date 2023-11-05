@@ -48,9 +48,15 @@ interface ConditionWriter {
     )
 
     fun parse(unlockedBy: String): ConditionWriter {
-      val conditions = unlockedBy.split("OR<br>").map { parseCondition(it.trim()) }
+      val conditions = unlockedBy.split("OR<br>").map { parseConjunction(it.trim()) }
       return if (conditions.size == 1) conditions[0]
-      else AnyCondition(conditions)
+      else CompoundCondition("any", conditions)
+    }
+
+    private fun parseConjunction(value: String): ConditionWriter {
+      val conditions = value.split("AND<br>").map { parseCondition(it.trim()) }
+      return if (conditions.size == 1) conditions[0]
+      else CompoundCondition("all", conditions)
     }
 
     private fun parseCondition(value: String): ConditionWriter {

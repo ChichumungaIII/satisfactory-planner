@@ -383,14 +383,6 @@ enum class Item(
     energy = 750.q,
     experimental = false,
   ),
-  PACKAGED_FUEL_EXPERIMENTAL(
-    "Packaged Fuel",
-    Category.PARTS,
-    stack = 100.q,
-    sink = 270.q,
-    energy = 750.q,
-    stable = false,
-  ),
   PACKAGED_HEAVY_OIL_RESIDUE(
     "Packaged Heavy Oil Residue",
     Category.PARTS,
@@ -405,14 +397,6 @@ enum class Item(
     sink = 370.q,
     energy = 750.q,
     experimental = false,
-  ),
-  PACKAGED_LIQUID_BIOFUEL_EXPERIMENTAL(
-    "Packaged Liquid Biofuel",
-    Category.PARTS,
-    stack = 100.q,
-    sink = 370.q,
-    energy = 750.q,
-    stable = false,
   ),
   LIQUID_BIOFUEL(
     "Liquid Biofuel",
@@ -573,14 +557,6 @@ enum class Item(
     sink = 570.q,
     energy = 2_000.q,
     experimental = false,
-  ),
-  PACKAGED_TURBOFUEL_EXPERIMENTAL(
-    "Packaged Turbofuel",
-    Category.PARTS,
-    stack = 100.q,
-    sink = 570.q,
-    energy = 2_000.q,
-    stable = false,
   ),
   SMOKELESS_POWDER(
     "Smokeless Powder",
@@ -799,13 +775,6 @@ enum class Item(
     sink = 608.q,
     experimental = false,
   ),
-  PARACHUTE_EXPERIMENTAL(
-    "Parachute",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 608.q,
-    stable = false,
-  ),
   JETPACK(
     "Jetpack",
     Category.EQUIPMENT,
@@ -813,26 +782,12 @@ enum class Item(
     sink = 49_580.q,
     experimental = false,
   ),
-  JETPACK_EXPERIMENTAL(
-    "Jetpack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 49_580.q,
-    stable = false,
-  ),
   HOVER_PACK(
     "Hover Pack",
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 413_920.q,
     experimental = false,
-  ),
-  HOVER_PACK_EXPERIMENTAL(
-    "Hover Pack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-    sink = 413_920.q,
-    stable = false,
   ),
 
   /* Health and Safety */
@@ -1331,10 +1286,8 @@ enum class Item(
       PACKAGED_WATER -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_OIL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_FUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
-      PACKAGED_FUEL_EXPERIMENTAL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_HEAVY_OIL_RESIDUE -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       PACKAGED_LIQUID_BIOFUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
-      PACKAGED_LIQUID_BIOFUEL_EXPERIMENTAL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       LIQUID_BIOFUEL -> MilestoneCondition(Milestone.ALTERNATIVE_FLUID_TRANSPORT)
       CATERIUM_ORE -> any {
         +Milestone.EXPANDED_POWER_INFRASTRUCTURE
@@ -1383,7 +1336,6 @@ enum class Item(
       COMPACTED_COAL -> ResearchCondition(Research.COMPACTED_COAL)
       TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
       PACKAGED_TURBOFUEL -> ResearchCondition(Research.TURBOFUEL)
-      PACKAGED_TURBOFUEL_EXPERIMENTAL -> ResearchCondition(Research.TURBOFUEL)
       SMOKELESS_POWDER -> ResearchCondition(Research.SMOKELESS_POWDER)
       SULFURIC_ACID -> any {
         +Milestone.AERONAUTICAL_ENGINEERING
@@ -1425,11 +1377,8 @@ enum class Item(
       NUCLEAR_PASTA -> MilestoneCondition(Milestone.PARTICLE_ENRICHMENT)
       BLADE_RUNNERS -> ResearchCondition(Research.BLADE_RUNNERS)
       PARACHUTE -> ResearchCondition(Research.PARACHUTE)
-      PARACHUTE_EXPERIMENTAL -> ResearchCondition(Research.PARACHUTE)
       JETPACK -> MilestoneCondition(Milestone.JETPACK)
-      JETPACK_EXPERIMENTAL -> MilestoneCondition(Milestone.JETPACK)
       HOVER_PACK -> MilestoneCondition(Milestone.HOVER_PACK)
-      HOVER_PACK_EXPERIMENTAL -> MilestoneCondition(Milestone.HOVER_PACK)
       MEDICINAL_INHALER -> any {
         +Research.PROTEIN_INHALER
         +Research.VITAMIN_INHALER

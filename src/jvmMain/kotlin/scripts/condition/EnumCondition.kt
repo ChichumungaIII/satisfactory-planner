@@ -4,11 +4,11 @@ import java.io.PrintWriter
 
 data class EnumCondition<E : Enum<E>>(val value: E) : ConditionWriter {
   override fun writeTo(writer: PrintWriter) = with(writer) {
-    println("${enumClass()}Condition(${enumValue()})")
+    print("${enumClass()}Condition(${enumValue()})")
   }
 
   override fun writeToInline(writer: PrintWriter) = with(writer) {
-    println(enumValue())
+    print(enumValue())
   }
 
   private fun enumValue() = "${enumClass()}.${value.name}"
