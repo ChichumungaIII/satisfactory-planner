@@ -34,7 +34,7 @@ val PartitionInputs = FC<Props>("PartitionInputs") {
         setInput = { next -> inputs = inputs.toMutableList().also { it[i] = next } }
         onMoveUp = { inputs = inputs.swap(i - 1, i) }.takeIf { i > 0 }
         onMoveDown = { inputs = inputs.swap(i, i + 1) }.takeIf { i + 1 < partition.inputs.size }
-        onDelete = { inputs = inputs.let { it.subList(0, i) + it.subList(i + 1, it.size) } }
+        onDelete = { inputs = inputs.toMutableList().also { it.removeAt(i) } }
       }
     }
   }

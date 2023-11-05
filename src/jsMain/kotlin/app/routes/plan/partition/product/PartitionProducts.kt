@@ -19,6 +19,7 @@ import web.cssom.px
 val PartitionProducts = FC<Props>("PartitionProducts") {
   var partition by usePartition()
   var products by PropsDelegate(partition.products) { next -> partition = partition.copy(products = next) }
+  var byproducts by PropsDelegate(partition.byproducts) { next -> partition = partition.copy(byproducts = next) }
 
   Typography {
     variant = TypographyVariant.h2
@@ -31,10 +32,30 @@ val PartitionProducts = FC<Props>("PartitionProducts") {
     partition.products.forEachIndexed { i, product ->
       PartitionProduct {
         this.product = product
-        setProduct = { nextProduct -> products = products.toMutableList().also { it[i] = nextProduct } }
+        setProduct = { next -> products = products.toMutableList().also { it[i] = next } }
         onMoveUp = { products = products.swap(i - 1, i) }.takeIf { i > 0 }
         onMoveDown = { products = products.swap(i, i + 1) }.takeIf { i + 1 < partition.products.size }
-        onDelete = { products = products.let { it.subList(0, i) + it.subList(i + 1, it.size) } }
+        onDelete = { products = products.toMutableList().also { it.removeAt(i) } }
+      }
+    }
+
+    partition.byproducts.forEachIndexed { i, byproduct ->
+      PartitionByproduct {
+        this.byproduct = byproduct
+        setByproduct = { next -> byproducts = byproducts.toMutableList().also { it[i] = next } }
+
+        onPromote = {
+          val newProduct = Plan.Product(
+            item = byproduct.item,
+            maximize = false,
+            weight = 1.q,
+            amount = byproduct.amount
+          )
+          partition = partition.copy(
+            products = products + newProduct,
+            byproducts = byproducts.toMutableList().also { it.removeAt(i) }
+          )
+        }
       }
     }
   }
