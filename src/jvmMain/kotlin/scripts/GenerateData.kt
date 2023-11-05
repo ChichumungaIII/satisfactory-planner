@@ -27,6 +27,7 @@ fun main(args: Array<String>) {
   val recipes = readAll(recipesJsonFilePath) { RecipeSchema(it) }
     .filterNot { it.inBuildGun }
     .filterNot { it.inCustomizer }
+    .filterNot { it.className == "Recipe_CartridgeChaos_Packaged_C" }
     .map { it.convertToRecipeEnum(items) }
   writeRecipes(recipesEnumFilePath, recipes)
 }
@@ -94,13 +95,21 @@ fun writeRecipes(path: String, recipes: List<RecipeEnum>) {
     RecipeEnum.writeDeclarationTo(this)
 
     var count = 0
+    var first = true
     recipes.sortedBy { it.primary?.let { ITEM_SPECS_INDEX[it.name] }?.let { ITEM_SPECS.indexOf(it) } ?: Int.MAX_VALUE }
-      .forEach { recipe ->
-        recipe.writeEnumDeclarationTo(this)
-        if (++count < recipes.size) println(",")
+      .groupBy { it.primary }
+      .values.forEach { primaryRecipes ->
+        if (first) first = false
+        else println()
+
+        primaryRecipes.sortedBy { it.enumName }
+          .sortedBy { it.alternate }
+          .forEach { recipe ->
+            recipe.writeEnumDeclarationTo(this)
+            if (++count < recipes.size) println(",")
+          }
       }
     println(";")
-    println()
 
     RecipeEnum.writeFinalizationTo(this)
     flush()

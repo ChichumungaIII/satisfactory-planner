@@ -66,7 +66,7 @@ class RecipeEnum(
     print("    outputs = ")
     writeComponents(outputs)
 
-    power?.also { println("    power = Range.closed(${it.first}.q, ${it.second}.q),") }
+    power?.also { println("    power = ${it.first}.q..${it.second}.q,") }
 
     print("    unlock = ")
     unlock.writeTo(this)
