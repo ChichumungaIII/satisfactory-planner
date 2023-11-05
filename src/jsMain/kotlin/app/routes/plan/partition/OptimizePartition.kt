@@ -52,12 +52,16 @@ class OptimizePartition(
 fun toRequest(partition: Partition, progress: Progress): OptimizeRequest {
   val inputs = partition.inputs.mapNotNull { it.toOptimizeInput() } +
       partition.partitions.flatMap { it.products }.mapNotNull { it.toOptimizeInput() }
+
   val outputs = partition.products.mapNotNull { it.toOptimizeOutput() } +
-      partition.partitions.flatMap { it.inputs }.mapNotNull { it.toOptimizeOutput() }
+      partition.partitions.flatMap { it.inputs }.mapNotNull { it.toOptimizeOutput() } +
+      partition.byproducts.mapNotNull { it.toOptimizeOutput() }
+
   val limits = partition.targets.filter { it.limit == Limit.RESTRICTED }
     .mapNotNull { it.restriction?.let { restriction -> it.recipe to restriction } }
     .toMap()
   val banned = partition.targets.filter { it.limit == Limit.BANNED }.map { it.recipe }.toSet()
+
   return OptimizeRequest(
     inputs = inputs,
     outputs = outputs,
@@ -67,6 +71,9 @@ fun toRequest(partition: Partition, progress: Progress): OptimizeRequest {
 }
 
 private fun Plan.Input.toOptimizeInput() = item?.let { quantity?.let { OptimizeInput(item, quantity) } }
+private fun Plan.Input.toOptimizeOutput() =
+  item?.let { consumption?.let { OptimizeOutput.Production(item, consumption, exact = false) } }
+
 private fun Plan.Product.toOptimizeInput() =
   item?.let { amount?.let { (OptimizeInput(item, amount, required = true)) } }
 
@@ -75,12 +82,18 @@ private fun Plan.Product.toOptimizeOutput() = item?.let {
   else amount?.let { OptimizeOutput.Production(item, amount) }
 }
 
-private fun Plan.Input.toOptimizeOutput() =
-  item?.let { consumption?.let { OptimizeOutput.Production(item, consumption, exact = false) } }
+private fun Plan.Byproduct.toOptimizeOutput() = OptimizeOutput.Production(item, 0.q).takeIf { banned }
 
 fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
+  // TODO: Interleave the results with (potentially invalid) inputs instead of assuming a 1:1 correspondence.
   val inputs = partition.inputs.mapIndexed { i, input -> input.copyFrom(optimization.consumed[i]) }
   val products = partition.products.mapIndexed { i, product -> product.copyFrom(optimization.produced[i]) }
+
+  val banned = partition.byproducts.filter { it.banned }.map { it.item }
+  val byproducts = (banned.map { Plan.Byproduct(it, 0.q, true) } +
+      optimization.byproducts.map { (item, amount) -> Plan.Byproduct(item, amount, banned.contains(item)) })
+    .associateBy { it.item }
+    .values.sortedBy { it.item }
 
   val targets = (optimization.rates.mapValues { (recipe, rate) -> Plan.Target(recipe, rate) } +
       partition.targets.filter { optimization.rates.containsKey(it.recipe) || it.limit != Limit.NONE }
@@ -91,6 +104,7 @@ fun integrate(partition: Partition, optimization: OptimizeResponse): Partition {
   return partition.copy(
     inputs = inputs,
     products = products,
+    byproducts = byproducts,
     targets = targets,
     optimized = true,
   )
