@@ -67,12 +67,19 @@ data class ItemEnum(
         |  enum class Category(
         |    val displayName: String,
         |  ) {
-        |    PARTS("Components"),
-        |    EQUIPMENT("Equipment"),
-        |    CONSUMABLES("Consumables"),
-        |    NATURE("Nature"),
-        |    RESOURCES("Resources"),
-        |    UNCATEGORIZED("Uncategorized"),
+        |
+        """.trimMargin()
+      )
+      Item.Category.entries.forEach {
+        writer.write(
+          """
+          |    ${it.name}("${it.displayName}"),
+          |
+          """.trimMargin()
+        )
+      }
+      writer.write(
+        """
         |  }
         |
         """.trimMargin()

@@ -253,8 +253,8 @@ private val ITEM_GROUPS = mapOf(
       "YELLOW_POWER_SLUG" of Category.NATURE,
       "PURPLE_POWER_SLUG" of Category.NATURE,
     ),
-    "Hard Drives" to listOf(
-      "HARD_DRIVE" of Category.NATURE,
+    "Specialty" to listOf(
+      "HARD_DRIVE" of Category.SPECIALTY,
     ),
   ),
 )
