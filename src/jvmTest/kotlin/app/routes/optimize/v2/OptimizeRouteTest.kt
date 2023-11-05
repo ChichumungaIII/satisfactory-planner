@@ -5,6 +5,7 @@ import app.api.optimize.v2.response.OptimizeResponse.Companion.optimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
 import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize
+import util.math.Rational
 import util.math.q
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -368,6 +369,70 @@ class OptimizeRouteTest {
     }
     assertEquals(expected, response)
   }
+
+  @Test
+  fun optimize_example_heavyModularFrames() {
+    val request = optimizeRequest {
+      // Primary
+      input(Item.IRON_ORE, 1440.q)
+      input(Item.COAL, 900.q)
+      input(Item.COPPER_ORE, 480.q)
+      input(Item.LIMESTONE, 480.q)
+      // Partitioned
+      input(Item.ENCASED_INDUSTRIAL_BEAM, 32.q, required = true)
+      input(Item.MOTOR, 8.q, required = true)
+
+      // Primary
+      produce(Item.MOTOR, 8.q)
+      produce(Item.ENCASED_INDUSTRIAL_BEAM, 12.q)
+      produce(Item.HEAVY_MODULAR_FRAME, 4.q)
+      // Partition: EIB
+      require(Item.IRON_ORE, 512.q)
+      require(Item.COAL, 512.q)
+      require(Item.LIMESTONE, 480.q)
+      // Partition: Motor
+      require(Item.IRON_ORE, 252.q)
+      require(Item.COAL, 72.q)
+      require(Item.COPPER_ORE, 64.q)
+    }
+    val response = optimize(request)
+
+    val expected = optimizeResponse {
+      // Primary
+      consume(Item.IRON_ORE, 1440.q, 1434.q, 1434.q)
+      consume(Item.COAL, 900.q, 674.q, 674.q)
+      consume(Item.COPPER_ORE, 480.q, 64.q, 64.q)
+      consume(Item.LIMESTONE, 480.q, 480.q, 480.q)
+      // Partitioned
+      consume(Item.ENCASED_INDUSTRIAL_BEAM, 32.q, 32.q, 32.q)
+      consume(Item.MOTOR, 8.q, 8.q, 8.q)
+
+      // Primary
+      produce(Item.MOTOR, 8.q, 8.q)
+      produce(Item.ENCASED_INDUSTRIAL_BEAM, 12.q, 12.q)
+      produce(Item.HEAVY_MODULAR_FRAME, 4.q, 4.q)
+      // Partition: EIB
+      produce(Item.IRON_ORE, 512.q, 512.q)
+      produce(Item.COAL, 512.q, 512.q)
+      produce(Item.LIMESTONE, 480.q, 480.q)
+      // Partition: Motor
+      produce(Item.IRON_ORE, 252.q, 252.q)
+      produce(Item.COAL, 72.q, 72.q)
+      produce(Item.COPPER_ORE, 64.q, 64.q)
+
+      Recipe.IRON_INGOT clock Rational.parse("1933._3")!!
+      Recipe.IRON_PLATE clock 900.q
+      Recipe.IRON_ROD clock Rational.parse("2066._6")!!
+      Recipe.SCREW clock 1_900.q
+      Recipe.REINFORCED_IRON_PLATE clock 600.q
+      Recipe.MODULAR_FRAME clock 1_000.q
+      Recipe.STEEL_INGOT clock 200.q
+      Recipe.STEEL_PIPE clock 300.q
+      Recipe.HEAVY_MODULAR_FRAME clock 200.q
+    }
+    assertEquals(expected, response)
+  }
+
 
   private fun optimizeRequest(init: OptimizeRequest.Builder.() -> Unit) =
     OptimizeRequest.optimizeRequest {
