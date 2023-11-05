@@ -1,5 +1,6 @@
 package app.routes.plan.partition
 
+import app.routes.plan.partition.input.PartitionInputs
 import mui.material.Divider
 import mui.material.Stack
 import mui.material.StackDirection
@@ -15,7 +16,9 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
     direction = responsive(StackDirection.column)
     divider = Divider.create {}
 
-    PartitionInputsLegacy {}
+    PartitionInputs {}
+
+    // Legacy
     PartitionProductsLegacy {}
     PartitionTargetsLegacy {}
     NestedPartitionsLegacy {}
