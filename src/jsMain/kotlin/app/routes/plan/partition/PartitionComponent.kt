@@ -3,6 +3,7 @@ package app.routes.plan.partition
 import app.routes.plan.partition.input.PartitionInputs
 import app.routes.plan.partition.nested.NestedPartitions
 import app.routes.plan.partition.product.PartitionProducts
+import app.routes.plan.partition.target.PartitionTargets
 import mui.material.Divider
 import mui.material.Stack
 import mui.material.StackDirection
@@ -21,7 +22,7 @@ val PartitionComponent = FC<PartitionComponentProps>("PartitionComponent") {
     PartitionInputs {}
     PartitionProducts {}
 
-    PartitionTargetsLegacy {}
+    PartitionTargets {}
 
     NestedPartitions {}
   }
