@@ -7,7 +7,6 @@ import app.api.optimize.v2.response.OptimizeConsumption
 import app.api.optimize.v2.response.OptimizeProduction
 import app.api.optimize.v2.response.OptimizeResponse
 import app.game.data.Item
-import app.game.data.Recipe
 import app.serialization.AppJson
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
@@ -78,13 +77,13 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
       Constraint.equalTo(production, offset[item] ?: 0.br)
     else Constraint.atLeast(production, offset[item] ?: 0.br)
   }
-  val restrictions = limits.map { (recipe, rate) -> Constraint.atMost(1.br * recipe, rate.br) }
+  val restrictions = limits.map { (recipe, rate) -> Constraint.atMost(1.br * (RecipeVar(recipe) as OpVar), rate.br) }
 
   /****************/
   /** PLAN RATES **/
   /****************/
 
-  val rates: Map<Recipe, BigRational> = (if (weights.isEmpty()) {
+  val rates: Map<OpVar, BigRational> = (if (weights.isEmpty()) {
     val objective = expressions.productionOf(required.keys.first())
     maximize(objective, constraints.values + restrictions)
   } else {
@@ -174,7 +173,7 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
     consumed = optimizeConsumed,
     produced = optimizeProduced,
     byproducts = byproducts.filterValues { it != 0.br }.mapValues { (_, amount) -> amount.toRational() },
-    rates = rates.mapValues { (_, rate) -> rate.toRational() }
+    rates = rates.mapNotNull { (v, rate) -> (v as? RecipeVar)?.let { it.recipe to rate.toRational() } }.toMap(),
   )
 }
 
@@ -184,11 +183,11 @@ fun <T, V> Iterable<T>.index(key: (T) -> Item, value: (T) -> V, merger: (V, V) -
   fold(mapOf<Item, V>()) { map, e -> map.merge(key(e), value(e), merger) }
 
 private fun maximize(
-  objective: Expression<Recipe, BigRational>,
-  constraints: List<Constraint<Recipe, BigRational>>
+  objective: Expression<OpVar, BigRational>,
+  constraints: List<Constraint<OpVar, BigRational>>
 ) = maximize(objective, constraints, BigRational.FACTORY)
 
 private fun minimize(
-  objective: Expression<Recipe, BigRational>,
-  constraints: List<Constraint<Recipe, BigRational>>
+  objective: Expression<OpVar, BigRational>,
+  constraints: List<Constraint<OpVar, BigRational>>
 ) = minimize(objective, constraints, BigRational.FACTORY)
