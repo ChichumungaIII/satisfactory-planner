@@ -2,7 +2,10 @@ package com.chichumunga.satisfactory.app.routes.optimize.v2
 
 import app.game.data.Item
 import app.game.data.Recipe
+import com.chichumunga.satisfactory.util.math.BigRational
+import util.math.Expression
 
+typealias OpExpr = Expression<OpVar, BigRational>
 
 sealed interface OpVar {
   companion object {
