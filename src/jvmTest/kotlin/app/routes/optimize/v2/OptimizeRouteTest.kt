@@ -4,7 +4,7 @@ import app.api.optimize.v2.request.OptimizeRequest
 import app.api.optimize.v2.response.OptimizeResponse.Companion.optimizeResponse
 import app.game.data.Item
 import app.game.data.Recipe
-import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize2
+import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize3
 import util.math.Rational
 import util.math.q
 import kotlin.test.Test
@@ -17,7 +17,7 @@ class OptimizeRouteTest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.IRON_PLATE, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -39,7 +39,7 @@ class OptimizeRouteTest {
       input(Item.IRON_ORE, 60.q)
       produce(Item.IRON_PLATE, 30.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -62,7 +62,7 @@ class OptimizeRouteTest {
       maximize(Item.IRON_PLATE, 1.q)
       maximize(Item.IRON_ROD, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -87,7 +87,7 @@ class OptimizeRouteTest {
       maximize(Item.IRON_PLATE, 2.q)
       maximize(Item.IRON_ROD, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -113,7 +113,7 @@ class OptimizeRouteTest {
       maximize(Item.IRON_PLATE, 1.q)
       maximize(Item.IRON_ROD, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -138,7 +138,7 @@ class OptimizeRouteTest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.SCREW, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -162,7 +162,7 @@ class OptimizeRouteTest {
       maximize(Item.SCREW, 1.q)
       allow(Recipe.CAST_SCREW)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -186,7 +186,7 @@ class OptimizeRouteTest {
       allow(Recipe.CAST_SCREW)
       Recipe.CAST_SCREW limitToClock 240.q
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -213,7 +213,7 @@ class OptimizeRouteTest {
       maximize(Item.IRON_PLATE, 1.q)
       maximize(Item.CABLE, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -251,7 +251,7 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 4.q)
       produce(Item.REINFORCED_IRON_PLATE, 4.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -297,7 +297,7 @@ class OptimizeRouteTest {
       maximize(Item.IRON_PLATE, 1.q)
       produce(Item.IRON_ORE, 30.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(
@@ -327,7 +327,7 @@ class OptimizeRouteTest {
       maximize(Item.PLASTIC, 1.q)
       maximize(Item.RUBBER, 1.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(Item.CRUDE_OIL, 300.q, 300.q, 300.q)
@@ -352,7 +352,7 @@ class OptimizeRouteTest {
       maximize(Item.RUBBER, 1.q)
       produce(Item.HEAVY_OIL_RESIDUE, 0.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       consume(Item.CRUDE_OIL, 300.q, 300.q, 300.q)
@@ -395,7 +395,7 @@ class OptimizeRouteTest {
       require(Item.COAL, 72.q)
       require(Item.COPPER_ORE, 64.q)
     }
-    val response = optimize2(request)
+    val response = optimize3(request)
 
     val expected = optimizeResponse {
       // Primary

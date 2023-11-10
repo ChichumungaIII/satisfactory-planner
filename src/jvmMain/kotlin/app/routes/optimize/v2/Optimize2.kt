@@ -162,7 +162,7 @@ fun optimize2(request: OptimizeRequest): OptimizeResponse {
   )
 }
 
-private tailrec fun getUsableRecipes(allRecipes: Set<Recipe>, items: Set<Item>): Set<Recipe> {
+tailrec fun getUsableRecipes(allRecipes: Set<Recipe>, items: Set<Item>): Set<Recipe> {
   val usable = allRecipes.filter { items.containsAll(it.inputs.keys) }.toSet()
   val next = items + usable.flatMap { it.outputs.keys }
   return usable.takeIf { items.containsAll(next) } ?: getUsableRecipes(allRecipes, next)
