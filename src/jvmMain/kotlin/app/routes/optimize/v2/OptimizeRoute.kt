@@ -182,12 +182,12 @@ fun <T> Iterable<T>.index(key: (T) -> Item, value: (T) -> Rational) = index(key,
 fun <T, V> Iterable<T>.index(key: (T) -> Item, value: (T) -> V, merger: (V, V) -> V) =
   fold(mapOf<Item, V>()) { map, e -> map.merge(key(e), value(e), merger) }
 
-private fun maximize(
+fun maximize(
   objective: Expression<OpVar, BigRational>,
   constraints: List<Constraint<OpVar, BigRational>>
 ) = maximize(objective, constraints, BigRational.FACTORY)
 
-private fun minimize(
+fun minimize(
   objective: Expression<OpVar, BigRational>,
   constraints: List<Constraint<OpVar, BigRational>>
 ) = minimize(objective, constraints, BigRational.FACTORY)

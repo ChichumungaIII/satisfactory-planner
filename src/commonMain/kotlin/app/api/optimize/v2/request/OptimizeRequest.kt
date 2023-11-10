@@ -37,6 +37,10 @@ data class OptimizeRequest(
 
     fun allow(recipe: Recipe) = recipes.add(recipe)
     fun allowAll(recipes: Collection<Recipe>) = this.recipes.addAll(recipes)
+    fun allowOnly(vararg recipes: Recipe) {
+      this.recipes.clear()
+      this.recipes.addAll(recipes)
+    }
 
     infix fun Recipe.limitToClock(clock: Rational) {
       limits[this] = clock / 100.q

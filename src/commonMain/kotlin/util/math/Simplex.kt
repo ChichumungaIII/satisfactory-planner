@@ -1,8 +1,5 @@
 package util.math
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
 import util.math.Constraint.Comparison
 
 /** Companion method to [maximize]. Computes the minimum solution to [objective]. */
