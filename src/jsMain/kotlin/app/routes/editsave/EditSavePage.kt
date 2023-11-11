@@ -3,8 +3,10 @@ package app.routes.editsave
 import app.AppRoute
 import app.RouteParams
 import app.api.save.v1.Save
+import app.common.input.groupchecklist.GroupedChecklist
 import app.game.data.Milestone
 import app.game.data.Phase
+import app.game.data.Research
 import app.game.logic.Progress
 import app.redux.state.resource.save.SaveSave
 import app.redux.useAppDispatch
@@ -79,6 +81,15 @@ val EditSavePage = FC<EditSavePageProps>("EditSavePage") { props ->
     +"Milestones"
   }
 
+  (GroupedChecklist<Milestone>()) {
+    elements = Milestone.entries
+    getGroup = { it.tier.displayName }
+    getDisplayName = { it.displayName }
+
+    selected = progress.milestones.toSet()
+    setSelected = { next -> progress = progress.copy(milestones = next.toList()) }
+  }
+
   Divider {}
 
   Typography {
@@ -86,11 +97,35 @@ val EditSavePage = FC<EditSavePageProps>("EditSavePage") { props ->
     +"MAM Research"
   }
 
+  (GroupedChecklist<Research>()) {
+    elements = Research.entries.filterNot { it.category == Research.Category.HARD_DRIVE }
+    getGroup = { it.category.displayName }
+    getDisplayName = { it.displayName }
+
+    selected = progress.research.toSet()
+    setSelected = { next ->
+      val research = progress.research.filter { it.category == Research.Category.HARD_DRIVE } + next
+      progress = progress.copy(research = research)
+    }
+  }
+
   Divider {}
 
   Typography {
     variant = TypographyVariant.h2
     +"Alternate Recipes"
+  }
+
+  (GroupedChecklist<Research>()) {
+    elements = Research.entries.filter { it.category == Research.Category.HARD_DRIVE }
+    getGroup = { it.category.displayName }
+    getDisplayName = { it.displayName }
+
+    selected = progress.research.toSet()
+    setSelected = { next ->
+      val research = progress.research.filterNot { it.category == Research.Category.HARD_DRIVE } + next
+      progress = progress.copy(research = research)
+    }
   }
 
   Divider {}

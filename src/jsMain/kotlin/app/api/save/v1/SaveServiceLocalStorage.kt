@@ -30,12 +30,9 @@ object SaveServiceLocalStorage : SaveService {
   override suspend fun updateSave(request: UpdateSaveRequest): Save {
     val existing = getSave(GetSaveRequest(request.save.name))
 
-    val choose = { field: String ->
-      request.save.takeIf { request.updateMask.contains(field) } ?: existing
-    }
     val save = existing.copy(
-      displayName = choose("displayName").displayName,
-      progress = choose("progress").progress,
+      displayName = request.save.displayName,
+      progress = request.save.progress,
     )
 
     saves = saves + (save.name to save)
