@@ -18,6 +18,10 @@ import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import util.collections.augment
@@ -30,13 +34,19 @@ import util.math.Rational
 import util.math.maximize
 import util.math.minimize
 import util.math.q
+import java.util.concurrent.Executors
+
+private val executor = Executors.newFixedThreadPool(12)
 
 fun Routing.optimizeRouteV2() {
   post("/v2/optimize") {
     try {
       val request = AppJson.decodeFromString<OptimizeRequest>(call.receiveText())
       validate(request)
-      call.respondText { AppJson.encodeToString(optimize(request)) }
+      call.respondText {
+        val response = async(executor.asCoroutineDispatcher()) { optimize(request) }.await()
+        AppJson.encodeToString(response)
+      }
     } catch (e: Throwable) {
       println("#optimize() call failed: [${e.message}]")
       e.printStackTrace()
@@ -61,7 +71,7 @@ private fun validate(request: OptimizeRequest) {
   check(outputs.isNotEmpty()) { "Optimization requires products." }
 }
 
-internal fun optimize(request: OptimizeRequest): OptimizeResponse {
+suspend fun optimize(request: OptimizeRequest) = coroutineScope {
   val availability = request.inputs.index({ it.item }) { it.amount }
   val inputItems = availability.keys
   val requirements = request.outputs.filterIsInstance<Production>()
@@ -73,6 +83,9 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   val itemExpressions = usableRecipes.flatMap { it.rates.map { (item, rate) -> item to rate.br * OpVar.create(it) } }
     .fold(mapOf<Item, OpExpr>()) { map, (item, expression) -> map.merge(item, expression, OpExpr::plus) }
     .join(supplyExpressions, OpExpr::plus)
+  (request.outputs.map { it.item }.toSet() - itemExpressions.keys).takeUnless { it.isEmpty() }?.run {
+    throw IllegalArgumentException("Cannot produce items: $this")
+  }
 
   val requirementConstraints =
     requirements.mapValues { (item, requirement) ->
@@ -119,15 +132,11 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   /*******************/
 
   val totalConsumed = inputItems.associateWith { item -> supplyExpressions[item]!!(rates) }
-  val totalDemand = inputItems.associateWith { item ->
-    val consumption = supplyExpressions[item]!!
-    consumption(minimize(consumption, fixedConstraints + planConstraints.values))
-  }
-  val (optimizedConsumption) = request.inputs.augment(totalConsumed) { consumption, (item, amount) ->
-    val consumed = minOf(consumption[item] ?: 0.br, amount.br)
-    val demand = amount.br + (totalDemand[item] ?: 0.br) - (availability[item] ?: 0.br)
-    add(OptimizeConsumption(item, amount, consumed.toRational(), demand.toRational()))
-    consumption + (item to (consumption[item] ?: 0.br) - consumed)
+  val totalDemandDeferred = inputItems.associateWith { item ->
+    async {
+      val consumption = supplyExpressions[item]!!
+      consumption(minimize(consumption, fixedConstraints + planConstraints.values))
+    }
   }
 
   /**************************/
@@ -137,10 +146,26 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   val totalProduced = itemExpressions.keys
     .associateWith { item -> itemExpressions[item]!!(rates) }
     .filterValues { it > 0.br }
-  val totalPotential = request.outputs.map { it.item }.associateWith { item ->
-    val production = itemExpressions[item]!!
-    production(maximize(production, fixedConstraints + (planConstraints - item).values))
+  val totalPotentialDeferred = request.outputs.map { it.item }.associateWith { item ->
+    async {
+      val production = itemExpressions[item]!!
+      production(maximize(production, fixedConstraints + (planConstraints - item).values))
+    }
   }
+
+  /******************/
+  /** DISTRIBUTION **/
+  /******************/
+
+  val totalDemand = totalDemandDeferred.mapValues { (_, deferred) -> deferred.await() }
+  val (optimizedConsumption) = request.inputs.augment(totalConsumed) { consumption, (item, amount) ->
+    val consumed = minOf(consumption[item] ?: 0.br, amount.br)
+    val demand = amount.br + (totalDemand[item] ?: 0.br) - (availability[item] ?: 0.br)
+    add(OptimizeConsumption(item, amount, consumed.toRational(), demand.toRational()))
+    consumption + (item to (consumption[item] ?: 0.br) - consumed)
+  }
+
+  val totalPotential = totalPotentialDeferred.mapValues { (_, deferred) -> deferred.await() }
   val (distributedProduced, byproducts) = request.outputs.augment(totalProduced) { produced, output ->
     val item = output.item
     val amount: BigRational = when (output) {
@@ -162,7 +187,7 @@ internal fun optimize(request: OptimizeRequest): OptimizeResponse {
   /** RESPONSE **/
   /**************/
 
-  return OptimizeResponse(
+  OptimizeResponse(
     consumed = optimizedConsumption,
     produced = optimizeProduced,
     byproducts = byproducts.filterValues { it != 0.br }.mapValues { (_, amount) -> amount.toRational() },
