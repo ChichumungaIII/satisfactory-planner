@@ -30,12 +30,12 @@ enum class ProductionRecipe(
   ),
   IRON_ALLOY_INGOT(
     "Iron Alloy Ingot",
-    time = 6.q,
+    time = 12.q,
     inputs = mapOf(
-      Item.IRON_ORE to 2.q,
+      Item.IRON_ORE to 8.q,
       Item.COPPER_ORE to 2.q,
     ),
-    outputs = mapOf(Item.IRON_INGOT to 5.q),
+    outputs = mapOf(Item.IRON_INGOT to 15.q),
   ),
   IRON_PLATE(
     "Iron Plate",
@@ -48,6 +48,12 @@ enum class ProductionRecipe(
     time = 4.q,
     inputs = mapOf(Item.IRON_INGOT to 1.q),
     outputs = mapOf(Item.IRON_ROD to 1.q),
+  ),
+  STEEL_ROD(
+    "Steel Rod",
+    time = 5.q,
+    inputs = mapOf(Item.STEEL_INGOT to 1.q),
+    outputs = mapOf(Item.IRON_ROD to 4.q),
   ),
   XENO_ZAPPER(
     "Xeno-Zapper",
@@ -205,6 +211,15 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.ROTOR to 1.q),
   ),
+  COPPER_ROTOR(
+    "Copper Rotor",
+    time = 16.q,
+    inputs = mapOf(
+      Item.COPPER_SHEET to 6.q,
+      Item.SCREW to 52.q,
+    ),
+    outputs = mapOf(Item.ROTOR to 3.q),
+  ),
   MODULAR_FRAME(
     "Modular Frame",
     time = 60.q,
@@ -306,8 +321,8 @@ enum class ProductionRecipe(
     "Encased Industrial Beam",
     time = 10.q,
     inputs = mapOf(
-      Item.STEEL_BEAM to 4.q,
-      Item.CONCRETE to 5.q,
+      Item.STEEL_BEAM to 3.q,
+      Item.CONCRETE to 6.q,
     ),
     outputs = mapOf(Item.ENCASED_INDUSTRIAL_BEAM to 1.q),
   ),
@@ -352,9 +367,9 @@ enum class ProductionRecipe(
     time = 30.q,
     inputs = mapOf(
       Item.MODULAR_FRAME to 5.q,
-      Item.STEEL_PIPE to 15.q,
+      Item.STEEL_PIPE to 20.q,
       Item.ENCASED_INDUSTRIAL_BEAM to 5.q,
-      Item.SCREW to 100.q,
+      Item.SCREW to 120.q,
     ),
     outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
   ),
@@ -468,6 +483,24 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.CIRCUIT_BOARD to 1.q),
   ),
+  CATERIUM_CIRCUIT_BOARD(
+    "Caterium Circuit Board",
+    time = 48.q,
+    inputs = mapOf(
+      Item.PLASTIC to 10.q,
+      Item.QUICKWIRE to 30.q,
+    ),
+    outputs = mapOf(Item.CIRCUIT_BOARD to 7.q),
+  ),
+  ELECTRODE_CIRCUIT_BOARD(
+    "Electrode Circuit Board",
+    time = 12.q,
+    inputs = mapOf(
+      Item.RUBBER to 4.q,
+      Item.PETROLEUM_COKE to 8.q,
+    ),
+    outputs = mapOf(Item.CIRCUIT_BOARD to 1.q),
+  ),
   SILICON_CIRCUIT_BOARD(
     "Silicon Circuit Board",
     time = 24.q,
@@ -483,10 +516,9 @@ enum class ProductionRecipe(
     "Computer",
     time = 24.q,
     inputs = mapOf(
-      Item.CIRCUIT_BOARD to 10.q,
-      Item.CABLE to 9.q,
-      Item.PLASTIC to 18.q,
-      Item.SCREW to 52.q,
+      Item.CIRCUIT_BOARD to 4.q,
+      Item.CABLE to 8.q,
+      Item.PLASTIC to 16.q,
     ),
     outputs = mapOf(Item.COMPUTER to 1.q),
   ),
@@ -546,6 +578,15 @@ enum class ProductionRecipe(
     ),
     outputs = mapOf(Item.PACKAGED_FUEL to 2.q),
   ),
+  DILUTED_PACKAGED_FUEL(
+    "Diluted Packaged Fuel",
+    time = 2.q,
+    inputs = mapOf(
+      Item.HEAVY_OIL_RESIDUE to 1.q,
+      Item.PACKAGED_WATER to 2.q,
+    ),
+    outputs = mapOf(Item.PACKAGED_FUEL to 2.q),
+  ),
   PACKAGE_HEAVY_OIL_RESIDUE(
     "Package Heavy Oil Residue",
     time = 4.q,
@@ -565,7 +606,7 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.PACKAGED_LIQUID_BIOFUEL to 2.q),
   ),
   UNPACKAGE_WATER(
-    "UNPACKAGE_WATER",
+    "Unpackage Water",
     time = 1.q,
     inputs = mapOf(Item.PACKAGED_WATER to 2.q),
     outputs = mapOf(

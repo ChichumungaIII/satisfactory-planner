@@ -20,7 +20,7 @@ enum class Generator(
   ),
   FUEL_GENERATOR(
     "Fuel Generator",
-    generation = 150.q,
+    generation = 250.q,
   ),
   NUCLEAR_POWER_PLANT(
     "Nuclear Power Plant",
