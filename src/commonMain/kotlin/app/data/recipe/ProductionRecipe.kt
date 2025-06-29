@@ -267,14 +267,6 @@ enum class ProductionRecipe(
     outputs = mapOf(Item.CHAINSAW to 1.q),
   ),
 
-  /* Tier 2 -- Resource Sink Bonus Program */
-  COLOR_CARTRIDGE(
-    "Color Cartridge",
-    time = 6.q,
-    inputs = mapOf(Item.FLOWER_PETALS to 5.q),
-    outputs = mapOf(Item.COLOR_CARTRIDGE to 10.q),
-  ),
-
   /* Tier 3 -- Basic Steel Production */
   STEEL_INGOT(
     "Steel Ingot",
@@ -1064,10 +1056,10 @@ enum class ProductionRecipe(
     inputs = mapOf(Item.HATCHER_REMAINS to 1.q),
     outputs = mapOf(Item.ALIEN_PROTEIN to 1.q),
   ),
-  SPITTER_PROTEIN(
+  PLASMA_SPITTER_PROTEIN(
     "Spitter Protein",
     time = 3.q,
-    inputs = mapOf(Item.SPITTER_REMAINS to 1.q),
+    inputs = mapOf(Item.PLASMA_SPITTER_REMAINS to 1.q),
     outputs = mapOf(Item.ALIEN_PROTEIN to 1.q),
   ),
   STINGER_PROTEIN(
@@ -1475,76 +1467,6 @@ enum class ProductionRecipe(
       Item.SMOKELESS_POWDER to 4.q,
     ),
     outputs = mapOf(Item.CLUSTER_NOBELISK to 1.q),
-  ),
-
-  /* Research -- FICSMAS */
-  FICSMAS_TREE_BRANCH(
-    "FICSMAS Tree Branch",
-    time = 6.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.FICSMAS_TREE_BRANCH to 1.q),
-  ),
-  FICSMAS_BOW(
-    "FICSMAS Bow",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 2.q),
-    outputs = mapOf(Item.FICSMAS_BOW to 1.q),
-  ),
-  RED_FICSMAS_ORNAMENT(
-    "Red FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.RED_FICSMAS_ORNAMENT to 1.q),
-  ),
-  BLUE_FICSMAS_ORNAMENT(
-    "Blue FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.BLUE_FICSMAS_ORNAMENT to 2.q),
-  ),
-  COPPER_FICSMAS_ORNAMENT(
-    "Copper FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(
-      Item.RED_FICSMAS_ORNAMENT to 2.q, Item.COPPER_INGOT to 2.q
-    ),
-    outputs = mapOf(Item.COPPER_FICSMAS_ORNAMENT to 1.q),
-  ),
-  IRON_FICSMAS_ORNAMENT(
-    "Iron FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(
-      Item.BLUE_FICSMAS_ORNAMENT to 3.q,
-      Item.IRON_INGOT to 3.q,
-    ),
-    outputs = mapOf(Item.IRON_FICSMAS_ORNAMENT to 1.q),
-  ),
-  FICSMAS_ORNAMENT_BUNDLE(
-    "FICSMAS Ornament Bundle",
-    time = 12.q,
-    inputs = mapOf(
-      Item.COPPER_FICSMAS_ORNAMENT to 1.q,
-      Item.IRON_FICSMAS_ORNAMENT to 1.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_ORNAMENT_BUNDLE to 1.q),
-  ),
-  FICSMAS_DECORATION(
-    "FICSMAS Decoration",
-    time = 60.q,
-    inputs = mapOf(
-      Item.FICSMAS_TREE_BRANCH to 15.q,
-      Item.FICSMAS_ORNAMENT_BUNDLE to 6.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_DECORATION to 2.q),
-  ),
-  FICSMAS_WONDER_STAR(
-    "FICSMAS Wonder Star",
-    time = 60.q,
-    inputs = mapOf(
-      Item.FICSMAS_DECORATION to 5.q,
-      Item.CANDY_CANE to 20.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_WONDER_STAR to 1.q),
   ),
 
   /* Alternate */

@@ -26,7 +26,6 @@ enum class Workstation(
       ProductionRecipe.ROTOR,
       ProductionRecipe.MODULAR_FRAME,
       ProductionRecipe.SOLID_BIOFUEL,
-      ProductionRecipe.COLOR_CARTRIDGE,
       ProductionRecipe.STEEL_INGOT,
       ProductionRecipe.STEEL_BEAM,
       ProductionRecipe.STEEL_PIPE,
@@ -41,7 +40,7 @@ enum class Workstation(
       // Research
       ProductionRecipe.HOG_PROTEIN,
       ProductionRecipe.HATCHER_PROTEIN,
-      ProductionRecipe.SPITTER_PROTEIN,
+      ProductionRecipe.PLASMA_SPITTER_PROTEIN,
       ProductionRecipe.STINGER_PROTEIN,
       ProductionRecipe.ALIEN_DNA_CAPSULE,
       ProductionRecipe.IRON_REBAR,

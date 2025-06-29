@@ -17,9 +17,6 @@ enum class Manufacturer(
       ProductionRecipe.IRON_INGOT,
       ProductionRecipe.COPPER_INGOT,
       ProductionRecipe.CATERIUM_INGOT,
-      // Research
-      ProductionRecipe.RED_FICSMAS_ORNAMENT,
-      ProductionRecipe.BLUE_FICSMAS_ORNAMENT,
     ),
   ),
   CONSTRUCTOR(
@@ -39,7 +36,6 @@ enum class Manufacturer(
       ProductionRecipe.BIOMASS_LEAVES,
       ProductionRecipe.COPPER_SHEET,
       ProductionRecipe.SOLID_BIOFUEL,
-      ProductionRecipe.COLOR_CARTRIDGE,
       ProductionRecipe.STEEL_BEAM,
       ProductionRecipe.STEEL_PIPE,
       ProductionRecipe.EMPTY_CANISTER,
@@ -48,7 +44,7 @@ enum class Manufacturer(
       // Research
       ProductionRecipe.HOG_PROTEIN,
       ProductionRecipe.HATCHER_PROTEIN,
-      ProductionRecipe.SPITTER_PROTEIN,
+      ProductionRecipe.PLASMA_SPITTER_PROTEIN,
       ProductionRecipe.STINGER_PROTEIN,
       ProductionRecipe.ALIEN_DNA_CAPSULE,
       ProductionRecipe.IRON_REBAR,
@@ -59,8 +55,6 @@ enum class Manufacturer(
       ProductionRecipe.POWER_SHARD_5,
       ProductionRecipe.QUARTZ_CRYSTAL,
       ProductionRecipe.SILICA,
-      ProductionRecipe.FICSMAS_TREE_BRANCH,
-      ProductionRecipe.FICSMAS_BOW,
     ),
   ),
   ASSEMBLER(
@@ -93,9 +87,6 @@ enum class Manufacturer(
       ProductionRecipe.BLACK_POWDER,
       ProductionRecipe.COMPACTED_COAL,
       ProductionRecipe.FABRIC,
-      ProductionRecipe.FICSMAS_DECORATION,
-      ProductionRecipe.FICSMAS_ORNAMENT_BUNDLE,
-      ProductionRecipe.FICSMAS_WONDER_STAR,
       ProductionRecipe.NOBELISK,
       ProductionRecipe.PULSE_NOBELISK,
       ProductionRecipe.RIFLE_AMMO,
@@ -113,9 +104,6 @@ enum class Manufacturer(
       ProductionRecipe.ALUMINUM_INGOT,
       // Alternate
       ProductionRecipe.IRON_ALLOY_INGOT,
-      // Research
-      ProductionRecipe.COPPER_FICSMAS_ORNAMENT,
-      ProductionRecipe.IRON_FICSMAS_ORNAMENT,
     ),
   ),
   REFINERY(
