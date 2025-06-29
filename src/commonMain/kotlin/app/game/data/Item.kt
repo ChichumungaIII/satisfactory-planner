@@ -14,9 +14,6 @@ enum class Item(
   val stack: Rational? = null,
   val sink: Rational? = null,
   val energy: Rational? = null,
-  val radiation: Rational? = null,
-  val stable: Boolean = true,
-  val experimental: Boolean = true,
 ) {
   /************/
   /** Tier 0 **/
@@ -381,7 +378,6 @@ enum class Item(
     stack = 100.q,
     sink = 270.q,
     energy = 750.q,
-    experimental = false,
   ),
   PACKAGED_HEAVY_OIL_RESIDUE(
     "Packaged Heavy Oil Residue",
@@ -396,7 +392,6 @@ enum class Item(
     stack = 100.q,
     sink = 370.q,
     energy = 750.q,
-    experimental = false,
   ),
   LIQUID_BIOFUEL(
     "Liquid Biofuel",
@@ -556,7 +551,6 @@ enum class Item(
     stack = 100.q,
     sink = 570.q,
     energy = 2_000.q,
-    experimental = false,
   ),
   SMOKELESS_POWDER(
     "Smokeless Powder",
@@ -605,14 +599,12 @@ enum class Item(
     Category.RESOURCES,
     stack = 100.q,
     sink = 35.q,
-    radiation = 15.q,
   ),
   ENCASED_URANIUM_CELL(
     "Encased Uranium Cell",
     Category.PARTS,
     stack = 200.q,
     sink = 147.q,
-    radiation = 1.q / 2.q,
   ),
   ELECTROMAGNETIC_CONTROL_ROD(
     "Electromagnetic Control Rod",
@@ -626,13 +618,11 @@ enum class Item(
     stack = 50.q,
     sink = 44_092.q,
     energy = 750_000.q,
-    radiation = 50.q,
   ),
   URANIUM_WASTE(
     "Uranium Waste",
     Category.PARTS,
     stack = 500.q,
-    radiation = 10.q,
   ),
   MAGNETIC_FIELD_GENERATOR(
     "Magnetic Field Generator",
@@ -709,19 +699,16 @@ enum class Item(
     "Non-fissile Uranium",
     Category.PARTS,
     stack = 500.q,
-    radiation = 3.q / 4.q,
   ),
   PLUTONIUM_PELLET(
     "Plutonium Pellet",
     Category.PARTS,
     stack = 100.q,
-    radiation = 20.q,
   ),
   ENCASED_PLUTONIUM_CELL(
     "Encased Plutonium Cell",
     Category.PARTS,
     stack = 200.q,
-    radiation = 120.q,
   ),
   PLUTONIUM_FUEL_ROD(
     "Plutonium Fuel Rod",
@@ -729,13 +716,11 @@ enum class Item(
     stack = 50.q,
     sink = 153_184.q,
     energy = 1_500_000.q,
-    radiation = 250.q,
   ),
   PLUTONIUM_WASTE(
     "Plutonium Waste",
     Category.PARTS,
     stack = 500.q,
-    radiation = 200.q,
   ),
   COPPER_POWDER(
     "Copper Powder",
@@ -773,21 +758,18 @@ enum class Item(
     Category.EQUIPMENT,
     stack = 50.q,
     sink = 608.q,
-    experimental = false,
   ),
   JETPACK(
     "Jetpack",
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 49_580.q,
-    experimental = false,
   ),
   HOVER_PACK(
     "Hover Pack",
     Category.EQUIPMENT,
     stack = 1.q,
     sink = 413_920.q,
-    experimental = false,
   ),
 
   /* Health and Safety */
