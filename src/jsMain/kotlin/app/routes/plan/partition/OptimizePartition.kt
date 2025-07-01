@@ -11,7 +11,6 @@ import app.api.plan.v1.Plan
 import app.api.plan.v1.Plan.Partition
 import app.api.plan.v1.Plan.Target.Limit
 import app.game.data.Recipe
-import app.game.logic.Progress
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -25,7 +24,6 @@ import kotlin.time.Duration.Companion.seconds
 
 class OptimizePartition(
   private val partition: Partition,
-  private val progress: Progress,
   private val callback: (optimized: Partition) -> Unit,
 ) : RThunk {
   override fun invoke(dispatch: (RAction) -> WrapperAction, getState: () -> AppState) {
@@ -39,7 +37,7 @@ class OptimizePartition(
         if (!isActive) return@launchMain
       }
 
-      val optimizeRequest = toRequest(partition, progress)
+      val optimizeRequest = toRequest(partition)
       val response = getOptimizeService().optimize(optimizeRequest)
       if (!isActive) return@launchMain
 
@@ -49,7 +47,7 @@ class OptimizePartition(
   }
 }
 
-fun toRequest(partition: Partition, progress: Progress): OptimizeRequest {
+fun toRequest(partition: Partition): OptimizeRequest {
   val inputs = partition.inputs.mapNotNull { it.toOptimizeInput() } +
       partition.partitions.flatMap { it.products }.mapNotNull { it.toOptimizeInput() }
 
@@ -65,7 +63,7 @@ fun toRequest(partition: Partition, progress: Progress): OptimizeRequest {
   return OptimizeRequest(
     inputs = inputs,
     outputs = outputs,
-    recipes = Recipe.entries.filter { it.unlock.test(progress) }.toSet() - banned,
+    recipes = Recipe.entries.toSet() - banned,
     limits = limits,
   )
 }

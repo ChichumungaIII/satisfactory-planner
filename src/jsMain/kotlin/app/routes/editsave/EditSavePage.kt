@@ -7,9 +7,10 @@ import app.common.input.groupchecklist.GroupedChecklist
 import app.game.data.Milestone
 import app.game.data.Phase
 import app.game.data.Research
-import app.game.logic.Progress
+import app.game.data.Tier
 import app.redux.state.resource.save.SaveSave
 import app.redux.useAppDispatch
+import app.routes.createsave.steps.phase.priorPhases
 import mui.material.Button
 import mui.material.ButtonVariant
 import mui.material.Divider
@@ -56,9 +57,9 @@ val EditSavePage = FC<EditSavePageProps>("EditSavePage") { props ->
       value = progress.phase.name
       onChange = { event, _ ->
         val phase = Phase.valueOf(event.target.value.unsafeCast<String>())
-        val milestones = phase.previous?.let { Progress.create(phase = it) }
-          ?.let { progress -> Milestone.entries.filter { it.tier.requirement.test(progress) } }
-          ?: listOf()
+        val phases = priorPhases(phase)
+        val tiers = Tier.entries.filter { phases.contains(it.phase) }
+        val milestones = Milestone.entries.filter { tiers.contains(it.tier) }
         progress = progress.copy(
           phase = phase,
           milestones = save.progress.milestones.filter { milestones.contains(it) },

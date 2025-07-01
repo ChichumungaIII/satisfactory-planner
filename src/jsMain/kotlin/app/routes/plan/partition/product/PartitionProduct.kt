@@ -6,7 +6,6 @@ import app.common.input.rational.RationalDisplay
 import app.common.input.rational.RationalInput
 import app.common.input.rational.RationalInputVariant
 import app.game.data.Item
-import app.routes.plan.useProgress
 import app.util.PropsDelegate
 import mui.icons.material.ArrowDropDown
 import mui.icons.material.ArrowDropUp
@@ -41,8 +40,6 @@ external interface PartitionProductProps : Props {
 }
 
 val PartitionProduct = FC<PartitionProductProps>("PartitionProduct") { props ->
-  val progress = useProgress()
-
   var product by PropsDelegate(props.product, props.setProduct)
 
   Stack {
@@ -92,7 +89,7 @@ val PartitionProduct = FC<PartitionProductProps>("PartitionProduct") { props ->
     ItemAutocomplete {
       model = product.item
       setModel = { next -> product = product.copy(item = next) }
-      options = Item.entries.filter { it.unlock.test(progress) }
+      options = Item.entries
     }
 
     val potential = product.potential

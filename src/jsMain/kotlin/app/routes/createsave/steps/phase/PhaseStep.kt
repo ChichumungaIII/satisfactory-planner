@@ -2,7 +2,7 @@ package app.routes.createsave.steps.phase
 
 import app.game.data.Milestone
 import app.game.data.Phase
-import app.game.logic.Progress
+import app.game.data.Tier
 import app.routes.createsave.NewSaveContext
 import mui.material.FormControl
 import mui.material.InputLabel
@@ -31,9 +31,9 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
       value = newSave.progress.phase.name
       onChange = { event, _ ->
         val phase = Phase.valueOf(event.target.value.unsafeCast<String>())
-        val milestones = phase.previous?.let { Progress.create(phase = it) }
-          ?.let { progress -> Milestone.entries.filter { it.tier.requirement.test(progress) } }
-          ?: listOf()
+        val phases = priorPhases(phase)
+        val tiers = Tier.entries.filter { phases.contains(it.phase) }
+        val milestones = Milestone.entries.filter { tiers.contains(it.tier) }
         newSave = newSave.copy(
           progress = newSave.progress.copy(
             phase = phase,
@@ -49,5 +49,13 @@ val PhaseStep = FC<PhaseStepProps>("PhaseStep") {
         }
       }
     }
+  }
+}
+
+fun priorPhases(phase: Phase): Set<Phase> = buildSet {
+  val previous = phase.previous
+  if (previous != null) {
+    addAll(priorPhases(previous))
+    add(previous)
   }
 }

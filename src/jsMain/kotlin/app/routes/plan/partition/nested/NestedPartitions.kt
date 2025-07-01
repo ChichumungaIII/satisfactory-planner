@@ -6,7 +6,6 @@ import app.routes.plan.PartitionContext
 import app.routes.plan.PartitionContextValue
 import app.routes.plan.partition.OptimizePartition
 import app.routes.plan.usePartition
-import app.routes.plan.useProgress
 import app.util.PropsDelegate
 import mui.material.Button
 import mui.material.Stack
@@ -21,7 +20,6 @@ import web.cssom.px
 
 val NestedPartitions: FC<Props> = FC<Props>("NestedPartitions") {
   val dispatch = useAppDispatch()
-  val progress = useProgress()
 
   var parent by usePartition()
   var partitions by PropsDelegate(parent.partitions) { next -> parent = parent.copy(partitions = next) }
@@ -43,7 +41,7 @@ val NestedPartitions: FC<Props> = FC<Props>("NestedPartitions") {
       PartitionContext(PartitionContextValue(partition) { next ->
         val updated = next.copy(optimized = false)
         setPartition(next)
-        dispatch(OptimizePartition(updated, progress) { optimized -> setPartition(optimized) })
+        dispatch(OptimizePartition(updated) { optimized -> setPartition(optimized) })
       }) {
         NestedPartition {
           this.partition = partition
