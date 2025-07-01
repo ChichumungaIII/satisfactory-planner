@@ -6,7 +6,7 @@ import java.math.BigInteger
 import java.math.BigInteger.ONE
 import java.math.BigInteger.ZERO
 
-class BigRational constructor(
+class BigRational(
   private val n: BigInteger,
   private val d: BigInteger,
 ) : Numeric<BigRational> {

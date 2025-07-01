@@ -20,7 +20,7 @@ fun <T> GroupedChecklist() = GroupedChecklist.unsafeCast<FC<GroupedChecklistProp
 private val GroupedChecklist = FC<GroupedChecklistProps<Any>>("GroupedChecklist") { props ->
   var selected by PropsDelegate(props.selected, props.setSelected)
 
-  MuiList.invoke() {
+  MuiList.invoke {
     props.elements.groupBy(props.getGroup).entries.forEach { (title, group) ->
       ChecklistGroup {
         this.title = title

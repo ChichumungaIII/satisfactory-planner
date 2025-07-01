@@ -7,5 +7,4 @@ data class Factory(
   val id: ULong,
   val displayName: String,
   val tree: FactoryTree = FactoryTree(),
-) {
-}
+)
