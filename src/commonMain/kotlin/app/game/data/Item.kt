@@ -3,9 +3,7 @@ package app.game.data
 import util.math.Rational
 import util.math.q
 
-/**
- * Enumeration of all items in the game and their relevant properties.
- */
+/** Enumeration of all items in the game and their relevant properties. */
 enum class Item(
   /** The human-readable text representation of the item. */
   val displayName: String,
@@ -1065,7 +1063,9 @@ enum class Item(
   constructor(displayName: String, category: Category, stack: Int, energy: Int? = null) :
       this(displayName, category, stack.q, energy?.q)
 
+  /** Enumerates the sorts of items that exist. */
   enum class Category(
+    /** The human-readable text representation of the Category. */
     val displayName: String,
   ) {
     RESOURCES("Resources"),
