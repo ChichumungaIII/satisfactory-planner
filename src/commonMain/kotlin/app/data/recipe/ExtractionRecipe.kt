@@ -1,6 +1,6 @@
 package app.data.recipe
 
-import app.data.Item
+import app.game.data.Item
 import app.data.building.Extractor
 import kotlinx.serialization.Serializable
 import util.math.Rational

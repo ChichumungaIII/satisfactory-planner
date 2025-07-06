@@ -1,6 +1,6 @@
 package app.v2.data
 
-import app.data.Item
+import app.game.data.Item
 import app.data.building.Building
 import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable

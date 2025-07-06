@@ -1,6 +1,6 @@
 package app.v2.common.input
 
-import app.data.Item
+import app.game.data.Item
 import app.util.PropsDelegate
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps

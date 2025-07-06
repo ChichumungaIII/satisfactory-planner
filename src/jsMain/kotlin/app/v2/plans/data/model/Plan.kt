@@ -1,7 +1,7 @@
 package app.v2.plans.data.model
 
 import app.api.optimize.v1.OptimizeRequest
-import app.data.Item
+import app.game.data.Item
 import app.data.recipe.Recipe
 import app.data.recipe.componentRate
 import kotlinx.serialization.Serializable

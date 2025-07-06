@@ -2,7 +2,7 @@ package com.chichumunga.satisfactory
 
 import app.api.optimize.v1.OptimizeRequest
 import app.api.optimize.v1.OptimizeResponse
-import app.data.Item
+import app.game.data.Item
 import app.data.recipe.Recipe
 import app.serialization.AppJson
 import com.chichumunga.satisfactory.util.math.BigRational

@@ -1,6 +1,6 @@
 package app.v2.common.layout
 
-import app.data.Item
+import app.game.data.Item
 import mui.icons.material.ArrowForward
 import mui.material.Box
 import mui.material.Stack

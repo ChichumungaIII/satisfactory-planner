@@ -1,6 +1,6 @@
 package app.api.optimize.v1
 
-import app.data.Item
+import app.game.data.Item
 import app.data.recipe.Recipe
 import kotlinx.serialization.Serializable
 import util.math.Rational

@@ -1,6 +1,6 @@
 package app.v2.common.layout
 
-import app.data.Item
+import app.game.data.Item
 import app.data.recipe.Recipe
 import mui.material.Paper
 import mui.material.PaperVariant
