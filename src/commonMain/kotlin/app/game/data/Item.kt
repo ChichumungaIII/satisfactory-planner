@@ -3,1043 +3,1075 @@ package app.game.data
 import util.math.Rational
 import util.math.q
 
+/**
+ * Enumeration of all items in the game and their relevant properties.
+ */
 enum class Item(
+  /** The human-readable text representation of the item. */
   val displayName: String,
+  /** A categorization of the item, for display purposes. */
   val category: Category,
-  val stack: Rational? = null,
+  /** How many instances of the item stack into an inventory slot. A zero value indicates the item cannot be held. */
+  val stack: Rational,
+  /** If set, represents the amount of energy (in MW) the item has when used as fuel. */
   val energy: Rational? = null,
 ) {
-  /************/
-  /** Tier 0 **/
-  /************/
+  /* ****** */
+  /* Nature */
+  /* ****** */
 
-  /* Game Start */
+  /* Biomass */
 
-  IRON_ORE(
-    "Iron Ore",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  IRON_INGOT(
-    "Iron Ingot",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  IRON_PLATE(
-    "Iron Plate",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  IRON_ROD(
-    "Iron Rod",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-
-  /* HUB Upgrade 1 */
-
-  PORTABLE_MINER(
-    "Portable Miner",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-
-  /* HUB Upgrade 2 */
-
-  COPPER_ORE(
-    "Copper Ore",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  COPPER_INGOT(
-    "Copper Ingot",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  WIRE(
-    "Wire",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  CABLE(
-    "Cable",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-
-  /* HUB Upgrade 3 */
-
-  LIMESTONE(
-    "Limestone",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  CONCRETE(
-    "Concrete",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  SCREWS(
-    "Screws",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  REINFORCED_IRON_PLATE(
-    "Reinforced Iron Plate",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-
-  /* HUB Upgrade 6 */
-
-  BIOMASS(
-    "Biomass",
-    Category.PARTS,
-    stack = 200.q,
-    energy = 180.q,
-  ),
-
-  /************/
-  /** Tier 1 **/
-  /************/
-
-  /* Field Research */
-
-  OBJECT_SCANNER(
-    "Object Scanner",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  BEACON(
-    "Beacon",
-    Category.EQUIPMENT,
-    stack = 100.q,
-  ),
-
-  /************/
-  /** Tier 2 **/
-  /************/
-
-  /* Part Assembly */
-
-  COPPER_SHEET(
-    "Copper Sheet",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  ROTOR(
-    "Rotor",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  MODULAR_FRAME(
-    "Modular Frame",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  SMART_PLATING(
-    "Smart Plating",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Obstacle Clearing */
-
-  CHAINSAW(
-    "Chainsaw",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  SOLID_BIOFUEL(
-    "Solid Biofuel",
-    Category.PARTS,
-    stack = 200.q,
-    energy = 450.q,
-  ),
-
-  /* Resource Sink Bonus Program */
-
-  COLOR_CARTRIDGE(
-    "Color Cartridge",
-    Category.PARTS,
-    stack = 200.q,
-    energy = 900.q,
-  ),
-
-  /************/
-  /** Tier 3 **/
-  /************/
-
-  /* Coal Power */
-
-  COAL(
-    "Coal",
-    Category.RESOURCES,
-    stack = 100.q,
-    energy = 300.q,
-  ),
-  WATER(
-    "Water",
-    Category.RESOURCES,
-  ),
-
-  /* Basic Steel Production */
-
-  STEEL_INGOT(
-    "Steel Ingot",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  STEEL_BEAM(
-    "Steel Beam",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  STEEL_PIPE(
-    "Steel Pipe",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  VERSATILE_FRAMEWORK(
-    "Versatile Framework",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /************/
-  /** Tier 4 **/
-  /************/
-
-  /* Advanced Steel Production */
-
-  ENCASED_INDUSTRIAL_BEAM(
-    "Encased Industrial Beam",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  STATOR(
-    "Stator",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  MOTOR(
-    "Motor",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  AUTOMATED_WIRING(
-    "Automated Wiring",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  HEAVY_MODULAR_FRAME(
-    "Heavy Modular Frame",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /************/
-  /** Tier 5 **/
-  /************/
-
-  /* Oil Processing */
-
-  CRUDE_OIL(
-    "Crude Oil",
-    Category.RESOURCES,
-    energy = 320.q,
-  ),
-  PLASTIC(
-    "Plastic",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  HEAVY_OIL_RESIDUE(
-    "Heavy Oil Residue",
-    Category.PARTS,
-    energy = 400.q,
-  ),
-  RUBBER(
-    "Rubber",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  FUEL(
-    "Fuel",
-    Category.PARTS,
-    energy = 750.q,
-  ),
-  POLYMER_RESIN(
-    "Polymer Resin",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  PETROLEUM_COKE(
-    "Petroleum Coke",
-    Category.PARTS,
-    stack = 200.q,
-    energy = 180.q,
-  ),
-  CIRCUIT_BOARD(
-    "Circuit Board",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-
-  /* Industrial Manufacturing */
-
-  COMPUTER(
-    "Computer",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  MODULAR_ENGINE(
-    "Modular Engine",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  ADAPTIVE_CONTROL_UNIT(
-    "Adaptive Control Unit",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Alternative Fluid Transport */
-
-  EMPTY_CANISTER(
-    "Empty Canister",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  PACKAGED_WATER(
-    "Packaged Water",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  PACKAGED_OIL(
-    "Packaged Oil",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 320.q,
-  ),
-  PACKAGED_FUEL(
-    "Packaged Fuel",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 750.q,
-  ),
-  PACKAGED_HEAVY_OIL_RESIDUE(
-    "Packaged Heavy Oil Residue",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 400.q,
-  ),
-  PACKAGED_LIQUID_BIOFUEL(
-    "Packaged Liquid Biofuel",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 750.q,
-  ),
-  LIQUID_BIOFUEL(
-    "Liquid Biofuel",
-    Category.PARTS,
-    energy = 750.q,
-  ),
-
-  /************/
-  /** Tier 6 **/
-  /************/
-
-  /* Expanded Power Infrastructure */
-
-  CATERIUM_ORE(
-    "Caterium Ore",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  CATERIUM_INGOT(
-    "Caterium Ingot",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  QUICKWIRE(
-    "Quickwire",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  ZIPLINE(
-    "Zipline",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  AI_LIMITER(
-    "AI Limiter",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  HIGH_SPEED_CONNECTOR(
-    "High-Speed Connector",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-
-  /************/
-  /** Tier 7 **/
-  /************/
-
-  /* Bauxite Refinement */
-
-  BAUXITE(
-    "Bauxite",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  ALUMINA_SOLUTION(
-    "Alumina Solution",
-    Category.PARTS,
-  ),
-  PACKAGED_ALUMINA_SOLUTION(
-    "Packaged Alumina Solution",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  ALUMINUM_SCRAP(
-    "Aluminum Scrap",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  ALUMINUM_INGOT(
-    "Aluminum Ingot",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  ALCLAD_ALUMINUM_SHEET(
-    "Alclad Aluminum Sheet",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  ALUMINUM_CASING(
-    "Aluminum Casing",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  RAW_QUARTZ(
-    "Raw Quartz",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  QUARTZ_CRYSTAL(
-    "Quartz Crystal",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  SILICA(
-    "Silica",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  CRYSTAL_OSCILLATOR(
-    "Crystal Oscillator",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  RADIO_CONTROL_UNIT(
-    "Radio Control Unit",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Aeronautical Engineering */
-
-  SULFUR(
-    "Sulfur",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  BLACK_POWDER(
-    "Black Powder",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  COMPACTED_COAL(
-    "Compacted Coal",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 630.q,
-  ),
-  TURBOFUEL(
-    "Turbofuel",
-    Category.PARTS,
-    energy = 2_000.q,
-  ),
-  PACKAGED_TURBOFUEL(
-    "Packaged Turbofuel",
-    Category.PARTS,
-    stack = 100.q,
-    energy = 2_000.q,
-  ),
-  SMOKELESS_POWDER(
-    "Smokeless Powder",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  SULFURIC_ACID(
-    "Sulfuric Acid",
-    Category.PARTS,
-  ),
-  PACKAGED_SULFURIC_ACID(
-    "Packaged Sulfuric Acid",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  BATTERY(
-    "Battery",
-    Category.PARTS,
-    stack = 200.q,
-    energy = 6_000.q,
-  ),
-  SUPERCOMPUTER(
-    "Supercomputer",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  ASSEMBLY_DIRECTOR_SYSTEM(
-    "Assembly Director System",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /************/
-  /** Tier 8 **/
-  /************/
-
-  /* Nuclear Power */
-
-  URANIUM(
-    "Uranium",
-    Category.RESOURCES,
-    stack = 100.q,
-  ),
-  ENCASED_URANIUM_CELL(
-    "Encased Uranium Cell",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  ELECTROMAGNETIC_CONTROL_ROD(
-    "Electromagnetic Control Rod",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  URANIUM_FUEL_ROD(
-    "Uranium Fuel Rod",
-    Category.PARTS,
-    stack = 50.q,
-    energy = 750_000.q,
-  ),
-  URANIUM_WASTE(
-    "Uranium Waste",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  MAGNETIC_FIELD_GENERATOR(
-    "Magnetic Field Generator",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Advanced Aluminum Production */
-
-  NITROGEN_GAS(
-    "Nitrogen Gas",
-    Category.RESOURCES,
-  ),
-  EMPTY_FLUID_TANK(
-    "Empty Fluid Tank",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  PACKAGED_NITROGEN_GAS(
-    "Packaged Nitrogen Gas",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  HEAT_SINK(
-    "Heat Sink",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  COOLING_SYSTEM(
-    "Cooling System",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  FUSED_MODULAR_FRAME(
-    "Fused Modular Frame",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Leading-edge Production */
-
-  TURBO_MOTOR(
-    "Turbo Motor",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  THERMAL_PROPULSION_ROCKET(
-    "Thermal Propulsion Rocket",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /* Particle Enrichment */
-
-  NITRIC_ACID(
-    "Nitric Acid",
-    Category.PARTS,
-  ),
-  PACKAGED_NITRIC_ACID(
-    "Packaged Nitric Acid",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  NON_FISSILE_URANIUM(
-    "Non-fissile Uranium",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  PLUTONIUM_PELLET(
-    "Plutonium Pellet",
-    Category.PARTS,
-    stack = 100.q,
-  ),
-  ENCASED_PLUTONIUM_CELL(
-    "Encased Plutonium Cell",
-    Category.PARTS,
-    stack = 200.q,
-  ),
-  PLUTONIUM_FUEL_ROD(
-    "Plutonium Fuel Rod",
-    Category.PARTS,
-    stack = 50.q,
-    energy = 1_500_000.q,
-  ),
-  PLUTONIUM_WASTE(
-    "Plutonium Waste",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  COPPER_POWDER(
-    "Copper Powder",
-    Category.PARTS,
-    stack = 500.q,
-  ),
-  PRESSURE_CONVERSION_CUBE(
-    "Pressure Conversion Cube",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-  NUCLEAR_PASTA(
-    "Nuclear Pasta",
-    Category.PARTS,
-    stack = 50.q,
-  ),
-
-  /***************/
-  /** Equipment **/
-  /***************/
-
-  /* Transportation */
-
-  BLADE_RUNNERS(
-    "Blade Runners",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  PARACHUTE(
-    "Parachute",
-    Category.EQUIPMENT,
-    stack = 50.q,
-  ),
-  JETPACK(
-    "Jetpack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  HOVER_PACK(
-    "Hover Pack",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-
-  /* Health and Safety */
-
-  MEDICINAL_INHALER(
-    "Medicinal Inhaler",
-    Category.EQUIPMENT,
-    stack = 50.q,
-  ),
-  GAS_MASK(
-    "Gas Mask",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  GAS_FILTER(
-    "Gas Filter",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-  HAZMAT_SUIT(
-    "Hazmat Suit",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  IODINE_INFUSED_FILTER(
-    "Iodine Infused Filter",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-
-  /* Melee Weapons */
-
-  XENO_ZAPPER(
-    "Xeno-Zapper",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  XENO_BASHER(
-    "Xeno-Basher",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-
-  /* Rebar Gun */
-
-  REBAR_GUN(
-    "Rebar Gun",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  IRON_REBAR(
-    "Iron Rebar",
-    Category.CONSUMABLES,
-    stack = 100.q,
-  ),
-  STUN_REBAR(
-    "Stun Rebar",
-    Category.CONSUMABLES,
-    stack = 100.q,
-  ),
-  SHATTER_REBAR(
-    "Shatter Rebar",
-    Category.CONSUMABLES,
-    stack = 100.q,
-  ),
-  EXPLOSIVE_REBAR(
-    "Explosive Rebar",
-    Category.CONSUMABLES,
-    stack = 100.q,
-  ),
-
-  /* Rifle */
-
-  RIFLE(
-    "Rifle",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  RIFLE_AMMO(
-    "Rifle Ammo",
-    Category.CONSUMABLES,
-    stack = 500.q,
-  ),
-  HOMING_RIFLE_AMMO(
-    "Homing Rifle Ammo",
-    Category.CONSUMABLES,
-    stack = 500.q,
-  ),
-  TURBO_RIFLE_AMMO(
-    "Turbo Rifle Ammo",
-    Category.CONSUMABLES,
-    stack = 500.q,
-  ),
-
-  /* Nobelisk */
-
-  NOBELISK_DETONATOR(
-    "Nobelisk Detonator",
-    Category.EQUIPMENT,
-    stack = 1.q,
-  ),
-  NOBELISK(
-    "Nobelisk",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-  GAS_NOBELISK(
-    "Gas Nobelisk",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-  PULSE_NOBELISK(
-    "Pulse Nobelisk",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-  CLUSTER_NOBELISK(
-    "Cluster Nobelisk",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-  NUKE_NOBELISK(
-    "Nuke Nobelisk",
-    Category.CONSUMABLES,
-    stack = 50.q,
-  ),
-
-  /************/
-  /** Nature **/
-  /************/
-
-  /* Milestones */
-
-  WOOD(
-    "Wood",
-    Category.NATURE,
-    stack = 200.q,
-    energy = 100.q,
-  ),
   LEAVES(
     "Leaves",
-    Category.NATURE,
-    stack = 500.q,
-    energy = 15.q,
+    category = Category.NATURE,
+    stack = 500,
+    energy = 15,
   ),
-  FLOWER_PETALS(
-    "Flower Petals",
-    Category.NATURE,
-    stack = 500.q,
-    energy = 100.q,
+  WOOD(
+    "Wood",
+    category = Category.NATURE,
+    stack = 200,
+    energy = 100,
   ),
 
-  /* Alien Organisms */
+  /* Alien Megafauna */
 
   HOG_REMAINS(
     "Hog Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
+    category = Category.NATURE,
+    stack = 50,
+    energy = 250,
   ),
   HATCHER_REMAINS(
     "Hatcher Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
+    category = Category.NATURE,
+    stack = 50,
+    energy = 250,
   ),
   STINGER_REMAINS(
     "Stinger Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
+    category = Category.NATURE,
+    stack = 50,
+    energy = 250,
   ),
   PLASMA_SPITTER_REMAINS(
     "Plasma Spitter Remains",
-    Category.NATURE,
-    stack = 50.q,
-    energy = 250.q,
+    category = Category.NATURE,
+    stack = 50,
+    energy = 250,
   ),
-  ALIEN_PROTEIN(
-    "Alien Protein",
-    Category.PARTS,
-    stack = 100.q,
+
+  /* Alien Technology */
+
+  MERCER_SPHERE(
+    "Mercer Sphere",
+    category = Category.NATURE,
+    stack = 50,
   ),
-  ALIEN_DNA_CAPSULE(
-    "Alien DNA Capsule",
-    Category.PARTS,
-    stack = 50.q,
+  SOMERSLOOP(
+    "Somersloop",
+    category = Category.NATURE,
+    stack = 50,
   ),
 
   /* Mycelia */
 
   MYCELIA(
     "Mycelia",
-    Category.NATURE,
-    stack = 200.q,
-    energy = 20.q,
+    category = Category.NATURE,
+    stack = 200,
+    energy = 20,
   ),
 
   /* Nutrients */
 
-  BACON_AGARIC(
-    "Bacon Agaric",
-    Category.NATURE,
-    stack = 50.q,
-  ),
   BERYL_NUT(
     "Beryl Nut",
-    Category.NATURE,
-    stack = 100.q,
+    category = Category.NATURE,
+    stack = 100,
   ),
   PALEBERRY(
     "Paleberry",
-    Category.NATURE,
-    stack = 50.q,
+    category = Category.NATURE,
+    stack = 50,
+  ),
+  BACON_AGARIC(
+    "Bacon Agaric",
+    category = Category.NATURE,
+    stack = 50,
   ),
 
   /* Power Slugs */
 
   BLUE_POWER_SLUG(
     "Blue Power Slug",
-    Category.NATURE,
-    stack = 50.q,
+    category = Category.NATURE,
+    stack = 50,
   ),
   YELLOW_POWER_SLUG(
     "Yellow Power Slug",
-    Category.NATURE,
-    stack = 50.q,
+    category = Category.NATURE,
+    stack = 50,
   ),
   PURPLE_POWER_SLUG(
     "Purple Power Slug",
-    Category.NATURE,
-    stack = 50.q,
+    category = Category.NATURE,
+    stack = 50,
   ),
 
-  /* Specialty */
+  /* ****** */
+  /* Tier 0 */
+  /* ****** */
 
-  HARD_DRIVE(
-    "Hard Drive",
-    Category.NATURE,
-    stack = 100.q,
+  /* Onboarding */
+
+  IRON_ORE(
+    "Iron Ore",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+  IRON_INGOT(
+    "Iron Ingot",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  IRON_PLATE(
+    "Iron Plate",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  IRON_ROD(
+    "Iron Rod",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  XENO_ZAPPER(
+    "Xeno-Zapper",
+    category = Category.EQUIPMENT,
+    stack = 1,
   ),
 
-  /*******************/
-  /** Uncategorized **/
-  /*******************/
+  /* HUB Upgrade 1 */
 
-  /* Uncategorized */
+  PORTABLE_MINER(
+    "Portable Miner",
+    category = Category.EQUIPMENT,
+    stack = 50,
+  ),
 
-  POWER_SHARD(
-    "Power Shard",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
+  /* HUB Upgrade 2 */
+
+  COPPER_ORE(
+    "Copper Ore",
+    category = Category.RESOURCES,
+    stack = 100,
   ),
-  HUB_PARTS(
-    "HUB Parts",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
+  COPPER_INGOT(
+    "Copper Ingot",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  FICSMAS_GIFT(
-    "FICSMAS Gift",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  WIRE(
+    "Wire",
+    category = Category.PARTS,
+    stack = 500,
   ),
-  CANDY_CANE(
-    "Candy Cane",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  CABLE(
+    "Cable",
+    category = Category.PARTS,
+    stack = 200,
   ),
-  FICSMAS_TREE_BRANCH(
-    "FICSMAS Tree Branch",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+
+  /* HUB Upgrade 3 */
+
+  LIMESTONE(
+    "Limestone",
+    category = Category.RESOURCES,
+    stack = 100,
   ),
-  FICSMAS_BOW(
-    "FICSMAS Bow",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  CONCRETE(
+    "Concrete",
+    category = Category.PARTS,
+    stack = 500,
   ),
-  ACTUAL_SNOW(
-    "Actual Snow",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  SCREWS(
+    "Screws",
+    category = Category.PARTS,
+    stack = 500,
   ),
-  FICSMAS_WONDER_STAR(
-    "FICSMAS Wonder Star",
-    Category.UNCATEGORIZED,
-    stack = 50.q,
+  REINFORCED_IRON_PLATE(
+    "Reinforced Iron Plate",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  RED_FICSMAS_ORNAMENT(
-    "Red FICSMAS Ornament",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+
+  /* HUB Upgrade 6 */
+
+  BIOMASS(
+    "Biomass",
+    category = Category.PARTS,
+    stack = 200,
+    energy = 180,
   ),
-  BLUE_FICSMAS_ORNAMENT(
-    "Blue FICSMAS Ornament",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+
+  /* ****** */
+  /* Tier 1 */
+  /* ****** */
+
+  /* Field Research */
+
+  OBJECT_SCANNER(
+    "Object Scanner",
+    category = Category.EQUIPMENT,
+    stack = 1,
   ),
-  COPPER_FICSMAS_ORNAMENT(
-    "Copper FICSMAS Ornament",
-    Category.UNCATEGORIZED,
-    stack = 200.q,
+
+  /* Tier 1 Research */
+
+  ALIEN_PROTEIN(
+    "Alien Protein",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  IRON_FICSMAS_ORNAMENT(
-    "Iron FICSMAS Ornament",
-    Category.UNCATEGORIZED,
-    stack = 200.q,
-  ),
-  FICSMAS_ORNAMENT_BUNDLE(
-    "FICSMAS Ornament Bundle",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
-  ),
-  FICSMAS_DECORATION(
-    "FICSMAS Decoration",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
+  ALIEN_DNA_CAPSULE(
+    "Alien DNA Capsule",
+    category = Category.PARTS,
+    stack = 50,
   ),
   FABRIC(
     "Fabric",
-    Category.UNCATEGORIZED,
-    stack = 100.q,
-    energy = 15.q,
+    category = Category.PARTS,
+    stack = 100,
   ),
-  FACTORY_CART(
-    "Factory Cart™",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
+  PARACHUTE(
+    "Parachute",
+    category = Category.EQUIPMENT,
+    stack = 1,
   ),
-  CANDY_CANE_BASHER(
-    "Candy Cane Basher",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
+  POWER_SHARD(
+    "Power Shard",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  GOLDEN_FACTORY_CART(
-    "Golden Factory Cart™",
-    Category.UNCATEGORIZED,
-    stack = 1.q,
+
+  /* ****** */
+  /* Tier 2 */
+  /* ****** */
+
+  /* Part Assembly */
+
+  COPPER_SHEET(
+    "Copper Sheet",
+    category = Category.PARTS,
+    stack = 200,
   ),
-  SWEET_FIREWORKS(
-    "Sweet Fireworks",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  ROTOR(
+    "Rotor",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  FANCY_FIREWORKS(
-    "Fancy Fireworks",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  MODULAR_FRAME(
+    "Modular Frame",
+    category = Category.PARTS,
+    stack = 50,
   ),
-  SPARKLY_FIREWORKS(
-    "Sparkly Fireworks",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+  SMART_PLATING(
+    "Smart Plating",
+    category = Category.PARTS,
+    stack = 100,
   ),
-  SNOWBALL(
-    "Snowball",
-    Category.UNCATEGORIZED,
-    stack = 500.q,
+
+  /* Obstacle Clearing */
+
+  SOLID_BIOFUEL(
+    "Solid Biofuel",
+    category = Category.PARTS,
+    stack = 200,
+    energy = 450,
+  ),
+  CHAINSAW(
+    "Chainsaw",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  /* Tier 2 Research */
+
+  MEDICINAL_INHALER(
+    "Medicinal Inhaler",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  REBAR_GUN(
+    "Rebar Gun",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+  IRON_REBAR(
+    "Iron Rebar",
+    category = Category.CONSUMABLES,
+    stack = 100,
+  ),
+
+  /* ****** */
+  /* Tier 3 */
+  /* ****** */
+
+  /* Coal Power */
+
+  COAL(
+    "Coal",
+    category = Category.RESOURCES,
+    stack = 100,
+    energy = 300,
+  ),
+  WATER(
+    "Water",
+    category = Category.RESOURCES,
+    stack = 0,
+  ),
+
+  /* Basic Steel Production */
+
+  STEEL_INGOT(
+    "Steel Ingot",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  STEEL_BEAM(
+    "Steel Beam",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  STEEL_PIPE(
+    "Steel Pipe",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  VERSATILE_FRAMEWORK(
+    "Versatile Framework",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Enhanced Asset Security */
+
+  XENO_BASHER(
+    "Xeno-Basher",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  /* Tier 3 Research */
+
+  GAS_MASK(
+    "Gas Mask",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+  GAS_FILTER(
+    "Gas Filter",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+
+  /* ****** */
+  /* Tier 4 */
+  /* ****** */
+
+  /* Advanced Steel Production */
+
+  ENCASED_INDUSTRIAL_BEAM(
+    "Encased Industrial Beam",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  STATOR(
+    "Stator",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  MOTOR(
+    "Motor",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  AUTOMATED_WIRING(
+    "Automated Wiring",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* ****** */
+  /* Tier 5 */
+  /* ****** */
+
+  /* Jetpack */
+
+  JETPACK(
+    "Jetpack",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  /* Oil Processing */
+
+  CRUDE_OIL(
+    "Crude Oil",
+    category = Category.RESOURCES,
+    stack = 0,
+    energy = 320,
+  ),
+  PLASTIC(
+    "Plastic",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  RUBBER(
+    "Rubber",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  FUEL(
+    "Fuel",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 750,
+  ),
+  HEAVY_OIL_RESIDUE(
+    "Heavy Oil Residue",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 400,
+  ),
+  POLYMER_RESIN(
+    "Polymer Resin",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  PETROLEUM_COKE(
+    "Petroleum Coke",
+    category = Category.PARTS,
+    stack = 200,
+    energy = 180,
+  ),
+  CIRCUIT_BOARD(
+    "Circuit Board",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+
+  /* Fluid Packaging */
+
+  EMPTY_CANISTER(
+    "Empty Canister",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  PACKAGED_WATER(
+    "Packaged Water",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  PACKAGED_OIL(
+    "Packaged Oil",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 320,
+  ),
+  PACKAGED_FUEL(
+    "Packaged Fuel",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 750,
+  ),
+  PACKAGED_HEAVY_OIL_RESIDUE(
+    "Packaged Heavy Oil Residue",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 400,
+  ),
+  PACKAGED_LIQUID_BIOFUEL(
+    "Packaged Liquid Biofuel",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 750,
+  ),
+  LIQUID_BIOFUEL(
+    "Liquid Biofuel",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 750,
+  ),
+
+  /* Petroleum Power */
+
+  CATERIUM_ORE(
+    "Caterium ore",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+
+  /* Tier 5 Research */
+
+  CATERIUM_INGOT(
+    "Caterium Ingot",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  QUICKWIRE(
+    "Quickwire",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  ZIPLINE(
+    "Zipline",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+  STUN_REBAR(
+    "Stun Rebar",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  AI_LIMITER(
+    "AI Limiter",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  HIGH_SPEED_CONNECTOR(
+    "High-Speed Connector",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+
+  /* ****** */
+  /* Tier 6 */
+  /* ****** */
+
+  /* Industrial Manufacturing */
+
+  COMPUTER(
+    "Computer",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  HEAVY_MODULAR_FRAME(
+    "Heavy Modular Frame",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  MODULAR_ENGINE(
+    "Modular Engine",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  ADAPTIVE_CONTROL_UNIT(
+    "Adaptive Control Unit",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* ****** */
+  /* Tier 7 */
+  /* ****** */
+
+  /* Bauxite Refinement */
+
+  RAW_QUARTZ(
+    "Raw Quartz",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+
+  /* Quartz Research */
+  QUARTZ_CRYSTAL(
+    "Quartz Crystal",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  SILICA(
+    "Silica",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  SHATTER_REBAR(
+    "Shatter Rebar",
+    category = Category.CONSUMABLES,
+    stack = 100,
+  ),
+  CRYSTAL_OSCILLATOR(
+    "Crystal Oscillator",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  BLADE_RUNNERS(
+    "Blade Runners",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  BAUXITE(
+    "Bauxite",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+  ALUMINA_SOLUTION(
+    "Alumina Solution",
+    category = Category.PARTS,
+    stack = 0,
+  ),
+  PACKAGED_ALUMINA_SOLUTION(
+    "Packaged Alumina Solution",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  ALUMINUM_SCRAP(
+    "Aluminum Scrap",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  ALUMINUM_INGOT(
+    "Aluminum Ingot",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  ALCLAD_ALUMINUM_SHEET(
+    "Alclad Aluminum Sheet",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  ALUMINUM_CASING(
+    "Aluminum Casing",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+
+  /* Hoverpack */
+
+  HOVERPACK(
+    "Hoverpack",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  /* Hazmat Suit */
+
+  IODINE_INFUSED_FILTER(
+    "Iodine Infused Filter",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  HAZMAT_SUIT(
+    "Hazmat Suit",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+
+  /* Control System Development */
+
+  SULFUR(
+    "Sulfur",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+  SULFURIC_ACID(
+    "Sulfuric Acid",
+    category = Category.PARTS,
+    stack = 0,
+  ),
+  PACKAGED_SULFURIC_ACID(
+    "Packaged Sulfuric Acid",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  BATTERY(
+    "Battery",
+    category = Category.PARTS,
+    stack = 200,
+    energy = 6_000,
+  ),
+  RADIO_CONTROL_UNIT(
+    "Radio Control Unit",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  SUPERCOMPUTER(
+    "Supercomputer",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  ASSEMBLY_DIRECTOR_SYSTEM(
+    "Assembly Director System",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Tier 7 Research */
+
+  BLACK_POWDER(
+    "Black Powder",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  COMPACTED_COAL(
+    "Compacted Coal",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 630,
+  ),
+  TURBOFUEL(
+    "Turbofuel",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 2_000,
+  ),
+  PACKAGED_TURBOFUEL(
+    "Packaged Turbofuel",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 2_000,
+  ),
+  ROCKET_FUEL(
+    "Rocket Fuel",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 3_600,
+  ),
+  PACKAGED_ROCKET_FUEL(
+    "Packaged Rocket Fuel",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 3_600,
+  ),
+  SMOKELESS_POWDER(
+    "Smokeless Powder",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  EXPLOSIVE_REBAR(
+    "Explosive Rebar",
+    category = Category.CONSUMABLES,
+    stack = 100,
+  ),
+  NOBELISK_DETONATOR(
+    "Nobelisk Detonator",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+  NOBELISK(
+    "Nobelisk",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  GAS_NOBELISK(
+    "Gas Nobelisk",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  PULSE_NOBELISK(
+    "Pulse Nobelisk",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  CLUSTER_NOBELISK(
+    "Cluster Nobelisk",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+  RIFLE(
+    "Rifle",
+    category = Category.EQUIPMENT,
+    stack = 1,
+  ),
+  RIFLE_AMMO(
+    "Rifle Ammo",
+    category = Category.CONSUMABLES,
+    stack = 500,
+  ),
+  HOMING_RIFLE_AMMO(
+    "Homing Rifle Ammo",
+    category = Category.CONSUMABLES,
+    stack = 500,
+  ),
+  TURBO_RIFLE_AMMO(
+    "Turbo Rifle Ammo",
+    category = Category.CONSUMABLES,
+    stack = 500,
+  ),
+
+  /* ****** */
+  /* Tier 8 */
+  /* ****** */
+
+  /* Nuclear Power */
+
+  URANIUM(
+    "Uranium",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+  ENCASED_URANIUM_CELL(
+    "Encased Uranium Cell",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  ELECTROMAGNETIC_CONTROL_ROD(
+    "Electromagnetic Control Rod",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  URANIUM_FUEL_ROD(
+    "Uranium Fuel Rod",
+    category = Category.PARTS,
+    stack = 50,
+    energy = 750_000,
+  ),
+  URANIUM_WASTE(
+    "Uranium Waste",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  MAGNETIC_FIELD_GENERATOR(
+    "Magnetic Field Generator",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Advanced Aluminum Production */
+
+  NITROGEN_GAS(
+    "Nitrogen Gas",
+    category = Category.RESOURCES,
+    stack = 0,
+  ),
+  EMPTY_FLUID_TANK(
+    "Empty Fluid Tank",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  PACKAGED_NITROGEN_GAS(
+    "Packaged Nitrogen Gas",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  HEAT_SINK(
+    "Heat Sink",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  COOLING_SYSTEM(
+    "Cooling System",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  FUSED_MODULAR_FRAME(
+    "Fused Modular Frame",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Leading-edge Production */
+
+  TURBO_MOTOR(
+    "Turbo Motor",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  THERMAL_PROPULSION_ROCKET(
+    "Thermal Propulsion Rocket",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Particle Enrichment */
+
+  NITRIC_ACID(
+    "Nitric Acid",
+    category = Category.PARTS,
+    stack = 0,
+  ),
+  PACKAGED_NITRIC_ACID(
+    "Packaged Nitric Acid",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  NON_FISSILE_URANIUM(
+    "Non-Fissile Uranium",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  PLUTONIUM_PELLET(
+    "Plutonium Pellet",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  ENCASED_PLUTONIUM_CELL(
+    "Encased Plutonium Cell",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  PLUTONIUM_FUEL_ROD(
+    "Plutonium Fuel Rod",
+    category = Category.PARTS,
+    stack = 50,
+    energy = 1_500_000,
+  ),
+  PLUTONIUM_WASTE(
+    "Plutonium Waste",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  COPPER_POWDER(
+    "Copper Powder",
+    category = Category.PARTS,
+    stack = 500,
+  ),
+  PRESSURE_CONVERSION_CUBE(
+    "Pressure Conversion Cube",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  NUCLEAR_PASTA(
+    "Nuclear Pasta",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Tier 8 Research */
+
+  NUKE_NOBELISK(
+    "Nuke Nobelisk",
+    category = Category.CONSUMABLES,
+    stack = 50,
+  ),
+
+  /* ****** */
+  /* Tier 9 */
+  /* ****** */
+
+  /* Matter Conversion */
+
+  SAM(
+    "SAM",
+    category = Category.RESOURCES,
+    stack = 100,
+  ),
+  DIAMONDS(
+    "Diamonds",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  TIME_CRYSTAL(
+    "Time Crystal",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  FICSITE_INGOT(
+    "Ficsite Ingot",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  FICSITE_TRIGON(
+    "Ficsite Trigon",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  REANIMATED_SAM(
+    "Reanimated SAM",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  SAM_FLUCTUATOR(
+    "SAM Fluctuator",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  BIOCHEMICAL_SCULPTOR(
+    "Biochemical Sculptor",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Quantum Encoding */
+
+  EXCITED_PHOTONIC_MATTER(
+    "Excited Photonic Matter",
+    category = Category.PARTS,
+    stack = 0,
+  ),
+  DARK_MATTER_RESIDUE(
+    "Dark Matter Residue",
+    category = Category.PARTS,
+    stack = 0,
+  ),
+  DARK_MATTER_CRYSTAL(
+    "Dark Matter Crystal",
+    category = Category.PARTS,
+    stack = 200,
+  ),
+  SUPERPOSITION_OSCILLATOR(
+    "Superposition Oscillator",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  NEURAL_QUANTUM_PROCESSOR(
+    "Neural-Quantum Processor",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  AI_EXPANSION_SERVER(
+    "AI Expansion Server",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Spatial Energy Regulation */
+
+  SINGULARITY_CELL(
+    "Singularity Cell",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+  BALLISTIC_WARP_DRIVE(
+    "Ballistic Warp Drive",
+    category = Category.PARTS,
+    stack = 50,
+  ),
+
+  /* Peak Efficiency */
+
+  FICSONIUM(
+    "Ficsonium",
+    category = Category.PARTS,
+    stack = 100,
+  ),
+  FICSONIUM_FUEL_ROD(
+    "Ficsonium Fuel Rod",
+    category = Category.PARTS,
+    stack = 50,
+    energy = 150_000,
+  ),
+
+  /* Tier 9 Research */
+
+  ALIEN_POWER_MATRIX(
+    "Alien Power Matrix",
+    category = Category.PARTS,
+    stack = 50,
   );
+
+  constructor(displayName: String, category: Category, stack: Int, energy: Int? = null) :
+      this(displayName, category, stack.q, energy?.q)
 
   enum class Category(
     val displayName: String,
   ) {
-    CONSUMABLES("Consumables"),
-    EQUIPMENT("Equipment"),
-    FICSMAS("FICSMAS"),
-    NATURE("Nature"),
-    PARTS("Components"),
     RESOURCES("Resources"),
-    SPECIALTY("Specialty"),
-    UNCATEGORIZED("Uncategorized"),
+    PARTS("Parts"),
+    EQUIPMENT("Equipment"),
+    NATURE("Nature"),
+    CONSUMABLES("Consumables"),
   }
 }

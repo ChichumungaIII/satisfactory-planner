@@ -330,29 +330,6 @@ enum class Recipe(
     outputs = mapOf(Item.OBJECT_SCANNER to 1.q),
   ),
 
-  BEACON(
-    "Beacon",
-    time = 8.q,
-    inputs = mapOf(
-      Item.IRON_PLATE to 3.q,
-      Item.IRON_ROD to 1.q,
-      Item.WIRE to 15.q,
-      Item.CABLE to 2.q,
-    ),
-    outputs = mapOf(Item.BEACON to 1.q),
-  ),
-  CRYSTAL_BEACON(
-    "Crystal Beacon",
-    time = 120.q,
-    inputs = mapOf(
-      Item.STEEL_BEAM to 4.q,
-      Item.STEEL_PIPE to 16.q,
-      Item.CRYSTAL_OSCILLATOR to 1.q,
-    ),
-    outputs = mapOf(Item.BEACON to 20.q),
-    alternate = true,
-  ),
-
   COPPER_SHEET(
     "Copper Sheet",
     time = 6.q,
@@ -468,13 +445,6 @@ enum class Recipe(
     time = 4.q,
     inputs = mapOf(Item.BIOMASS to 8.q),
     outputs = mapOf(Item.SOLID_BIOFUEL to 4.q),
-  ),
-
-  COLOR_CARTRIDGE(
-    "Color Cartridge",
-    time = 6.q,
-    inputs = mapOf(Item.FLOWER_PETALS to 5.q),
-    outputs = mapOf(Item.COLOR_CARTRIDGE to 10.q),
   ),
 
   BIOCOAL(
@@ -1588,18 +1558,6 @@ enum class Recipe(
     ),
     outputs = mapOf(Item.URANIUM_FUEL_ROD to 1.q),
   ),
-  URANIUM_FUEL_UNIT(
-    "Uranium Fuel Unit",
-    time = 300.q,
-    inputs = mapOf(
-      Item.ENCASED_URANIUM_CELL to 100.q,
-      Item.ELECTROMAGNETIC_CONTROL_ROD to 10.q,
-      Item.CRYSTAL_OSCILLATOR to 3.q,
-      Item.BEACON to 6.q,
-    ),
-    outputs = mapOf(Item.URANIUM_FUEL_ROD to 3.q),
-    alternate = true,
-  ),
 
   URANIUM_FUEL_ROD_BURNING(
     "Uranium Fuel Rod (burning)",
@@ -1948,8 +1906,8 @@ enum class Recipe(
     outputs = mapOf(Item.JETPACK to 1.q),
   ),
 
-  HOVER_PACK(
-    "Hover Pack",
+  HOVERPACK(
+    "Hoverpack",
     time = 120.q,
     inputs = mapOf(
       Item.MOTOR to 8.q,
@@ -1957,7 +1915,7 @@ enum class Recipe(
       Item.COMPUTER to 8.q,
       Item.ALCLAD_ALUMINUM_SHEET to 40.q,
     ),
-    outputs = mapOf(Item.HOVER_PACK to 1.q),
+    outputs = mapOf(Item.HOVERPACK to 1.q),
   ),
 
   NUTRITIONAL_INHALER(
@@ -2255,43 +2213,6 @@ enum class Recipe(
     outputs = mapOf(Item.ALIEN_DNA_CAPSULE to 1.q),
   ),
 
-  SWEET_FIREWORKS(
-    "Sweet Fireworks",
-    time = 24.q,
-    inputs = mapOf(
-      Item.FICSMAS_TREE_BRANCH to 6.q,
-      Item.CANDY_CANE to 3.q,
-    ),
-    outputs = mapOf(Item.SWEET_FIREWORKS to 1.q),
-  ),
-
-  FANCY_FIREWORKS(
-    "Fancy Fireworks",
-    time = 24.q,
-    inputs = mapOf(
-      Item.FICSMAS_TREE_BRANCH to 4.q,
-      Item.FICSMAS_BOW to 3.q,
-    ),
-    outputs = mapOf(Item.FANCY_FIREWORKS to 1.q),
-  ),
-
-  SPARKLY_FIREWORKS(
-    "Sparkly Fireworks",
-    time = 24.q,
-    inputs = mapOf(
-      Item.FICSMAS_TREE_BRANCH to 3.q,
-      Item.ACTUAL_SNOW to 2.q,
-    ),
-    outputs = mapOf(Item.SPARKLY_FIREWORKS to 1.q),
-  ),
-
-  FICSMAS_TREE_BRANCH(
-    "FICSMAS Tree Branch",
-    time = 6.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.FICSMAS_TREE_BRANCH to 1.q),
-  ),
-
   FABRIC(
     "Fabric",
     time = 4.q,
@@ -2329,131 +2250,6 @@ enum class Recipe(
     time = 24.q,
     inputs = mapOf(Item.PURPLE_POWER_SLUG to 1.q),
     outputs = mapOf(Item.POWER_SHARD to 5.q),
-  ),
-
-  CANDY_CANE(
-    "Candy Cane",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 3.q),
-    outputs = mapOf(Item.CANDY_CANE to 1.q),
-  ),
-
-  CANDY_CANE_BASHER(
-    "Candy Cane Basher",
-    time = 80.q,
-    inputs = mapOf(
-      Item.XENO_ZAPPER to 2.q,
-      Item.CANDY_CANE to 25.q,
-      Item.FICSMAS_GIFT to 15.q,
-    ),
-    outputs = mapOf(Item.CANDY_CANE_BASHER to 1.q),
-  ),
-
-  FICSMAS_BOW(
-    "FICSMAS Bow",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 2.q),
-    outputs = mapOf(Item.FICSMAS_BOW to 1.q),
-  ),
-
-  ACTUAL_SNOW(
-    "Actual Snow",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 5.q),
-    outputs = mapOf(Item.ACTUAL_SNOW to 2.q),
-  ),
-
-  COPPER_FICSMAS_ORNAMENT(
-    "Copper FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(
-      Item.RED_FICSMAS_ORNAMENT to 2.q,
-      Item.COPPER_INGOT to 2.q,
-    ),
-    outputs = mapOf(Item.COPPER_FICSMAS_ORNAMENT to 1.q),
-  ),
-
-  IRON_FICSMAS_ORNAMENT(
-    "Iron FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(
-      Item.BLUE_FICSMAS_ORNAMENT to 3.q,
-      Item.IRON_INGOT to 3.q,
-    ),
-    outputs = mapOf(Item.IRON_FICSMAS_ORNAMENT to 1.q),
-  ),
-
-  RED_FICSMAS_ORNAMENT(
-    "Red FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.RED_FICSMAS_ORNAMENT to 1.q),
-  ),
-
-  BLUE_FICSMAS_ORNAMENT(
-    "Blue FICSMAS Ornament",
-    time = 12.q,
-    inputs = mapOf(Item.FICSMAS_GIFT to 1.q),
-    outputs = mapOf(Item.BLUE_FICSMAS_ORNAMENT to 2.q),
-  ),
-
-  FICSMAS_ORNAMENT_BUNDLE(
-    "FICSMAS Ornament Bundle",
-    time = 12.q,
-    inputs = mapOf(
-      Item.COPPER_FICSMAS_ORNAMENT to 1.q,
-      Item.IRON_FICSMAS_ORNAMENT to 1.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_ORNAMENT_BUNDLE to 1.q),
-  ),
-
-  FICSMAS_DECORATION(
-    "FICSMAS Decoration",
-    time = 60.q,
-    inputs = mapOf(
-      Item.FICSMAS_TREE_BRANCH to 15.q,
-      Item.FICSMAS_ORNAMENT_BUNDLE to 6.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_DECORATION to 2.q),
-  ),
-
-  FICSMAS_WONDER_STAR(
-    "FICSMAS Wonder Star",
-    time = 60.q,
-    inputs = mapOf(
-      Item.FICSMAS_DECORATION to 5.q,
-      Item.CANDY_CANE to 20.q,
-    ),
-    outputs = mapOf(Item.FICSMAS_WONDER_STAR to 1.q),
-  ),
-
-  SNOWBALL(
-    "Snowball",
-    time = 12.q,
-    inputs = mapOf(Item.ACTUAL_SNOW to 3.q),
-    outputs = mapOf(Item.SNOWBALL to 1.q),
-  ),
-
-  FACTORY_CART(
-    "Factory Cart™",
-    time = 20.q,
-    inputs = mapOf(
-      Item.REINFORCED_IRON_PLATE to 4.q,
-      Item.IRON_ROD to 4.q,
-      Item.ROTOR to 2.q,
-    ),
-    outputs = mapOf(Item.FACTORY_CART to 1.q),
-  ),
-
-  GOLDEN_FACTORY_CART(
-    "Golden Factory Cart™",
-    time = 20.q,
-    inputs = mapOf(
-      Item.CATERIUM_INGOT to 15.q,
-      Item.IRON_ROD to 4.q,
-      Item.ROTOR to 2.q,
-    ),
-    outputs = mapOf(Item.GOLDEN_FACTORY_CART to 1.q),
   );
 
   val rates = (inputs.mapValues { (_, amount) -> -amount } + outputs).mapValues { (_, amount) -> amount * 60.q / time }
