@@ -32,7 +32,6 @@ object SaveServiceLocalStorage : SaveService {
 
     val save = existing.copy(
       displayName = request.save.displayName,
-      progress = request.save.progress,
     )
 
     saves = saves + (save.name to save)

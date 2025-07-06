@@ -2,8 +2,6 @@ package app.routes.createsave
 
 import app.api.save.v1.Save
 import app.routes.createsave.steps.displayname.DisplayNameStep
-import app.routes.createsave.steps.milestones.MilestonesStep
-import app.routes.createsave.steps.phase.PhaseStep
 import mui.material.Orientation
 import mui.material.Step
 import mui.material.StepContent
@@ -45,28 +43,9 @@ val CreateSavePage = FC<CreateSavePageProps>("CreateSavePage") {
             StepContent {
               CreateSaveStep {
                 initial = true
-
-                DisplayNameStep { }
-              }
-            }
-          }
-
-          Step {
-            StepLabel { +"Phase" }
-            StepContent {
-              CreateSaveStep {
-                PhaseStep {}
-              }
-            }
-          }
-
-          Step {
-            StepLabel { +"Milestones" }
-            StepContent {
-              CreateSaveStep {
                 final = true
 
-                MilestonesStep {}
+                DisplayNameStep { }
               }
             }
           }

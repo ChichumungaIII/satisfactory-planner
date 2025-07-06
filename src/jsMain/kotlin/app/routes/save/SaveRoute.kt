@@ -1,6 +1,5 @@
 package app.routes.save
 
-import app.AppRoute
 import app.RouteParams
 import app.api.save.v1.SaveName
 import app.common.layout.RouteLoadingIndicator
@@ -12,13 +11,10 @@ import app.redux.state.resource.ResourceState.Companion.Loading
 import app.redux.state.resource.save.LoadSave
 import app.redux.state.resource.save.useSave
 import app.redux.useAppDispatch
-import mui.icons.material.Settings
-import mui.material.IconButton
 import react.FC
 import react.Props
 import react.ReactNode
 import react.create
-import react.router.useNavigate
 import react.router.useParams
 
 external interface SaveRouteProps : Props
@@ -26,8 +22,6 @@ external interface SaveRouteProps : Props
 val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
   val saveIdParam = useParams()[RouteParams.SAVE_ID.key]
   val name = RouteParams.parseInt(saveIdParam) { SaveName(it) }
-
-  val navigate = useNavigate()
 
   val dispatch = useAppDispatch()
 
@@ -49,14 +43,6 @@ val SaveRoute = FC<SaveRouteProps>("SaveRoute") {
         AppFrame {
           title = AppTitle.create { +it.displayName }
           content = SavePage.create { this.save = it }
-          actions = listOf(
-            IconButton.create {
-              Settings {}
-              onClick = {
-                navigate(AppRoute.V3_SAVE_EDIT.url(RouteParams.SAVE_ID to name.id))
-              }
-            }
-          )
         }
       }
     }

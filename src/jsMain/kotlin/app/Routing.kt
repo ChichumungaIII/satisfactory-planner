@@ -1,7 +1,6 @@
 package app
 
 import app.routes.createsave.CreateSaveRoute
-import app.routes.editsave.EditSaveRoute
 import app.routes.home.HomeRoute
 import app.routes.plan.PlanRoute
 import app.routes.save.SaveRoute
@@ -38,7 +37,6 @@ enum class AppRoute(
   V3_SAVES("saves", V3),
   V3_SAVES_CREATE("create", V3_SAVES, CreateSaveRoute.create()),
   V3_SAVE(":${RouteParams.SAVE_ID.key}", V3_SAVES, index = { SaveRoute.create() }),
-  V3_SAVE_EDIT("edit", V3_SAVE, EditSaveRoute.create()),
   V3_SAVE_PLANS("plans", V3_SAVE),
   V3_SAVE_PLAN(":${RouteParams.PLAN_ID.key}", V3_SAVE_PLANS, PlanRoute.create {});
 

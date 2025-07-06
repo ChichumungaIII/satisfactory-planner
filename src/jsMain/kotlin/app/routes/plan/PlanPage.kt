@@ -17,13 +17,11 @@ external interface PlanPageProps : Props {
 val PlanPage = FC<PlanPageProps>("PlanPage") { props ->
   val dispatch = useAppDispatch()
 
-  ProgressContext(props.save.progress) {
-    PartitionContext(PartitionContextValue(props.plan.partition) { next ->
-      val updated = next.copy(optimized = false)
-      dispatch(SavePlan(props.plan.copy(partition = updated)))
-      dispatch(OptimizePartition(updated) { optimized ->
-        dispatch(SavePlan(props.plan.copy(partition = optimized)))
-      })
-    }) { PartitionComponent {} }
-  }
+  PartitionContext(PartitionContextValue(props.plan.partition) { next ->
+    val updated = next.copy(optimized = false)
+    dispatch(SavePlan(props.plan.copy(partition = updated)))
+    dispatch(OptimizePartition(updated) { optimized ->
+      dispatch(SavePlan(props.plan.copy(partition = optimized)))
+    })
+  }) { PartitionComponent {} }
 }
