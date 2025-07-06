@@ -58,7 +58,7 @@ enum class Research(
     cost = mapOf(
       Item.ROTOR to 25.q,
       Item.REINFORCED_IRON_PLATE to 50.q,
-      Item.SCREW to 500.q,
+      Item.SCREWS to 500.q,
     ),
   ),
   INFLATED_POCKET_DIMENSION_ALIEN_ORGANISMS(
@@ -304,7 +304,7 @@ enum class Research(
     cost = mapOf(
       Item.IRON_ROD to 50.q,
       Item.WIRE to 100.q,
-      Item.SCREW to 200.q,
+      Item.SCREWS to 200.q,
     ),
   ),
   YELLOW_POWER_SHARDS(

@@ -139,26 +139,26 @@ enum class ProductionRecipe(
     "Screw",
     time = 6.q,
     inputs = mapOf(Item.IRON_ROD to 1.q),
-    outputs = mapOf(Item.SCREW to 4.q),
+    outputs = mapOf(Item.SCREWS to 4.q),
   ),
   CAST_SCREW(
     "Cast Screw",
     time = 24.q,
     inputs = mapOf(Item.IRON_INGOT to 5.q),
-    outputs = mapOf(Item.SCREW to 20.q),
+    outputs = mapOf(Item.SCREWS to 20.q),
   ),
   STEEL_SCREW(
     "Steel Screw",
     time = 12.q,
     inputs = mapOf(Item.STEEL_BEAM to 1.q),
-    outputs = mapOf(Item.SCREW to 52.q),
+    outputs = mapOf(Item.SCREWS to 52.q),
   ),
   REINFORCED_IRON_PLATE(
     "Reinforced Iron Plate",
     time = 12.q,
     inputs = mapOf(
       Item.IRON_PLATE to 6.q,
-      Item.SCREW to 12.q,
+      Item.SCREWS to 12.q,
     ),
     outputs = mapOf(Item.REINFORCED_IRON_PLATE to 1.q),
   ),
@@ -207,7 +207,7 @@ enum class ProductionRecipe(
     time = 15.q,
     inputs = mapOf(
       Item.IRON_ROD to 5.q,
-      Item.SCREW to 25.q,
+      Item.SCREWS to 25.q,
     ),
     outputs = mapOf(Item.ROTOR to 1.q),
   ),
@@ -216,7 +216,7 @@ enum class ProductionRecipe(
     time = 16.q,
     inputs = mapOf(
       Item.COPPER_SHEET to 6.q,
-      Item.SCREW to 52.q,
+      Item.SCREWS to 52.q,
     ),
     outputs = mapOf(Item.ROTOR to 3.q),
   ),
@@ -261,7 +261,7 @@ enum class ProductionRecipe(
     inputs = mapOf(
       Item.REINFORCED_IRON_PLATE to 5.q,
       Item.IRON_ROD to 25.q,
-      Item.SCREW to 160.q,
+      Item.SCREWS to 160.q,
       Item.CABLE to 15.q,
     ),
     outputs = mapOf(Item.CHAINSAW to 1.q),
@@ -361,7 +361,7 @@ enum class ProductionRecipe(
       Item.MODULAR_FRAME to 5.q,
       Item.STEEL_PIPE to 20.q,
       Item.ENCASED_INDUSTRIAL_BEAM to 5.q,
-      Item.SCREW to 120.q,
+      Item.SCREWS to 120.q,
     ),
     outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
   ),
@@ -372,7 +372,7 @@ enum class ProductionRecipe(
       Item.MODULAR_FRAME to 5.q,
       Item.ENCASED_INDUSTRIAL_BEAM to 3.q,
       Item.RUBBER to 20.q,
-      Item.SCREW to 104.q,
+      Item.SCREWS to 104.q,
     ),
     outputs = mapOf(Item.HEAVY_MODULAR_FRAME to 1.q),
   ),
@@ -1087,7 +1087,7 @@ enum class ProductionRecipe(
     "Rebar Gun", time = 60.q, inputs = mapOf(
       Item.REINFORCED_IRON_PLATE to 6.q,
       Item.IRON_ROD to 16.q,
-      Item.SCREW to 100.q,
+      Item.SCREWS to 100.q,
     ), outputs = mapOf(Item.REBAR_GUN to 1.q)
   ),
   IRON_REBAR(
@@ -1446,7 +1446,7 @@ enum class ProductionRecipe(
       Item.MOTOR to 2.q,
       Item.RUBBER to 10.q,
       Item.STEEL_PIPE to 25.q,
-      Item.SCREW to 250.q,
+      Item.SCREWS to 250.q,
     ),
     outputs = mapOf(Item.RIFLE to 1.q),
   ),

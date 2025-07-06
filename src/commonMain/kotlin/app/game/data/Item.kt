@@ -91,8 +91,8 @@ enum class Item(
     stack = 500.q,
     sink = 12.q,
   ),
-  SCREW(
-    "Screw",
+  SCREWS(
+    "Screws",
     Category.PARTS,
     stack = 500.q,
     sink = 2.q,

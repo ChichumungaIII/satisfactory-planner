@@ -166,8 +166,8 @@ enum class Item(
     "Concrete",
     stack = 500,
   ),
-  SCREW(
-    "Screw",
+  SCREWS(
+    "Screws",
     stack = 500,
   ),
   REINFORCED_IRON_PLATE(

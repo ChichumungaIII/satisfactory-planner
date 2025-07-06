@@ -136,7 +136,7 @@ class OptimizeRouteTest {
   fun optimize_withoutAlternateRecipes_ignoresAlternates() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
-      maximize(Item.SCREW, 1.q)
+      maximize(Item.SCREWS, 1.q)
     }
     val response = optimize(request)
 
@@ -146,7 +146,7 @@ class OptimizeRouteTest {
         consumed = 60.q,
         demand = 60.q,
       )
-      produce(Item.SCREW, 240.q, 240.q)
+      produce(Item.SCREWS, 240.q, 240.q)
 
       Recipe.IRON_INGOT clock 200.q
       Recipe.IRON_ROD clock 400.q
@@ -159,7 +159,7 @@ class OptimizeRouteTest {
   fun optimize_withAlternateRecipes_usesAlternates() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
-      maximize(Item.SCREW, 1.q)
+      maximize(Item.SCREWS, 1.q)
       allow(Recipe.CAST_SCREW)
     }
     val response = optimize(request)
@@ -170,7 +170,7 @@ class OptimizeRouteTest {
         consumed = 60.q,
         demand = 60.q,
       )
-      produce(Item.SCREW, 240.q, 240.q)
+      produce(Item.SCREWS, 240.q, 240.q)
 
       Recipe.IRON_INGOT clock 200.q
       Recipe.CAST_SCREW clock 480.q
@@ -182,7 +182,7 @@ class OptimizeRouteTest {
   fun optimize_withRestriction_limitsRecipeUse() {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
-      maximize(Item.SCREW, 1.q)
+      maximize(Item.SCREWS, 1.q)
       allow(Recipe.CAST_SCREW)
       Recipe.CAST_SCREW limitToClock 240.q
     }
@@ -194,7 +194,7 @@ class OptimizeRouteTest {
         consumed = 60.q,
         demand = 60.q,
       )
-      produce(Item.SCREW, 240.q, 240.q)
+      produce(Item.SCREWS, 240.q, 240.q)
 
       Recipe.IRON_INGOT clock 200.q
       Recipe.IRON_ROD clock 200.q
