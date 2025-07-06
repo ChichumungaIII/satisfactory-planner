@@ -7,7 +7,7 @@ enum class Building(
   /** The subcategory to which the building belongs. */
   val subcategory: Subcategory,
   /** The amount of power the building consumes during operation. A null value indicates power varies by recipe. */
-  val power: ClosedRange<Double>? = null,
+  val power: ClosedRange<Double>?,
   /** The recipes this building supports. */
   val recipes: List<Recipe>,
 ) {
