@@ -410,6 +410,122 @@ enum class RecipeV2(
     product = 10 of Item.BIOMASS,
   ),
 
+  /* Object Scanner */
+
+  OBJECT_SCANNER(
+    "Object Scanner",
+    time = 40,
+    inputs = listOf(
+      4 of Item.REINFORCED_IRON_PLATE,
+      20 of Item.WIRE,
+      50 of Item.SCREWS,
+    ),
+    product = 1 of Item.OBJECT_SCANNER,
+  ),
+
+  /* Alien Protein */
+
+  HATCHER_PROTEIN(
+    "Hatcher Protein",
+    time = 3,
+    inputs = listOf(1 of Item.HATCHER_REMAINS),
+    product = 1 of Item.ALIEN_PROTEIN,
+  ),
+  HOG_PROTEIN(
+    "Hog Protein",
+    time = 3,
+    inputs = listOf(1 of Item.HOG_REMAINS),
+    product = 1 of Item.ALIEN_PROTEIN,
+  ),
+  SPITTER_PROTEIN(
+    "Spitter Protein",
+    time = 3,
+    inputs = listOf(1 of Item.PLASMA_SPITTER_REMAINS),
+    product = 1 of Item.ALIEN_PROTEIN,
+  ),
+  STINGER_PROTEIN(
+    "Stinger Protein",
+    time = 3,
+    inputs = listOf(1 of Item.STINGER_REMAINS),
+    product = 1 of Item.ALIEN_PROTEIN,
+  ),
+
+  /* Alien DNA Capsule */
+
+  ALIEN_DNA_CAPSULE(
+    "Alien DNA Capsule",
+    time = 6,
+    inputs = listOf(1 of Item.ALIEN_PROTEIN),
+    product = 1 of Item.ALIEN_DNA_CAPSULE,
+  ),
+
+  /* Fabric */
+
+  FABRIC(
+    "Fabric",
+    time = 4,
+    inputs = listOf(
+      1 of Item.MYCELIA,
+      5 of Item.BIOMASS,
+    ),
+    product = 1 of Item.FABRIC,
+  ),
+  POLYESTER_FABRIC(
+    "Polyester Fabric",
+    time = 2,
+    inputs = listOf(
+      1 of Item.POLYMER_RESIN,
+      1 of Item.WATER,
+    ),
+    product = 1 of Item.FABRIC,
+    alternate = true,
+  ),
+
+  /* Parachute */
+
+  PARACHUTE(
+    "Parachute",
+    time = 40,
+    inputs = listOf(
+      20 of Item.FABRIC,
+      10 of Item.CABLE,
+    ),
+    product = 1 of Item.PARACHUTE,
+  ),
+
+  /* Power Shard */
+
+  POWER_SHARD_1(
+    "Power Shard (1)",
+    time = 8,
+    inputs = listOf(1 of Item.BLUE_POWER_SLUG),
+    product = 1 of Item.POWER_SHARD,
+  ),
+  POWER_SHARD_2(
+    "Power Shard (2)",
+    time = 12,
+    inputs = listOf(1 of Item.YELLOW_POWER_SLUG),
+    product = 2 of Item.POWER_SHARD,
+  ),
+  POWER_SHARD_5(
+    "Power Shard (5)",
+    time = 24,
+    inputs = listOf(1 of Item.PURPLE_POWER_SLUG),
+    product = 5 of Item.POWER_SHARD,
+  ),
+  SYNTHETIC_POWER_SHARD(
+    "Synthetic Power Shard",
+    time = 12,
+    inputs = listOf(
+      2 of Item.TIME_CRYSTAL,
+      2 of Item.DARK_MATTER_CRYSTAL,
+      12 of Item.QUARTZ_CRYSTAL,
+      12 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.POWER_SHARD,
+    byproduct = 12 of Item.DARK_MATTER_RESIDUE,
+  ),
+
   ;
 
   constructor(
