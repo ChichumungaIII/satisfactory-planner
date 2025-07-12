@@ -279,6 +279,137 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Concrete */
+
+  CONCRETE(
+    "Concrete",
+    time = 4,
+    inputs = listOf(3 of Item.LIMESTONE),
+    product = 1 of Item.CONCRETE,
+  ),
+  RUBBER_CONCRETE(
+    "Rubber Concrete",
+    time = 6,
+    inputs = listOf(
+      10 of Item.LIMESTONE,
+      2 of Item.RUBBER,
+    ),
+    product = 9 of Item.CONCRETE,
+    alternate = true,
+  ),
+  WET_CONCRETE(
+    "Wet Concrete",
+    time = 3,
+    inputs = listOf(
+      6 of Item.LIMESTONE,
+      5 of Item.WATER,
+    ),
+    product = 4 of Item.CONCRETE,
+    alternate = true,
+  ),
+  FINE_CONCRETE(
+    "Fine Concrete",
+    time = 12,
+    inputs = listOf(
+      3 of Item.SILICA,
+      12 of Item.LIMESTONE,
+    ),
+    product = 10 of Item.CONCRETE,
+    alternate = true,
+  ),
+
+  /* Screws */
+
+  SCREWS(
+    "Screws",
+    time = 6,
+    inputs = listOf(5 of Item.IRON_INGOT),
+    product = 4 of Item.SCREWS,
+  ),
+  CAST_SCREWS(
+    "Cast Screws",
+    time = 24,
+    inputs = listOf(5 of Item.IRON_INGOT),
+    product = 20 of Item.SCREWS,
+    alternate = true,
+  ),
+  STEEL_SCREWS(
+    "Steel Screws",
+    time = 12,
+    inputs = listOf(1 of Item.STEEL_BEAM),
+    product = 52 of Item.SCREWS,
+    alternate = true,
+  ),
+
+  /* Reinforced Iron Plate */
+
+  REINFORCED_IRON_PLATE(
+    "Reinforced Iron Plate",
+    time = 12,
+    inputs = listOf(
+      6 of Item.IRON_PLATE,
+      12 of Item.SCREWS,
+    ),
+    product = 1 of Item.REINFORCED_IRON_PLATE,
+  ),
+  BOLTED_IRON_PLATE(
+    "Bolted Iron Plate",
+    time = 12,
+    inputs = listOf(
+      18 of Item.IRON_PLATE,
+      50 of Item.SCREWS,
+    ),
+    product = 3 of Item.REINFORCED_IRON_PLATE,
+    alternate = true,
+  ),
+  STITCHED_IRON_PLATE(
+    "Stitched Iron Plate",
+    time = 32,
+    inputs = listOf(
+      10 of Item.IRON_PLATE,
+      20 of Item.WIRE,
+    ),
+    product = 3 of Item.REINFORCED_IRON_PLATE,
+    alternate = true,
+  ),
+  ADHERED_IRON_PLATE(
+    "Adhered Iron Plate",
+    time = 16,
+    inputs = listOf(
+      3 of Item.IRON_PLATE,
+      1 of Item.RUBBER,
+    ),
+    product = 1 of Item.REINFORCED_IRON_PLATE,
+    alternate = true,
+  ),
+
+  /* Biomass */
+
+  BIOMASS_LEAVES(
+    "Biomass (Leaves)",
+    time = 5,
+    inputs = listOf(10 of Item.LEAVES),
+    product = 5 of Item.BIOMASS,
+  ),
+  BIOMASS_WOOD(
+    "Biomass (Wood)",
+    time = 4,
+    inputs = listOf(4 of Item.WOOD),
+    product = 20 of Item.BIOMASS,
+  ),
+  BIOMASS_ALIEN_PROTEIN(
+    "Biomass (Alien Protein)",
+    time = 4,
+    inputs = listOf(1 of Item.ALIEN_PROTEIN),
+    product = 100 of Item.BIOMASS,
+  ),
+  BIOMASS_MYCELIA(
+    "Biomass (Mycelia)",
+    time = 4,
+    inputs = listOf(1 of Item.MYCELIA),
+    product = 10 of Item.BIOMASS,
+  ),
+
   ;
 
   constructor(
