@@ -122,6 +122,163 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Xeno-Zapper */
+
+  XENO_ZAPPER(
+    "Xeno-Zapper",
+    time = 40,
+    inputs = listOf(
+      10 of Item.IRON_ROD,
+      2 of Item.REINFORCED_IRON_PLATE,
+      15 of Item.CABLE,
+      50 of Item.WIRE,
+    ),
+    product = 1 of Item.XENO_ZAPPER,
+  ),
+
+  /* Portable Miner */
+
+  PORTABLE_MINER(
+    "Portable Miner",
+    time = 40,
+    inputs = listOf(
+      2 of Item.IRON_PLATE,
+      4 of Item.IRON_ROD,
+    ),
+    product = 1 of Item.PORTABLE_MINER,
+  ),
+  AUTOMATED_MINER(
+    "Automated Miner",
+    time = 60,
+    inputs = listOf(
+      4 of Item.STEEL_PIPE,
+      4 of Item.IRON_PLATE,
+    ),
+    product = 1 of Item.PORTABLE_MINER,
+    alternate = true,
+  ),
+
+  /* Copper Ingot */
+
+  COPPER_INGOT(
+    "Copper Ingot",
+    time = 2,
+    inputs = listOf(1 of Item.COPPER_ORE),
+    product = 1 of Item.COPPER_INGOT,
+  ),
+  COPPER_ALLOY_INGOT(
+    "Copper Alloy Ingot",
+    time = 6,
+    inputs = listOf(
+      5 of Item.COPPER_ORE,
+      5 of Item.IRON_ORE,
+    ),
+    product = 10 of Item.COPPER_INGOT,
+    alternate = true,
+  ),
+  PURE_COPPER_INGOT(
+    "Pure Copper Ingot",
+    time = 24,
+    inputs = listOf(
+      6 of Item.COPPER_ORE,
+      4 of Item.WATER,
+    ),
+    product = 15 of Item.COPPER_INGOT,
+    alternate = true,
+  ),
+  TEMPERED_COPPER_INGOT(
+    "Tempered Copper Ingot",
+    time = 12,
+    inputs = listOf(
+      5 of Item.COPPER_ORE,
+      8 of Item.PETROLEUM_COKE,
+    ),
+    product = 12 of Item.COPPER_INGOT,
+    alternate = true,
+  ),
+  LEACHED_COPPER_INGOT(
+    "Leached Copper Ingot",
+    time = 12,
+    inputs = listOf(
+      9 of Item.COPPER_ORE,
+      5 of Item.SULFURIC_ACID,
+    ),
+    product = 22 of Item.COPPER_INGOT,
+    alternate = true,
+  ),
+
+  /* Wire */
+
+  WIRE(
+    "Wire",
+    time = 4,
+    inputs = listOf(1 of Item.COPPER_INGOT),
+    product = 2 of Item.WIRE,
+  ),
+  IRON_WIRE(
+    "Iron Wire",
+    time = 24,
+    inputs = listOf(5 of Item.IRON_INGOT),
+    product = 9 of Item.WIRE,
+    alternate = true,
+  ),
+  CATERIUM_WIRE(
+    "Caterium Wire",
+    time = 4,
+    inputs = listOf(1 of Item.CATERIUM_INGOT),
+    product = 8 of Item.WIRE,
+    alternate = true,
+  ),
+  FUSED_WIRE(
+    "Fused Wire",
+    time = 20,
+    inputs = listOf(
+      4 of Item.COPPER_INGOT,
+      1 of Item.CATERIUM_INGOT,
+    ),
+    product = 30 of Item.WIRE,
+    alternate = true,
+  ),
+
+  /* Cable */
+
+  CABLE(
+    "Cable",
+    time = 2,
+    inputs = listOf(2 of Item.WIRE),
+    product = 1 of Item.CABLE,
+  ),
+  COATED_CABLE(
+    "Coated Cable",
+    time = 8,
+    inputs = listOf(
+      5 of Item.WIRE,
+      2 of Item.HEAVY_OIL_RESIDUE,
+    ),
+    product = 9 of Item.CABLE,
+    alternate = true,
+  ),
+  INSULATED_CABLE(
+    "INSULATED_CABLE",
+    time = 12,
+    inputs = listOf(
+      9 of Item.WIRE,
+      6 of Item.RUBBER,
+    ),
+    product = 20 of Item.CABLE,
+    alternate = true,
+  ),
+  QUICKWIRE_CABLE(
+    "Quickwire Cable",
+    time = 24,
+    inputs = listOf(
+      3 of Item.QUICKWIRE,
+      2 of Item.RUBBER,
+    ),
+    product = 11 of Item.CABLE,
+    alternate = true,
+  ),
+
   ;
 
   constructor(
