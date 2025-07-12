@@ -8,8 +8,6 @@ import util.math.q
 enum class RecipeV2(
   /** The human-readable text representation of the recipe. */
   val displayName: String,
-  /** The category dropdown this recipe belongs to in its building's menu. */
-  val category: Category,
   /** The amount of time the recipe takes to convert the inputs into products, in seconds. */
   val time: Rational,
   /** The inputs to this recipe. */
@@ -23,18 +21,16 @@ enum class RecipeV2(
   /** Whether this is an alternate recipe scanned from a hard drive. */
   val alternate: Boolean,
 ) {
+  /* Iron Ingot */
+
   IRON_INGOT(
     "Iron Ingot",
-    category = Category.INGOTS,
     time = 2,
-    inputs = listOf(
-      1 of Item.IRON_ORE,
-    ),
+    inputs = listOf(1 of Item.IRON_ORE),
     product = 1 of Item.IRON_INGOT,
   ),
   IRON_ALLOT_INGOT(
     "Iron Allot Ingot",
-    category = Category.INGOTS,
     time = 12,
     inputs = listOf(
       8 of Item.IRON_ORE,
@@ -45,7 +41,6 @@ enum class RecipeV2(
   ),
   BASIC_IRON_INGOT(
     "Basic Iron Ingot",
-    category = Category.INGOTS,
     time = 12,
     inputs = listOf(
       5 of Item.IRON_ORE,
@@ -56,7 +51,6 @@ enum class RecipeV2(
   ),
   PURE_IRON_INGOT(
     "Pure Iron Ingot",
-    category = Category.INGOTS,
     time = 12,
     inputs = listOf(
       7 of Item.IRON_ORE,
@@ -67,7 +61,6 @@ enum class RecipeV2(
   ),
   LEACHED_IRON_INGOT(
     "Leached Iron Ingot",
-    category = Category.INGOTS,
     time = 6,
     inputs = listOf(
       5 of Item.IRON_ORE,
@@ -77,18 +70,69 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Iron Plate */
+
+  IRON_PLATE(
+    "Iron Plate",
+    time = 6,
+    inputs = listOf(3 of Item.IRON_INGOT),
+    product = 2 of Item.IRON_PLATE,
+  ),
+  STEEL_CAST_PLATE(
+    "Steel Cast Plate",
+    time = 4,
+    inputs = listOf(
+      1 of Item.IRON_INGOT,
+      1 of Item.STEEL_INGOT,
+    ),
+    product = 3 of Item.IRON_PLATE,
+    alternate = true,
+  ),
+  COATED_IRON_PLATE(
+    "Coated Iron Plate",
+    time = 8,
+    inputs = listOf(
+      5 of Item.IRON_INGOT,
+      1 of Item.PLASTIC,
+    ),
+    product = 10 of Item.IRON_PLATE,
+    alternate = true,
+  ),
+
+  /* Iron Rod */
+
+  IRON_ROD(
+    "Iron Rod",
+    time = 4,
+    inputs = listOf(1 of Item.IRON_INGOT),
+    product = 1 of Item.IRON_ROD,
+  ),
+  STEEL_ROD(
+    "Steel Rod",
+    time = 5,
+    inputs = listOf(1 of Item.STEEL_INGOT),
+    product = 4 of Item.IRON_ROD,
+    alternate = true,
+  ),
+  ALUMINUM_ROD(
+    "Aluminum Rod",
+    time = 8,
+    inputs = listOf(1 of Item.ALUMINUM_INGOT),
+    product = 7 of Item.IRON_ROD,
+    alternate = true,
+  ),
+
   ;
 
   constructor(
     displayName: String,
-    category: Category,
     time: Int,
     inputs: List<Component>,
     product: Component,
     byproduct: Component? = null,
     power: ClosedRange<Double>? = null,
     alternate: Boolean = false
-  ) : this(displayName, category, time.q, inputs, product, byproduct, power, alternate)
+  ) : this(displayName, time.q, inputs, product, byproduct, power, alternate)
 
   /** A Recipe Component is a pair containing an item and an amount of that item. */
   data class Component(
@@ -103,13 +147,5 @@ enum class RecipeV2(
       /** Creates a new [Component] of `this` amount of [item]. */
       infix fun Rational.of(item: Item) = Component(item, amount = this)
     }
-  }
-
-  /** Enumerates the categories that recipes belong to in their building's menu. */
-  enum class Category(
-    /** The human-readable text representation of the Category. */
-    val displayName: String,
-  ) {
-    INGOTS("Ingots"),
   }
 }
