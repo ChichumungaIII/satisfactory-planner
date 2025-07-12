@@ -524,6 +524,199 @@ enum class RecipeV2(
     ),
     product = 1 of Item.POWER_SHARD,
     byproduct = 12 of Item.DARK_MATTER_RESIDUE,
+    power = 0.0..2000.0
+  ),
+
+  /* Copper Sheet */
+
+  COPPER_SHEET(
+    "Copper Sheet",
+    time = 6,
+    inputs = listOf(2 of Item.COPPER_INGOT),
+    product = 1 of Item.COPPER_SHEET,
+  ),
+  STEAMED_COPPER_SHEET(
+    "Steamed Copper Sheet",
+    time = 8,
+    inputs = listOf(
+      3 of Item.COPPER_INGOT,
+      3 of Item.WATER,
+    ),
+    product = 3 of Item.COPPER_SHEET,
+    alternate = true,
+  ),
+
+  /* Rotor */
+
+  ROTOR(
+    "Rotor",
+    time = 15,
+    inputs = listOf(
+      5 of Item.IRON_ROD,
+      25 of Item.SCREWS,
+    ),
+    product = 1 of Item.ROTOR,
+  ),
+  COPPER_ROTOR(
+    "Copper Rotor",
+    time = 16,
+    inputs = listOf(
+      6 of Item.COPPER_SHEET,
+      52 of Item.ROTOR,
+    ),
+    product = 3 of Item.ROTOR,
+    alternate = true,
+  ),
+  STEEL_ROTOR(
+    "Steel Rotor",
+    time = 12,
+    inputs = listOf(
+      2 of Item.STEEL_PIPE,
+      6 of Item.WIRE,
+    ),
+    product = 1 of Item.ROTOR,
+    alternate = true,
+  ),
+
+  /* Modular Frame */
+
+  MODULAR_FRAME(
+    "Modular Frame",
+    time = 60,
+    inputs = listOf(
+      3 of Item.REINFORCED_IRON_PLATE,
+      12 of Item.IRON_ROD,
+    ),
+    product = 2 of Item.MODULAR_FRAME,
+  ),
+  BOLTED_FRAME(
+    "Bolted Frame",
+    time = 24,
+    inputs = listOf(
+      3 of Item.REINFORCED_IRON_PLATE,
+      56 of Item.SCREWS,
+    ),
+    product = 2 of Item.MODULAR_FRAME,
+    alternate = true,
+  ),
+  STEELED_FRAME(
+    "Steeled Frame",
+    time = 60,
+    inputs = listOf(
+      2 of Item.REINFORCED_IRON_PLATE,
+      10 of Item.STEEL_PIPE,
+    ),
+    product = 3 of Item.MODULAR_FRAME,
+    alternate = true,
+  ),
+
+  /* Smart Plating */
+
+  SMART_PLATING(
+    "Smart Plating",
+    time = 30,
+    inputs = listOf(
+      1 of Item.REINFORCED_IRON_PLATE,
+      1 of Item.ROTOR,
+    ),
+    product = 1 of Item.SMART_PLATING,
+  ),
+  PLASTIC_SMART_PLATING(
+    "Plastic Smart Plating",
+    time = 24,
+    inputs = listOf(
+      1 of Item.REINFORCED_IRON_PLATE,
+      1 of Item.ROTOR,
+      3 of Item.PLASTIC,
+    ),
+    product = 2 of Item.SMART_PLATING,
+    alternate = true,
+  ),
+
+  /* Solid Biofuel */
+
+  SOLID_BIOFUEL(
+    "Solid Biofuel",
+    time = 4,
+    inputs = listOf(8 of Item.BIOMASS),
+    product = 4 of Item.SOLID_BIOFUEL,
+  ),
+
+  /* Chainsaw */
+
+  CHAINSAW(
+    "Chainsaw",
+    time = 60,
+    inputs = listOf(
+      5 of Item.REINFORCED_IRON_PLATE,
+      25 of Item.IRON_ROD,
+      160 of Item.SCREWS,
+      15 of Item.CABLE,
+    ),
+    product = 1 of Item.CHAINSAW,
+  ),
+
+  /* Medicinal Inhaler */
+
+  NUTRITIONAL_INHALER(
+    "Nutritional Inhaler",
+    time = 20,
+    inputs = listOf(
+      1 of Item.BACON_AGARIC,
+      2 of Item.PALEBERRY,
+      5 of Item.BERYL_NUT,
+    ),
+    product = 1 of Item.MEDICINAL_INHALER,
+  ),
+  PROTEIN_INHALER(
+    "Protein Inhaler",
+    time = 20,
+    inputs = listOf(
+      1 of Item.ALIEN_PROTEIN,
+      10 of Item.BERYL_NUT,
+    ),
+    product = 1 of Item.MEDICINAL_INHALER,
+  ),
+  THERAPEUTIC_INHALER(
+    "Therapeutic Inhaler",
+    time = 20,
+    inputs = listOf(
+      15 of Item.MYCELIA,
+      1 of Item.ALIEN_PROTEIN,
+      1 of Item.BACON_AGARIC,
+    ),
+    product = 1 of Item.MEDICINAL_INHALER,
+  ),
+  VITAMIN_INHALER(
+    "Vitamin Inhaler",
+    time = 20,
+    inputs = listOf(
+      10 of Item.MYCELIA,
+      5 of Item.PALEBERRY,
+    ),
+    product = 1 of Item.MEDICINAL_INHALER,
+  ),
+
+  /* Rebar Gun */
+
+  REBAR_GUN(
+    "Rebar Gun",
+    time = 60,
+    inputs = listOf(
+      6 of Item.REINFORCED_IRON_PLATE,
+      16 of Item.IRON_ROD,
+      100 of Item.SCREWS,
+    ),
+    product = 1 of Item.REBAR_GUN,
+  ),
+
+  /* Iron Rebar */
+
+  IRON_REBAR(
+    "Iron Rebar",
+    time = 4,
+    inputs = listOf(1 of Item.IRON_ROD),
+    product = 1 of Item.IRON_REBAR,
   ),
 
   ;
