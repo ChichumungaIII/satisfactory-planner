@@ -79,10 +79,171 @@ enum class Building(
     }
   }),
   ASSEMBLER("Assembler", Subcategory.MANUFACTURERS, power = 15, {
+    within(app.game.data.RecipeV2.Category.SPACE_ELEVATOR) {
+      add(app.game.data.RecipeV2.SMART_PLATING)
+      add(app.game.data.RecipeV2.VERSATILE_FRAMEWORK)
+      add(app.game.data.RecipeV2.AUTOMATED_WIRING)
+      add(app.game.data.RecipeV2.ASSEMBLY_DIRECTOR_SYSTEM)
+      add(app.game.data.RecipeV2.MAGNETIC_FIELD_GENERATOR)
+    }
+    within(app.game.data.RecipeV2.Category.STANDARD_PARTS) {
+      add(app.game.data.RecipeV2.COATED_IRON_PLATE)
+      add(app.game.data.RecipeV2.REINFORCED_IRON_PLATE)
+      add(app.game.data.RecipeV2.BOLTED_IRON_PLATE)
+      add(app.game.data.RecipeV2.STITCHED_IRON_PLATE)
+      add(app.game.data.RecipeV2.ADHERED_IRON_PLATE)
+      add(app.game.data.RecipeV2.MODULAR_FRAME)
+      add(app.game.data.RecipeV2.BOLTED_FRAME)
+      add(app.game.data.RecipeV2.STEELED_FRAME)
+      add(app.game.data.RecipeV2.ENCASED_INDUSTRIAL_BEAM)
+      add(app.game.data.RecipeV2.ENCASED_INDUSTRIAL_PIPE)
+      add(app.game.data.RecipeV2.ALCLAD_ALUMINUM_SHEET)
+      add(app.game.data.RecipeV2.ALCLAD_CASING)
+    }
+    within(app.game.data.RecipeV2.Category.ELECTRONICS) {
+      add(app.game.data.RecipeV2.FUSED_WIRE)
+      add(app.game.data.RecipeV2.INSULATED_CABLE)
+      add(app.game.data.RecipeV2.QUICKWIRE_CABLE)
+      add(app.game.data.RecipeV2.CIRCUIT_BOARD)
+      add(app.game.data.RecipeV2.ELECTRODE_CIRCUIT_BOARD)
+      add(app.game.data.RecipeV2.CATERIUM_CIRCUIT_BOARD)
+      add(app.game.data.RecipeV2.SILICON_CIRCUIT_BOARD)
+      add(app.game.data.RecipeV2.FUSED_QUICKWIRE)
+      add(app.game.data.RecipeV2.AI_LIMITER)
+      add(app.game.data.RecipeV2.PLASTIC_AI_LIMITER)
+      add(app.game.data.RecipeV2.CRYSTAL_COMPUTER)
+      add(app.game.data.RecipeV2.OC_SUPERCOMPUTER)
+    }
+    within(app.game.data.RecipeV2.Category.COMPOUNDS) {
+      add(app.game.data.RecipeV2.FINE_CONCRETE)
+      add(app.game.data.RecipeV2.RUBBER_CONCRETE)
+      add(app.game.data.RecipeV2.COMPACTED_COAL)
+      add(app.game.data.RecipeV2.CHEAP_SILICA)
+    }
+    within(app.game.data.RecipeV2.Category.BIOMASS) {
+      add(app.game.data.RecipeV2.FABRIC)
+    }
+    within(app.game.data.RecipeV2.Category.INDUSTRIAL_PARTS) {
+      add(app.game.data.RecipeV2.ROTOR)
+      add(app.game.data.RecipeV2.COPPER_ROTOR)
+      add(app.game.data.RecipeV2.STEEL_ROTOR)
+      add(app.game.data.RecipeV2.STATOR)
+      add(app.game.data.RecipeV2.QUICKWIRE_STATOR)
+      add(app.game.data.RecipeV2.MOTOR)
+      add(app.game.data.RecipeV2.ELECTRIC_MOTOR)
+      add(app.game.data.RecipeV2.HEAT_SINK)
+      add(app.game.data.RecipeV2.HEAT_EXCHANGER)
+    }
+    within(app.game.data.RecipeV2.Category.CONTAINERS) {
+      add(app.game.data.RecipeV2.COATED_IRON_CANISTER)
+      add(app.game.data.RecipeV2.PRESSURE_CONVERSION_CUBE)
+    }
+    within(app.game.data.RecipeV2.Category.NUCLEAR) {
+      add(app.game.data.RecipeV2.ELECTROMAGNETIC_CONTROL_ROD)
+      add(app.game.data.RecipeV2.ENCASED_PLUTONIUM_CELL)
+      add(app.game.data.RecipeV2.ELECTROMAGNETIC_CONNECTION_ROD)
+      add(app.game.data.RecipeV2.PLUTONIUM_FUEL_UNIT)
+    }
+    within(app.game.data.RecipeV2.Category.TOOLS) {
+      add(app.game.data.RecipeV2.AUTOMATED_MINER)
+    }
+    within(app.game.data.RecipeV2.Category.AMMUNITION) {
+      add(app.game.data.RecipeV2.BLACK_POWDER)
+      add(app.game.data.RecipeV2.FINE_BLACK_POWDER)
+      add(app.game.data.RecipeV2.STUN_REBAR)
+      add(app.game.data.RecipeV2.SHATTER_REBAR)
+      add(app.game.data.RecipeV2.NOBELISK)
+      add(app.game.data.RecipeV2.GAS_NOBELISK)
+      add(app.game.data.RecipeV2.CLUSTER_NOBELISK)
+      add(app.game.data.RecipeV2.PULSE_NOBELISK)
+      add(app.game.data.RecipeV2.RIFLE_AMMO)
+      add(app.game.data.RecipeV2.HOMING_RIFLE_AMMO)
+    }
   }),
   MANUFACTURER("Manufacturer", Subcategory.MANUFACTURERS, power = 55, {
+    within(app.game.data.RecipeV2.Category.SPACE_ELEVATOR) {
+      add(app.game.data.RecipeV2.PLASTIC_SMART_PLATING)
+      add(app.game.data.RecipeV2.FLEXIBLE_FRAMEWORK)
+      add(app.game.data.RecipeV2.AUTOMATED_SPEED_WIRING)
+      add(app.game.data.RecipeV2.MODULAR_ENGINE)
+      add(app.game.data.RecipeV2.ADAPTIVE_CONTROL_UNIT)
+      add(app.game.data.RecipeV2.THERMAL_PROPULSION_ROCKET)
+      add(app.game.data.RecipeV2.BALLISTIC_WARP_DRIVE)
+    }
+    within(app.game.data.RecipeV2.Category.STANDARD_PARTS) {
+      add(app.game.data.RecipeV2.HEAVY_MODULAR_FRAME)
+      add(app.game.data.RecipeV2.HEAVY_ENCASED_FRAME)
+      add(app.game.data.RecipeV2.HEAVY_FLEXIBLE_FRAME)
+    }
+    within(app.game.data.RecipeV2.Category.ELECTRONICS) {
+      add(app.game.data.RecipeV2.HIGH_SPEED_CONNECTOR)
+      add(app.game.data.RecipeV2.SILICON_HIGH_SPEED_CONNECTOR)
+      add(app.game.data.RecipeV2.SINGULARITY_CELL)
+      add(app.game.data.RecipeV2.SAM_FLUCTUATOR)
+    }
+    within(app.game.data.RecipeV2.Category.INDUSTRIAL_PARTS) {
+      add(app.game.data.RecipeV2.RIGOR_MOTOR)
+      add(app.game.data.RecipeV2.TURBO_MOTOR)
+      add(app.game.data.RecipeV2.TURBO_ELECTRIC_MOTOR)
+      add(app.game.data.RecipeV2.TURBO_PRESSURE_MOTOR)
+      add(app.game.data.RecipeV2.CLASSIC_BATTERY)
+    }
+    within(app.game.data.RecipeV2.Category.COMMUNICATIONS) {
+      add(app.game.data.RecipeV2.COMPUTER)
+      add(app.game.data.RecipeV2.CATERIUM_COMPUTER)
+      add(app.game.data.RecipeV2.SUPERCOMPUTER)
+      add(app.game.data.RecipeV2.SUPER_STATE_COMPUTER)
+      add(app.game.data.RecipeV2.CRYSTAL_OSCILLATOR)
+      add(app.game.data.RecipeV2.INSULATED_CRYSTAL_OSCILLATOR)
+      add(app.game.data.RecipeV2.RADIO_CONTROL_UNIT)
+      add(app.game.data.RecipeV2.RADIO_CONNECTION_UNIT)
+      add(app.game.data.RecipeV2.RADIO_CONTROL_SYSTEM)
+    }
+    within(app.game.data.RecipeV2.Category.NUCLEAR) {
+      add(app.game.data.RecipeV2.INFUSED_URANIUM_CELL)
+      add(app.game.data.RecipeV2.URANIUM_FUEL_ROD)
+      add(app.game.data.RecipeV2.URANIUM_FUEL_UNIT)
+      add(app.game.data.RecipeV2.PLUTONIUM_FUEL_ROD)
+    }
+    within(app.game.data.RecipeV2.Category.CONSUMABLES) {
+      add(app.game.data.RecipeV2.GAS_FILTER)
+      add(app.game.data.RecipeV2.IODINE_INFUSED_FILTER)
+    }
+    within(app.game.data.RecipeV2.Category.AMMUNITION) {
+      add(app.game.data.RecipeV2.EXPLOSIVE_REBAR)
+      add(app.game.data.RecipeV2.NUKE_NOBELISK)
+      add(app.game.data.RecipeV2.TURBO_RIFLE_AMMO_MANUFACTURER)
+    }
   }),
   PACKAGER("Packager", Subcategory.MANUFACTURERS, power = 10, {
+    within(app.game.data.RecipeV2.Category.PACKAGING) {
+      add(app.game.data.RecipeV2.PACKAGED_WATER)
+      add(app.game.data.RecipeV2.PACKAGED_OIL)
+      add(app.game.data.RecipeV2.PACKAGED_HEAVY_OIL_RESIDUE)
+      add(app.game.data.RecipeV2.PACKAGED_LIQUID_BIOFUEL)
+      add(app.game.data.RecipeV2.PACKAGED_FUEL)
+      add(app.game.data.RecipeV2.PACKAGED_TURBOFUEL)
+      add(app.game.data.RecipeV2.PACKAGED_ROCKET_FUEL)
+      add(app.game.data.RecipeV2.PACKAGED_IONIZED_FUEL)
+      add(app.game.data.RecipeV2.PACKAGED_ALUMINA_SOLUTION)
+      add(app.game.data.RecipeV2.PACKAGED_SULFURIC_ACID)
+      add(app.game.data.RecipeV2.PACKAGED_NITROGEN_GAS)
+      add(app.game.data.RecipeV2.PACKAGED_NITRIC_ACID)
+    }
+    within(app.game.data.RecipeV2.Category.UNPACKAGING) {
+      add(app.game.data.RecipeV2.UNPACKAGE_WATER)
+      add(app.game.data.RecipeV2.UNPACKAGE_OIL)
+      add(app.game.data.RecipeV2.UNPACKAGE_HEAVY_OIL_RESIDUE)
+      add(app.game.data.RecipeV2.UNPACKAGE_LIQUID_BIOFUEL)
+      add(app.game.data.RecipeV2.UNPACKAGE_FUEL)
+      add(app.game.data.RecipeV2.UNPACKAGE_TURBOFUEL)
+      add(app.game.data.RecipeV2.UNPACKAGE_ROCKET_FUEL)
+      add(app.game.data.RecipeV2.UNPACKAGE_IONIZED_FUEL)
+      add(app.game.data.RecipeV2.UNPACKAGE_ALUMINA_SOLUTION)
+      add(app.game.data.RecipeV2.UNPACKAGE_SULFURIC_ACID)
+      add(app.game.data.RecipeV2.UNPACKAGE_NITROGEN_GAS)
+      add(app.game.data.RecipeV2.UNPACKAGE_NITRIC_ACID)
+    }
   }),
   REFINERY("Refinery", Subcategory.MANUFACTURERS, power = 30, {
   }),
@@ -108,6 +269,26 @@ enum class Building(
     }
   }),
   FOUNDRY("Foundry", Subcategory.SMELTERS, power = 16, {
+    within(app.game.data.RecipeV2.Category.INGOTS) {
+      add(app.game.data.RecipeV2.IRON_ALLOT_INGOT)
+      add(app.game.data.RecipeV2.BASIC_IRON_INGOT)
+      add(app.game.data.RecipeV2.COPPER_ALLOY_INGOT)
+      add(app.game.data.RecipeV2.TEMPERED_COPPER_INGOT)
+      add(app.game.data.RecipeV2.STEEL_INGOT)
+      add(app.game.data.RecipeV2.SOLID_STEEL_INGOT)
+      add(app.game.data.RecipeV2.COKE_STEEL_INGOT)
+      add(app.game.data.RecipeV2.COMPACTED_STEEL_INGOT)
+      add(app.game.data.RecipeV2.TEMPERED_CATERIUM_INGOT)
+      add(app.game.data.RecipeV2.ALUMINUM_INGOT)
+    }
+    within(app.game.data.RecipeV2.Category.STANDARD_PARTS) {
+      add(app.game.data.RecipeV2.STEEL_CAST_PLATE)
+      add(app.game.data.RecipeV2.MOLDED_BEAM)
+      add(app.game.data.RecipeV2.MOLDED_STEEL_PIPE)
+    }
+    within(app.game.data.RecipeV2.Category.COMPOUNDS) {
+      add(app.game.data.RecipeV2.FUSED_QUARTZ_CRYSTAL)
+    }
   }),
 
   /* ****** */

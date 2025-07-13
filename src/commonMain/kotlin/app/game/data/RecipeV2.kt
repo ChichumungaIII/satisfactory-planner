@@ -3185,7 +3185,41 @@ enum class RecipeV2(
     product = 1 of Item.ALIEN_POWER_MATRIX,
     byproduct = 24 of Item.DARK_MATTER_RESIDUE,
     power = 0..2_000,
-  );
+  ),
+
+  /* Ionized Fuel */
+
+  IONIZED_FUEL(
+    "Ionized Fuel",
+    time = 24,
+    inputs = listOf(
+      16 of Item.ROCKET_FUEL,
+      1 of Item.POWER_SHARD,
+    ),
+    product = 16 of Item.IONIZED_FUEL,
+    byproduct = 2 of Item.COMPACTED_COAL,
+  ),
+
+  /* Packaged Ionized Fuel */
+
+  PACKAGED_IONIZED_FUEL(
+    "Packaged Ionized Fuel",
+    time = 3,
+    inputs = listOf(
+      4 of Item.IONIZED_FUEL,
+      2 of Item.EMPTY_FLUID_TANK,
+    ),
+    product = 2 of Item.PACKAGED_IONIZED_FUEL,
+  ),
+  UNPACKAGE_IONIZED_FUEL(
+    "Unpackage Ionized Fuel",
+    time = 3,
+    inputs = listOf(2 of Item.PACKAGED_IONIZED_FUEL),
+    product = 4 of Item.IONIZED_FUEL,
+    byproduct = 2 of Item.EMPTY_FLUID_TANK,
+  ),
+
+  ;
 
   constructor(
     displayName: String,
@@ -3220,12 +3254,20 @@ enum class RecipeV2(
     ALIEN_REMAINS("Alien Remains"),
     AMMUNITION("Ammunition"),
     BIOMASS("Biomass"),
+    COMMUNICATIONS("Communications"),
     COMPOUNDS("Compounds"),
+    CONSUMABLES("Consumables"),
     CONTAINERS("Containers"),
     ELECTRONICS("Electronics"),
+    INDUSTRIAL_PARTS("Industrial Parts"),
     INGOTS("Ingots"),
+    NUCLEAR("Nuclear"),
+    PACKAGING("Packaging"),
     POWER_SHARDS("Power Shards"),
+    SPACE_ELEVATOR("Space Elevator"),
     STANDARD_PARTS("Standard Parts"),
+    TOOLS("Tools"),
+    UNPACKAGING("Unpackaging"),
   }
 
   companion object {

@@ -1063,6 +1063,18 @@ enum class Item(
     "Alien Power Matrix",
     category = Category.PARTS,
     stack = 50,
+  ),
+  IONIZED_FUEL(
+    "IONIZED_FUEL",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 5_000,
+  ),
+  PACKAGED_IONIZED_FUEL(
+    "Packaged Ionized Fuel",
+    category = Category.PARTS,
+    stack = 100,
+    energy = 10_000,
   );
 
   constructor(displayName: String, category: Category, stack: Int, energy: Int? = null) :
