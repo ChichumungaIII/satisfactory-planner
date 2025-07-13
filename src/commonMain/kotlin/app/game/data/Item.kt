@@ -462,6 +462,12 @@ enum class Item(
 
   /* Fluid Packaging */
 
+  LIQUID_BIOFUEL(
+    "Liquid Biofuel",
+    category = Category.PARTS,
+    stack = 0,
+    energy = 750,
+  ),
   EMPTY_CANISTER(
     "Empty Canister",
     category = Category.PARTS,
@@ -494,12 +500,6 @@ enum class Item(
     "Packaged Liquid Biofuel",
     category = Category.PARTS,
     stack = 100,
-    energy = 750,
-  ),
-  LIQUID_BIOFUEL(
-    "Liquid Biofuel",
-    category = Category.PARTS,
-    stack = 0,
     energy = 750,
   ),
 

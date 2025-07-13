@@ -1026,7 +1026,7 @@ enum class RecipeV2(
     time = 6,
     inputs = listOf(2 of Item.CRUDE_OIL),
     product = 2 of Item.RUBBER,
-    byproduct = 2 of Item.HEAVY_OIL_RESIDUE
+    byproduct = 2 of Item.HEAVY_OIL_RESIDUE,
   ),
   RESIDUAL_RUBBER(
     "Residual Rubber",
@@ -1145,6 +1145,149 @@ enum class RecipeV2(
     ),
     product = 5 of Item.CIRCUIT_BOARD,
     alternate = true,
+  ),
+
+  /* Liquid Biofuel */
+
+  LIQUID_BIOFUEL(
+    "Liquid Biofuel",
+    time = 4,
+    inputs = listOf(
+      6 of Item.SOLID_BIOFUEL,
+      3 of Item.WATER,
+    ),
+    product = 4 of Item.LIQUID_BIOFUEL,
+  ),
+
+  /* Empty Canister */
+
+  EMPTY_CANISTER(
+    "Empty Canister",
+    time = 4,
+    inputs = listOf(2 of Item.PLASTIC),
+    product = 4 of Item.EMPTY_CANISTER,
+  ),
+  COATED_IRON_CANISTER(
+    "Coated Iron Canister",
+    time = 4,
+    inputs = listOf(
+      2 of Item.IRON_PLATE,
+      1 of Item.COPPER_SHEET,
+    ),
+    product = 4 of Item.EMPTY_CANISTER,
+    alternate = true,
+  ),
+  STEEL_CANISTER(
+    "Steel Canister",
+    time = 6,
+    inputs = listOf(4 of Item.STEEL_INGOT),
+    product = 4 of Item.EMPTY_CANISTER,
+    alternate = true,
+  ),
+
+  /* Packaged Water */
+
+  PACKAGED_WATER(
+    "Packaged Water",
+    time = 2,
+    inputs = listOf(
+      2 of Item.WATER,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_WATER,
+  ),
+  UNPACKAGE_WATER(
+    "Unpackage Water",
+    time = 1,
+    inputs = listOf(2 of Item.PACKAGED_WATER),
+    product = 2 of Item.WATER,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Packaged Oil */
+
+  PACKAGED_OIL(
+    "Packaged Oil",
+    time = 4,
+    inputs = listOf(
+      2 of Item.CRUDE_OIL,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_OIL,
+  ),
+  UNPACKAGE_OIL(
+    "Unpackage Oil",
+    time = 2,
+    inputs = listOf(2 of Item.PACKAGED_OIL),
+    product = 2 of Item.CRUDE_OIL,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Packaged Fuel */
+
+  PACKAGED_FUEL(
+    "Packaged Fuel",
+    time = 3,
+    inputs = listOf(
+      2 of Item.FUEL,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_FUEL,
+  ),
+  DILUTED_PACKAGED_FUEL(
+    "Diluted Packaged Fuel",
+    time = 2,
+    inputs = listOf(
+      1 of Item.HEAVY_OIL_RESIDUE,
+      2 of Item.PACKAGED_WATER,
+    ),
+    product = 2 of Item.PACKAGED_FUEL,
+    alternate = true,
+  ),
+  UNPACKAGE_FUEL(
+    "Unpackage Fuel",
+    time = 2,
+    inputs = listOf(2 of Item.PACKAGED_FUEL),
+    product = 2 of Item.FUEL,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Packaged Heavy Oil Residue */
+
+  PACKAGED_HEAVY_OIL_RESIDUE(
+    "Packaged Heavy Oil Residue",
+    time = 4,
+    inputs = listOf(
+      2 of Item.HEAVY_OIL_RESIDUE,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_HEAVY_OIL_RESIDUE,
+  ),
+  UNPACKAGE_HEAVY_OIL_RESIDUE(
+    "Unpackage Heavy Oil Residue",
+    time = 6,
+    inputs = listOf(2 of Item.PACKAGED_HEAVY_OIL_RESIDUE),
+    product = 2 of Item.HEAVY_OIL_RESIDUE,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Packaged Liquid Biofuel */
+
+  PACKAGED_LIQUID_BIOFUEL(
+    "Packaged Liquid Biofuel",
+    time = 3,
+    inputs = listOf(
+      2 of Item.LIQUID_BIOFUEL,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_LIQUID_BIOFUEL,
+  ),
+  UNPACKAGE_LIQUID_BIOFUEL(
+    "Unpackage Liquid Biofuel",
+    time = 2,
+    inputs = listOf(2 of Item.PACKAGED_LIQUID_BIOFUEL),
+    product = 2 of Item.LIQUID_BIOFUEL,
+    byproduct = 2 of Item.EMPTY_CANISTER,
   ),
 
   ;
