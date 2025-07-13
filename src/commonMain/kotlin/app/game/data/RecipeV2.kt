@@ -17,7 +17,7 @@ enum class RecipeV2(
   /** The byproduct of this recipe, if one is produced. */
   val byproduct: Component?,
   /** The amount of power this recipe consumes during production, if different from the manufacturer default. */
-  val power: ClosedRange<Double>?,
+  val power: ClosedRange<Double>? = null,
   /** Whether this is an alternate recipe scanned from a hard drive. */
   val alternate: Boolean,
 ) {
@@ -1947,7 +1947,284 @@ enum class RecipeV2(
     product = 1 of Item.ASSEMBLY_DIRECTOR_SYSTEM,
   ),
 
+  /* Black Powder */
 
+  BLACK_POWDER(
+    "Black Powder",
+    time = 4,
+    inputs = listOf(
+      1 of Item.COAL,
+      1 of Item.SULFUR,
+    ),
+    product = 2 of Item.BLACK_POWDER,
+  ),
+  FINE_BLACK_POWDER(
+    "Fine Black Powder",
+    time = 8,
+    inputs = listOf(
+      1 of Item.SULFUR,
+      2 of Item.COMPACTED_COAL,
+    ),
+    product = 6 of Item.BLACK_POWDER,
+    alternate = true,
+  ),
+
+  /* Compacted Coal */
+
+  COMPACTED_COAL(
+    "Compacted Coal",
+    time = 12,
+    inputs = listOf(
+      5 of Item.COAL,
+      5 of Item.SULFUR,
+    ),
+    product = 5 of Item.COMPACTED_COAL,
+  ),
+
+  /* Turbofuel */
+
+  TURBOFUEL(
+    "Turbofuel",
+    time = 16,
+    inputs = listOf(
+      6 of Item.FUEL,
+      4 of Item.COMPACTED_COAL,
+    ),
+    product = 5 of Item.TURBOFUEL,
+  ),
+  TURBO_HEAVY_FUEL(
+    "Turbo Heavy Fuel",
+    time = 8,
+    inputs = listOf(
+      5 of Item.HEAVY_OIL_RESIDUE,
+      4 of Item.COMPACTED_COAL,
+    ),
+    product = 4 of Item.TURBOFUEL,
+    alternate = true,
+  ),
+  TURBO_BLEND_FUEL(
+    "Turbo Blend Fuel",
+    time = 8,
+    inputs = listOf(
+      2 of Item.FUEL,
+      4 of Item.HEAVY_OIL_RESIDUE,
+      3 of Item.SULFUR,
+      3 of Item.PETROLEUM_COKE,
+    ),
+    product = 6 of Item.TURBOFUEL,
+    alternate = true,
+  ),
+
+  /* Packaged Turbofuel */
+
+  PACKAGED_TURBOFUEL(
+    "Packaged Turbofuel",
+    time = 6,
+    inputs = listOf(
+      2 of Item.TURBOFUEL,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_TURBOFUEL,
+  ),
+  UNPACKAGE_TURBOFUEL(
+    "Unpackage Turbofuel",
+    time = 6,
+    inputs = listOf(2 of Item.PACKAGED_TURBOFUEL),
+    product = 2 of Item.TURBOFUEL,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Rocket Fuel */
+
+  ROCKET_FUEL(
+    "Rocket Fuel",
+    time = 6,
+    inputs = listOf(
+      6 of Item.TURBOFUEL,
+      1 of Item.NITRIC_ACID,
+    ),
+    product = 10 of Item.ROCKET_FUEL,
+    byproduct = 1 of Item.COMPACTED_COAL,
+  ),
+  NITRO_ROCKET_FUEL(
+    "Nitro Rocket Fuel",
+    time = 12.q / 5.q,
+    inputs = listOf(
+      4 of Item.FUEL,
+      3 of Item.NITROGEN_GAS,
+      4 of Item.SULFUR,
+      2 of Item.COAL,
+    ),
+    product = 6 of Item.ROCKET_FUEL,
+    byproduct = 1 of Item.COMPACTED_COAL,
+    alternate = true,
+  ),
+
+  /* Packaged Rocket Fuel */
+
+  PACKAGED_ROCKET_FUEL(
+    "Packaged Rocket Fuel",
+    time = 1,
+    inputs = listOf(
+      2 of Item.ROCKET_FUEL,
+      1 of Item.EMPTY_FLUID_TANK,
+    ),
+    product = 1 of Item.PACKAGED_ROCKET_FUEL,
+  ),
+  UNPACKAGE_ROCKET_FUEL(
+    "Unpackage Rocket Fuel",
+    time = 1,
+    inputs = listOf(1 of Item.PACKAGED_ROCKET_FUEL),
+    product = 2 of Item.ROCKET_FUEL,
+    byproduct = 1 of Item.EMPTY_FLUID_TANK,
+  ),
+
+  /* Smokeless Powder */
+
+  SMOKELESS_POWDER(
+    "Smokeless Powder",
+    time = 6,
+    inputs = listOf(
+      2 of Item.BLACK_POWDER,
+      1 of Item.HEAVY_OIL_RESIDUE,
+    ),
+    product = 2 of Item.SMOKELESS_POWDER,
+  ),
+
+  /* Explosive Rebar */
+
+  EXPLOSIVE_REBAR(
+    "Explosive Rebar",
+    time = 12,
+    inputs = listOf(
+      2 of Item.IRON_REBAR,
+      2 of Item.SMOKELESS_POWDER,
+      2 of Item.STEEL_PIPE,
+    ),
+    product = 1 of Item.EXPLOSIVE_REBAR,
+  ),
+
+  /* Nobelisk Detonator */
+
+  NOBELISK_DETONATOR(
+    "Nobelisk Detonator",
+    time = 80,
+    inputs = listOf(
+      1 of Item.OBJECT_SCANNER,
+      10 of Item.STEEL_BEAM,
+      50 of Item.CABLE,
+    ),
+    product = 1 of Item.NOBELISK_DETONATOR,
+  ),
+
+  /* Nobelisk */
+
+  NOBELISK(
+    "Nobelisk",
+    time = 6,
+    inputs = listOf(
+      2 of Item.BLACK_POWDER,
+      2 of Item.STEEL_PIPE,
+    ),
+    product = 1 of Item.NOBELISK,
+  ),
+
+  /* Gas Nobelisk */
+
+  GAS_NOBELISK(
+    "Gas Nobelisk",
+    time = 12,
+    inputs = listOf(
+      1 of Item.NOBELISK,
+      10 of Item.BIOMASS,
+    ),
+    product = 1 of Item.GAS_NOBELISK,
+  ),
+
+  /* Pulse Nobelisk */
+
+  PULSE_NOBELISK(
+    "Pulse Nobelisk",
+    time = 60,
+    inputs = listOf(
+      5 of Item.NOBELISK,
+      1 of Item.CRYSTAL_OSCILLATOR,
+    ),
+    product = 5 of Item.PULSE_NOBELISK,
+  ),
+
+  /* Cluster Nobelisk */
+
+  CLUSTER_NOBELISK(
+    "Cluster Nobelisk",
+    time = 24,
+    inputs = listOf(
+      3 of Item.NOBELISK,
+      4 of Item.SMOKELESS_POWDER,
+    ),
+    product = 1 of Item.CLUSTER_NOBELISK,
+  ),
+
+  /* Rifle */
+
+  RIFLE(
+    "Rifle",
+    time = 120,
+    inputs = listOf(
+      2 of Item.MOTOR,
+      10 of Item.RUBBER,
+      25 of Item.STEEL_PIPE,
+      250 of Item.SCREWS,
+    ),
+    product = 1 of Item.RIFLE,
+  ),
+
+  /* Rifle Ammo */
+
+  RIFLE_AMMO(
+    "Rifle Ammo",
+    time = 12,
+    inputs = listOf(
+      3 of Item.COPPER_SHEET,
+      2 of Item.SMOKELESS_POWDER,
+    ),
+    product = 15 of Item.RIFLE_AMMO,
+  ),
+
+  /* Homing Rifle Ammo */
+
+  HOMING_RIFLE_AMMO(
+    "Homing Rifle Ammo",
+    time = 24,
+    inputs = listOf(
+      20 of Item.RIFLE_AMMO,
+      1 of Item.HIGH_SPEED_CONNECTOR,
+    ),
+    product = 10 of Item.HOMING_RIFLE_AMMO,
+  ),
+
+  /* Turbo Rifle Ammo */
+
+  TURBO_RIFLE_AMMO_BLENDER(
+    "Turbo Rifle Ammo",
+    time = 12,
+    inputs = listOf(
+      25 of Item.RIFLE_AMMO,
+      3 of Item.ALUMINUM_CASING,
+      3 of Item.TURBOFUEL,
+    ),
+    product = 50 of Item.TURBO_RIFLE_AMMO,
+  ),
+  TURBO_RIFLE_AMMO_MANUFACTURER(
+    "Turbo Rifle Ammo",
+    time = 12,
+    inputs = listOf(
+      25 of Item.RIFLE_AMMO,
+      3 of Item.ALUMINUM_CASING,
+      3 of Item.PACKAGED_TURBOFUEL,
+    ),
+    product = 50 of Item.TURBO_RIFLE_AMMO,
+  ),
 
   ;
 
