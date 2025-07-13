@@ -719,6 +719,163 @@ enum class RecipeV2(
     product = 1 of Item.IRON_REBAR,
   ),
 
+  /* Steel Ingot */
+
+  STEEL_INGOT(
+    "Steel Ingot",
+    time = 4,
+    inputs = listOf(
+      3 of Item.IRON_ORE,
+      3 of Item.COAL,
+    ),
+    product = 3 of Item.STEEL_INGOT,
+  ),
+  SOLID_STEEL_INGOT(
+    "Solid Steel Ingot",
+    time = 3,
+    inputs = listOf(
+      2 of Item.IRON_INGOT,
+      2 of Item.COAL,
+    ),
+    product = 3 of Item.STEEL_INGOT,
+    alternate = true,
+  ),
+  COKE_STEEL_INGOT(
+    "Coke Steel Ingot",
+    time = 12,
+    inputs = listOf(
+      15 of Item.IRON_ORE,
+      15 of Item.PETROLEUM_COKE,
+    ),
+    product = 20 of Item.STEEL_INGOT,
+    alternate = true,
+  ),
+  COMPACTED_STEEL_INGOT(
+    "Compacted Steel Ingot",
+    time = 24,
+    inputs = listOf(
+      2 of Item.IRON_ORE,
+      1 of Item.COMPACTED_COAL,
+    ),
+    product = 4 of Item.STEEL_INGOT,
+    alternate = true,
+  ),
+
+  /* Steel Beam */
+
+  STEEL_BEAM(
+    "Steel Beam",
+    time = 4,
+    inputs = listOf(4 of Item.STEEL_INGOT),
+    product = 1 of Item.STEEL_BEAM,
+  ),
+  MOLDED_BEAM(
+    "Molded Beam",
+    time = 12,
+    inputs = listOf(
+      24 of Item.STEEL_INGOT,
+      16 of Item.CONCRETE,
+    ),
+    product = 9 of Item.STEEL_BEAM,
+    alternate = true,
+  ),
+  ALUMINUM_BEAM(
+    "Aluminum Beam",
+    time = 8,
+    inputs = listOf(3 of Item.ALUMINUM_INGOT),
+    product = 3 of Item.STEEL_BEAM,
+    alternate = true,
+  ),
+
+  /* Steel Pipe */
+
+  STEEL_PIPE(
+    "Steel Pipe",
+    time = 6,
+    inputs = listOf(3 of Item.STEEL_INGOT),
+    product = 2 of Item.STEEL_PIPE,
+  ),
+  IRON_PIPE(
+    "Iron Pipe",
+    time = 12,
+    inputs = listOf(20 of Item.IRON_INGOT),
+    product = 4 of Item.STEEL_PIPE,
+    alternate = true,
+  ),
+  MOLDED_STEEL_PIPE(
+    "Molded Steel Pipe",
+    time = 6,
+    inputs = listOf(
+      5 of Item.STEEL_INGOT,
+      3 of Item.CONCRETE,
+    ),
+    product = 5 of Item.STEEL_PIPE,
+    alternate = true,
+  ),
+
+  /* Versatile Framework */
+
+  VERSATILE_FRAMEWORK(
+    "Versatile Framework",
+    time = 24,
+    inputs = listOf(
+      1 of Item.MODULAR_FRAME,
+      12 of Item.STEEL_BEAM,
+    ),
+    product = 2 of Item.VERSATILE_FRAMEWORK,
+  ),
+  FLEXIBLE_FRAMEWORK(
+    "Flexible Framework",
+    time = 16,
+    inputs = listOf(
+      1 of Item.MODULAR_FRAME,
+      6 of Item.STEEL_BEAM,
+      8 of Item.RUBBER,
+    ),
+    product = 2 of Item.VERSATILE_FRAMEWORK,
+    alternate = true,
+  ),
+
+  /* Xeno-Basher */
+
+  XENO_BASHER(
+    "Xeno-Basher",
+    time = 80,
+    inputs = listOf(
+      2 of Item.XENO_ZAPPER,
+      5 of Item.MODULAR_FRAME,
+      25 of Item.IRON_ROD,
+      500 of Item.WIRE,
+    ),
+    product = 1 of Item.XENO_BASHER,
+  ),
+
+  /* Gas Mask */
+
+  GAS_MASK(
+    "Gas Mask",
+    time = 60,
+    inputs = listOf(
+      50 of Item.FABRIC,
+      10 of Item.COPPER_SHEET,
+      10 of Item.STEEL_PIPE,
+    ),
+    product = 1 of Item.GAS_MASK,
+  ),
+
+  /* Gas Filter */
+
+  GAS_FILTER(
+    "Gas Filter",
+    time = 8,
+    inputs = listOf(
+      2 of Item.FABRIC,
+      4 of Item.COAL,
+      2 of Item.IRON_PLATE,
+    ),
+    product = 1 of Item.GAS_FILTER,
+  ),
+
   ;
 
   constructor(
