@@ -2407,8 +2407,8 @@ enum class RecipeV2(
 
   /* Uranium */
 
-  URANIUM_BAUXITE(
-    "Uranium (Bauxite)",
+  URANIUM_ORE_BAUXITE(
+    "Uranium Ore (Bauxite)",
     time = 6,
     inputs = listOf(
       1 of Item.REANIMATED_SAM,
@@ -3199,6 +3199,17 @@ enum class RecipeV2(
     product = 16 of Item.IONIZED_FUEL,
     byproduct = 2 of Item.COMPACTED_COAL,
   ),
+  DARK_ION_FUEL(
+    "Dark-Ion Fuel",
+    time = 3,
+    inputs = listOf(
+      12 of Item.PACKAGED_ROCKET_FUEL,
+      4 of Item.DARK_MATTER_CRYSTAL,
+    ),
+    product = 10 of Item.IONIZED_FUEL,
+    byproduct = 2 of Item.COMPACTED_COAL,
+    alternate = true,
+  ),
 
   /* Packaged Ionized Fuel */
 
@@ -3217,9 +3228,7 @@ enum class RecipeV2(
     inputs = listOf(2 of Item.PACKAGED_IONIZED_FUEL),
     product = 4 of Item.IONIZED_FUEL,
     byproduct = 2 of Item.EMPTY_FLUID_TANK,
-  ),
-
-  ;
+  );
 
   constructor(
     displayName: String,
@@ -3251,6 +3260,7 @@ enum class RecipeV2(
     /** The human-readable text representation of the Category. */
     val displayName: String,
   ) {
+    ADVANCED_REFINEMENT("Advanced Refinement"),
     ALIEN_REMAINS("Alien Remains"),
     AMMUNITION("Ammunition"),
     BIOMASS("Biomass"),
@@ -3259,11 +3269,16 @@ enum class RecipeV2(
     CONSUMABLES("Consumables"),
     CONTAINERS("Containers"),
     ELECTRONICS("Electronics"),
+    FUEL("Fuel"),
     INDUSTRIAL_PARTS("Industrial Parts"),
     INGOTS("Ingots"),
     NUCLEAR("Nuclear"),
+    OIL_PRODUCTS("Oil Products"),
+    OTHER("Other"),
     PACKAGING("Packaging"),
     POWER_SHARDS("Power Shards"),
+    QUANTUM_TECHNOLOGY("Quantum Technology"),
+    RAW_RESOURCE_CONVERSION("Raw Resource Conversion"),
     SPACE_ELEVATOR("Space Elevator"),
     STANDARD_PARTS("Standard Parts"),
     TOOLS("Tools"),
