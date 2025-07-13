@@ -2226,6 +2226,255 @@ enum class RecipeV2(
     product = 50 of Item.TURBO_RIFLE_AMMO,
   ),
 
+  /* Encased Uranium Cell */
+
+  ENCASED_URANIUM_CELL(
+    "Encased Uranium Cell",
+    time = 12,
+    inputs = listOf(
+      10 of Item.URANIUM,
+      3 of Item.CONCRETE,
+      8 of Item.SULFURIC_ACID,
+    ),
+    product = 5 of Item.ENCASED_URANIUM_CELL,
+    byproduct = 2 of Item.SULFURIC_ACID,
+  ),
+  INFUSED_URANIUM_CELL(
+    "Infused Uranium Cell",
+    time = 12,
+    inputs = listOf(
+      5 of Item.URANIUM,
+      3 of Item.SILICA,
+      5 of Item.SULFUR,
+      15 of Item.QUICKWIRE,
+    ),
+    product = 4 of Item.ENCASED_URANIUM_CELL,
+    alternate = true,
+  ),
+
+  /* Electromagnetic Control Rod */
+
+  ELECTROMAGNETIC_CONTROL_ROD(
+    "Electromagnetic Control Rod",
+    time = 30,
+    inputs = listOf(
+      3 of Item.STATOR,
+      2 of Item.AI_LIMITER,
+    ),
+    product = 2 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+  ),
+  ELECTROMAGNETIC_CONNECTION_ROD(
+    "Electromagnetic Connection Rod",
+    time = 15,
+    inputs = listOf(
+      2 of Item.STATOR,
+      1 of Item.HIGH_SPEED_CONNECTOR,
+    ),
+    product = 2 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+    alternate = true,
+  ),
+
+  /* Uranium Fuel Rod */
+
+  URANIUM_FUEL_ROD(
+    "Uranium Fuel Rod",
+    time = 150,
+    inputs = listOf(
+      50 of Item.ENCASED_URANIUM_CELL,
+      3 of Item.ENCASED_INDUSTRIAL_BEAM,
+      5 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+    ),
+    product = 1 of Item.URANIUM_FUEL_ROD,
+  ),
+  URANIUM_FUEL_UNIT(
+    "Uranium Fuel Unit",
+    time = 300,
+    inputs = listOf(
+      100 of Item.ENCASED_URANIUM_CELL,
+      10 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      3 of Item.CRYSTAL_OSCILLATOR,
+      10 of Item.ROTOR,
+    ),
+    product = 3 of Item.URANIUM_FUEL_ROD,
+    alternate = true,
+  ),
+
+  /* Uranium Waste */
+
+  BURN_URANIUM_FUEL_ROD(
+    "Uranium Fuel Rod",
+    time = 300,
+    inputs = listOf(
+      1 of Item.URANIUM_FUEL_ROD,
+      1_200 of Item.WATER,
+    ),
+    product = 50 of Item.URANIUM_WASTE,
+  ),
+
+  /* Magnetic Field Generator */
+
+  MAGNETIC_FIELD_GENERATOR(
+    "Magnetic Field Generator",
+    time = 120,
+    inputs = listOf(
+      5 of Item.VERSATILE_FRAMEWORK,
+      2 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+    ),
+    product = 2 of Item.MAGNETIC_FIELD_GENERATOR,
+  ),
+
+  /* Empty Fluid Tank */
+
+  EMPTY_FLUID_TANK(
+    "Empty Fluid Tank",
+    time = 1,
+    inputs = listOf(1 of Item.ALUMINUM_INGOT),
+    product = 1 of Item.EMPTY_FLUID_TANK,
+  ),
+
+  /* Packaged Nitrogen Gas */
+
+  PACKAGED_NITROGEN_GAS(
+    "Packaged Nitrogen Gas",
+    time = 1,
+    inputs = listOf(
+      4 of Item.NITROGEN_GAS,
+      1 of Item.EMPTY_FLUID_TANK,
+    ),
+    product = 1 of Item.PACKAGED_NITROGEN_GAS,
+  ),
+  UNPACKAGE_NITROGEN_GAS(
+    "Unpackage Nitrogen Gas",
+    time = 1,
+    inputs = listOf(1 of Item.PACKAGED_NITROGEN_GAS),
+    product = 4 of Item.NITROGEN_GAS,
+    byproduct = 1 of Item.EMPTY_FLUID_TANK,
+  ),
+
+  /* Heat Sink */
+
+  HEAT_SINK(
+    "Heat Sink",
+    time = 8,
+    inputs = listOf(
+      5 of Item.ALCLAD_ALUMINUM_SHEET,
+      3 of Item.COPPER_SHEET,
+    ),
+    product = 1 of Item.HEAT_SINK,
+  ),
+  HEAT_EXCHANGER(
+    "Heat Exchanger",
+    time = 6,
+    inputs = listOf(
+      3 of Item.ALUMINUM_CASING,
+      3 of Item.RUBBER,
+    ),
+    product = 1 of Item.HEAT_SINK,
+    alternate = true,
+  ),
+
+  /* Cooling System */
+
+  COOLING_SYSTEM(
+    "Cooling System",
+    time = 24,
+    inputs = listOf(
+      2 of Item.HEAT_SINK,
+      2 of Item.RUBBER,
+      5 of Item.WATER,
+      25 of Item.NITROGEN_GAS,
+    ),
+    product = 2 of Item.COOLING_SYSTEM,
+  ),
+  COOLING_DEVICE(
+    "Cooling Device",
+    time = 24,
+    inputs = listOf(
+      4 of Item.HEAT_SINK,
+      1 of Item.MOTOR,
+      24 of Item.NITROGEN_GAS,
+    ),
+    product = 2 of Item.COOLING_SYSTEM,
+    alternate = true,
+  ),
+
+  /* Fused Modular Frame */
+
+  FUSED_MODULAR_FRAME(
+    "Fused Modular Frame",
+    time = 40,
+    inputs = listOf(
+      1 of Item.HEAVY_MODULAR_FRAME,
+      50 of Item.ALUMINUM_CASING,
+      25 of Item.NITROGEN_GAS,
+    ),
+    product = 1 of Item.FUSED_MODULAR_FRAME,
+  ),
+  HEAT_FUSED_FRAME(
+    "Heat-Fused Frame",
+    time = 20,
+    inputs = listOf(
+      1 of Item.HEAVY_MODULAR_FRAME,
+      50 of Item.ALUMINUM_INGOT,
+      8 of Item.NITRIC_ACID,
+      10 of Item.FUEL,
+    ),
+    product = 1 of Item.FUSED_MODULAR_FRAME,
+    alternate = true,
+  ),
+
+  /* Turbo Motor */
+
+  TURBO_MOTOR(
+    "Turbo Motor",
+    time = 32,
+    inputs = listOf(
+      4 of Item.COOLING_SYSTEM,
+      2 of Item.RADIO_CONTROL_UNIT,
+      4 of Item.MOTOR,
+      24 of Item.RUBBER,
+    ),
+    product = 1 of Item.TURBO_MOTOR,
+  ),
+  TURBO_ELECTRIC_MOTOR(
+    "Turbo Electric Motor",
+    time = 64,
+    inputs = listOf(
+      7 of Item.MOTOR,
+      9 of Item.RADIO_CONTROL_UNIT,
+      5 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      7 of Item.ROTOR,
+    ),
+    product = 3 of Item.TURBO_MOTOR,
+    alternate = true,
+  ),
+  TURBO_PRESSURE_MOTOR(
+    "Turbo Pressure Motor",
+    time = 32,
+    inputs = listOf(
+      4 of Item.MOTOR,
+      1 of Item.PRESSURE_CONVERSION_CUBE,
+      24 of Item.PACKAGED_NITROGEN_GAS,
+      8 of Item.STATOR,
+    ),
+    product = 2 of Item.TURBO_MOTOR,
+    alternate = true,
+  ),
+
+  /* Thermal Propulsion Rocket */
+
+  THERMAL_PROPULSION_ROCKET(
+    "Thermal Propulsion Rocket",
+    time = 120,
+    inputs = listOf(
+      5 of Item.MODULAR_ENGINE,
+      2 of Item.TURBO_MOTOR,
+      6 of Item.COOLING_SYSTEM,
+      2 of Item.FUSED_MODULAR_FRAME,
+    ),
+    product = 2 of Item.THERMAL_PROPULSION_ROCKET,
+  ),
+
   ;
 
   constructor(
