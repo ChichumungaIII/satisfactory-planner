@@ -524,7 +524,7 @@ enum class RecipeV2(
     ),
     product = 1 of Item.POWER_SHARD,
     byproduct = 12 of Item.DARK_MATTER_RESIDUE,
-    power = 0.0..2000.0
+    power = 0..2_000
   ),
 
   /* Copper Sheet */
@@ -2475,6 +2475,186 @@ enum class RecipeV2(
     product = 2 of Item.THERMAL_PROPULSION_ROCKET,
   ),
 
+  /* Nitric Acid */
+
+  NITRIC_ACID(
+    "Nitric Acid",
+    time = 6,
+    inputs = listOf(
+      12 of Item.NITROGEN_GAS,
+      3 of Item.WATER,
+      1 of Item.IRON_PLATE,
+    ),
+    product = 3 of Item.NITRIC_ACID,
+  ),
+
+  /* Packaged Nitric Acid */
+
+  PACKAGED_NITRIC_ACID(
+    "Packaged Nitric Acid",
+    time = 2,
+    inputs = listOf(
+      1 of Item.NITRIC_ACID,
+      1 of Item.EMPTY_FLUID_TANK,
+    ),
+    product = 1 of Item.PACKAGED_NITRIC_ACID,
+  ),
+  UNPACKAGE_NITRIC_ACID(
+    "Unpackage Nitric Acid",
+    time = 3,
+    inputs = listOf(1 of Item.PACKAGED_NITRIC_ACID),
+    product = 1 of Item.NITRIC_ACID,
+    byproduct = 1 of Item.EMPTY_FLUID_TANK,
+  ),
+
+  /* Non-Fissile Uranium */
+
+  NON_FISSILE_URANIUM(
+    "Non-Fissile Uranium",
+    time = 24,
+    inputs = listOf(
+      15 of Item.URANIUM_WASTE,
+      10 of Item.SILICA,
+      6 of Item.NITRIC_ACID,
+      6 of Item.SULFURIC_ACID,
+    ),
+    product = 20 of Item.NON_FISSILE_URANIUM,
+    byproduct = 6 of Item.WATER,
+  ),
+  FERTILE_URANIUM(
+    "Fertile Uranium",
+    time = 12,
+    inputs = listOf(
+      5 of Item.URANIUM,
+      5 of Item.URANIUM_WASTE,
+      3 of Item.NITRIC_ACID,
+      5 of Item.SULFURIC_ACID,
+    ),
+    product = 20 of Item.NON_FISSILE_URANIUM,
+    byproduct = 8 of Item.WATER,
+    alternate = true,
+  ),
+
+  /* Plutonium Pellet */
+
+  PLUTONIUM_PELLET(
+    "Plutonium Pellet",
+    time = 60,
+    inputs = listOf(
+      100 of Item.NON_FISSILE_URANIUM,
+      25 of Item.URANIUM_WASTE,
+    ),
+    product = 30 of Item.PLUTONIUM_PELLET,
+    power = 250..750,
+  ),
+
+  /* Encased Plutonium Cell */
+
+  ENCASED_PLUTONIUM_CELL(
+    "Encased Plutonium Cell",
+    time = 12,
+    inputs = listOf(
+      2 of Item.PLUTONIUM_PELLET,
+      4 of Item.CONCRETE,
+    ),
+    product = 1 of Item.ENCASED_PLUTONIUM_CELL,
+  ),
+  INSTANT_PLUTONIUM_CELL(
+    "Instant Plutonium Cell",
+    time = 120,
+    inputs = listOf(
+      150 of Item.NON_FISSILE_URANIUM,
+      20 of Item.ALUMINUM_CASING,
+    ),
+    product = 20 of Item.ENCASED_PLUTONIUM_CELL,
+    power = 250..750,
+    alternate = true,
+  ),
+
+  /* Plutonium Fuel Rod */
+
+  PLUTONIUM_FUEL_ROD(
+    "Plutonium Fuel Rod",
+    time = 240,
+    inputs = listOf(
+      30 of Item.ENCASED_PLUTONIUM_CELL,
+      18 of Item.STEEL_BEAM,
+      6 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      10 of Item.HEAT_SINK,
+    ),
+    product = 1 of Item.PLUTONIUM_FUEL_ROD,
+  ),
+  PLUTONIUM_FUEL_UNIT(
+    "Plutonium Fuel Unit",
+    time = 120,
+    inputs = listOf(
+      20 of Item.ENCASED_PLUTONIUM_CELL,
+      1 of Item.PRESSURE_CONVERSION_CUBE,
+    ),
+    product = 1 of Item.PLUTONIUM_FUEL_ROD,
+    alternate = true,
+  ),
+
+  /* Plutonium Waste */
+
+  BURN_PLUTONIUM_FUEL_ROD(
+    "Plutonium Fuel Rod",
+    time = 600,
+    inputs = listOf(
+      1 of Item.PLUTONIUM_FUEL_ROD,
+      2_400 of Item.WATER,
+    ),
+    product = 10 of Item.PLUTONIUM_WASTE,
+  ),
+
+  /* Copper Powder */
+
+  COPPER_POWDER(
+    "Copper Powder",
+    time = 6,
+    inputs = listOf(30 of Item.COPPER_INGOT),
+    product = 5 of Item.COPPER_POWDER,
+  ),
+
+  /* Pressure Conversion Cube */
+
+  PRESSURE_CONVERSION_CUBE(
+    "Pressure Conversion Cube",
+    time = 60,
+    inputs = listOf(
+      1 of Item.FUSED_MODULAR_FRAME,
+      2 of Item.RADIO_CONTROL_UNIT,
+    ),
+    product = 1 of Item.PRESSURE_CONVERSION_CUBE,
+  ),
+
+  /* Nuclear Pasta */
+
+  NUCLEAR_PASTA(
+    "Nuclear Pasta",
+    time = 120,
+    inputs = listOf(
+      200 of Item.COPPER_POWDER,
+      1 of Item.PRESSURE_CONVERSION_CUBE,
+    ),
+    product = 1 of Item.NUCLEAR_PASTA,
+    power = 500 .. 1_500,
+  ),
+
+  /* Nuke Nobelisk */
+
+  NUKE_NOBELISK(
+    "Nuke Nobelisk",
+    time = 120,
+    inputs = listOf(
+      5 of Item.NOBELISK,
+      20 of Item.ENCASED_URANIUM_CELL,
+      10 of Item.SMOKELESS_POWDER,
+      6 of Item.AI_LIMITER,
+    ),
+    product = 1 of Item.NUKE_NOBELISK,
+  ),
+
   ;
 
   constructor(
@@ -2483,9 +2663,9 @@ enum class RecipeV2(
     inputs: List<Component>,
     product: Component,
     byproduct: Component? = null,
-    power: ClosedRange<Double>? = null,
+    power: ClosedRange<Int>? = null,
     alternate: Boolean = false
-  ) : this(displayName, time.q, inputs, product, byproduct, power, alternate)
+  ) : this(displayName, time.q, inputs, product, byproduct, power?.map(Int::toDouble), alternate)
 
   /** A Recipe Component is a pair containing an item and an amount of that item. */
   data class Component(
@@ -2500,5 +2680,10 @@ enum class RecipeV2(
       /** Creates a new [Component] of `this` amount of [item]. */
       infix fun Rational.of(item: Item) = Component(item, amount = this)
     }
+  }
+
+  companion object {
+    private fun <T : Comparable<T>, R : Comparable<R>> ClosedRange<T>.map(mapper: (T) -> R) =
+      mapper(start)..mapper(endInclusive)
   }
 }
