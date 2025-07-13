@@ -1290,6 +1290,136 @@ enum class RecipeV2(
     byproduct = 2 of Item.EMPTY_CANISTER,
   ),
 
+  /* Caterium Ingot */
+
+  CATERIUM_INGOT(
+    "Caterium Ingot",
+    time = 4,
+    inputs = listOf(3 of Item.CATERIUM_ORE),
+    product = 1 of Item.CATERIUM_INGOT,
+  ),
+  PURE_CATERIUM_INGOT(
+    "Pure Caterium Ingot",
+    time = 5,
+    inputs = listOf(
+      2 of Item.CATERIUM_ORE,
+      2 of Item.WATER,
+    ),
+    product = 1 of Item.CATERIUM_INGOT,
+    alternate = true,
+  ),
+  TEMPERED_CATERIUM_INGOT(
+    "Tempered Caterium Ingot",
+    time = 8,
+    inputs = listOf(
+      6 of Item.CATERIUM_ORE,
+      2 of Item.PETROLEUM_COKE,
+    ),
+    product = 3 of Item.CATERIUM_INGOT,
+    alternate = true,
+  ),
+  LEACHED_CATERIUM_INGOT(
+    "Leached Caterium ingot",
+    time = 10,
+    inputs = listOf(
+      9 of Item.CATERIUM_ORE,
+      5 of Item.SULFURIC_ACID,
+    ),
+    product = 6 of Item.CATERIUM_INGOT,
+    alternate = true,
+  ),
+
+  /* Quickwire */
+
+  QUICKWIRE(
+    "Quickwire",
+    time = 5,
+    inputs = listOf(1 of Item.CATERIUM_INGOT),
+    product = 5 of Item.QUICKWIRE,
+  ),
+  FUSED_QUICKWIRE(
+    "Fused Quickwire",
+    time = 8,
+    inputs = listOf(
+      1 of Item.CATERIUM_INGOT,
+      5 of Item.COPPER_INGOT,
+    ),
+    product = 12 of Item.QUICKWIRE,
+    alternate = true,
+  ),
+
+  /* Zipline */
+
+  ZIPLINE(
+    "Zipline",
+    time = 40,
+    inputs = listOf(
+      1 of Item.XENO_ZAPPER,
+      30 of Item.QUICKWIRE,
+      3 of Item.IRON_ROD,
+      10 of Item.CABLE,
+    ),
+    product = 1 of Item.ZIPLINE,
+  ),
+
+  /* Stun Rebar */
+
+  STUN_REBAR(
+    "Stun Rebar",
+    time = 6,
+    inputs = listOf(
+      1 of Item.IRON_REBAR,
+      5 of Item.QUICKWIRE,
+    ),
+    product = 1 of Item.STUN_REBAR,
+  ),
+
+  /* AI Limiter */
+
+  AI_LIMITER(
+    "AI Limiter",
+    time = 12,
+    inputs = listOf(
+      5 of Item.COPPER_SHEET,
+      20 of Item.QUICKWIRE,
+    ),
+    product = 1 of Item.AI_LIMITER,
+  ),
+  PLASTIC_AI_LIMITER(
+    "Plastic AI Limiter",
+    time = 15,
+    inputs = listOf(
+      30 of Item.QUICKWIRE,
+      7 of Item.PLASTIC,
+    ),
+    product = 2 of Item.AI_LIMITER,
+    alternate = true,
+  ),
+
+  /* High-Speed Connector */
+
+  HIGH_SPEED_CONNECTOR(
+    "High-Speed Connector",
+    time = 16,
+    inputs = listOf(
+      56 of Item.QUICKWIRE,
+      10 of Item.CABLE,
+      1 of Item.CIRCUIT_BOARD,
+    ),
+    product = 1 of Item.HIGH_SPEED_CONNECTOR,
+  ),
+  SILICON_HIGH_SPEED_CONNECTOR(
+    "Silicon High-Speed Connector",
+    time = 40,
+    inputs = listOf(
+      60 of Item.QUICKWIRE,
+      25 of Item.SILICA,
+      2 of Item.CIRCUIT_BOARD,
+    ),
+    product = 2 of Item.HIGH_SPEED_CONNECTOR,
+    alternate = true,
+  ),
+
   ;
 
   constructor(
