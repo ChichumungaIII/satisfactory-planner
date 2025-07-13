@@ -3212,6 +3212,22 @@ enum class RecipeV2(
     }
   }
 
+  /** Enumerates the categories recipes fall into within their [Building]'s menus. */
+  enum class Category(
+    /** The human-readable text representation of the Category. */
+    val displayName: String,
+  ) {
+    ALIEN_REMAINS("Alien Remains"),
+    AMMUNITION("Ammunition"),
+    BIOMASS("Biomass"),
+    COMPOUNDS("Compounds"),
+    CONTAINERS("Containers"),
+    ELECTRONICS("Electronics"),
+    INGOTS("Ingots"),
+    POWER_SHARDS("Power Shards"),
+    STANDARD_PARTS("Standard Parts"),
+  }
+
   companion object {
     private fun <T : Comparable<T>, R : Comparable<R>> ClosedRange<T>.map(mapper: (T) -> R) =
       mapper(start)..mapper(endInclusive)
