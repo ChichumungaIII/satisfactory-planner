@@ -21,6 +21,20 @@ enum class RecipeV2(
   /** Whether this is an alternate recipe scanned from a hard drive. */
   val alternate: Boolean,
 ) {
+  /* Iron Ore */
+
+  IRON_ORE_LIMESTONE(
+    "Iron Ore (Limestone)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      24 of Item.LIMESTONE,
+    ),
+    product = 12 of Item.IRON_ORE,
+    power = 100..400,
+  ),
+
+
   /* Iron Ingot */
 
   IRON_INGOT(
@@ -158,6 +172,29 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Copper Ore */
+
+  COPPER_ORE_QUARTZ(
+    "Copper Ore (Quartz)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      10 of Item.RAW_QUARTZ,
+    ),
+    product = 12 of Item.COPPER_ORE,
+    power = 100..400,
+  ),
+  COPPER_ORE_SULFUR(
+    "Copper Ore (Sulfur)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      12 of Item.SULFUR,
+    ),
+    product = 12 of Item.COPPER_ORE,
+    power = 100..400,
+  ),
+
   /* Copper Ingot */
 
   COPPER_INGOT(
@@ -277,6 +314,19 @@ enum class RecipeV2(
     ),
     product = 11 of Item.CABLE,
     alternate = true,
+  ),
+
+  /* Limestone */
+
+  LIMESTONE_SULFUR(
+    "Limestone (Sulfur)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      2 of Item.SULFUR,
+    ),
+    product = 12 of Item.LIMESTONE,
+    power = 100..400
   ),
 
   /* Concrete */
@@ -717,6 +767,43 @@ enum class RecipeV2(
     time = 4,
     inputs = listOf(1 of Item.IRON_ROD),
     product = 1 of Item.IRON_REBAR,
+  ),
+
+  /* Coal */
+
+  COAL_IRON(
+    "Coal (Iron)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      18 of Item.IRON_ORE,
+    ),
+    product = 12 of Item.COAL,
+    power = 100..400,
+  ),
+  COAL_LIMESTONE(
+    "Coal (Limestone)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      36 of Item.LIMESTONE,
+    ),
+    product = 12 of Item.COAL,
+    power = 100..400,
+  ),
+  BIOCOAL(
+    "Biocoal",
+    time = 8,
+    inputs = listOf(5 of Item.BIOMASS),
+    product = 6 of Item.COAL,
+    alternate = true,
+  ),
+  CHARCOAL(
+    "Charcoal",
+    time = 4,
+    inputs = listOf(1 of Item.WOOD),
+    product = 10 of Item.COAL,
+    alternate = true,
   ),
 
   /* Steel Ingot */
@@ -1290,6 +1377,29 @@ enum class RecipeV2(
     byproduct = 2 of Item.EMPTY_CANISTER,
   ),
 
+  /* Caterium Ore */
+
+  CATERIUM_ORE_COPPER(
+    "Caterium Ore (Copper)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      15 of Item.COPPER_ORE,
+    ),
+    product = 12 of Item.CATERIUM_ORE,
+    power = 100..400,
+  ),
+  CATERIUM_ORE_QUARTZ(
+    "Caterium Ore (Quartz)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      12 of Item.RAW_QUARTZ,
+    ),
+    product = 12 of Item.CATERIUM_ORE,
+    power = 100..400,
+  ),
+
   /* Caterium Ingot */
 
   CATERIUM_INGOT(
@@ -1519,6 +1629,29 @@ enum class RecipeV2(
     product = 1 of Item.ADAPTIVE_CONTROL_UNIT,
   ),
 
+  /* Raw Quartz */
+
+  RAW_QUARTZ_COAL(
+    "Raw Quartz (Coal)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      24 of Item.COAL,
+    ),
+    product = 12 of Item.RAW_QUARTZ,
+    power = 100..400,
+  ),
+  RAW_QUARTZ_BAUXITE(
+    "Raw Quartz (Bauxite)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      10 of Item.BAUXITE,
+    ),
+    product = 12 of Item.RAW_QUARTZ,
+    power = 100..400,
+  ),
+
   /* Quartz Crystal */
 
   QUARTZ_CRYSTAL(
@@ -1634,6 +1767,29 @@ enum class RecipeV2(
       3 of Item.ROTOR,
     ),
     product = 1 of Item.BLADE_RUNNERS,
+  ),
+
+  /* Bauxite */
+
+  BAUXITE_COPPER(
+    "Bauxite (Copper)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      18 of Item.COPPER_ORE,
+    ),
+    product = 12 of Item.BAUXITE,
+    power = 100..400,
+  ),
+  BAUXITE_CATERIUM(
+    "Bauxite (Caterium)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      15 of Item.CATERIUM_ORE,
+    ),
+    product = 12 of Item.BAUXITE,
+    power = 100..400,
   ),
 
   /* Alumina Solution */
@@ -1804,6 +1960,29 @@ enum class RecipeV2(
       1 of Item.ALUMINUM_CASING,
     ),
     product = 1 of Item.IODINE_INFUSED_FILTER,
+  ),
+
+  /* Sulfur */
+
+  SULFUR_IRON(
+    "Sulfur (Iron)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      30 of Item.IRON_ORE,
+    ),
+    product = 12 of Item.SULFUR,
+    power = 100..400,
+  ),
+  SULFUR_COAL(
+    "Sulfur (Coal)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      20 of Item.COAL,
+    ),
+    product = 12 of Item.SULFUR,
+    power = 100..400,
   ),
 
   /* Sulfuric Acid */
@@ -2226,6 +2405,19 @@ enum class RecipeV2(
     product = 50 of Item.TURBO_RIFLE_AMMO,
   ),
 
+  /* Uranium */
+
+  URANIUM_BAUXITE(
+    "Uranium (Bauxite)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      48 of Item.BAUXITE,
+    ),
+    product = 12 of Item.URANIUM,
+    power = 100..400,
+  ),
+
   /* Encased Uranium Cell */
 
   ENCASED_URANIUM_CELL(
@@ -2321,6 +2513,28 @@ enum class RecipeV2(
       2 of Item.ELECTROMAGNETIC_CONTROL_ROD,
     ),
     product = 2 of Item.MAGNETIC_FIELD_GENERATOR,
+  ),
+
+  /* Nitrogen Gas */
+
+  NITROGEN_GAS_CATERIUM(
+    "Nitrogen Gas (Caterium)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      12 of Item.CATERIUM_ORE,
+    ),
+    product = 12 of Item.NITROGEN_GAS,
+    power = 100..400,
+  ),
+  NITROGEN_GAS_BAUXITE(
+    "Nitrogen Gas (Bauxite)",
+    time = 6,
+    inputs = listOf(
+      1 of Item.REANIMATED_SAM,
+      10 of Item.BAUXITE,
+    ),
+    product = 12 of Item.NITROGEN_GAS,
   ),
 
   /* Empty Fluid Tank */
