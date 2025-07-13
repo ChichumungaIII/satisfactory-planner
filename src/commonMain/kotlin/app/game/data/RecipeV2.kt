@@ -1420,6 +1420,105 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Computer */
+
+  COMPUTER(
+    "Computer",
+    time = 24,
+    inputs = listOf(
+      4 of Item.CIRCUIT_BOARD,
+      8 of Item.CABLE,
+      16 of Item.PLASTIC,
+    ),
+    product = 1 of Item.COMPUTER,
+  ),
+  CATERIUM_COMPUTER(
+    "Caterium Computer",
+    time = 16,
+    inputs = listOf(
+      4 of Item.CIRCUIT_BOARD,
+      14 of Item.QUICKWIRE,
+      6 of Item.RUBBER,
+    ),
+    product = 1 of Item.COMPUTER,
+    alternate = true,
+  ),
+  CRYSTAL_COMPUTER(
+    "Crystal Computer",
+    time = 36,
+    inputs = listOf(
+      3 of Item.CIRCUIT_BOARD,
+      1 of Item.CRYSTAL_OSCILLATOR,
+    ),
+    product = 2 of Item.COMPUTER,
+    alternate = true,
+  ),
+
+  /* Heavy Modular Frame */
+
+  HEAVY_MODULAR_FRAME(
+    "Heavy Modular Frame",
+    time = 30,
+    inputs = listOf(
+      5 of Item.MODULAR_FRAME,
+      20 of Item.STEEL_PIPE,
+      5 of Item.ENCASED_INDUSTRIAL_BEAM,
+      120 of Item.SCREWS,
+    ),
+    product = 1 of Item.HEAVY_MODULAR_FRAME,
+  ),
+  HEAVY_ENCASED_FRAME(
+    "Heavy Encased Frame",
+    time = 64,
+    inputs = listOf(
+      8 of Item.MODULAR_FRAME,
+      10 of Item.ENCASED_INDUSTRIAL_BEAM,
+      36 of Item.STEEL_PIPE,
+      22 of Item.CONCRETE,
+    ),
+    product = 3 of Item.HEAVY_MODULAR_FRAME,
+    alternate = true,
+  ),
+  HEAVY_FLEXIBLE_FRAME(
+    "Heavy Flexible Frame",
+    time = 16,
+    inputs = listOf(
+      5 of Item.MODULAR_FRAME,
+      3 of Item.ENCASED_INDUSTRIAL_BEAM,
+      20 of Item.RUBBER,
+      104 of Item.SCREWS,
+    ),
+    product = 1 of Item.HEAVY_MODULAR_FRAME,
+    alternate = true,
+  ),
+
+  /* Modular Engine */
+
+  MODULAR_ENGINE(
+    "Modular Engine",
+    time = 60,
+    inputs = listOf(
+      2 of Item.MOTOR,
+      15 of Item.RUBBER,
+      2 of Item.SMART_PLATING,
+    ),
+    product = 1 of Item.MODULAR_ENGINE,
+  ),
+
+  /* Adaptive Control Unit */
+
+  ADAPTIVE_CONTROL_UNIT(
+    "Adaptive Control Unit",
+    time = 60,
+    inputs = listOf(
+      5 of Item.AUTOMATED_WIRING,
+      5 of Item.CIRCUIT_BOARD,
+      1 of Item.HEAVY_MODULAR_FRAME,
+      2 of Item.COMPUTER,
+    ),
+    product = 1 of Item.ADAPTIVE_CONTROL_UNIT,
+  ),
+
   ;
 
   constructor(
