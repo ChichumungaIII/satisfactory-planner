@@ -876,6 +876,106 @@ enum class RecipeV2(
     product = 1 of Item.GAS_FILTER,
   ),
 
+  /* Encased Industrial Beam */
+
+  ENCASED_INDUSTRIAL_BEAM(
+    "Encased Industrial Beam",
+    time = 10,
+    inputs = listOf(
+      3 of Item.STEEL_BEAM,
+      6 of Item.CONCRETE,
+    ),
+    product = 1 of Item.ENCASED_INDUSTRIAL_BEAM,
+  ),
+  ENCASED_INDUSTRIAL_PIPE(
+    "Encased Industrial Pipe",
+    time = 15,
+    inputs = listOf(
+      6 of Item.STEEL_PIPE,
+      5 of Item.CONCRETE,
+    ),
+    product = 1 of Item.ENCASED_INDUSTRIAL_BEAM,
+    alternate = true,
+  ),
+
+  /* Stator */
+
+  STATOR(
+    "Stator",
+    time = 12,
+    inputs = listOf(
+      3 of Item.STEEL_PIPE,
+      8 of Item.WIRE,
+    ),
+    product = 1 of Item.STATOR,
+  ),
+  QUICKWIRE_STATOR(
+    "Quickwire Stator",
+    time = 15,
+    inputs = listOf(
+      4 of Item.STEEL_PIPE,
+      15 of Item.QUICKWIRE,
+    ),
+    product = 2 of Item.STATOR,
+    alternate = true,
+  ),
+
+  /* Motor */
+
+  MOTOR(
+    "Motor",
+    time = 12,
+    inputs = listOf(
+      2 of Item.ROTOR,
+      2 of Item.STATOR,
+    ),
+    product = 1 of Item.MOTOR,
+  ),
+  RIGOR_MOTOR(
+    "Rigor Motor",
+    time = 48,
+    inputs = listOf(
+      3 of Item.ROTOR,
+      3 of Item.STATOR,
+      1 of Item.CRYSTAL_OSCILLATOR,
+    ),
+    product = 6 of Item.MOTOR,
+    alternate = true,
+  ),
+  ELECTRIC_MOTOR(
+    "Electric Motor",
+    time = 16,
+    inputs = listOf(
+      1 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      2 of Item.ROTOR,
+    ),
+    product = 2 of Item.MOTOR,
+    alternate = true,
+  ),
+
+  /* Automated Wiring */
+
+  AUTOMATED_WIRING(
+    "Automated Wiring",
+    time = 24,
+    inputs = listOf(
+      1 of Item.STATOR,
+      20 of Item.CABLE,
+    ),
+    product = 1 of Item.AUTOMATED_WIRING,
+  ),
+  AUTOMATED_SPEED_WIRING(
+    "Automated Speed Wiring",
+    time = 32,
+    inputs = listOf(
+      2 of Item.STATOR,
+      40 of Item.WIRE,
+      1 of Item.HIGH_SPEED_CONNECTOR,
+    ),
+    product = 4 of Item.AUTOMATED_WIRING,
+    alternate = true,
+  ),
+
   ;
 
   constructor(
