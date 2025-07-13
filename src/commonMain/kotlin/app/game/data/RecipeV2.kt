@@ -976,6 +976,177 @@ enum class RecipeV2(
     alternate = true,
   ),
 
+  /* Jetpack */
+
+  JETPACK(
+    "Jetpack",
+    time = 60,
+    inputs = listOf(
+      5 of Item.MOTOR,
+      10 of Item.STEEL_PIPE,
+      25 of Item.IRON_PLATE,
+      50 of Item.WIRE,
+    ),
+    product = 1 of Item.JETPACK,
+  ),
+
+  /* Plastic */
+
+  PLASTIC(
+    "Plastic",
+    time = 6,
+    inputs = listOf(3 of Item.CRUDE_OIL),
+    product = 2 of Item.PLASTIC,
+    byproduct = 1 of Item.HEAVY_OIL_RESIDUE,
+  ),
+  RESIDUAL_PLASTIC(
+    "Residual Plastic",
+    time = 6,
+    inputs = listOf(
+      6 of Item.POLYMER_RESIN,
+      2 of Item.WATER,
+    ),
+    product = 2 of Item.PLASTIC,
+  ),
+  RECYCLED_PLASTIC(
+    "Recycled Plastic",
+    time = 12,
+    inputs = listOf(
+      6 of Item.RUBBER,
+      6 of Item.FUEL,
+    ),
+    product = 12 of Item.PLASTIC,
+    alternate = true,
+  ),
+
+  /* Rubber */
+
+  RUBBER(
+    "Rubber",
+    time = 6,
+    inputs = listOf(2 of Item.CRUDE_OIL),
+    product = 2 of Item.RUBBER,
+    byproduct = 2 of Item.HEAVY_OIL_RESIDUE
+  ),
+  RESIDUAL_RUBBER(
+    "Residual Rubber",
+    time = 6,
+    inputs = listOf(
+      4 of Item.POLYMER_RESIN,
+      4 of Item.WATER,
+    ),
+    product = 2 of Item.RUBBER,
+  ),
+  RECYCLED_RUBBER(
+    "Recycled Rubber",
+    time = 12,
+    inputs = listOf(
+      6 of Item.PLASTIC,
+      6 of Item.FUEL,
+    ),
+    product = 12 of Item.RUBBER,
+    alternate = true,
+  ),
+
+  /* Fuel */
+
+  FUEL(
+    "Fuel",
+    time = 6,
+    inputs = listOf(6 of Item.CRUDE_OIL),
+    product = 4 of Item.FUEL,
+    byproduct = 3 of Item.POLYMER_RESIN,
+  ),
+  RESIDUAL_FUEL(
+    "Residual Fuel",
+    time = 6,
+    inputs = listOf(6 of Item.HEAVY_OIL_RESIDUE),
+    product = 4 of Item.FUEL,
+  ),
+  DILUTED_FUEL(
+    "Diluted Fuel",
+    time = 6,
+    inputs = listOf(
+      5 of Item.HEAVY_OIL_RESIDUE,
+      10 of Item.WATER,
+    ),
+    product = 10 of Item.FUEL,
+    alternate = true,
+  ),
+
+  /* Heavy Oil Residue */
+
+  HEAVY_OIL_RESIDUE(
+    "Heavy Oil Residue",
+    time = 6,
+    inputs = listOf(3 of Item.CRUDE_OIL),
+    product = 4 of Item.HEAVY_OIL_RESIDUE,
+    byproduct = 2 of Item.POLYMER_RESIN,
+    alternate = true,
+  ),
+
+  /* Polymer Resin */
+
+  POLYMER_RESIN(
+    "Polymer Resin",
+    time = 6,
+    inputs = listOf(6 of Item.CRUDE_OIL),
+    product = 13 of Item.POLYMER_RESIN,
+    byproduct = 2 of Item.HEAVY_OIL_RESIDUE,
+    alternate = true,
+  ),
+
+  /* Petroleum Coke */
+
+  PETROLEUM_COKE(
+    "Petroleum Coke",
+    time = 6,
+    inputs = listOf(4 of Item.HEAVY_OIL_RESIDUE),
+    product = 12 of Item.PETROLEUM_COKE,
+  ),
+
+  /* Circuit Board */
+
+  CIRCUIT_BOARD(
+    "Circuit Board",
+    time = 8,
+    inputs = listOf(
+      2 of Item.CIRCUIT_BOARD,
+      4 of Item.PLASTIC,
+    ),
+    product = 1 of Item.CIRCUIT_BOARD,
+  ),
+  ELECTRODE_CIRCUIT_BOARD(
+    "Electrode Circuit Board",
+    time = 12,
+    inputs = listOf(
+      4 of Item.RUBBER,
+      8 of Item.PETROLEUM_COKE,
+    ),
+    product = 1 of Item.CIRCUIT_BOARD,
+    alternate = true,
+  ),
+  CATERIUM_CIRCUIT_BOARD(
+    "Caterium Circuit Board",
+    time = 48,
+    inputs = listOf(
+      10 of Item.PLASTIC,
+      30 of Item.QUICKWIRE,
+    ),
+    product = 7 of Item.CIRCUIT_BOARD,
+    alternate = true,
+  ),
+  SILICON_CIRCUIT_BOARD(
+    "Silicon Circuit Board",
+    time = 24,
+    inputs = listOf(
+      11 of Item.COPPER_SHEET,
+      11 of Item.SILICA,
+    ),
+    product = 5 of Item.CIRCUIT_BOARD,
+    alternate = true,
+  ),
+
   ;
 
   constructor(
