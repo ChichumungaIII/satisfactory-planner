@@ -1806,6 +1806,149 @@ enum class RecipeV2(
     product = 1 of Item.IODINE_INFUSED_FILTER,
   ),
 
+  /* Sulfuric Acid */
+
+  SULFURIC_ACID(
+    "Sulfuric Acid",
+    time = 6,
+    inputs = listOf(
+      5 of Item.SULFUR,
+      5 of Item.WATER,
+    ),
+    product = 5 of Item.SULFURIC_ACID,
+  ),
+
+  /* Packaged Sulfuric Acid */
+
+  PACKAGED_SULFURIC_ACID(
+    "Packaged Sulfuric Acid",
+    time = 3,
+    inputs = listOf(
+      2 of Item.SULFURIC_ACID,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_SULFURIC_ACID,
+  ),
+  UNPACKAGE_SULFURIC_ACID(
+    "Unpackage Sulfuric Acid",
+    time = 1,
+    inputs = listOf(1 of Item.PACKAGED_SULFURIC_ACID),
+    product = 1 of Item.SULFURIC_ACID,
+    byproduct = 1 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Battery */
+
+  BATTERY(
+    "Battery",
+    time = 3,
+    inputs = listOf(
+      (5.q / 2.q) of Item.SULFURIC_ACID,
+      2 of Item.ALUMINA_SOLUTION,
+      1 of Item.ALUMINUM_CASING,
+    ),
+    product = 1 of Item.BATTERY,
+    byproduct = (3.q / 2.q) of Item.WATER,
+  ),
+  CLASSIC_BATTERY(
+    "Classic Battery",
+    time = 8,
+    inputs = listOf(
+      6 of Item.SULFUR,
+      7 of Item.ALCLAD_ALUMINUM_SHEET,
+      8 of Item.PLASTIC,
+      12 of Item.WIRE,
+    ),
+    product = 4 of Item.BATTERY,
+    alternate = true,
+  ),
+
+  /* Radio Control Unit */
+
+  RADIO_CONTROL_UNIT(
+    "Radio Control Unit",
+    time = 48,
+    inputs = listOf(
+      32 of Item.ALUMINUM_CASING,
+      1 of Item.CRYSTAL_OSCILLATOR,
+      2 of Item.COMPUTER,
+    ),
+    product = 2 of Item.RADIO_CONTROL_UNIT,
+  ),
+  RADIO_CONTROL_SYSTEM(
+    "Radio Control System",
+    time = 40,
+    inputs = listOf(
+      1 of Item.CRYSTAL_OSCILLATOR,
+      10 of Item.CIRCUIT_BOARD,
+      60 of Item.ALUMINUM_CASING,
+      30 of Item.RUBBER,
+    ),
+    product = 3 of Item.RADIO_CONTROL_UNIT,
+    alternate = true,
+  ),
+  RADIO_CONNECTION_UNIT(
+    "Radio Connection Unit",
+    time = 16,
+    inputs = listOf(
+      4 of Item.HEAT_SINK,
+      2 of Item.HIGH_SPEED_CONNECTOR,
+      12 of Item.QUARTZ_CRYSTAL,
+    ),
+    product = 1 of Item.RADIO_CONTROL_UNIT,
+    alternate = true,
+  ),
+
+  /* Supercomputer */
+
+  SUPERCOMPUTER(
+    "Supercomputer",
+    time = 32,
+    inputs = listOf(
+      4 of Item.COMPUTER,
+      2 of Item.AI_LIMITER,
+      3 of Item.HIGH_SPEED_CONNECTOR,
+      28 of Item.PLASTIC,
+    ),
+    product = 1 of Item.SUPERCOMPUTER,
+  ),
+  SUPER_STATE_COMPUTER(
+    "Super-State Computer",
+    time = 25,
+    inputs = listOf(
+      3 of Item.COMPUTER,
+      1 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      10 of Item.BATTERY,
+      25 of Item.WIRE,
+    ),
+    product = 1 of Item.SUPERCOMPUTER,
+    alternate = true,
+  ),
+  OC_SUPERCOMPUTER(
+    "OC Supercomputer",
+    time = 20,
+    inputs = listOf(
+      2 of Item.RADIO_CONTROL_UNIT,
+      2 of Item.COOLING_SYSTEM,
+    ),
+    product = 1 of Item.SUPERCOMPUTER,
+    alternate = true,
+  ),
+
+  /* Assembly Director System */
+
+  ASSEMBLY_DIRECTOR_SYSTEM(
+    "Assembly Director System",
+    time = 80,
+    inputs = listOf(
+      2 of Item.ADAPTIVE_CONTROL_UNIT,
+      1 of Item.SUPERCOMPUTER,
+    ),
+    product = 1 of Item.ASSEMBLY_DIRECTOR_SYSTEM,
+  ),
+
+
+
   ;
 
   constructor(
