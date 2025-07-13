@@ -3014,7 +3014,178 @@ enum class RecipeV2(
     product = 4 of Item.BIOCHEMICAL_SCULPTOR,
   ),
 
-  ;
+  /* Excited Photonic Matter */
+
+  EXCITED_PHOTONIC_MATTER(
+    "Excited Photonic Matter",
+    time = 3,
+    inputs = listOf(),
+    product = 10 of Item.EXCITED_PHOTONIC_MATTER,
+    power = 100..400,
+  ),
+
+  /* Dark Matter Residue */
+
+  DARK_MATTER_RESIDUE(
+    "Dark Matter Residue",
+    time = 6,
+    inputs = listOf(5 of Item.REANIMATED_SAM),
+    product = 10 of Item.DARK_MATTER_RESIDUE,
+  ),
+
+  /* Dark Matter Crystal */
+
+  DARK_MATTER_CRYSTAL(
+    "Dark Matter Crystal",
+    time = 2,
+    inputs = listOf(
+      1 of Item.DIAMONDS,
+      5 of Item.DARK_MATTER_RESIDUE,
+    ),
+    product = 1 of Item.DARK_MATTER_CRYSTAL,
+    power = -500..1_500,
+  ),
+  DARK_MATTER_CRYSTALLIZATION(
+    "Dark Matter Crystallization",
+    time = 3,
+    inputs = listOf(10 of Item.DARK_MATTER_RESIDUE),
+    product = 1 of Item.DARK_MATTER_CRYSTAL,
+    power = 500..1_500,
+    alternate = true,
+  ),
+  DARK_MATTER_TRAP(
+    "Dark Matter Trap",
+    time = 2,
+    inputs = listOf(
+      1 of Item.TIME_CRYSTAL,
+      5 of Item.DARK_MATTER_RESIDUE,
+    ),
+    product = 2 of Item.DARK_MATTER_CRYSTAL,
+    power = 500..1_500,
+    alternate = true,
+  ),
+
+  /* Superposition Oscillator */
+
+  SUPERPOSITION_OSCILLATOR(
+    "Superposition Oscillator",
+    time = 12,
+    inputs = listOf(
+      6 of Item.DARK_MATTER_CRYSTAL,
+      1 of Item.CRYSTAL_OSCILLATOR,
+      9 of Item.ALCLAD_ALUMINUM_SHEET,
+      25 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.SUPERPOSITION_OSCILLATOR,
+    byproduct = 25 of Item.DARK_MATTER_RESIDUE,
+    power = 0..2_000,
+  ),
+
+  /* Neural-Quantum Processor */
+
+  NEURAL_QUANTUM_PROCESSOR(
+    "Neural-Quantum Processor",
+    time = 20,
+    inputs = listOf(
+      5 of Item.TIME_CRYSTAL,
+      1 of Item.SUPERCOMPUTER,
+      15 of Item.FICSITE_TRIGON,
+      25 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.NEURAL_QUANTUM_PROCESSOR,
+    byproduct = 25 of Item.DARK_MATTER_RESIDUE,
+    power = 0..2_000,
+  ),
+
+  /* AI Expansion Server */
+
+  AI_EXPANSION_SERVER(
+    "AI Expansion Server",
+    time = 15,
+    inputs = listOf(
+      1 of Item.MAGNETIC_FIELD_GENERATOR,
+      1 of Item.NEURAL_QUANTUM_PROCESSOR,
+      1 of Item.SUPERPOSITION_OSCILLATOR,
+      25 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.AI_EXPANSION_SERVER,
+    byproduct = 25 of Item.DARK_MATTER_RESIDUE,
+    power = 0..2_000,
+  ),
+
+  /* Singularity Cell */
+
+  SINGULARITY_CELL(
+    "Singularity Cell",
+    time = 60,
+    inputs = listOf(
+      1 of Item.NUCLEAR_PASTA,
+      20 of Item.DARK_MATTER_CRYSTAL,
+      100 of Item.IRON_PLATE,
+      200 of Item.CONCRETE,
+    ),
+    product = 10 of Item.SINGULARITY_CELL,
+  ),
+
+  /* Ballistic Warp Drive */
+
+  BALLISTIC_WARP_DRIVE(
+    "Ballistic Warp Drive",
+    time = 60,
+    inputs = listOf(
+      1 of Item.THERMAL_PROPULSION_ROCKET,
+      5 of Item.SINGULARITY_CELL,
+      2 of Item.SUPERPOSITION_OSCILLATOR,
+      40 of Item.DARK_MATTER_CRYSTAL,
+    ),
+    product = 1 of Item.BALLISTIC_WARP_DRIVE,
+  ),
+
+  /* Ficsonium */
+
+  FICSONIUM(
+    "Ficsonium",
+    time = 6,
+    inputs = listOf(
+      1 of Item.PLUTONIUM_WASTE,
+      1 of Item.SINGULARITY_CELL,
+      20 of Item.DARK_MATTER_CRYSTAL,
+    ),
+    product = 1 of Item.FICSONIUM,
+    power = 500..1_500,
+  ),
+
+  /* Ficsonium Fuel Rod  */
+
+  FICSONIUM_FUEL_ROD(
+    "Ficsonium Fuel Rod",
+    time = 24,
+    inputs = listOf(
+      2 of Item.FICSONIUM,
+      2 of Item.ELECTROMAGNETIC_CONTROL_ROD,
+      40 of Item.FICSITE_TRIGON,
+      20 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.FICSONIUM_FUEL_ROD,
+    byproduct = 20 of Item.DARK_MATTER_RESIDUE,
+    power = 0..2_000,
+  ),
+
+  /* Alien Power Matrix */
+
+  ALIEN_POWER_MATRIX(
+    "Alien Power Matrix",
+    time = 24,
+    inputs = listOf(
+      5 of Item.SAM_FLUCTUATOR,
+      3 of Item.POWER_SHARD,
+      3 of Item.SUPERPOSITION_OSCILLATOR,
+      24 of Item.EXCITED_PHOTONIC_MATTER,
+    ),
+    product = 1 of Item.ALIEN_POWER_MATRIX,
+    byproduct = 24 of Item.DARK_MATTER_RESIDUE,
+    power = 0..2_000,
+  );
 
   constructor(
     displayName: String,
