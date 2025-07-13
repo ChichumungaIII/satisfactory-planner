@@ -656,15 +656,15 @@ enum class Item(
 
   /* Hazmat Suit */
 
-  IODINE_INFUSED_FILTER(
-    "Iodine Infused Filter",
-    category = Category.CONSUMABLES,
-    stack = 50,
-  ),
   HAZMAT_SUIT(
     "Hazmat Suit",
     category = Category.EQUIPMENT,
     stack = 1,
+  ),
+  IODINE_INFUSED_FILTER(
+    "Iodine Infused Filter",
+    category = Category.CONSUMABLES,
+    stack = 50,
   ),
 
   /* Control System Development */
@@ -894,6 +894,11 @@ enum class Item(
     "Packaged Nitric Acid",
     category = Category.PARTS,
     stack = 100,
+  ),
+  DISSOLVED_SILICA(
+    "Dissolved Silica",
+    category = Category.PARTS,
+    stack = 0,
   ),
   NON_FISSILE_URANIUM(
     "Non-Fissile Uranium",

@@ -1519,6 +1519,293 @@ enum class RecipeV2(
     product = 1 of Item.ADAPTIVE_CONTROL_UNIT,
   ),
 
+  /* Quartz Crystal */
+
+  QUARTZ_CRYSTAL(
+    "Quartz Crystal",
+    time = 8,
+    inputs = listOf(5 of Item.RAW_QUARTZ),
+    product = 3 of Item.QUARTZ_CRYSTAL,
+  ),
+  FUSED_QUARTZ_CRYSTAL(
+    "Fused Quartz Crystal",
+    time = 20,
+    inputs = listOf(
+      25 of Item.RAW_QUARTZ,
+      12 of Item.COAL,
+    ),
+    product = 18 of Item.QUARTZ_CRYSTAL,
+    alternate = true,
+  ),
+  PURE_QUARTZ_CRYSTAL(
+    "Pure Quartz Crystal",
+    time = 8,
+    inputs = listOf(
+      9 of Item.RAW_QUARTZ,
+      5 of Item.WATER,
+    ),
+    product = 7 of Item.QUARTZ_CRYSTAL,
+    alternate = true,
+  ),
+  QUARTZ_PURIFICATION(
+    "Quartz Purification",
+    time = 12,
+    inputs = listOf(),
+    product = 15 of Item.QUARTZ_CRYSTAL,
+    byproduct = 2 of Item.DISSOLVED_SILICA,
+    alternate = true,
+  ),
+
+  /* Silica */
+
+  SILICA(
+    "Silica",
+    time = 8,
+    inputs = listOf(2 of Item.RAW_QUARTZ),
+    product = 5 of Item.SILICA,
+  ),
+  CHEAP_SILICA(
+    "Cheap Silica",
+    time = 8,
+    inputs = listOf(
+      3 of Item.RAW_QUARTZ,
+      5 of Item.LIMESTONE,
+    ),
+    product = 7 of Item.SILICA,
+    alternate = true,
+  ),
+  DISTILLED_SILICA(
+    "Distilled Silica",
+    time = 6,
+    inputs = listOf(
+      12 of Item.DISSOLVED_SILICA,
+      5 of Item.LIMESTONE,
+      10 of Item.WATER,
+    ),
+    product = 27 of Item.SILICA,
+    byproduct = 8 of Item.WATER,
+    alternate = true,
+  ),
+
+  /* Shatter Rebar */
+
+  SHATTER_REBAR(
+    "Shatter Rebar",
+    time = 12,
+    inputs = listOf(
+      2 of Item.IRON_REBAR,
+      3 of Item.QUARTZ_CRYSTAL,
+    ),
+    product = 1 of Item.SHATTER_REBAR,
+  ),
+
+  /* Crystal Oscillator */
+
+  CRYSTAL_OSCILLATOR(
+    "Crystal Oscillator",
+    time = 120,
+    inputs = listOf(
+      36 of Item.QUARTZ_CRYSTAL,
+      28 of Item.CABLE,
+      5 of Item.REINFORCED_IRON_PLATE,
+    ),
+    product = 2 of Item.CRYSTAL_OSCILLATOR,
+  ),
+  INSULATED_CRYSTAL_OSCILLATOR(
+    "Insulated Crystal Oscillator",
+    time = 32,
+    inputs = listOf(
+      10 of Item.QUARTZ_CRYSTAL,
+      7 of Item.RUBBER,
+      1 of Item.AI_LIMITER,
+    ),
+    product = 1 of Item.CRYSTAL_OSCILLATOR,
+    alternate = true,
+  ),
+
+  /* Blade Runners */
+
+  BLADE_RUNNERS(
+    "Blade Runners",
+    time = 60,
+    inputs = listOf(
+      20 of Item.SILICA,
+      3 of Item.MODULAR_FRAME,
+      3 of Item.ROTOR,
+    ),
+    product = 1 of Item.BLADE_RUNNERS,
+  ),
+
+  /* Alumina Solution */
+
+  ALUMINA_SOLUTION(
+    "Alumina Solution",
+    time = 6,
+    inputs = listOf(
+      12 of Item.BAUXITE,
+      18 of Item.WATER,
+    ),
+    product = 12 of Item.ALUMINA_SOLUTION,
+    byproduct = 5 of Item.SILICA,
+  ),
+  SLOPPY_ALUMINA(
+    "Sloppy Alumina",
+    time = 3,
+    inputs = listOf(
+      10 of Item.BAUXITE,
+      10 of Item.WATER,
+    ),
+    product = 12 of Item.ALUMINA_SOLUTION,
+    alternate = true,
+  ),
+
+  /* Packaged Alumina Solution */
+
+  PACKAGED_ALUMINA_SOLUTION(
+    "Packaged Alumina Solution",
+    time = 1,
+    inputs = listOf(
+      2 of Item.ALUMINA_SOLUTION,
+      2 of Item.EMPTY_CANISTER,
+    ),
+    product = 2 of Item.PACKAGED_ALUMINA_SOLUTION,
+  ),
+  UNPACKAGE_ALUMINA_SOLUTION(
+    "Unpackage Alumina Solution",
+    time = 1,
+    inputs = listOf(2 of Item.PACKAGED_ALUMINA_SOLUTION),
+    product = 2 of Item.ALUMINA_SOLUTION,
+    byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+
+  /* Aluminum Scrap */
+
+  ALUMINUM_SCRAP(
+    "Aluminum Scrap",
+    time = 1,
+    inputs = listOf(
+      4 of Item.ALUMINA_SOLUTION,
+      2 of Item.COAL,
+    ),
+    product = 6 of Item.ALUMINUM_SCRAP,
+    byproduct = 2 of Item.WATER,
+  ),
+  ELECTRODE_ALUMINUM_SCRAP(
+    "Electrode Aluminum Scrap",
+    time = 4,
+    inputs = listOf(
+      12 of Item.ALUMINA_SOLUTION,
+      4 of Item.PETROLEUM_COKE,
+    ),
+    product = 20 of Item.ALUMINA_SOLUTION,
+    byproduct = 7 of Item.WATER,
+    alternate = true,
+  ),
+  INSTANT_SCRAP(
+    "Instant Scrap",
+    time = 6,
+    inputs = listOf(
+      15 of Item.BAUXITE,
+      10 of Item.COAL,
+      5 of Item.SULFURIC_ACID,
+      6 of Item.WATER,
+    ),
+    product = 30 of Item.ALUMINUM_SCRAP,
+    byproduct = 5 of Item.WATER,
+    alternate = true,
+  ),
+
+  /* Aluminum Ingot */
+
+  ALUMINUM_INGOT(
+    "Aluminum Ingot",
+    time = 4,
+    inputs = listOf(
+      6 of Item.ALUMINUM_SCRAP,
+      5 of Item.SILICA,
+    ),
+    product = 4 of Item.ALUMINUM_INGOT,
+  ),
+  PURE_ALUMINUM_INGOT(
+    "Pure Aluminum Ingot",
+    time = 2,
+    inputs = listOf(2 of Item.ALUMINUM_SCRAP),
+    product = 1 of Item.ALUMINUM_INGOT,
+    alternate = true,
+  ),
+
+  /* Alclad Aluminum Sheet */
+
+  ALCLAD_ALUMINUM_SHEET(
+    "Alclad Aluminum Sheet",
+    time = 6,
+    inputs = listOf(
+      3 of Item.ALUMINUM_INGOT,
+      1 of Item.COPPER_INGOT,
+    ),
+    product = 3 of Item.ALCLAD_ALUMINUM_SHEET,
+  ),
+
+  /* Aluminum Casing */
+
+  ALUMINUM_CASING(
+    "Aluminum Casing",
+    time = 2,
+    inputs = listOf(3 of Item.ALUMINUM_INGOT),
+    product = 2 of Item.ALUMINUM_CASING,
+  ),
+  ALCLAD_CASING(
+    "Alclad Casing",
+    time = 8,
+    inputs = listOf(
+      20 of Item.ALUMINUM_INGOT,
+      10 of Item.COPPER_SHEET,
+    ),
+    product = 15 of Item.ALUMINUM_CASING,
+    alternate = true,
+  ),
+
+  /* Hoverpack */
+
+  HOVERPACK(
+    "Hoverpack",
+    time = 120,
+    inputs = listOf(
+      8 of Item.MOTOR,
+      4 of Item.HEAVY_MODULAR_FRAME,
+      8 of Item.COMPUTER,
+      40 of Item.ALCLAD_ALUMINUM_SHEET,
+    ),
+    product = 1 of Item.HOVERPACK,
+  ),
+
+  /* Hazmat Suit */
+
+  HAZMAT_SUIT(
+    "Hazmat Suit",
+    time = 120,
+    inputs = listOf(
+      50 of Item.RUBBER,
+      50 of Item.PLASTIC,
+      50 of Item.ALCLAD_ALUMINUM_SHEET,
+      50 of Item.FABRIC,
+    ),
+    product = 1 of Item.HAZMAT_SUIT,
+  ),
+
+  /* Iodine Infused Filter */
+
+  IODINE_INFUSED_FILTER(
+    "Iodine Infused Filter",
+    time = 16,
+    inputs = listOf(
+      1 of Item.GAS_FILTER,
+      8 of Item.QUICKWIRE,
+      1 of Item.ALUMINUM_CASING,
+    ),
+    product = 1 of Item.IODINE_INFUSED_FILTER,
+  ),
+
   ;
 
   constructor(
