@@ -2638,7 +2638,7 @@ enum class RecipeV2(
       1 of Item.PRESSURE_CONVERSION_CUBE,
     ),
     product = 1 of Item.NUCLEAR_PASTA,
-    power = 500 .. 1_500,
+    power = 500..1_500,
   ),
 
   /* Nuke Nobelisk */
@@ -2653,6 +2653,151 @@ enum class RecipeV2(
       6 of Item.AI_LIMITER,
     ),
     product = 1 of Item.NUKE_NOBELISK,
+  ),
+
+  /* Diamonds */
+
+  DIAMONDS(
+    "Diamonds",
+    time = 2,
+    inputs = listOf(20 of Item.COAL),
+    product = 1 of Item.DIAMONDS,
+    power = 250..750,
+  ),
+  CLOUDY_DIAMONDS(
+    "Cloudy Diamonds",
+    time = 3,
+    inputs = listOf(
+      12 of Item.COAL,
+      24 of Item.LIMESTONE,
+    ),
+    product = 1 of Item.DIAMONDS,
+    power = 250..750,
+    alternate = true,
+  ),
+  OIL_BASED_DIAMONDS(
+    "Oil-Based Diamonds",
+    time = 3,
+    inputs = listOf(10 of Item.CRUDE_OIL),
+    product = 2 of Item.DIAMONDS,
+    power = 250..750,
+    alternate = true,
+  ),
+  PETROLEUM_DIAMONDS(
+    "Petroleum Diamonds",
+    time = 2,
+    inputs = listOf(24 of Item.PETROLEUM_COKE),
+    product = 1 of Item.DIAMONDS,
+    power = 250..750,
+    alternate = true,
+  ),
+  PINK_DIAMONDS(
+    "Pink Diamonds",
+    time = 4,
+    inputs = listOf(
+      8 of Item.COAL,
+      3 of Item.QUARTZ_CRYSTAL,
+    ),
+    product = 1 of Item.DIAMONDS,
+    power = 100..400,
+    alternate = true,
+  ),
+  TURBO_DIAMONDS(
+    "Turbo Diamonds",
+    time = 3,
+    inputs = listOf(
+      30 of Item.COAL,
+      2 of Item.PACKAGED_TURBOFUEL,
+    ),
+    product = 3 of Item.DIAMONDS,
+    power = 250..750,
+    alternate = true,
+  ),
+
+  /* Time Crystal */
+
+  TIME_CRYSTAL(
+    "Time Crystal",
+    time = 10,
+    inputs = listOf(2 of Item.DIAMONDS),
+    product = 1 of Item.TIME_CRYSTAL,
+  ),
+
+  /* Reanimated SAM */
+
+  REANIMATED_SAM(
+    "Reanimated SAM",
+    time = 2,
+    inputs = listOf(4 of Item.SAM),
+    product = 1 of Item.REANIMATED_SAM,
+  ),
+
+  /* Ficsite Ingot */
+
+  FICSITE_INGOT_IRON(
+    "Ficsite Ingot (Iron)",
+    time = 6,
+    inputs = listOf(
+      4 of Item.REANIMATED_SAM,
+      24 of Item.IRON_INGOT,
+    ),
+    product = 1 of Item.FICSITE_INGOT,
+    power = 100..400,
+  ),
+  FICSITE_INGOT_CATERIUM(
+    "Ficsite Ingot (Caterium)",
+    time = 4,
+    inputs = listOf(
+      3 of Item.REANIMATED_SAM,
+      4 of Item.CATERIUM_INGOT,
+    ),
+    product = 1 of Item.FICSITE_INGOT,
+    power = 100..400,
+  ),
+  FICSITE_INGOT_ALUMINUM(
+    "Ficsite Ingot (Aluminum)",
+    time = 2,
+    inputs = listOf(
+      2 of Item.REANIMATED_SAM,
+      4 of Item.ALUMINUM_INGOT,
+    ),
+    product = 1 of Item.FICSITE_INGOT,
+    power = 100..400
+  ),
+
+  /* Ficsite Trigon */
+
+  FICSITE_TRIGON(
+    "Ficsite Trigon",
+    time = 6,
+    inputs = listOf(1 of Item.FICSITE_INGOT),
+    product = 3 of Item.FICSITE_TRIGON,
+  ),
+
+  /* SAM Fluctuator */
+
+  SAM_FLUCTUATOR(
+    "SAM Fluctuator",
+    time = 6,
+    inputs = listOf(
+      6 of Item.REANIMATED_SAM,
+      5 of Item.WIRE,
+      3 of Item.STEEL_PIPE,
+    ),
+    product = 1 of Item.SAM_FLUCTUATOR,
+  ),
+
+  /* Biochemical Sculptor */
+
+  BIOCHEMICAL_SCULPTOR(
+    "Biochemical Sculptor",
+    time = 120,
+    inputs = listOf(
+      1 of Item.ASSEMBLY_DIRECTOR_SYSTEM,
+      80 of Item.FICSITE_TRIGON,
+      20 of Item.WATER,
+    ),
+    product = 4 of Item.BIOCHEMICAL_SCULPTOR,
   ),
 
   ;

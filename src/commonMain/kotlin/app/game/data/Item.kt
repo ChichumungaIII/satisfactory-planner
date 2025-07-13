@@ -971,6 +971,11 @@ enum class Item(
     category = Category.PARTS,
     stack = 200,
   ),
+  REANIMATED_SAM(
+    "Reanimated SAM",
+    category = Category.PARTS,
+    stack = 100,
+  ),
   FICSITE_INGOT(
     "Ficsite Ingot",
     category = Category.PARTS,
@@ -980,11 +985,6 @@ enum class Item(
     "Ficsite Trigon",
     category = Category.PARTS,
     stack = 200,
-  ),
-  REANIMATED_SAM(
-    "Reanimated SAM",
-    category = Category.PARTS,
-    stack = 100,
   ),
   SAM_FLUCTUATOR(
     "SAM Fluctuator",
