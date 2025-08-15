@@ -21,6 +21,20 @@ enum class RecipeV2(
   /** Whether this is an alternate recipe scanned from a hard drive. */
   val alternate: Boolean,
 ) {
+  /* Leaves */
+
+  BURN_LEAVES(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.LEAVES,
+  ),
+
+  /* Wood */
+
+  BURN_WOOD(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.WOOD,
+  ),
+
   /* Iron Ore */
 
   IRON_ORE_LIMESTONE(
@@ -3240,6 +3254,20 @@ enum class RecipeV2(
     alternate: Boolean = false
   ) : this(displayName, time.q, inputs, product, byproduct, power?.map(Int::toDouble), alternate)
 
+  constructor(
+    generator: Generator,
+    item: Item,
+  ) : this(
+    displayName = item.displayName,
+    time = checkNotNull(item.energy) {
+      "Item [$item] cannot be used as a fuel, since it does not have an energy value."
+    } / generator.power.q,
+    inputs = listOf(1.q of item),
+    product = item.energy / 60.q of Item.POWER,
+    byproduct = null,
+    alternate = false,
+  )
+
   /** A Recipe Component is a pair containing an item and an amount of that item. */
   data class Component(
     /** The item type  */
@@ -3276,6 +3304,7 @@ enum class RecipeV2(
     OIL_PRODUCTS("Oil Products"),
     OTHER("Other"),
     PACKAGING("Packaging"),
+    POWER_GENERATION("Power Generation"),
     POWER_SHARDS("Power Shards"),
     QUANTUM_TECHNOLOGY("Quantum Technology"),
     RAW_RESOURCE_CONVERSION("Raw Resource Conversion"),
@@ -3289,4 +3318,17 @@ enum class RecipeV2(
     private fun <T : Comparable<T>, R : Comparable<R>> ClosedRange<T>.map(mapper: (T) -> R) =
       mapper(start)..mapper(endInclusive)
   }
+}
+
+private enum class Generator(
+  val power: Int,
+  val water: Int? = null,
+) {
+  BIOMASS_BURNER(power = 30),
+  COAL_POWERED_GENERATOR(power = 75, water = 45),
+  FUEL_POWERED_GENERATOR(power = 250),
+
+  // GEOTHERMAL_GENERATOR(),
+  NUCLEAR_POWER_PLANT(power = 2_500, water = 240),
+  // ALIEN_POWER_AUGMENTER()
 }

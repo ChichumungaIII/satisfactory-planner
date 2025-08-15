@@ -1,6 +1,7 @@
 package app.game.data
 
 import app.game.data.Building.RecipeSet
+import app.game.data.RecipeV2.Category
 
 /** Enumeration of all buildings in the game relevant to production planning. */
 enum class Building(
@@ -462,7 +463,11 @@ enum class Building(
   /* Generators */
   /* ********** */
 
-  BIOMASS_BURNER("Biomass Burner", Subcategory.GENERATORS, power = 0, {
+  BIOMASS_BURNER("Biomass Burner", Subcategory.GENERATORS, recipes = {
+    within(RecipeV2.Category.POWER_GENERATION) {
+      add(RecipeV2.BURN_LEAVES)
+      add(RecipeV2.BURN_WOOD)
+    }
   }),
   COAL_POWERED_GENERATOR("Coal-Powered Generator", Subcategory.GENERATORS, power = 0, {
   }),

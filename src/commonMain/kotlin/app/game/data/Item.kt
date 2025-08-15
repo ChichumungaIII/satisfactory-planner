@@ -1075,6 +1075,12 @@ enum class Item(
     category = Category.PARTS,
     stack = 100,
     energy = 10_000,
+  ),
+
+  POWER(
+    "Power",
+    category = Category.POWER,
+    stack = 0,
   );
 
   constructor(displayName: String, category: Category, stack: Int, energy: Int? = null) :
@@ -1090,5 +1096,6 @@ enum class Item(
     EQUIPMENT("Equipment"),
     NATURE("Nature"),
     CONSUMABLES("Consumables"),
+    POWER("Power"),
   }
 }
