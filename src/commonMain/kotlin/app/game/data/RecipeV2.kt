@@ -37,6 +37,60 @@ enum class RecipeV2(
 
   /* Iron Ore */
 
+  IRON_ORE_PURE_MK_1(
+    "Iron Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  IRON_ORE_NORMAL_MK_1(
+    "Iron Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  IRON_ORE_IMPURE_MK_1(
+    "Iron Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.IRON_ORE,
+  ),
+  IRON_ORE_PURE_MK_2(
+    "Iron Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  IRON_ORE_NORMAL_MK_2(
+    "Iron Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  IRON_ORE_IMPURE_MK_2(
+    "Iron Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  IRON_ORE_PURE_MK_3(
+    "Iron Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  IRON_ORE_NORMAL_MK_3(
+    "Iron Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  IRON_ORE_IMPURE_MK_3(
+    "Iron Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
   IRON_ORE_LIMESTONE(
     "Iron Ore (Limestone)",
     time = 6,
@@ -47,7 +101,6 @@ enum class RecipeV2(
     product = 12 of Item.IRON_ORE,
     power = 100..400,
   ),
-
 
   /* Iron Ingot */
 
@@ -188,6 +241,60 @@ enum class RecipeV2(
 
   /* Copper Ore */
 
+  COPPER_ORE_PURE_MK_1(
+    "Copper Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_NORMAL_MK_1(
+    "Copper Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_IMPURE_MK_1(
+    "Copper Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.COPPER_ORE,
+  ),
+  COPPER_ORE_PURE_MK_2(
+    "Copper Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_NORMAL_MK_2(
+    "Copper Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_IMPURE_MK_2(
+    "Copper Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.COPPER_ORE,
+  ),
+  COPPER_ORE_PURE_MK_3(
+    "Copper Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_NORMAL_MK_3(
+    "Copper Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  COPPER_ORE_IMPURE_MK_3(
+    "Copper Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.COPPER_ORE,
+  ),
   COPPER_ORE_QUARTZ(
     "Copper Ore (Quartz)",
     time = 6,
@@ -332,6 +439,60 @@ enum class RecipeV2(
 
   /* Limestone */
 
+  LIMESTONE_PURE_MK_1(
+    "Limestone (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  LIMESTONE_NORMAL_MK_1(
+    "Limestone (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  LIMESTONE_IMPURE_MK_1(
+    "Limestone (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.LIMESTONE,
+  ),
+  LIMESTONE_PURE_MK_2(
+    "Limestone (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  LIMESTONE_NORMAL_MK_2(
+    "Limestone (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  LIMESTONE_IMPURE_MK_2(
+    "Limestone (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.LIMESTONE,
+  ),
+  LIMESTONE_PURE_MK_3(
+    "Limestone (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  LIMESTONE_NORMAL_MK_3(
+    "Limestone (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  LIMESTONE_IMPURE_MK_3(
+    "Limestone (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.LIMESTONE,
+  ),
   LIMESTONE_SULFUR(
     "Limestone (Sulfur)",
     time = 6,
@@ -785,6 +946,60 @@ enum class RecipeV2(
 
   /* Coal */
 
+  COAL_PURE_MK_1(
+    "Coal (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  COAL_NORMAL_MK_1(
+    "Coal (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  COAL_IMPURE_MK_1(
+    "Coal (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.COAL,
+  ),
+  COAL_PURE_MK_2(
+    "Coal (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  COAL_NORMAL_MK_2(
+    "Coal (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  COAL_IMPURE_MK_2(
+    "Coal (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.COAL,
+  ),
+  COAL_PURE_MK_3(
+    "Coal (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  COAL_NORMAL_MK_3(
+    "Coal (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  COAL_IMPURE_MK_3(
+    "Coal (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.COAL,
+  ),
   COAL_IRON(
     "Coal (Iron)",
     time = 6,
@@ -1393,6 +1608,60 @@ enum class RecipeV2(
 
   /* Caterium Ore */
 
+  CATERIUM_ORE_PURE_MK_1(
+    "Caterium Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_NORMAL_MK_1(
+    "Caterium Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_IMPURE_MK_1(
+    "Caterium Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.CATERIUM_ORE,
+  ),
+  CATERIUM_ORE_PURE_MK_2(
+    "Caterium Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_NORMAL_MK_2(
+    "Caterium Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_IMPURE_MK_2(
+    "Caterium Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.CATERIUM_ORE,
+  ),
+  CATERIUM_ORE_PURE_MK_3(
+    "Caterium Ore (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_NORMAL_MK_3(
+    "Caterium Ore (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  CATERIUM_ORE_IMPURE_MK_3(
+    "Caterium Ore (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.CATERIUM_ORE,
+  ),
   CATERIUM_ORE_COPPER(
     "Caterium Ore (Copper)",
     time = 6,
@@ -1645,6 +1914,60 @@ enum class RecipeV2(
 
   /* Raw Quartz */
 
+  RAW_QUARTZ_PURE_MK_1(
+    "Raw Quartz (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_NORMAL_MK_1(
+    "Raw Quartz (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_IMPURE_MK_1(
+    "Raw Quartz (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.RAW_QUARTZ,
+  ),
+  RAW_QUARTZ_PURE_MK_2(
+    "Raw Quartz (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_NORMAL_MK_2(
+    "Raw Quartz (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_IMPURE_MK_2(
+    "Raw Quartz (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.RAW_QUARTZ,
+  ),
+  RAW_QUARTZ_PURE_MK_3(
+    "Raw Quartz (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_NORMAL_MK_3(
+    "Raw Quartz (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  RAW_QUARTZ_IMPURE_MK_3(
+    "Raw Quartz (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.RAW_QUARTZ,
+  ),
   RAW_QUARTZ_COAL(
     "Raw Quartz (Coal)",
     time = 6,
@@ -1785,6 +2108,60 @@ enum class RecipeV2(
 
   /* Bauxite */
 
+  BAUXITE_PURE_MK_1(
+    "Bauxite (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  BAUXITE_NORMAL_MK_1(
+    "Bauxite (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  BAUXITE_IMPURE_MK_1(
+    "Bauxite (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.BAUXITE,
+  ),
+  BAUXITE_PURE_MK_2(
+    "Bauxite (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  BAUXITE_NORMAL_MK_2(
+    "Bauxite (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  BAUXITE_IMPURE_MK_2(
+    "Bauxite (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.BAUXITE,
+  ),
+  BAUXITE_PURE_MK_3(
+    "Bauxite (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  BAUXITE_NORMAL_MK_3(
+    "Bauxite (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  BAUXITE_IMPURE_MK_3(
+    "Bauxite (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.BAUXITE,
+  ),
   BAUXITE_COPPER(
     "Bauxite (Copper)",
     time = 6,
@@ -1978,6 +2355,60 @@ enum class RecipeV2(
 
   /* Sulfur */
 
+  SULFUR_PURE_MK_1(
+    "Sulfur (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  SULFUR_NORMAL_MK_1(
+    "Sulfur (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  SULFUR_IMPURE_MK_1(
+    "Sulfur (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.SULFUR,
+  ),
+  SULFUR_PURE_MK_2(
+    "Sulfur (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  SULFUR_NORMAL_MK_2(
+    "Sulfur (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  SULFUR_IMPURE_MK_2(
+    "Sulfur (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.SULFUR,
+  ),
+  SULFUR_PURE_MK_3(
+    "Sulfur (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  SULFUR_NORMAL_MK_3(
+    "Sulfur (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  SULFUR_IMPURE_MK_3(
+    "Sulfur (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.SULFUR,
+  ),
   SULFUR_IRON(
     "Sulfur (Iron)",
     time = 6,
@@ -2421,6 +2852,60 @@ enum class RecipeV2(
 
   /* Uranium */
 
+  URANIUM_PURE_MK_1(
+    "Uranium (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  URANIUM_NORMAL_MK_1(
+    "Uranium (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  URANIUM_IMPURE_MK_1(
+    "Uranium (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.URANIUM,
+  ),
+  URANIUM_PURE_MK_2(
+    "Uranium (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  URANIUM_NORMAL_MK_2(
+    "Uranium (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  URANIUM_IMPURE_MK_2(
+    "Uranium (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.URANIUM,
+  ),
+  URANIUM_PURE_MK_3(
+    "Uranium (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  URANIUM_NORMAL_MK_3(
+    "Uranium (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  URANIUM_IMPURE_MK_3(
+    "Uranium (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.URANIUM,
+  ),
   URANIUM_ORE_BAUXITE(
     "Uranium Ore (Bauxite)",
     time = 6,
@@ -2951,6 +3436,63 @@ enum class RecipeV2(
     product = 1 of Item.TIME_CRYSTAL,
   ),
 
+  /* SAM */
+
+  SAM_PURE_MK_1(
+    "SAM (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  SAM_NORMAL_MK_1(
+    "SAM (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.IRON_ORE,
+  ),
+  SAM_IMPURE_MK_1(
+    "SAM (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 30 of Item.SAM,
+  ),
+  SAM_PURE_MK_2(
+    "SAM (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  SAM_NORMAL_MK_2(
+    "SAM (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.IRON_ORE,
+  ),
+  SAM_IMPURE_MK_2(
+    "SAM (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 60 of Item.SAM,
+  ),
+  SAM_PURE_MK_3(
+    "SAM (Pure)",
+    time = 60,
+    inputs = listOf(),
+    product = 480 of Item.IRON_ORE,
+  ),
+  SAM_NORMAL_MK_3(
+    "SAM (Normal)",
+    time = 60,
+    inputs = listOf(),
+    product = 240 of Item.IRON_ORE,
+  ),
+  SAM_IMPURE_MK_3(
+    "SAM (Impure)",
+    time = 60,
+    inputs = listOf(),
+    product = 120 of Item.SAM,
+  ),
+
   /* Reanimated SAM */
 
   REANIMATED_SAM(
@@ -3308,6 +3850,7 @@ enum class RecipeV2(
     POWER_SHARDS("Power Shards"),
     QUANTUM_TECHNOLOGY("Quantum Technology"),
     RAW_RESOURCE_CONVERSION("Raw Resource Conversion"),
+    RESOURCE_EXTRACTION("Resource Extraction"),
     SPACE_ELEVATOR("Space Elevator"),
     STANDARD_PARTS("Standard Parts"),
     TOOLS("Tools"),
