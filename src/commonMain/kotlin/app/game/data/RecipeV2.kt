@@ -35,6 +35,41 @@ enum class RecipeV2(
     item = Item.WOOD,
   ),
 
+  /* Hog Remains */
+
+  BURN_HOG_REMAINS(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.HOG_REMAINS,
+  ),
+
+  /* Hatcher Remains */
+
+  BURN_HATCHER_REMAINS(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.HATCHER_REMAINS,
+  ),
+
+  /* Stinger Remains */
+
+  BURN_STINGER_REMAINS(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.STINGER_REMAINS,
+  ),
+
+  /* Plastma Spitter Remains */
+
+  BURN_PLASMA_SPITTER_REMAINS(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.PLASMA_SPITTER_REMAINS,
+  ),
+
+  /* Mycelia */
+
+  BURN_MYCELIA(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.MYCELIA,
+  ),
+
   /* Iron Ore */
 
   IRON_ORE_PURE_MK_1(
@@ -634,6 +669,10 @@ enum class RecipeV2(
     inputs = listOf(1 of Item.MYCELIA),
     product = 10 of Item.BIOMASS,
   ),
+  BURN_BIOMASS(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.BIOMASS,
+  ),
 
   /* Object Scanner */
 
@@ -866,6 +905,10 @@ enum class RecipeV2(
     inputs = listOf(8 of Item.BIOMASS),
     product = 4 of Item.SOLID_BIOFUEL,
   ),
+  BURN_SOLID_BIOFUEL(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.SOLID_BIOFUEL,
+  ),
 
   /* Chainsaw */
 
@@ -1033,6 +1076,10 @@ enum class RecipeV2(
     inputs = listOf(1 of Item.WOOD),
     product = 10 of Item.COAL,
     alternate = true,
+  ),
+  BURN_COAL(
+    generator = Generator.COAL_POWERED_GENERATOR,
+    item = Item.COAL,
   ),
 
   /* Steel Ingot */
@@ -3786,6 +3833,7 @@ enum class RecipeV2(
     byproduct = 2 of Item.EMPTY_FLUID_TANK,
   );
 
+  /** Convenience constructor for standard recipes. Converts [Int] to [Rational] and [Double] as appropriate. */
   constructor(
     displayName: String,
     time: Int,
@@ -3796,16 +3844,26 @@ enum class RecipeV2(
     alternate: Boolean = false
   ) : this(displayName, time.q, inputs, product, byproduct, power?.map(Int::toDouble), alternate)
 
+  /** Convenience constructor for generation recipes. Implies the recipe using building properties and item energy. */
   constructor(
     generator: Generator,
     item: Item,
   ) : this(
+    generator = generator,
+    item = item,
+    energy = checkNotNull(item.energy) { "Item [$item] cannot be used as a fuel, since it does not have an energy value." }
+  )
+
+  /** Secondary convenience constructor for generation recipes, since multiple fields depend on the time. */
+  constructor(
+    generator: Generator,
+    item: Item,
+    energy: Rational,
+  ) : this(
     displayName = item.displayName,
-    time = checkNotNull(item.energy) {
-      "Item [$item] cannot be used as a fuel, since it does not have an energy value."
-    } / generator.power.q,
-    inputs = listOf(1.q of item),
-    product = item.energy / 60.q of Item.POWER,
+    time = energy / generator.power,
+    inputs = listOf(1 of item) + generator.waterComponent(energy),
+    product = energy / 60.q of Item.POWER,
     byproduct = null,
     alternate = false,
   )
@@ -3864,14 +3922,18 @@ enum class RecipeV2(
 }
 
 private enum class Generator(
-  val power: Int,
-  val water: Int? = null,
+  val power: Rational,
+  val water: Rational?,
 ) {
   BIOMASS_BURNER(power = 30),
   COAL_POWERED_GENERATOR(power = 75, water = 45),
   FUEL_POWERED_GENERATOR(power = 250),
-
   // GEOTHERMAL_GENERATOR(),
-  NUCLEAR_POWER_PLANT(power = 2_500, water = 240),
-  // ALIEN_POWER_AUGMENTER()
+  NUCLEAR_POWER_PLANT(power = 2_500, water = 240);
+  // ALIEN_POWER_AUGMENTER();
+
+  constructor(power: Int, water: Int? = null) : this(power.q, water?.q)
+
+  fun waterComponent(energy: Rational): List<RecipeV2.Component> =
+    water?.let { listOf(it * energy / power / 60.q of Item.WATER) } ?: listOf()
 }

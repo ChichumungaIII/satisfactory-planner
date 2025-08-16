@@ -563,9 +563,19 @@ enum class Building(
     within(RecipeV2.Category.POWER_GENERATION) {
       add(RecipeV2.BURN_LEAVES)
       add(RecipeV2.BURN_WOOD)
+      add(RecipeV2.BURN_HOG_REMAINS)
+      add(RecipeV2.BURN_HATCHER_REMAINS)
+      add(RecipeV2.BURN_STINGER_REMAINS)
+      add(RecipeV2.BURN_PLASMA_SPITTER_REMAINS)
+      add(RecipeV2.BURN_MYCELIA)
+      add(RecipeV2.BURN_BIOMASS)
+      add(RecipeV2.BURN_SOLID_BIOFUEL)
     }
   }),
   COAL_POWERED_GENERATOR("Coal-Powered Generator", Subcategory.GENERATORS, power = 0, {
+    within(RecipeV2.Category.POWER_GENERATION) {
+      add(RecipeV2.BURN_COAL)
+    }
   }),
   FUEL_POWERED_GENERATOR("Fuel-Powered Generator", Subcategory.GENERATORS, power = 0, {
   }),
