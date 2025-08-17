@@ -1436,6 +1436,10 @@ enum class RecipeV2(
     product = 10 of Item.FUEL,
     alternate = true,
   ),
+  BURN_FUEL(
+    generator = Generator.FUEL_POWERED_GENERATOR,
+    item = Item.FUEL,
+  ),
 
   /* Heavy Oil Residue */
 
@@ -1466,6 +1470,10 @@ enum class RecipeV2(
     time = 6,
     inputs = listOf(4 of Item.HEAVY_OIL_RESIDUE),
     product = 12 of Item.PETROLEUM_COKE,
+  ),
+  BURN_PETROLEUM_COKE(
+    generator = Generator.COAL_POWERED_GENERATOR,
+    item = Item.PETROLEUM_COKE,
   ),
 
   /* Circuit Board */
@@ -1520,6 +1528,10 @@ enum class RecipeV2(
       3 of Item.WATER,
     ),
     product = 4 of Item.LIQUID_BIOFUEL,
+  ),
+  BURN_LIQUID_BIOFUEL(
+    generator = Generator.FUEL_POWERED_GENERATOR,
+    item = Item.LIQUID_BIOFUEL,
   ),
 
   /* Empty Canister */
@@ -1651,6 +1663,10 @@ enum class RecipeV2(
     inputs = listOf(2 of Item.PACKAGED_LIQUID_BIOFUEL),
     product = 2 of Item.LIQUID_BIOFUEL,
     byproduct = 2 of Item.EMPTY_CANISTER,
+  ),
+  BURN_PACKAGED_LIQUID_BIOFUEL(
+    generator = Generator.BIOMASS_BURNER,
+    item = Item.PACKAGED_LIQUID_BIOFUEL,
   ),
 
   /* Caterium Ore */
@@ -2651,6 +2667,10 @@ enum class RecipeV2(
     ),
     product = 5 of Item.COMPACTED_COAL,
   ),
+  BURN_COMPACTED_COAL(
+    generator = Generator.COAL_POWERED_GENERATOR,
+    item = Item.COMPACTED_COAL,
+  ),
 
   /* Turbofuel */
 
@@ -2684,6 +2704,10 @@ enum class RecipeV2(
     ),
     product = 6 of Item.TURBOFUEL,
     alternate = true,
+  ),
+  BURN_TURBOFUEL(
+    generator = Generator.FUEL_POWERED_GENERATOR,
+    item = Item.TURBOFUEL,
   ),
 
   /* Packaged Turbofuel */
@@ -2729,6 +2753,10 @@ enum class RecipeV2(
     product = 6 of Item.ROCKET_FUEL,
     byproduct = 1 of Item.COMPACTED_COAL,
     alternate = true,
+  ),
+  BURN_ROCKET_FUEL(
+    generator = Generator.FUEL_POWERED_GENERATOR,
+    item = Item.ROCKET_FUEL,
   ),
 
   /* Packaged Rocket Fuel */
@@ -3036,17 +3064,10 @@ enum class RecipeV2(
     product = 3 of Item.URANIUM_FUEL_ROD,
     alternate = true,
   ),
-
-  /* Uranium Waste */
-
   BURN_URANIUM_FUEL_ROD(
-    "Uranium Fuel Rod",
-    time = 300,
-    inputs = listOf(
-      1 of Item.URANIUM_FUEL_ROD,
-      1_200 of Item.WATER,
-    ),
-    product = 50 of Item.URANIUM_WASTE,
+    generator = Generator.NUCLEAR_POWER_PLANT,
+    item = Item.URANIUM_FUEL_ROD,
+    byproduct = 50 of Item.URANIUM_WASTE,
   ),
 
   /* Magnetic Field Generator */
@@ -3354,17 +3375,10 @@ enum class RecipeV2(
     product = 1 of Item.PLUTONIUM_FUEL_ROD,
     alternate = true,
   ),
-
-  /* Plutonium Waste */
-
   BURN_PLUTONIUM_FUEL_ROD(
-    "Plutonium Fuel Rod",
-    time = 600,
-    inputs = listOf(
-      1 of Item.PLUTONIUM_FUEL_ROD,
-      2_400 of Item.WATER,
-    ),
-    product = 10 of Item.PLUTONIUM_WASTE,
+    generator = Generator.NUCLEAR_POWER_PLANT,
+    item = Item.PLUTONIUM_FUEL_ROD,
+    byproduct = 10 of Item.PLUTONIUM_WASTE,
   ),
 
   /* Copper Powder */
@@ -3773,6 +3787,10 @@ enum class RecipeV2(
     byproduct = 20 of Item.DARK_MATTER_RESIDUE,
     power = 0..2_000,
   ),
+  BURN_FICSONIUM_FUEL_ROD(
+    generator = Generator.NUCLEAR_POWER_PLANT,
+    item = Item.FICSONIUM_FUEL_ROD,
+  ),
 
   /* Alien Power Matrix */
 
@@ -3813,6 +3831,10 @@ enum class RecipeV2(
     byproduct = 2 of Item.COMPACTED_COAL,
     alternate = true,
   ),
+  BURN_IONIZED_FUEL(
+    generator = Generator.FUEL_POWERED_GENERATOR,
+    item = Item.IONIZED_FUEL,
+  ),
 
   /* Packaged Ionized Fuel */
 
@@ -3848,10 +3870,14 @@ enum class RecipeV2(
   constructor(
     generator: Generator,
     item: Item,
+    byproduct: Component? = null,
   ) : this(
     generator = generator,
     item = item,
-    energy = checkNotNull(item.energy) { "Item [$item] cannot be used as a fuel, since it does not have an energy value." }
+    energy = checkNotNull(item.energy) {
+      "Item [$item] cannot be used as a fuel, since it does not have an energy value."
+    },
+    byproduct = byproduct,
   )
 
   /** Secondary convenience constructor for generation recipes, since multiple fields depend on the time. */
@@ -3859,12 +3885,13 @@ enum class RecipeV2(
     generator: Generator,
     item: Item,
     energy: Rational,
+    byproduct: Component?,
   ) : this(
     displayName = item.displayName,
     time = energy / generator.power,
     inputs = listOf(1 of item) + generator.waterComponent(energy),
     product = energy / 60.q of Item.POWER,
-    byproduct = null,
+    byproduct = byproduct,
     alternate = false,
   )
 
@@ -3928,6 +3955,7 @@ private enum class Generator(
   BIOMASS_BURNER(power = 30),
   COAL_POWERED_GENERATOR(power = 75, water = 45),
   FUEL_POWERED_GENERATOR(power = 250),
+
   // GEOTHERMAL_GENERATOR(),
   NUCLEAR_POWER_PLANT(power = 2_500, water = 240);
   // ALIEN_POWER_AUGMENTER();

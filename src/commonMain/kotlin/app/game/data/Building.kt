@@ -563,25 +563,40 @@ enum class Building(
     within(RecipeV2.Category.POWER_GENERATION) {
       add(RecipeV2.BURN_LEAVES)
       add(RecipeV2.BURN_WOOD)
+      add(RecipeV2.BURN_MYCELIA)
       add(RecipeV2.BURN_HOG_REMAINS)
       add(RecipeV2.BURN_HATCHER_REMAINS)
       add(RecipeV2.BURN_STINGER_REMAINS)
       add(RecipeV2.BURN_PLASMA_SPITTER_REMAINS)
-      add(RecipeV2.BURN_MYCELIA)
       add(RecipeV2.BURN_BIOMASS)
       add(RecipeV2.BURN_SOLID_BIOFUEL)
+      add(RecipeV2.BURN_PACKAGED_LIQUID_BIOFUEL)
     }
   }),
   COAL_POWERED_GENERATOR("Coal-Powered Generator", Subcategory.GENERATORS, power = 0, {
     within(RecipeV2.Category.POWER_GENERATION) {
       add(RecipeV2.BURN_COAL)
+      add(RecipeV2.BURN_COMPACTED_COAL)
+      add(RecipeV2.BURN_PETROLEUM_COKE)
     }
   }),
   FUEL_POWERED_GENERATOR("Fuel-Powered Generator", Subcategory.GENERATORS, power = 0, {
+    within(RecipeV2.Category.FUEL) {
+      add(RecipeV2.BURN_LIQUID_BIOFUEL)
+      add(RecipeV2.BURN_FUEL)
+      add(RecipeV2.BURN_TURBOFUEL)
+      add(RecipeV2.BURN_ROCKET_FUEL)
+      add(RecipeV2.BURN_IONIZED_FUEL)
+    }
   }),
   GEOTHERMAL_GENERATOR("Geothermal Generator", Subcategory.GENERATORS, power = 0, {
   }),
   NUCLEAR_POWER_PLANT("Nuclear Power Plant", Subcategory.GENERATORS, power = 0, {
+    within(RecipeV2.Category.FUEL) {
+      add(RecipeV2.BURN_URANIUM_FUEL_ROD)
+      add(RecipeV2.BURN_PLUTONIUM_FUEL_ROD)
+      add(RecipeV2.BURN_FICSONIUM_FUEL_ROD)
+    }
   }),
   ALIEN_POWER_AUGMENTER("Alien Power Augmenter", Subcategory.GENERATORS, power = 0, {
   });
