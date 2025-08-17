@@ -10,7 +10,7 @@ import app.api.optimize.v2.response.OptimizeResponse
 import app.api.plan.v1.Plan
 import app.api.plan.v1.Plan.Partition
 import app.api.plan.v1.Plan.Target.Limit
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -63,7 +63,7 @@ fun toRequest(partition: Partition): OptimizeRequest {
   return OptimizeRequest(
     inputs = inputs,
     outputs = outputs,
-    recipes = Recipe.entries.toSet() - banned,
+    recipes = RecipeV2.entries.filterNot { it.inputs.isEmpty() }.toSet() - banned,
     limits = limits,
   )
 }

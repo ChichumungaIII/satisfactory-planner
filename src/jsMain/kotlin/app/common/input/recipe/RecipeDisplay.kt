@@ -1,6 +1,6 @@
 package app.common.input.recipe
 
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import mui.material.FormControlVariant
 import mui.material.TextField
 import mui.system.sx
@@ -8,7 +8,7 @@ import react.FC
 import react.Props
 
 external interface RecipeDisplayProps : Props {
-  var value: Recipe
+  var value: RecipeV2
 }
 
 val RecipeDisplay = FC<RecipeDisplayProps>("RecipeDisplay") { props ->

@@ -33,7 +33,7 @@ val TargetDetails = FC<TargetDetailsProps>("TargetDetails") { props ->
       direction = responsive(StackDirection.column)
       spacing = responsive(4.px)
 
-      recipe.inputs.keys.forEach { item ->
+      recipe.inputsMap.keys.forEach { item ->
         Stack {
           sx { alignItems = AlignItems.center }
           direction = responsive(StackDirection.row)
@@ -59,7 +59,7 @@ val TargetDetails = FC<TargetDetailsProps>("TargetDetails") { props ->
       direction = responsive(StackDirection.column)
       spacing = responsive(4.px)
 
-      recipe.outputs.keys.forEach { item ->
+      recipe.outputsMap.keys.forEach { item ->
         Stack {
           sx { alignItems = AlignItems.center }
           direction = responsive(StackDirection.row)

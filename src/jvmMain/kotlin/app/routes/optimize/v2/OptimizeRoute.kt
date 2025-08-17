@@ -7,7 +7,7 @@ import app.api.optimize.v2.response.OptimizeConsumption
 import app.api.optimize.v2.response.OptimizeProduction
 import app.api.optimize.v2.response.OptimizeResponse
 import app.game.data.Item
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import app.serialization.AppJson
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
@@ -199,9 +199,9 @@ fun <T> Iterable<T>.index(key: (T) -> Item, value: (T) -> Rational) = index(key,
 fun <T, V> Iterable<T>.index(key: (T) -> Item, value: (T) -> V, merger: (V, V) -> V) =
   fold(mapOf<Item, V>()) { map, e -> map.merge(key(e), value(e), merger) }
 
-tailrec fun getUsableRecipes(allRecipes: Set<Recipe>, items: Set<Item>): Set<Recipe> {
-  val usable = allRecipes.filter { items.containsAll(it.inputs.keys) }.toSet()
-  val next = items + usable.flatMap { it.outputs.keys }
+tailrec fun getUsableRecipes(allRecipes: Set<RecipeV2>, items: Set<Item>): Set<RecipeV2> {
+  val usable = allRecipes.filter { items.containsAll(it.inputsMap.keys) }.toSet()
+  val next = items + usable.flatMap { it.outputsMap.keys }
   return usable.takeIf { items.containsAll(next) } ?: getUsableRecipes(allRecipes, next)
 }
 

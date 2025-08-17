@@ -1,7 +1,7 @@
 package app.api.optimize.v2.response
 
 import app.game.data.Item
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -11,7 +11,7 @@ data class OptimizeResponse(
   val consumed: List<OptimizeConsumption>,
   val produced: List<OptimizeProduction>,
   val byproducts: Map<Item, Rational>,
-  val rates: Map<Recipe, Rational>,
+  val rates: Map<RecipeV2, Rational>,
 ) {
   companion object {
     fun optimizeResponse(init: Builder.() -> Unit) = Builder().apply(init).build()
@@ -21,7 +21,7 @@ data class OptimizeResponse(
     private val consumed = mutableListOf<OptimizeConsumption>()
     private val produced = mutableListOf<OptimizeProduction>()
     private val byproducts = mutableMapOf<Item, Rational>()
-    private val rates = mutableMapOf<Recipe, Rational>()
+    private val rates = mutableMapOf<RecipeV2, Rational>()
 
     fun consume(item: Item, amount: Rational, consumed: Rational, demand: Rational) =
       this.consumed.add(OptimizeConsumption(item, amount, consumed, demand))
@@ -33,11 +33,11 @@ data class OptimizeResponse(
       byproducts[this] = amount
     }
 
-    infix fun Recipe.clock(rate: Rational) {
+    infix fun RecipeV2.clock(rate: Rational) {
       this at rate / 100.q
     }
 
-    infix fun Recipe.at(rate: Rational) {
+    infix fun RecipeV2.at(rate: Rational) {
       this@Builder.rates[this] = rate
     }
 

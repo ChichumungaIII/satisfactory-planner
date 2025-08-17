@@ -2,7 +2,7 @@ package app.api.plan.v1
 
 import app.api.common.Resource
 import app.game.data.Item
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import kotlin.random.Random
@@ -68,7 +68,7 @@ data class Plan(
 
   @Serializable
   data class Target(
-    val recipe: Recipe,
+    val recipe: RecipeV2,
     val rate: Rational,
     val limit: Limit = Limit.NONE,
     val restriction: Rational? = null,

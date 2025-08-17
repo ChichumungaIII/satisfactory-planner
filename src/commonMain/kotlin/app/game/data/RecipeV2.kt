@@ -3895,6 +3895,14 @@ enum class RecipeV2(
     alternate = false,
   )
 
+  val inputsMap = (inputs.associate { it.item to it.amount })
+  val outputsMap = mapOf(product.item to product.amount) +
+      (byproduct?.let { mapOf(it.item to it.amount) } ?: mapOf())
+
+  val rates = (inputsMap.mapValues { (_, amount) -> -amount } + outputsMap)
+    .mapValues { (_, amount) -> amount * 60.q / time }
+
+
   /** A Recipe Component is a pair containing an item and an amount of that item. */
   data class Component(
     /** The item type  */

@@ -3,7 +3,7 @@ package app.routes.optimize.v2
 import app.api.optimize.v2.request.OptimizeRequest
 import app.api.optimize.v2.response.OptimizeResponse.Companion.optimizeResponse
 import app.game.data.Item
-import app.game.data.Recipe
+import app.game.data.RecipeV2
 import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize
 import util.math.Rational
 import util.math.q
