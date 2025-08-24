@@ -1,7 +1,7 @@
 package app.v2.common.input
 
-import app.data.building.Building
-import app.data.recipe.Recipe
+import app.game.data.Building
+import app.game.data.RecipeV2
 import app.util.PropsDelegate
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
@@ -13,8 +13,8 @@ import react.create
 import web.cssom.ClassName
 
 external interface RecipeAutocompleteProps : Props {
-  var model: Recipe?
-  var setModel: (Recipe?) -> Unit
+  var model: RecipeV2?
+  var setModel: (RecipeV2?) -> Unit
 
   var disabled: Boolean?
 
@@ -38,8 +38,8 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
 
     disabled = props.disabled ?: false
 
-    options = (props.building?.let { listOf(it) } ?: BUILDINGS)
-      .flatMap { building -> building.recipes.map { RecipeAutocompleteOption(it, building) } }
+    options = (props.building?.let { listOf(it) } ?: Building.entries)
+      .flatMap { building -> building.recipes.flatMap { it.recipes }.map { RecipeAutocompleteOption(it, building) } }
       .toTypedArray()
     getOptionLabel = { it.recipe.displayName }
 
@@ -56,11 +56,11 @@ val RecipeAutocomplete = FC<RecipeAutocompleteProps>("RecipeAutocomplete") { pro
 }
 
 private external interface RecipeAutocompleteOption {
-  val recipe: Recipe
+  val recipe: RecipeV2
   val building: Building?
 }
 
-private fun RecipeAutocompleteOption(recipe: Recipe, building: Building?) = object : RecipeAutocompleteOption {
+private fun RecipeAutocompleteOption(recipe: RecipeV2, building: Building?) = object : RecipeAutocompleteOption {
   override val recipe = recipe
   override val building = building
 }

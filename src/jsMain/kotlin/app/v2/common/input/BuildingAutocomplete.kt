@@ -1,9 +1,6 @@
 package app.v2.common.input
 
-import app.data.building.Building
-import app.data.building.Extractor
-import app.data.building.Generator
-import app.data.building.Manufacturer
+import app.game.data.Building
 import app.util.PropsDelegate
 import mui.material.Autocomplete
 import mui.material.AutocompleteProps
@@ -19,9 +16,6 @@ external interface BuildingAutocompleteProps : Props {
   var setModel: (Building?) -> Unit
 }
 
-val BUILDINGS: List<Building> =
-  (Manufacturer.entries.toTypedArray() + Generator.entries.toTypedArray() + Extractor.entries.toTypedArray()).toList()
-
 val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete") { props ->
   var model by PropsDelegate(props.model, props.setModel)
 
@@ -36,7 +30,7 @@ val BuildingAutocomplete = FC<BuildingAutocompleteProps>("BuildingAutocomplete")
     }
     size = "small"
 
-    options = BUILDINGS.toTypedArray()
+    options = Building.entries.toTypedArray()
     getOptionLabel = { it.displayName }
 
     groupBy = { it::class.simpleName ?: throw Error("Building [$it] does not have a class.") }

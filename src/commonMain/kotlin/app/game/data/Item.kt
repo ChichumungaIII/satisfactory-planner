@@ -1065,7 +1065,7 @@ enum class Item(
     stack = 50,
   ),
   IONIZED_FUEL(
-    "IONIZED_FUEL",
+    "Ionized Fuel",
     category = Category.PARTS,
     stack = 0,
     energy = 5_000,

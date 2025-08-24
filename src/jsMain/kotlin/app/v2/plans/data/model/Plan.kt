@@ -2,8 +2,7 @@ package app.v2.plans.data.model
 
 import app.api.optimize.v1.OptimizeRequest
 import app.game.data.Item
-import app.data.recipe.Recipe
-import app.data.recipe.componentRate
+import app.game.data.RecipeV2
 import kotlinx.serialization.Serializable
 import util.math.Rational
 import util.math.q
@@ -46,15 +45,15 @@ data class Plan(
     copy(byproducts = byproducts.subList(0, index) + byproducts.subList(index + 1, byproducts.size))
 
   private val resultsIndex by lazy { results?.associate { it.recipe to it } }
-  fun getResult(recipe: Recipe) = resultsIndex?.get(recipe)
+  fun getResult(recipe: RecipeV2) = resultsIndex?.get(recipe)
 
   val consumed by lazy { components.filterValues { it < 0.q }.mapValues { (_, rate) -> -rate } }
   val produced by lazy { components.filterValues { it > 0.q } }
   val components by lazy {
     val components = mutableMapOf<Item, Rational>()
     results?.forEach { result ->
-      result.recipe.components.keys.forEach { item ->
-        components[item] = result.recipe.componentRate(item, result.clock) + (components[item] ?: 0.q)
+      result.recipe.rates.mapValues { (_, rate) -> rate * result.clock }.forEach { (item, rate) ->
+        components[item] = rate + (components[item] ?: 0.q)
       }
     }
     components.toMap()
@@ -131,7 +130,7 @@ data class PlanByproduct(
 
 @Serializable
 data class PlanResult(
-  val recipe: Recipe,
+  val recipe: RecipeV2,
   val clock: Rational,
   val details: Boolean,
 )

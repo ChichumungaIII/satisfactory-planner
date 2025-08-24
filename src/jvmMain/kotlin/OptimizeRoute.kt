@@ -3,7 +3,7 @@ package com.chichumunga.satisfactory
 import app.api.optimize.v1.OptimizeRequest
 import app.api.optimize.v1.OptimizeResponse
 import app.game.data.Item
-import app.data.recipe.Recipe
+import app.game.data.RecipeV2
 import app.serialization.AppJson
 import com.chichumunga.satisfactory.util.math.BigRational
 import com.chichumunga.satisfactory.util.math.br
@@ -24,7 +24,6 @@ import util.math.Expression.Companion.times
 import util.math.InfeasibleSolutionException
 import util.math.maximize
 import util.math.minimize
-import util.math.q
 import java.util.concurrent.Executors
 
 private val EMPTY = OptimizeResponse(mapOf(), mapOf(), mapOf())
@@ -87,7 +86,7 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
   val unlimited = outcomes.filterIsInstance<OptimizeRequest.Minimum>().map { it.item }
   val unrealized = outcomes.filterIsInstance<OptimizeRequest.Range>().map { it.item }.toMutableSet()
 
-  var solution: Map<Recipe, BigRational>
+  var solution: Map<RecipeV2, BigRational>
   do {
     val principal = (unlimited + unrealized).firstOrNull() ?: outcomes.first().item
     val objective = expressions[principal]!!
@@ -148,11 +147,11 @@ private suspend fun optimize(request: OptimizeRequest) = coroutineScope {
     productMaximums.mapValues { (_, x) -> x.await().toRational() })
 }
 
-private fun consider(recipes: Iterable<Recipe>): Map<Item, Expression<Recipe, BigRational>> {
-  val expressions = mutableMapOf<Item, Expression<Recipe, BigRational>>()
+private fun consider(recipes: Iterable<RecipeV2>): Map<Item, Expression<RecipeV2, BigRational>> {
+  val expressions = mutableMapOf<Item, Expression<RecipeV2, BigRational>>()
   recipes.forEach { recipe ->
-    recipe.components.forEach { (item, quantity) ->
-      val expression = (quantity * 60.q / recipe.time).br * recipe
+    recipe.rates.entries.forEach { (item, rate) ->
+      val expression = rate.br * recipe
       expressions[item] = expressions[item]?.let { it + expression } ?: expression
     }
   }

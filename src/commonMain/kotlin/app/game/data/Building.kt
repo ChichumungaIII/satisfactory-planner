@@ -1,7 +1,6 @@
 package app.game.data
 
 import app.game.data.Building.RecipeSet
-import app.game.data.RecipeV2.Category
 
 /** Enumeration of all buildings in the game relevant to production planning. */
 enum class Building(
@@ -633,7 +632,11 @@ enum class Building(
     val category: RecipeV2.Category,
     /** The set of recipes for this category. */
     val recipes: List<RecipeV2>,
-  )
+  ) {
+    companion object {
+      fun List<RecipeSet>.flatten() = flatMap { it.recipes }
+    }
+  }
 
   /** Enumeration of the broad categories that a Building may belong to. */
   enum class Category(

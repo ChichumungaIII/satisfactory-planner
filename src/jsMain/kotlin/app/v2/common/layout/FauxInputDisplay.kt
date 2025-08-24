@@ -1,7 +1,7 @@
 package app.v2.common.layout
 
 import app.game.data.Item
-import app.data.recipe.Recipe
+import app.game.data.RecipeV2
 import mui.material.Paper
 import mui.material.PaperVariant
 import mui.material.Typography
@@ -33,7 +33,7 @@ enum class FauxInputDisplayVariant(
   }),
   RATE(adornment = "/ min"),
   RECIPE("Recipe", render = {
-    if (it is Recipe) it.displayName
+    if (it is RecipeV2) it.displayName
     else it.toString()
   });
 

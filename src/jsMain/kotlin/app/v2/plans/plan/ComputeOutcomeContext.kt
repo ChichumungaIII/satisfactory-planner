@@ -2,7 +2,7 @@ package app.v2.plans.plan
 
 import app.api.optimize.v1.OptimizeRequest
 import app.api.optimize.v1.OptimizeServiceJs
-import app.data.recipe.ProductionRecipe
+import app.game.data.RecipeV2
 import app.v2.AppScope
 import app.v2.plans.data.PlanContext
 import app.v2.plans.data.SavePlan
@@ -46,7 +46,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           if (plan != current) return@launch
 
           val request = OptimizeRequest(
-            recipes = ProductionRecipe.entries.toSet(),
+            recipes = RecipeV2.allProductionRecipes().toSet(),
             inputs = plan.inputs.mapNotNull(PlanInput::toInput),
             outcomes = plan.products.mapNotNull(PlanProduct::toOutcome) + plan.byproducts.mapNotNull(PlanByproduct::toOutcome),
           )
@@ -56,7 +56,7 @@ val ComputeOutcomeContextComponent = FC<PropsWithChildren>("CreateOutcomeContext
           val response = optimizeService.optimize(request)
           if (plan != current) return@launch
 
-          val results = ProductionRecipe.entries
+          val results = RecipeV2.allProductionRecipes()
             .associateWith { response.outcome[it] }
             .mapNotNull { (recipe, rate) -> rate?.let { recipe to it } }
             .map { (recipe, rate) ->

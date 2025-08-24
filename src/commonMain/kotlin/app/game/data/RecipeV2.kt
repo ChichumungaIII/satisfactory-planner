@@ -4032,9 +4032,10 @@ enum class RecipeV2(
     alternate = false,
   )
 
+  val outputs = listOfNotNull(product, byproduct)
+
   val inputsMap = (inputs.associate { it.item to it.amount })
-  val outputsMap = mapOf(product.item to product.amount) +
-      (byproduct?.let { mapOf(it.item to it.amount) } ?: mapOf())
+  val outputsMap = (outputs.associate { it.item to it.amount })
 
   val rates = (inputsMap.mapValues { (_, amount) -> -amount } + outputsMap)
     .mapValues { (_, amount) -> amount * 60.q / time }

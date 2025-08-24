@@ -1,7 +1,8 @@
 package app.v2.factory.content
 
+import app.game.data.Building
+import app.game.data.Building.RecipeSet.Companion.flatten
 import app.util.PropsDelegate
-import app.v2.common.input.BUILDINGS
 import app.v2.common.input.BuildingAutocomplete
 import app.v2.common.input.ClockSpeedInput
 import app.v2.common.input.CountToggleComponent
@@ -44,7 +45,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         setModel = { next ->
           settings = settings.copy(
             building = next,
-            recipe = next?.let { new -> recipe?.takeIf { new.recipes.contains(it) } },
+            recipe = next?.let { new -> recipe?.takeIf { new.recipes.flatten().contains(it) } },
             details = details && recipe != null
           )
         }
@@ -56,7 +57,7 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
           settings = settings.copy(
             recipe = next,
             building = building ?: next?.let {
-              BUILDINGS.associateWith { it.recipes }
+              Building.entries.associateWith { it.recipes.flatMap { recipeSet -> recipeSet.recipes } }
                 .filterValues { it.contains(next) }.keys.singleOrNull()
             },
             details = details && recipe != null
@@ -86,21 +87,19 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         Stack {
           spacing = responsive(2.px)
 
-          recipe.inputs.takeUnless { it.isEmpty() }?.also {
-            it.entries.forEach { (item, rate) ->
-              Box {
-                className = ClassName("factory-building__item-details")
+          recipe.inputs.takeUnless { it.isEmpty() }?.onEach { (item, rate) ->
+            Box {
+              className = ClassName("factory-building__item-details")
 
-                FactoryItemRateInput {
-                  this.clock = clock
-                  setClock = { next -> settings = settings.copy(clock = next) }
+              FactoryItemRateInput {
+                this.clock = clock
+                setClock = { next -> settings = settings.copy(clock = next) }
 
-                  this.count = count
-                  this.rate = rate * 60.q / recipe.time
-                }
-
-                +item.displayName
+                this.count = count
+                this.rate = rate * 60.q / recipe.time
               }
+
+              +item.displayName
             }
           } ?: run {
             Box { +"Nothing" }
@@ -114,21 +113,19 @@ val FactoryBuildingComponent = FC<FactoryBuildingComponentProps>("FactoryBuildin
         Stack {
           spacing = responsive(2.px)
 
-          recipe.outputs.takeUnless { it.isEmpty() }?.also {
-            it.entries.forEach { (item, rate) ->
-              Box {
-                className = ClassName("factory-building__item-details")
+          recipe.outputs.takeUnless { it.isEmpty() }?.onEach { (item, rate) ->
+            Box {
+              className = ClassName("factory-building__item-details")
 
-                FactoryItemRateInput {
-                  this.clock = clock
-                  setClock = { next -> settings = settings.copy(clock = next) }
+              FactoryItemRateInput {
+                this.clock = clock
+                setClock = { next -> settings = settings.copy(clock = next) }
 
-                  this.count = count
-                  this.rate = rate * 60.q / recipe.time
-                }
-
-                +item.displayName
+                this.count = count
+                this.rate = rate * 60.q / recipe.time
               }
+
+              +item.displayName
             }
           } ?: run {
             Box { +"Nothing" }

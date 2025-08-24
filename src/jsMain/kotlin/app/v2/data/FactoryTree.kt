@@ -1,8 +1,8 @@
 package app.v2.data
 
+import app.game.data.Building
 import app.game.data.Item
-import app.data.building.Building
-import app.data.recipe.Recipe
+import app.game.data.RecipeV2
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import util.math.Rational
@@ -57,7 +57,7 @@ data class FactoryTree(
 data class FactoryLeaf(
   override val count: UInt? = null,
   val building: Building? = null,
-  val recipe: Recipe? = null,
+  val recipe: RecipeV2? = null,
   val clock: Rational = 1.q,
   val details: Boolean = false,
 ) : FactoryNode {
@@ -86,8 +86,7 @@ sealed interface FactoryNode {
 
 private inline val UInt?.q: Rational get() = (this?.toInt() ?: 1).q
 
-private fun Recipe.inputRates() = toRates(inputs)
-private fun Recipe.outputRates() = toRates(outputs)
-private fun Recipe.toRates(counts: Map<Item, Rational>) = counts.mapValues { (_, count) -> count * 60.q / time }
+private fun RecipeV2.inputRates() = rates.filterValues { it < 0.q }.mapValues { (_, rate) -> -rate }
+private fun RecipeV2.outputRates() = rates.filterValues { it > 0.q }
 
 

@@ -1,13 +1,13 @@
 package app.api.optimize.v1
 
 import app.game.data.Item
-import app.data.recipe.Recipe
+import app.game.data.RecipeV2
 import kotlinx.serialization.Serializable
 import util.math.Rational
 
 @Serializable
 data class OptimizeRequest(
-  val recipes: Set<Recipe>,
+  val recipes: Set<RecipeV2>,
   val inputs: List<Input>,
   val outcomes: List<Outcome>,
 ) {

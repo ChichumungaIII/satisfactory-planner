@@ -1,7 +1,5 @@
 package app.v2.plans.plan.results
 
-import app.data.recipe.inputRate
-import app.data.recipe.outputRate
 import app.util.PropsDelegate
 import app.v2.common.input.DetailsToggleButton
 import app.v2.common.layout.FauxInputDisplay
@@ -12,6 +10,7 @@ import app.v2.plans.data.model.PlanResult
 import app.v2.plans.plan.common.PlanContentRow
 import react.FC
 import react.Props
+import util.math.q
 import web.cssom.ClassName
 
 external interface PlanResultComponentProps : Props {
@@ -43,11 +42,11 @@ val PlanResultComponent = FC<PlanResultComponentProps>("PlanResultComponent") { 
     ThroughputDisplayComponent {
       className = ClassName("plan-result__throughput")
 
-      inputs = result.recipe.inputs.keys.map { item ->
-        ThroughputDatum(item, result.recipe.inputRate(item, result.clock))
+      inputs = result.recipe.rates.filterValues { it < 0.q }.map { (item, rate) ->
+        ThroughputDatum(item, -rate * result.clock)
       }
-      outputs = result.recipe.outputs.keys.map { item ->
-        ThroughputDatum(item, result.recipe.outputRate(item, result.clock))
+      outputs = result.recipe.rates.filterValues { it > 0.q }.map { (item, rate) ->
+        ThroughputDatum(item, rate * result.clock)
       }
     }
   }

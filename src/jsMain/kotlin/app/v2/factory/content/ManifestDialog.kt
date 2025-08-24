@@ -1,7 +1,6 @@
 package app.v2.factory.content
 
-import app.data.building.Extractor
-import app.data.building.Manufacturer
+import app.game.data.Building
 import app.v2.data.FactoryNode
 import mui.material.Button
 import mui.material.ButtonVariant
@@ -36,7 +35,8 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
       TableContainer {
         Table {
 
-          Extractor.entries
+          val extractorSubcategories = setOf(Building.Subcategory.MINERS, Building.Subcategory.FLUID_EXTRACTORS)
+          Building.entries.filter { extractorSubcategories.contains(it.subcategory) }
             .associateWith { props.node.buildings[it] ?: 0.toUInt() }
             .filter { (_, count) -> count > 0.toUInt() }
             .takeIf { it.isNotEmpty() }
@@ -61,7 +61,8 @@ val ManifestDialog = FC<ManifestDialogProps>("ManifestDialog") { props ->
               }
             }
 
-          Manufacturer.entries
+          val manufacturerSubcategories = setOf(Building.Subcategory.MANUFACTURERS, Building.Subcategory.SMELTERS)
+          Building.entries.filter { manufacturerSubcategories.contains(it.subcategory) }
             .associateWith { props.node.buildings[it] ?: 0.toUInt() }
             .filter { (_, count) -> count > 0.toUInt() }
             .takeIf { it.isNotEmpty() }
