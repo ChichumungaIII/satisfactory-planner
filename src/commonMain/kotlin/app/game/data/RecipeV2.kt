@@ -452,7 +452,7 @@ enum class RecipeV2(
     alternate = true,
   ),
   INSULATED_CABLE(
-    "INSULATED_CABLE",
+    "Insulated Cable",
     time = 12,
     inputs = listOf(
       9 of Item.WIRE,
@@ -583,7 +583,7 @@ enum class RecipeV2(
   SCREWS(
     "Screws",
     time = 6,
-    inputs = listOf(5 of Item.IRON_INGOT),
+    inputs = listOf(1 of Item.IRON_ROD),
     product = 4 of Item.SCREWS,
   ),
   CAST_SCREWS(
@@ -1387,7 +1387,7 @@ enum class RecipeV2(
   RUBBER(
     "Rubber",
     time = 6,
-    inputs = listOf(2 of Item.CRUDE_OIL),
+    inputs = listOf(3 of Item.CRUDE_OIL),
     product = 2 of Item.RUBBER,
     byproduct = 2 of Item.HEAVY_OIL_RESIDUE,
   ),
@@ -3864,7 +3864,15 @@ enum class RecipeV2(
     byproduct: Component? = null,
     power: ClosedRange<Int>? = null,
     alternate: Boolean = false
-  ) : this(displayName, time.q, inputs, product, byproduct, power?.map(Int::toDouble), alternate)
+  ) : this(
+    displayName = displayName,
+    time = time.q,
+    inputs = inputs,
+    product = product,
+    byproduct = byproduct,
+    power = power?.map(Int::toDouble),
+    alternate = alternate
+  )
 
   /** Convenience constructor for generation recipes. Implies the recipe using building properties and item energy. */
   constructor(
@@ -3949,11 +3957,6 @@ enum class RecipeV2(
     TOOLS("Tools"),
     UNPACKAGING("Unpackaging"),
   }
-
-  companion object {
-    private fun <T : Comparable<T>, R : Comparable<R>> ClosedRange<T>.map(mapper: (T) -> R) =
-      mapper(start)..mapper(endInclusive)
-  }
 }
 
 private enum class Generator(
@@ -3973,3 +3976,6 @@ private enum class Generator(
   fun waterComponent(energy: Rational): List<RecipeV2.Component> =
     water?.let { listOf(it * energy / power / 60.q of Item.WATER) } ?: listOf()
 }
+
+private fun <T : Comparable<T>, R : Comparable<R>> ClosedRange<T>.map(mapper: (T) -> R) =
+  mapper(start)..mapper(endInclusive)

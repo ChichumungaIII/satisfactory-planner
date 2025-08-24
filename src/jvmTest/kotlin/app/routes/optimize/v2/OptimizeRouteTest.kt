@@ -5,6 +5,7 @@ import app.api.optimize.v2.response.OptimizeResponse.Companion.optimizeResponse
 import app.game.data.Item
 import app.game.data.RecipeV2
 import com.chichumunga.satisfactory.app.routes.optimize.v2.optimize
+import kotlinx.coroutines.runBlocking
 import util.math.Rational
 import util.math.q
 import kotlin.test.Test
@@ -12,7 +13,7 @@ import kotlin.test.assertEquals
 
 class OptimizeRouteTest {
   @Test
-  fun optimize_singleInput_maximizeOutput() {
+  fun optimize_singleInput_maximizeOutput() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.IRON_PLATE, 1.q)
@@ -27,14 +28,14 @@ class OptimizeRouteTest {
       )
       produce(Item.IRON_PLATE, 40.q, 40.q)
 
-      Recipe.IRON_INGOT clock 200.q
-      Recipe.IRON_PLATE clock 200.q
+      RecipeV2.IRON_INGOT clock 200.q
+      RecipeV2.IRON_PLATE clock 200.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_singleInput_fixedOutput() {
+  fun optimize_singleInput_fixedOutput() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       produce(Item.IRON_PLATE, 30.q)
@@ -49,14 +50,14 @@ class OptimizeRouteTest {
       )
       produce(Item.IRON_PLATE, 30.q, 40.q)
 
-      Recipe.IRON_INGOT clock 150.q
-      Recipe.IRON_PLATE clock 150.q
+      RecipeV2.IRON_INGOT clock 150.q
+      RecipeV2.IRON_PLATE clock 150.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_singleInput_balancedOutput() {
+  fun optimize_singleInput_balancedOutput() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       maximize(Item.IRON_PLATE, 1.q)
@@ -73,15 +74,15 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 48.q, 48.q)
       produce(Item.IRON_ROD, 48.q, 48.q)
 
-      Recipe.IRON_INGOT clock 400.q
-      Recipe.IRON_PLATE clock 240.q
-      Recipe.IRON_ROD clock 320.q
+      RecipeV2.IRON_INGOT clock 400.q
+      RecipeV2.IRON_PLATE clock 240.q
+      RecipeV2.IRON_ROD clock 320.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_singleInput_imbalancedOutput() {
+  fun optimize_singleInput_imbalancedOutput() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       maximize(Item.IRON_PLATE, 2.q)
@@ -98,15 +99,15 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 60.q, 60.q)
       produce(Item.IRON_ROD, 30.q, 30.q)
 
-      Recipe.IRON_INGOT clock 400.q
-      Recipe.IRON_PLATE clock 300.q
-      Recipe.IRON_ROD clock 200.q
+      RecipeV2.IRON_INGOT clock 400.q
+      RecipeV2.IRON_PLATE clock 300.q
+      RecipeV2.IRON_ROD clock 200.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_singleInput_offsetWeightedOutput() {
+  fun optimize_singleInput_offsetWeightedOutput() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       produce(Item.IRON_PLATE, 20.q)
@@ -125,15 +126,15 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 36.q, 36.q)
       produce(Item.IRON_ROD, 36.q, 36.q)
 
-      Recipe.IRON_INGOT clock 400.q
-      Recipe.IRON_PLATE clock 280.q
-      Recipe.IRON_ROD clock 240.q
+      RecipeV2.IRON_INGOT clock 400.q
+      RecipeV2.IRON_PLATE clock 280.q
+      RecipeV2.IRON_ROD clock 240.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_withoutAlternateRecipes_ignoresAlternates() {
+  fun optimize_withoutAlternateRecipes_ignoresAlternates() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.SCREWS, 1.q)
@@ -148,19 +149,19 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREWS, 240.q, 240.q)
 
-      Recipe.IRON_INGOT clock 200.q
-      Recipe.IRON_ROD clock 400.q
-      Recipe.SCREW clock 600.q
+      RecipeV2.IRON_INGOT clock 200.q
+      RecipeV2.IRON_ROD clock 400.q
+      RecipeV2.SCREWS clock 600.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_withAlternateRecipes_usesAlternates() {
+  fun optimize_withAlternateRecipes_usesAlternates() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.SCREWS, 1.q)
-      allow(Recipe.CAST_SCREW)
+      allow(RecipeV2.CAST_SCREWS)
     }
     val response = optimize(request)
 
@@ -172,19 +173,19 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREWS, 240.q, 240.q)
 
-      Recipe.IRON_INGOT clock 200.q
-      Recipe.CAST_SCREW clock 480.q
+      RecipeV2.IRON_INGOT clock 200.q
+      RecipeV2.CAST_SCREWS clock 480.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_withRestriction_limitsRecipeUse() {
+  fun optimize_withRestriction_limitsRecipeUse() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 60.q)
       maximize(Item.SCREWS, 1.q)
-      allow(Recipe.CAST_SCREW)
-      Recipe.CAST_SCREW limitToClock 240.q
+      allow(RecipeV2.CAST_SCREWS)
+      RecipeV2.CAST_SCREWS limitToClock 240.q
     }
     val response = optimize(request)
 
@@ -196,16 +197,16 @@ class OptimizeRouteTest {
       )
       produce(Item.SCREWS, 240.q, 240.q)
 
-      Recipe.IRON_INGOT clock 200.q
-      Recipe.IRON_ROD clock 200.q
-      Recipe.SCREW clock 300.q
-      Recipe.CAST_SCREW clock 240.q
+      RecipeV2.IRON_INGOT clock 200.q
+      RecipeV2.IRON_ROD clock 200.q
+      RecipeV2.SCREWS clock 300.q
+      RecipeV2.CAST_SCREWS clock 240.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_multipleInputs_differentPotentialOutputs() {
+  fun optimize_multipleInputs_differentPotentialOutputs() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 120.q)
       input(Item.COPPER_ORE, 60.q)
@@ -230,18 +231,18 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 60.q, 80.q)
       produce(Item.CABLE, 60.q, 60.q)
 
-      Recipe.IRON_INGOT clock 300.q
-      Recipe.IRON_PLATE clock 300.q
+      RecipeV2.IRON_INGOT clock 300.q
+      RecipeV2.IRON_PLATE clock 300.q
 
-      Recipe.COPPER_INGOT clock 200.q
-      Recipe.WIRE clock 400.q
-      Recipe.CABLE clock 200.q
+      RecipeV2.COPPER_INGOT clock 200.q
+      RecipeV2.WIRE clock 400.q
+      RecipeV2.CABLE clock 200.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_repeatedInput_distributedConsumption() {
+  fun optimize_repeatedInput_distributedConsumption() = runBlocking {
     val request = optimizeRequest {
       input(Item.IRON_ORE, 15.q)
       input(Item.IRON_ORE, 15.q)
@@ -278,17 +279,17 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 4.q, 8.q)
       produce(Item.REINFORCED_IRON_PLATE, 4.q, 45.q / 10.q)
 
-      Recipe.IRON_INGOT clock 180.q
-      Recipe.IRON_PLATE clock 140.q
-      Recipe.IRON_ROD clock 80.q
-      Recipe.SCREW clock 120.q
-      Recipe.REINFORCED_IRON_PLATE clock 80.q
+      RecipeV2.IRON_INGOT clock 180.q
+      RecipeV2.IRON_PLATE clock 140.q
+      RecipeV2.IRON_ROD clock 80.q
+      RecipeV2.SCREWS clock 120.q
+      RecipeV2.REINFORCED_IRON_PLATE clock 80.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_passthroughInput_pipesInputToProduct() {
+  fun optimize_passthroughInput_pipesInputToProduct() = runBlocking {
     // Example assuming a 30 iron ore -> 30 ingot partition while maximizing plates.
     val request = optimizeRequest {
       input(Item.IRON_ORE, 30.q)
@@ -314,13 +315,13 @@ class OptimizeRouteTest {
       produce(Item.IRON_PLATE, 20.q, 20.q)
       produce(Item.IRON_ORE, 30.q, 30.q)
 
-      Recipe.IRON_PLATE clock 100.q
+      RecipeV2.IRON_PLATE clock 100.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_multipleOutputProducts_returnsByproducts() {
+  fun optimize_multipleOutputProducts_returnsByproducts() = runBlocking {
     val request = optimizeRequest {
       input(Item.CRUDE_OIL, 300.q)
 
@@ -337,14 +338,14 @@ class OptimizeRouteTest {
 
       Item.HEAVY_OIL_RESIDUE byproduct 150.q
 
-      Recipe.PLASTIC clock 500.q
-      Recipe.RUBBER clock 500.q
+      RecipeV2.PLASTIC clock 500.q
+      RecipeV2.RUBBER clock 500.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_bannedByproduct_selectsAlternative() {
+  fun optimize_bannedByproduct_selectsAlternative() = runBlocking {
     val request = optimizeRequest {
       input(Item.CRUDE_OIL, 300.q)
 
@@ -363,15 +364,15 @@ class OptimizeRouteTest {
 
       Item.FUEL byproduct 100.q
 
-      Recipe.PLASTIC clock 500.q
-      Recipe.RUBBER clock 500.q
-      Recipe.RESIDUAL_FUEL clock 250.q
+      RecipeV2.PLASTIC clock 500.q
+      RecipeV2.RUBBER clock 500.q
+      RecipeV2.RESIDUAL_FUEL clock 250.q
     }
     assertEquals(expected, response)
   }
 
   @Test
-  fun optimize_example_heavyModularFrames() {
+  fun optimize_example_heavyModularFrames() = runBlocking {
     val request = optimizeRequest {
       // Primary
       input(Item.IRON_ORE, 1440.q)
@@ -420,22 +421,22 @@ class OptimizeRouteTest {
       produce(Item.COAL, 72.q, 298.q) // +(900 - 674) = +226
       produce(Item.COPPER_ORE, 64.q, 480.q) // +(480 - 64) = +416
 
-      Recipe.IRON_INGOT clock Rational.parse("1933._3")!!
-      Recipe.IRON_PLATE clock 900.q
-      Recipe.IRON_ROD clock Rational.parse("2066._6")!!
-      Recipe.SCREW clock 1_900.q
-      Recipe.REINFORCED_IRON_PLATE clock 600.q
-      Recipe.MODULAR_FRAME clock 1_000.q
-      Recipe.STEEL_INGOT clock 200.q
-      Recipe.STEEL_PIPE clock 300.q
-      Recipe.HEAVY_MODULAR_FRAME clock 200.q
+      RecipeV2.IRON_INGOT clock Rational.parse("1933._3")!!
+      RecipeV2.IRON_PLATE clock 900.q
+      RecipeV2.IRON_ROD clock Rational.parse("2066._6")!!
+      RecipeV2.SCREWS clock 1_900.q
+      RecipeV2.REINFORCED_IRON_PLATE clock 600.q
+      RecipeV2.MODULAR_FRAME clock 1_000.q
+      RecipeV2.STEEL_INGOT clock 200.q
+      RecipeV2.STEEL_PIPE clock 300.q
+      RecipeV2.HEAVY_MODULAR_FRAME clock 200.q
     }
     assertEquals(expected, response)
   }
 
   private fun optimizeRequest(init: OptimizeRequest.Builder.() -> Unit) =
     OptimizeRequest.optimizeRequest {
-      allowAll(Recipe.entries.filterNot { it.alternate })
+      allowAll(RecipeV2.entries.filterNot { it.inputs.isEmpty() }.filterNot { it.alternate })
       init()
     }
 }
