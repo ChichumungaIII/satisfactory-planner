@@ -15,7 +15,10 @@ val RecipeDisplay = FC<RecipeDisplayProps>("RecipeDisplay") { props ->
   TextField {
     sx { width = RECIPE_AUTOCOMPLETE_WIDTH }
     variant = FormControlVariant.standard
-    value = props.value.displayName
+    value = buildString {
+      if (props.value.type == RecipeV2.Type.GENERATION) append("(Burn) ")
+      append(props.value.displayName)
+    }
     disabled = true
   }
 }

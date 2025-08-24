@@ -506,7 +506,7 @@ enum class Item(
   /* Petroleum Power */
 
   CATERIUM_ORE(
-    "Caterium ore",
+    "Caterium Ore",
     category = Category.RESOURCES,
     stack = 100,
   ),
