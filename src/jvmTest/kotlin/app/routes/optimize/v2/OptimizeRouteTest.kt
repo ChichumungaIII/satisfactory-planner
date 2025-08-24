@@ -434,9 +434,8 @@ class OptimizeRouteTest {
     assertEquals(expected, response)
   }
 
-  private fun optimizeRequest(init: OptimizeRequest.Builder.() -> Unit) =
-    OptimizeRequest.optimizeRequest {
-      allowAll(RecipeV2.entries.filterNot { it.inputs.isEmpty() }.filterNot { it.alternate })
-      init()
-    }
+  private fun optimizeRequest(init: OptimizeRequest.Builder.() -> Unit) = OptimizeRequest.optimizeRequest {
+    allowAll(RecipeV2.allProductionRecipes().filterNot { it.alternate })
+    init()
+  }
 }

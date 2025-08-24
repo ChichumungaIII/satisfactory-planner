@@ -11,6 +11,7 @@ import app.api.plan.v1.Plan
 import app.api.plan.v1.Plan.Partition
 import app.api.plan.v1.Plan.Target.Limit
 import app.game.data.RecipeV2
+import app.game.data.RecipeV2.Type
 import app.redux.RThunk
 import app.redux.state.AppState
 import app.redux.state.optimization.RegisterOptimizationRequest
@@ -63,7 +64,7 @@ fun toRequest(partition: Partition): OptimizeRequest {
   return OptimizeRequest(
     inputs = inputs,
     outputs = outputs,
-    recipes = RecipeV2.entries.filterNot { it.inputs.isEmpty() }.toSet() - banned,
+    recipes = RecipeV2.allRecipes(Type.PRODUCTION, Type.GENERATION).toSet() - banned,
     limits = limits,
   )
 }

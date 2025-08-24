@@ -8,6 +8,8 @@ import util.math.q
 enum class RecipeV2(
   /** The human-readable text representation of the recipe. */
   val displayName: String,
+  /** The general type of this recipe. */
+  val type: Type = Type.PRODUCTION,
   /** The amount of time the recipe takes to convert the inputs into products, in seconds. */
   val time: Rational,
   /** The inputs to this recipe. */
@@ -74,54 +76,63 @@ enum class RecipeV2(
 
   IRON_ORE_PURE_MK_1(
     "Iron Ore (Pure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   IRON_ORE_NORMAL_MK_1(
     "Iron Ore (Normal)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   IRON_ORE_IMPURE_MK_1(
     "Iron Ore (Impure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.IRON_ORE,
   ),
   IRON_ORE_PURE_MK_2(
     "Iron Ore (Pure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   IRON_ORE_NORMAL_MK_2(
     "Iron Ore (Normal)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   IRON_ORE_IMPURE_MK_2(
     "Iron Ore (Impure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   IRON_ORE_PURE_MK_3(
     "Iron Ore (Pure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   IRON_ORE_NORMAL_MK_3(
     "Iron Ore (Normal)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   IRON_ORE_IMPURE_MK_3(
     "Iron Ore (Impure)",
+    type = Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
@@ -278,54 +289,63 @@ enum class RecipeV2(
 
   COPPER_ORE_PURE_MK_1(
     "Copper Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   COPPER_ORE_NORMAL_MK_1(
     "Copper Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   COPPER_ORE_IMPURE_MK_1(
     "Copper Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.COPPER_ORE,
   ),
   COPPER_ORE_PURE_MK_2(
     "Copper Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   COPPER_ORE_NORMAL_MK_2(
     "Copper Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   COPPER_ORE_IMPURE_MK_2(
     "Copper Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.COPPER_ORE,
   ),
   COPPER_ORE_PURE_MK_3(
     "Copper Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   COPPER_ORE_NORMAL_MK_3(
     "Copper Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   COPPER_ORE_IMPURE_MK_3(
     "Copper Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.COPPER_ORE,
@@ -476,54 +496,63 @@ enum class RecipeV2(
 
   LIMESTONE_PURE_MK_1(
     "Limestone (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   LIMESTONE_NORMAL_MK_1(
     "Limestone (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   LIMESTONE_IMPURE_MK_1(
     "Limestone (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.LIMESTONE,
   ),
   LIMESTONE_PURE_MK_2(
     "Limestone (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   LIMESTONE_NORMAL_MK_2(
     "Limestone (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   LIMESTONE_IMPURE_MK_2(
     "Limestone (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.LIMESTONE,
   ),
   LIMESTONE_PURE_MK_3(
     "Limestone (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   LIMESTONE_NORMAL_MK_3(
     "Limestone (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   LIMESTONE_IMPURE_MK_3(
     "Limestone (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.LIMESTONE,
@@ -991,54 +1020,63 @@ enum class RecipeV2(
 
   COAL_PURE_MK_1(
     "Coal (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   COAL_NORMAL_MK_1(
     "Coal (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   COAL_IMPURE_MK_1(
     "Coal (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.COAL,
   ),
   COAL_PURE_MK_2(
     "Coal (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   COAL_NORMAL_MK_2(
     "Coal (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   COAL_IMPURE_MK_2(
     "Coal (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.COAL,
   ),
   COAL_PURE_MK_3(
     "Coal (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   COAL_NORMAL_MK_3(
     "Coal (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   COAL_IMPURE_MK_3(
     "Coal (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.COAL,
@@ -1673,54 +1711,63 @@ enum class RecipeV2(
 
   CATERIUM_ORE_PURE_MK_1(
     "Caterium Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_NORMAL_MK_1(
     "Caterium Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_IMPURE_MK_1(
     "Caterium Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.CATERIUM_ORE,
   ),
   CATERIUM_ORE_PURE_MK_2(
     "Caterium Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_NORMAL_MK_2(
     "Caterium Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_IMPURE_MK_2(
     "Caterium Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.CATERIUM_ORE,
   ),
   CATERIUM_ORE_PURE_MK_3(
     "Caterium Ore (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_NORMAL_MK_3(
     "Caterium Ore (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   CATERIUM_ORE_IMPURE_MK_3(
     "Caterium Ore (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.CATERIUM_ORE,
@@ -1979,54 +2026,63 @@ enum class RecipeV2(
 
   RAW_QUARTZ_PURE_MK_1(
     "Raw Quartz (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_NORMAL_MK_1(
     "Raw Quartz (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_IMPURE_MK_1(
     "Raw Quartz (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.RAW_QUARTZ,
   ),
   RAW_QUARTZ_PURE_MK_2(
     "Raw Quartz (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_NORMAL_MK_2(
     "Raw Quartz (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_IMPURE_MK_2(
     "Raw Quartz (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.RAW_QUARTZ,
   ),
   RAW_QUARTZ_PURE_MK_3(
     "Raw Quartz (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_NORMAL_MK_3(
     "Raw Quartz (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   RAW_QUARTZ_IMPURE_MK_3(
     "Raw Quartz (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.RAW_QUARTZ,
@@ -2173,54 +2229,63 @@ enum class RecipeV2(
 
   BAUXITE_PURE_MK_1(
     "Bauxite (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   BAUXITE_NORMAL_MK_1(
     "Bauxite (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   BAUXITE_IMPURE_MK_1(
     "Bauxite (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.BAUXITE,
   ),
   BAUXITE_PURE_MK_2(
     "Bauxite (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   BAUXITE_NORMAL_MK_2(
     "Bauxite (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   BAUXITE_IMPURE_MK_2(
     "Bauxite (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.BAUXITE,
   ),
   BAUXITE_PURE_MK_3(
     "Bauxite (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   BAUXITE_NORMAL_MK_3(
     "Bauxite (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   BAUXITE_IMPURE_MK_3(
     "Bauxite (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.BAUXITE,
@@ -2420,54 +2485,63 @@ enum class RecipeV2(
 
   SULFUR_PURE_MK_1(
     "Sulfur (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   SULFUR_NORMAL_MK_1(
     "Sulfur (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   SULFUR_IMPURE_MK_1(
     "Sulfur (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.SULFUR,
   ),
   SULFUR_PURE_MK_2(
     "Sulfur (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   SULFUR_NORMAL_MK_2(
     "Sulfur (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   SULFUR_IMPURE_MK_2(
     "Sulfur (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.SULFUR,
   ),
   SULFUR_PURE_MK_3(
     "Sulfur (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   SULFUR_NORMAL_MK_3(
     "Sulfur (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   SULFUR_IMPURE_MK_3(
     "Sulfur (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.SULFUR,
@@ -2929,54 +3003,63 @@ enum class RecipeV2(
 
   URANIUM_PURE_MK_1(
     "Uranium (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   URANIUM_NORMAL_MK_1(
     "Uranium (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   URANIUM_IMPURE_MK_1(
     "Uranium (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.URANIUM,
   ),
   URANIUM_PURE_MK_2(
     "Uranium (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   URANIUM_NORMAL_MK_2(
     "Uranium (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   URANIUM_IMPURE_MK_2(
     "Uranium (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.URANIUM,
   ),
   URANIUM_PURE_MK_3(
     "Uranium (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   URANIUM_NORMAL_MK_3(
     "Uranium (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   URANIUM_IMPURE_MK_3(
     "Uranium (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.URANIUM,
@@ -3501,54 +3584,63 @@ enum class RecipeV2(
 
   SAM_PURE_MK_1(
     "SAM (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   SAM_NORMAL_MK_1(
     "SAM (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.IRON_ORE,
   ),
   SAM_IMPURE_MK_1(
     "SAM (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 30 of Item.SAM,
   ),
   SAM_PURE_MK_2(
     "SAM (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   SAM_NORMAL_MK_2(
     "SAM (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.IRON_ORE,
   ),
   SAM_IMPURE_MK_2(
     "SAM (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 60 of Item.SAM,
   ),
   SAM_PURE_MK_3(
     "SAM (Pure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 480 of Item.IRON_ORE,
   ),
   SAM_NORMAL_MK_3(
     "SAM (Normal)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 240 of Item.IRON_ORE,
   ),
   SAM_IMPURE_MK_3(
     "SAM (Impure)",
+    type =Type.EXTRACTION,
     time = 60,
     inputs = listOf(),
     product = 120 of Item.SAM,
@@ -3858,6 +3950,7 @@ enum class RecipeV2(
   /** Convenience constructor for standard recipes. Converts [Int] to [Rational] and [Double] as appropriate. */
   constructor(
     displayName: String,
+    type: Type = Type.PRODUCTION,
     time: Int,
     inputs: List<Component>,
     product: Component,
@@ -3866,6 +3959,7 @@ enum class RecipeV2(
     alternate: Boolean = false
   ) : this(
     displayName = displayName,
+    type = type,
     time = time.q,
     inputs = inputs,
     product = product,
@@ -3896,6 +3990,7 @@ enum class RecipeV2(
     byproduct: Component?,
   ) : this(
     displayName = item.displayName,
+    type = Type.GENERATION,
     time = energy / generator.power,
     inputs = listOf(1 of item) + generator.waterComponent(energy),
     product = energy / 60.q of Item.POWER,
@@ -3956,6 +4051,31 @@ enum class RecipeV2(
     STANDARD_PARTS("Standard Parts"),
     TOOLS("Tools"),
     UNPACKAGING("Unpackaging"),
+  }
+
+  enum class Type {
+    /** Explicit in-game recipes. */
+    PRODUCTION,
+
+    /**
+     * Implicit in-game recipes for generators.
+     * Except nuclear, these are fuel sinks that generate the [Item.POWER] meta-item.
+     */
+    GENERATION,
+
+    /**
+     * Virtual recipes representing the placement of an extractor on a resource node.
+     * These are pure sources and must be excluded from production calculations.
+     */
+    EXTRACTION;
+  }
+
+  companion object {
+    fun allProductionRecipes() = allRecipes(Type.PRODUCTION)
+    fun allGenerationRecipes() = allRecipes(Type.GENERATION)
+    fun allExtractionRecipes() = allRecipes(Type.EXTRACTION)
+
+    fun allRecipes(vararg types: Type) = entries.filter { types.contains(it.type) }
   }
 }
 
