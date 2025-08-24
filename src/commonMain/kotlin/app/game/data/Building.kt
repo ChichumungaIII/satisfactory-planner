@@ -548,8 +548,16 @@ enum class Building(
   /* **************** */
 
   WATER_EXTRACTOR("Water Extractor", Subcategory.FLUID_EXTRACTORS, power = 20, {
+    within(RecipeV2.Category.RESOURCE_EXTRACTION) {
+      add(RecipeV2.WATER)
+    }
   }),
   OIL_EXTRACTOR("Oil Extractor", Subcategory.FLUID_EXTRACTORS, power = 40, {
+    within(RecipeV2.Category.RESOURCE_EXTRACTION) {
+      add(RecipeV2.CRUDE_OIL_PURE)
+      add(RecipeV2.CRUDE_OIL_NORMAL)
+      add(RecipeV2.CRUDE_OIL_IMPURE)
+    }
   }),
   RESOURCE_WELL_PRESSURIZER("Resource Well Pressurizer", Subcategory.FLUID_EXTRACTORS, power = 150, {}),
   RESOURCE_WELL_EXTRACTOR("Resource Well Extractor", Subcategory.FLUID_EXTRACTORS, power = 0, {
